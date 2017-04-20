@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link type="text/css" rel="stylesheet" href="form.css">
+    <link type="text/css" rel="stylesheet" href="simple3d.css">
+
+    <script>
+        function anmelden() {
+            document.getElementById('password_a').classList.remove('hidden');
+            document.getElementById('anmelden').classList.remove('hidden');
+            document.getElementById('login').style.display = 'none';
+        }
+    </script>
+
+</head>
+<body class="background">
+
+<div id="navigation" class="background_darkgray">
+    <h1>Header</h1>
+</div>
+
+<div class="login">
+    <input id="email" class="search_input" type="email" placeholder="email">
+    <input id="password" class="search_input" type="password" placeholder="password">
+    <input id="password_a" class="search_input hidden" type="password" placeholder="password">
+    <div id="anmelden" class="button hidden">Anmelden</div>
+    <div id="login" class="button" onclick="anmelden()">Login</div>
+</div>
+
+</body>
+</html>

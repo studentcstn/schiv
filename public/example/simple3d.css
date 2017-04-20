@@ -1,0 +1,126 @@
+.background {
+    background-color: #f5f5f5;
+}
+.background_darkgray {
+    background-color: darkgray;
+}
+.background_white {
+    //background-color: white;
+}
+
+.termin {
+    box-shadow: 1px 2px 2px gray;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.termin_button {
+}
+
+.termin_set {
+    background-color: #4dd0e1;
+}
+.termin_open {
+    background-color: #03a9f4;
+}
+
+.termin .termin {
+    box-shadow: 0px 1px 1px gray;
+}
+.termin .termin:hover {
+    box-shadow: 0px 0px 0px;
+}
+.termin .termin:active {
+    box-shadow: inset 0px 1px 1px;
+}
+.termin .termin_set {
+    background-color: #ffb74d;
+}
+.termin .termin_open {
+    background-color: #ffc107;
+}
+
+.button {
+    box-shadow: 0px 1px 1px gray;
+    border-radius: 2px;
+    background-color: #ff7043;
+    cursor: pointer;
+}
+.button:hover {
+    box-shadow: 1px 2px 2px;
+}
+.button:active {
+    box-shadow: inset 0px 0px 0px;
+}
+.navigation .button {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+input {
+    box-shadow: 0px 0px 0px;
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid #ff7043;
+    height: 29px;
+
+}
+input:focus {
+    background-color: rgba(0, 0, 0, 0.025);
+    border-radius: 2px;
+}
+.search_input {
+}
+.search_button {
+    cursor: pointer;
+}
+
+.dozen {
+    background-color: #ffeb3b;
+    box-shadow: 1px 2px 2px gray;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.dozen:hover {
+    box-shadow: 0px 1px 1px;
+}
+.dozen:active {
+    box-shadow: inset 0px 1px 1px;
+}
+
+
+.termin_info_text,
+.termin .termin .termin_name,
+.termin .termin .termin_betreff,
+.dozen_name,
+.dozen_info {
+/ / background-color: rgba(218, 218, 218, 0.5);
+}
+
+
+.login {
+    background-color: #03a9f4;
+    border-radius: 2px;
+}
+
+.window_background {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.window {
+    background-color: white;
+    border-radius: 2px;
+}
+
+textarea {
+    border-radius: 2px;
+    box-shadow: 0px 0px 0px gray;
+    border: 0px;
+    resize: vertical;
+    border-bottom: 2px solid #ff7043;
+}
+textarea:focus {
+    background-color: rgba(0, 0, 0, 0.025);
+}
+
+.dropdown {
+    background-color: #ffc107;
+    border-radius: 2px;
+}

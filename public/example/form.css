@@ -1,0 +1,234 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#navigation {
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+#body {
+    display: flex;
+}
+.kalender {
+    width: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.buttons {
+    height: 41px;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#termine {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dozenten {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+#suche {
+    height: 41px;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+#liste {
+    margin: 5px;
+    flex: 1;
+}
+
+#footer {
+    height: 100px;
+}
+
+.background {
+}
+.background_darkgray {
+}
+.background_white {
+}
+
+#navigation h1 {
+    padding: 10px;
+    margin: 0px;
+}
+.navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    height: 41px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5px;
+    line-height: 41px;
+    text-align: center;
+    cursor: default;
+}
+#buttons .button {
+    min-width: 100px;
+}
+.navigation .button {
+    min-width: 150px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+
+.termin {
+    padding: 0px 5px 5px 5px;
+    margin: 5px;
+}
+.termin_info {
+    display: flex;
+    flex-direction: row;
+}
+.termin_info_text {
+    flex: 1;
+    margin-top: 5px;
+    font-size: 30px;
+
+    min-height: 36px;
+}
+.termin_button {
+    height: 41px;
+    width: 30px;
+    margin-left: 5px;
+}
+.termin_set {
+}
+.termin_open {
+}
+
+.termin_termin {}
+.termin .termin {
+    margin: 5px 0px 0px 20%;
+    padding: 5px;
+    border: none;
+}
+.termin .termin_set {
+}
+.termin .termin_open {
+}
+.termin .termin .termin_name {
+    margin-bottom: 5px;
+    min-height: 24px;
+    font-size: 20px;
+}
+.termin .termin .termin_betreff {
+    min-height: 24px;
+    font-size: 20px;
+}
+
+input {
+    font-size: 16px;
+    height: 31px;
+    padding: 5px;
+}
+.search_input {
+    flex: 1;
+    min-width: 20px;
+}
+.search_button {
+    margin-left: 5px;
+    width: 50px;
+}
+.dozen {
+    margin: 5px 5px 10px 5px;
+    padding: 10px;
+}
+.dozen_name {
+    margin-bottom: 10px;
+    font-size: 17px;
+    min-height: 20px;
+}
+.dozen_info {
+    font-size: 17px;
+    min-height: 20px;
+}
+
+
+
+.login {
+    width: 60%;
+    max-width: 500px;
+    margin: auto;
+    padding: 10px 100px;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #03a9f4;
+}
+.login input {
+    margin-left: 5px;
+}
+.login * {
+    margin-bottom: 10px;
+}
+
+
+.window_background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+.window {
+    margin: 100px auto;
+    width: 500px;
+}
+
+.einschreiben {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+.einschreiben * {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+div.row {
+    display: flex;
+    flex-direction: row;
+}
+div.row-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+
+.dropdown {
+    width: 200px;
+    height: 19px;
+    padding: 5px;
+    font-size: 16px;
+}
+.time {
+    padding: 5px;
+    margin-left: 5px;
+    font-size: 14px;
+    height: 19px;
+}
+
+
+
+
+
+
+.hidden {
+    display: none;
+}

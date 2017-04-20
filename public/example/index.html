@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="form.css">
+    <link type="text/css" rel="stylesheet" href="simple3d.css">
+
+    <script>
+        function alles() {
+            document.getElementById('dozenten').classList.remove('hidden');
+            document.getElementById('buttons').classList.remove('hidden');
+        }
+        function dozent() {
+            document.getElementById('dozenten').classList.remove('hidden');
+            document.getElementById('dozenten').classList.add('hidden');
+            document.getElementById('buttons').classList.remove('hidden');
+        }
+        function student() {
+            document.getElementById('dozenten').classList.remove('hidden');
+            document.getElementById('buttons').classList.remove('hidden');
+            document.getElementById('buttons').classList.add('hidden');
+        }
+    </script>
+</head>
+<body class="background">
+
+<div id="navigation" class="background_darkgray">
+    <h1>Header</h1>
+    <div class="navigation">
+        <div class="button" onclick="alles()">Alles</div>
+        <div class="button" onclick="dozent()">Dozent</div>
+        <div class="button" onclick="student()">Student</div>
+    </div>
+</div>
+
+<div id="body">
+    <div id="kalender">
+        <div id="buttons" class="buttons">
+            <div class="button">add</div>
+        </div>
+        <div id="termine" class="background_white">
+            <div class="termin termin_set">
+                <div class="termin_info">
+                    <div class="termin_info_text"></div>
+                    <div class="button termin_button hidden"></div>
+                </div>
+                <div class="termin_termin"></div>
+            </div>
+            <div class="termin termin_open">
+                <div class="termin_info">
+                    <div class="termin_info_text"></div>
+                    <div class="button termin_button hidden"></div>
+                </div>
+                <div class="termin_termin"></div>
+            </div>
+            <div class="termin termin_set">
+                <div class="termin_info">
+                    <div class="termin_info_text"></div>
+                    <div class="button termin_button"></div>
+                </div>
+                <div class="termin_termin">
+                    <div class="termin termin_open">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="termin termin_set">
+                <div class="termin_info">
+                    <div class="termin_info_text">Termin info text welcher sehr lange ist, also viele zeichen beinhaltet, so wie dieser text wie man ja gerade sieht</div>
+                    <div class="button termin_button"></div>
+                </div>
+                <div class="termin_termin">
+                    <div class="termin termin_set">
+                        <div class="termin_name">Nicolas Diadowitz</div>
+                        <div class="termin_betreff">Termin</div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="termin termin_set">
+                <div class="termin_info">
+                    <div class="termin_info_text"></div>
+                    <div class="button termin_button"></div>
+                </div>
+                <div class="termin_termin hidden">
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                    <div class="termin termin_set">
+                        <div class="termin_name"></div>
+                        <div class="termin_betreff"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dozenten" class="dozenten">
+        <div id="suche" class="background_white">
+            <input type="text" class="search_input" placeholder="Suche ...">
+            <div class="button search_button"></div>
+        </div>
+        <div id="liste" class="background_white">
+            <div class="dozen ">
+                <div class="dozen_name">Prof. Dr. Nicolas Diadowitz</div>
+                <div class="dozen_info">Ingeniörswissenschaften</div>
+                <div class="dozen_info">Dipilom in Egoistik</div>
+            </div>
+            <div class="dozen">
+                <div class="dozen_name"></div>
+                <div class="dozen_info"></div>
+            </div>
+            <div class="dozen">
+                <div class="dozen_name"></div>
+                <div class="dozen_info"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+</body>
+</html>
