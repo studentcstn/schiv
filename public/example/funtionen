@@ -1,0 +1,47 @@
+schiv - schprechstunden im internet verwalten
+
+login
+	einloggen
+	oder anmleden falls noch nicht bekannt
+
+lobby
+	student
+		dozenten suchen
+		an termine anmelden
+		angemeldete termine einsehen
+		von termin abmelden
+	dozent
+		neuer termin erstellen
+			einmaliger termin
+			regelmässig wiederholender termin
+		termin bearbeiten
+		termin löschen
+		anfragen bearbeiten
+			annehmen und zeit zuordnen
+			ablehen
+
+vergangene termiene
+	vergangen termine einsehen
+
+einstellungen
+	email ändern
+	password ändern
+	fakultät einstellen
+	
+	dozent
+		mehrere fakultäten einstellen
+
+
+login daten werden wenige tage vor semester beginn gelöscht
+
+beim ersten loggin muss das password bestätigt werden.
+	danach wird eine email zugeschickt
+	diese muss beantwortet werden (link)
+
+dozenten werden über eine schnittstelle ermittelt
+	die daten werden zwischengespeichert (login daten)
+	die funktionalität hängt davon ab, ob die email-adresse als dozent registriert ist
+
+termine werden nach (10 Jahren) automatisch gelöscht
+
+
