@@ -33,6 +33,7 @@ einstellungen
 
 
 login daten werden wenige tage vor semester beginn gelöscht
+    jeder muss sich zum begin des semesters neu anmelden
 
 beim ersten loggin muss das password bestätigt werden.
 	danach wird eine email zugeschickt
@@ -40,7 +41,7 @@ beim ersten loggin muss das password bestätigt werden.
 
 dozenten werden über eine schnittstelle ermittelt
 	die daten werden zwischengespeichert (login daten)
-	die funktionalität hängt davon ab, ob die email-adresse als dozent registriert ist
+	die funktionalität hängt davon ab, ob die email-adresse als dozent registriert ist oder nicht
 
 termine werden nach (10 Jahren) automatisch gelöscht
 
