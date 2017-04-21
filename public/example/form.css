@@ -144,7 +144,7 @@ input {
 }
 .search_button {
     margin-left: 5px;
-    width: 50px;
+    width: 40px;
 }
 .dozen {
     margin: 5px 5px 10px 5px;
@@ -190,6 +190,7 @@ input {
 .window {
     margin: 100px auto;
     width: 500px;
+    padding: 5px;
 }
 
 .einschreiben {

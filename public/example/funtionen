@@ -1,4 +1,4 @@
-schiv - schprechstunden im internet verwalten
+schiv - Sprechstunden im Internet Verwalten
 
 login
 	einloggen
@@ -42,6 +42,7 @@ beim ersten loggin muss das password bestätigt werden.
 dozenten werden über eine schnittstelle ermittelt
 	die daten werden zwischengespeichert (login daten)
 	die funktionalität hängt davon ab, ob die email-adresse als dozent registriert ist oder nicht
+		registrierung erfolgt automatisch
 
 termine werden nach (10 Jahren) automatisch gelöscht
 
