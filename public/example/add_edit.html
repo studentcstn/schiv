@@ -6,20 +6,38 @@
     <link type="text/css" rel="stylesheet" href="form.css">
     <link type="text/css" rel="stylesheet" href="simple3d.css">
 
+    <style>
+
+        #dozenten {
+            //display: none;
+        }
+        #buttons {
+            //display: none;
+        }
+    </style>
     <script>
         function alles() {
-            document.getElementById('dozenten').classList.remove('hidden');
-            document.getElementById('buttons').classList.remove('hidden');
+            document.getElementById('dozenten').style.display = 'inherit';
+            document.getElementById('buttons').style.display = 'inherit';
         }
         function dozent() {
-            document.getElementById('dozenten').classList.remove('hidden');
-            document.getElementById('dozenten').classList.add('hidden');
-            document.getElementById('buttons').classList.remove('hidden');
+            document.getElementById('dozenten').style.display = 'none';
+            document.getElementById('buttons').style.display = 'inherit';
         }
         function student() {
-            document.getElementById('dozenten').classList.remove('hidden');
-            document.getElementById('buttons').classList.remove('hidden');
-            document.getElementById('buttons').classList.add('hidden');
+            document.getElementById('dozenten').style.display = 'inherit';
+            document.getElementById('buttons').style.display = 'none';
+        }
+        function termin() {
+            document.getElementById('einschreiben').classList.remove('hidden');
+            document.getElementById('senden').classList.remove('hidden');
+        }
+        function abbrechen() {
+            document.getElementById('einschreiben').classList.remove('hidden');
+            document.getElementById('senden').classList.remove('hidden');
+            document.getElementById('einschreiben').classList.add('hidden');
+            document.getElementById('senden').classList.add('hidden');
+
         }
     </script>
 </head>
@@ -36,7 +54,7 @@
 
 <div id="body">
     <div id="kalender" class="kalender">
-        <div id="buttons" class="buttons">
+        <div id="buttons" class="buttons background_white">
             <div class="button"></div>
         </div>
         <div id="termine" class="background_white">
@@ -145,6 +163,34 @@
 </div>
 
 <div id="footer"></div>
+
+<div class="window_background">
+    <div class="window background">
+        <div class="dropdown">Wöchentlich</div>
+        <div class="row">
+            <div class="day">Mo</div>
+            <div class="day day_set">Di</div>
+            <div class="day day_set">Mi</div>
+            <div class="day">Do</div>
+            <div class="day">Fr</div>
+            <div class="day">Sa</div>
+            <div class="day">So</div>
+        </div>
+        <div class="hidden">
+            <input type="datetime-local">
+        </div>
+        <div class="row">
+            <input class="time_input">
+            <input class="time_input">
+        </div>
+        <div class="buttons">
+            <div class="row-reverse">
+                <div class="button">speichern</div>
+                <div class="button">abbrechen</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
