@@ -1,8 +1,30 @@
+Nicolas Diadowitz
+Christian Deinlein
+Travis Dubovik
+Sebastian Pahl
+
+
 schiv - Sprechstunden im Internet Verwalten
 
 login
 	einloggen
 	oder anmleden falls noch nicht bekannt
+	password zurücksetzen
+
+	- login daten werden wenige tage vor semester beginn gelöscht
+    		# jeder muss sich zum begin des semesters neu anmelden
+    		- automatischen deaktivierung und löschen der zugangsdaten nach längerer abwesenheit (z.b. 3 monaten)
+			- vorherige information per email
+    		
+
+	- beim ersten loggin muss das password bestätigt werden.
+		- eine email wird zugeschickt
+		- diese muss beantwortet werden (link)
+
+	- dozenten werden über eine schnittstelle ermittelt
+		- die funktionalität der seite hängt davon ab, ob die email-adresse als dozent registriert ist oder nicht
+		- registrierung als dozent erfolgt automatisch
+		- die daten werden zwischengespeichert
 
 lobby
 	student
@@ -23,6 +45,8 @@ lobby
 vergangene termiene
 	vergangen termine einsehen
 
+	- termine werden nach vordefierter zeit (z.b. 10 Jahren) automatisch gelöscht
+
 einstellungen
 	email ändern
 	password ändern
@@ -32,18 +56,16 @@ einstellungen
 		mehrere fakultäten einstellen
 
 
-login daten werden wenige tage vor semester beginn gelöscht
-    jeder muss sich zum begin des semesters neu anmelden
+- misbrauch unterdrückung
+- vorlesungfreihe zeiten und regelmäßige termine
+- informationensseite: so steuern sie ihr schiv
 
-beim ersten loggin muss das password bestätigt werden.
-	danach wird eine email zugeschickt
-	diese muss beantwortet werden (link)
 
-dozenten werden über eine schnittstelle ermittelt
-	die daten werden zwischengespeichert (login daten)
-	die funktionalität hängt davon ab, ob die email-adresse als dozent registriert ist oder nicht
-		registrierung erfolgt automatisch
 
-termine werden nach (10 Jahren) automatisch gelöscht
+
+
+
+
+
 
 

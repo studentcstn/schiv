@@ -1,0 +1,37 @@
+Konten
+    E-mail
+    password
+    flag Dozent|student
+    fakultät (set)
+        INF|WI|ING
+    Aktiv JA|Nein
+    aktiv datum
+
+Termine
+    id
+    wochentag //mo, di, mi, do, fr, sa
+    zeit von bis //13:00 - 14:00
+    beschreibung
+    datum //einmalig
+    benutzer id
+    flag aktiv
+
+termin anmeldung
+    status abgelehnt|angenommen
+    datum
+    student id
+    beschreibung
+    betreff
+    dauer
+    anfrage datum + zeit
+    termin id
+
+ferien
+    von datum
+    bis datum
+
+benutzer token
+    id
+    hash
+    ttl
+    benutzer id
