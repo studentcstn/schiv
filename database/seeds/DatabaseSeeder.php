@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         Model::ungurd();
 
         $this->call(AccountTableSeed::class);
+
+        Model::reguard();
     }
 }
