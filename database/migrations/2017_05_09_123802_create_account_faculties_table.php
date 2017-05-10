@@ -19,9 +19,7 @@ class CreateAccountFacultiesTable extends Migration
             $table->increments('id')->unsigend();
             $table->integer('account_id')->unsigned();
             $table->integer('faculty_id')->unsigned();
-        });
 
-        Schema::table('account_faculties', function (Blueprint $table) {
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
         });

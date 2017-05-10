@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Account::class, function (Faker\Generaor $faker) {
+$factory->define(App\Account::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -31,8 +31,9 @@ $factory->define(App\Account::class, function (Faker\Generaor $faker) {
         'password' => $password ?: $password = bcrypt('secret'),
         'type' => 'Student',
         //$table->enum("type", ['Dozent', 'Student']);
-        'active' => 'true'
+        'active' => true,
         //$table->boolean("active");
         //$table->dateTime("last_login");
+        'last_login' => '2017-05-10 00:00:00'
     ];
 });
