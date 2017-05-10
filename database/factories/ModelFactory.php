@@ -22,3 +22,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Account::class, function (Faker\Generaor $faker) {
+    static $password;
+
+    return [
+        'email' => $faker->unique()->safeEmail,
+        'password' => $password ?: $password = bcrypt('secret'),
+        'type' => 'Student',
+        //$table->enum("type", ['Dozent', 'Student']);
+        'active' => 'true'
+        //$table->boolean("active");
+        //$table->dateTime("last_login");
+    ];
+});
