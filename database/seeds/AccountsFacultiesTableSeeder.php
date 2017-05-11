@@ -11,6 +11,16 @@ class AccountsFacultiesTableSeeder extends Seeder
      */
     public function run()
     {
-        //todo
+        DB::table('faculties')->insert([
+            'name' => 'Informatik'
+        ])
+            
+        DB::table('faculties')->insert([
+            'name' => 'Wirtschaft'
+        ])
+            
+        DB::table('faculties')->insert([
+            'name' => 'Inginieurswesen'
+        ])
     }
 }
