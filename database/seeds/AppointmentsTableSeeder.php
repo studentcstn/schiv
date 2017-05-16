@@ -19,7 +19,7 @@ class AppointmentsTableSeeder extends Seeder
             'date' = '2017-05-17',
             'time_from' = '13:00:00',
             'time_to' = '13:25:00',
-        ])
+        ]);
             
         DB::table('appointments')->insert([
             'account_id' = 2,
@@ -29,6 +29,6 @@ class AppointmentsTableSeeder extends Seeder
             'date' = '2017-05-17',
             'time_from' = '11:00:00',
             'time_to' = '12:00:00',
-        ])
+        ]);
     }
 }
