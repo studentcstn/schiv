@@ -12,19 +12,21 @@ class AccountsTableSeeder extends Seeder
     public function run()
     {
         //factory(App\Account::class, 10)->create();
-        table('accounts')->insert([
+        DB::table('accounts')->insert([
             'email' => 'max.musterman@hof-university.de',
             'password' => 'clearTextPassword',
             'type' => 'Student',
             'active' => true,
             'last_login' => '2017-05-09 12:35:59'
-        ])->insert([
+        ]);
+        DB::table('accounts')->insert([
             'email' => 'hanz.wurst@hof-university.de',
             'password' => 'clearTextPassword',
             'type' => 'Student',
             'active' => true,
             'last_login' => '2017-03-15 03:59:02'
-        ])->insert([
+        ]);
+        DB::table('accounts')->insert([
             'email' => 'helmut.kohl@hof-university.de',
             'password' => 'clearTextPassword',
             'type' => 'Dozent',

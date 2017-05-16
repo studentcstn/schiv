@@ -11,19 +11,17 @@ class AccountsFacultiesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('faculties')->insert([
+        DB::table('account_faculties')->insert([
             'faculty_id' => '1',
             'account_id' => '2',
-        ])
-            
-        DB::table('faculties')->insert([
+        ]);
+        DB::table('account_faculties')->insert([
             'faculty_id' => '2',
             'account_id' => '3',
-        ])
-            
-        DB::table('faculties')->insert([
+        ]);
+        DB::table('account_faculties')->insert([
             'faculty_id' => '3',
             'account_id' => '1',
-        ])
+        ]);
     }
 }

@@ -11,11 +11,13 @@ class FacultiesTableSeeder extends Seeder
      */
     public function run()
     {
-        table('facutlies')->insert([
+        DB::table('faculties')->insert([
             'name' => 'Informatik'
-        ])->insert([
+        ]);
+        DB::table('faculties')->insert([
             'name' => 'Ingenieur'
-        ])->insert([
+        ]);
+        DB::table('faculties')->insert([
             'name' => 'Wirtschaft'
         ]);
     }
