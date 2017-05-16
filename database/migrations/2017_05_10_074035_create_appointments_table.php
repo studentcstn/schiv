@@ -18,8 +18,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('account_id')->unsigned();
             $table->string('description');
             $table->boolean('active');
-            $table->enum('weekdays', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
-            $table->date('date');
+            $table->enum('weekdays', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])->nullable();
+            $table->date('date')->nullable();
             $table->time('time_from');
             $table->time('time_to');
             $table->timestamps();
