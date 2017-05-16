@@ -1,0 +1,27 @@
+login
+    post login body:{email}, {pw}
+
+register
+    post register body:{pw}, {email}
+    get register/{token}
+
+suche
+    get dozenten
+
+termine/informationen von dozent
+    get dozent/{dozent id}
+
+in termin einschreiben
+!   post termin/einschreiben body:{termin id}, {time}, {nutzer id}
+
+termin erstellen
+!   post termin/set body:{dozent id}, {day}, {time}, {description}
+
+termine des nutzers
+!   get termin/{nutzer id}
+!   get termin/{nutzer id}/past/{count}
+!   get termin/{nutzer id}/past/{from}/{to}
+
+settings
+!   get settings/{nutzer id}
+!   put settings body:{nutzer id}, {faculties}, {pw}, {email}

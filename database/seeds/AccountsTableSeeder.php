@@ -33,5 +33,19 @@ class AccountsTableSeeder extends Seeder
             'active' => true,
             'last_login' => '2017-05-10 13:47:05'
         ]);
+        DB::table('accounts')->insert([
+            'email' => 'apfel.mus@hof-university.de',
+            'password' => 'clearTextPassword',
+            'type' => 'Dozent',
+            'active' => true,
+            'last_login' => '2017-07-10 13:00:05'
+        ]);
+        DB::table('accounts')->insert([
+            'email' => 'knop.lauch@hof-university.de',
+            'password' => 'clearTextPassword',
+            'type' => 'Student',
+            'active' => false,
+            'last_login' => '2017-01-10 08:47:05'
+        ]);
     }
 }
