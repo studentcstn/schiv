@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call(FacultiesTableSeeder::class);
         $this->call(AccountsTableSeeder::class);
         $this->call(AccountsFacultiesTableSeeder::class);
-
+        $this->call(AppointmentsTableSeeder::class);
+        $this->call(AppointmentRequestsTableSeeder::class);
+        $this->call(UserTokensTableSeeder::class);
+        $this->call(HolidaysTableSeeder::class);
+        
         Model::reguard();
     }
 }
