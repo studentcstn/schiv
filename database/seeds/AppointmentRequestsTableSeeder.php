@@ -11,7 +11,7 @@ class AppointmentRequestsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('appointment_request')->insert([
+        DB::table('appointment_requests')->insert([
             'description' => 'dies ist eine Testanfrage',
             'subject' => 'über das möchte ich reden',
             'duration_in_minute' => 30,
@@ -22,7 +22,7 @@ class AppointmentRequestsTableSeeder extends Seeder
             
         ]);
         
-       DB::table('appointment_request')->insert([
+       DB::table('appointment_requests')->insert([
             'description' => 'dies ist auch eine Testanfrage',
             'subject' => 'über das möchte ich nicht reden',
             'duration_in_minute' => 30,
