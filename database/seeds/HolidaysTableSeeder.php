@@ -11,10 +11,11 @@ class HolidaysTableSeeder extends Seeder
      */
     public function run()
     {
-        table('holidays')->insert([
+        DB::table('holidays')->insert([
             'from' => '2017-05-08 00:00:00',
             'to' => '2017-10-01 00:00:00'
-        ])->insert([
+        ]);
+        DB::table('holidays')->insert([
             'from' => '2018-05-08 00:00:00',
             'to' => '2018-10-01 00:00:00'
         ]);
