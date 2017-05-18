@@ -8,7 +8,7 @@
         |    +------------------+
         |    | AccountFaculties |
         |    +------------------+
-        | n  | id               |
+        | n  | id //todo really necessary |
         +--->| faculty_id       |
         +--->| account_id       |
         | n  +------------------+
@@ -22,6 +22,7 @@
     |   |    | password_salt |                |       | hash          |
     |   |    | type          | Student|Docent |       +---------------+
     |   |    | active        | Yes|No         |
+    |   |    + timestamp     |                |
     |   |    +---------------+----------------+
     |   |
     |   |    +---------------------------------------------+
@@ -35,6 +36,7 @@
 |   |        | date          | Null                        |
 |   |        | time_from     |                             |
 |   |        | time_to       |                             |
+|   |        | timestamp     |                             |
 |   |        +---------------+-----------------------------+
 |   |
 |   |        +------------------------------------------+
@@ -48,4 +50,5 @@
              | duration_in_min |                        |
              | requested_at    |                        |
              | state           | Accepted|Declined|Idle |
+             | timestamp       |                        |
              +-----------------+------------------------+

@@ -6,6 +6,7 @@ Konten
         INF|WI|ING
     Aktiv JA|Nein
     aktiv datum
+    timestamp
 
 Termine
     id
@@ -15,6 +16,7 @@ Termine
     datum //einmalig
     benutzer id
     flag aktiv
+    timestamp
 
 termin anmeldung
     status abgelehnt|angenommen
@@ -25,6 +27,7 @@ termin anmeldung
     dauer
     anfrage datum + zeit
     termin id
+    timestamp
 
 ferien
     von datum
@@ -35,3 +38,10 @@ benutzer token
     hash
     ttl
     benutzer id
+
+fakultäten
+    faculty
+
+account_faculties
+    account id
+    faculty id
