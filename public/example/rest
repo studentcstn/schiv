@@ -8,20 +8,23 @@ register
 suche
     get dozenten
 
-termine/informationen von dozent
+appointments/informationen von dozent
     get dozent/{dozent id}
 
-in termin einschreiben
-!   post termin/einschreiben body:{termin id}, {time}, {nutzer id}
+in appointment einschreiben
+!   post appointment/inscribe body:{appointment id}, {time}, {user id}
 
-termin erstellen
-!   post termin/set body:{dozent id}, {day}, {time}, {description}
+appointment erstellen
+!   post appointment/set body:{dozent id}, {day}, {time}, {description}
 
-termine des nutzers
-!   get termin/{nutzer id}
-!   get termin/{nutzer id}/past/{count}
-!   get termin/{nutzer id}/past/{from}/{to}
+appointment löschen/auschreiben
+!   delete appointment/{appointment id}
+
+appointments des users
+!   get appointment/{user id}
+!   get appointment/{user id}/past/{count}
+!   get appointment/{user id}/past/{from}/{to}
 
 settings
-!   get settings/{nutzer id}
-!   put settings body:{nutzer id}, {faculties}, {pw}, {email}
+!   get settings/{user id}
+!   put settings body:{user id}, {faculties}, {pw}, {email}
