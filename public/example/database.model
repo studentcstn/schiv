@@ -1,54 +1,63 @@
-             +--------------------+                   +----------+
-             | Faculties          |                   | Holidays |
-             +---------------+----+                   +----------+
-        +--->| id            |    |                   | id       |
-        | 1  | name          | UN |                   | from     |
-        |    +---------------+----+                   | to       |
-        |                                             +----------+
-        |    +------------------+
-        |    | AccountFaculties |
-        |    +------------------+
-        | n  | id //todo really necessary |
-        +--->| faculty_id       |
-        +--->| account_id       |
-        | n  +------------------+
-        |
-        |    +--------------------------------+       +---------------+
-        |    | Accounts                       |       | AccountTokens |
-        | 1  +---------------+----------------+ 1   1 +---------------+
-    +---+--->| id            | PK             |<----->| id            |
-    |   | 1  | email         | UN             |       | account_id    |
-    |   |    | password      |                |       | invalid_at    |
-    |   |    | password_salt |                |       | hash          |
-    |   |    | type          | Student|Docent |       +---------------+
-    |   |    | active        | Yes|No         |
-    |   |    + timestamp     |                |
-    |   |    +---------------+----------------+
-    |   |
-    |   |    +---------------------------------------------+
-    |   |    | Appointments                                |
-    |   | 1  +---------------+-----------------------------+
-+---+---+--->| id            |                             |
-|   |   +--->| account_id    |                             |
-|   |     n  | description   |                             |
-|   |        | active        | Yes|No                      |
-|   |        | weekday       | Mon|Tue|Wed|Thu|Fri|Sat|Sun |
-|   |        | date          | Null                        |
-|   |        | time_from     |                             |
-|   |        | time_to       |                             |
-|   |        | timestamp     |                             |
-|   |        +---------------+-----------------------------+
-|   |
-|   |        +------------------------------------------+
-|   |        | AppointmentRequests                      |
-|   |        +-----------------+------------------------+
-|   |     n  | id              |                        |
-|   +------->| account_id      |                        |
-+----------->| appointment_id  |                        |
-          n  | description     |                        |
-             | subject         |                        |
-             | duration_in_min |                        |
-             | requested_at    |                        |
-             | state           | Accepted|Declined|Idle |
-             | timestamp       |                        |
-             +-----------------+------------------------+
+                 +--------------------+                   +----------+
+                 | Faculties          |                   | Holidays |
+                 +---------------+----+                   +----------+
+            +--->| id            |    |                   | id       |
+            | 1  | name          | UN |                   | from     |
+            |    +---------------+----+                   | to       |
+            |                                             +----------+
+            |    +------------------+
+            |    | AccountFaculties |
+            |    +------------------+
+            | n  | id               |
+            +--->| faculty_id       |
+            +--->| account_id       |
+            | n  +------------------+
+            |
+            |    +--------------------------------+       +---------------+
+            |    | Accounts                       |       | AccountTokens |
+    n       | 1  +---------------+----------------+ 1   1 +---------------+
++-----> +---+--->| id            | PK             |<----->| id            |
+|       |   | 1  | email         | UN             |       | account_id    |
+|       |   |    | password      |                |       | invalid_at    |
+|       |   |    | password_salt |                |       | hash          |
+|       |   |    | type          | Student|Docent |       +---------------+
+|       |   |    | active        | Yes|No         |
+|       |   |    | timestamp     |                |
+|       |   |    +---------------+----------------+
+|       |   |
+|       |   |    +---------------------------------------------+
+|       |   |    | Appointments                                |
+|       |   | 1  +---------------+-----------------------------+
+|   +---+---+--->| id            |                             |
+|   |   |   +--->| account_id    |                             |
+|   |   |     n  | description   |                             |
+|   |   |        | active        | Yes|No                      |
+|   |   |        | weekday       | Mon|Tue|Wed|Thu|Fri|Sat|Sun |
+|   |   |        | date          | Null                        |
+|   |   |        | time_from     |                             |
+|   |   |        | time_to       |                             |
+|   |   |        | timestamp     |                             |
+|   |   |        +---------------+-----------------------------+
+|   |   |
+|   |   |        +------------------------------------------+
+|   |   |        | AppointmentRequests                      |
+|   |   |        +-----------------+------------------------+
+|   |   |     n  | id              |                        |
+|   |   +------->| account_id      |                        |
+|   +----------->| appointment_id  |                        |
+|             n  | description     |                        |
+|                | subject         |                        |
+|                | duration_in_min |                        |
+|                | requested_at    |                        |
+|                | state           | Accepted|Declined|Idle |
+|                | timestamp       |                        |
+|                +-----------------+------------------------+
+|
+|                +----------------------+
+|                | UserBlacklist        |             |
+|                +------------+---------+
+|             m  | id         |         |
++--------------->| account_id | Student |
++--------------->| account_id | Docent  |
+                 +------------+---------+
+

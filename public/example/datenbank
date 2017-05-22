@@ -45,3 +45,8 @@ fakultäten
 account_faculties
     account id
     faculty id
+
+UserBlacklist
+    id
+    account_id (Student)
+    account_id (Dozent)
