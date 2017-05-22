@@ -32,5 +32,5 @@ Appointments des Users
 Settings
    get settings/{user id}
    put settings body:{user id}, {faculties}, {pw}, {email}
-   get settings/banned_users body:{user_id}
+   get settings/banned_users 
    delete settings/banned_users/{user_id}
