@@ -1,30 +1,36 @@
-login
+Login
     post login body:{email}, {pw}
 
-register
+Register
     post register body:{pw}, {email}
     get register/{token}
 
-suche
+Search
     get dozenten
 
-appointments/informationen von dozent
+Appointments/Informationen von Dozent
     get dozent/{dozent id}
 
-in appointment einschreiben
-!   post appointment/inscribe body:{appointment id}, {time}, {user id}
+in Appointment einschreiben (Studenten)
+   post appointment_request/set body:{appointment id}, {time}, {user id}...
+   
+Appointment annehmen/ablehnen
+   put appointment_request/{id} body:{state}
+   post appointment_request/ban_user body:{user_id}
 
-appointment erstellen
-!   post appointment/set body:{dozent id}, {day}, {time}, {description}
+Appointment erstellen
+   post appointment/set body:{dozent id}, {day}, {time}, {description}
 
-appointment löschen/auschreiben
-!   delete appointment/{appointment id}
+Appointment löschen
+   delete appointment/{appointment id}
 
-appointments des users
-!   get appointment/{user id}
-!   get appointment/{user id}/past/{count}
-!   get appointment/{user id}/past/{from}/{to}
+Appointments des Users
+   get appointment/{user id}
+   get appointment/{user id}/past/{count}
+   get appointment/{user id}/past/{from}/{to}
 
-settings
-!   get settings/{user id}
-!   put settings body:{user id}, {faculties}, {pw}, {email}
+Settings
+   get settings/{user id}
+   put settings body:{user id}, {faculties}, {pw}, {email}
+   get settings/banned_users body:{user_id}
+   delete settings/banned_users/{user_id}
