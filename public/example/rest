@@ -10,35 +10,35 @@
     +-----------------------------------------+------------------------------------------------------------------------------+
     | Search                                  | get docents                                                                  |
     +-----------------------------------------+------------------------------------------------------------------------------+
-    | Appointments/Informationen von Dozent   | get dozent/{dozent id}                                                       |
+    | Appointments/Informationen von Dozent   | get docent/{docent_id}                                                       |
     +-----------------------------------------+------------------------------------------------------------------------------+
 
     +-----------------------------------------+------------------------------------------------------------------------------+
-    | in Appointment einschreiben (Studenten) | ! post appointment_request/set body:{appointment id}, {time}, {user id}...   |
+    | in Appointment einschreiben (Studenten) | ! post appointment_request/set body:{appointment_id}, {time}, {user_id}...   |
     +-----------------------------------------+------------------------------------------------------------------------------+
     | Appointment annehmen/ablehnen           | ! put appointment_request/{id} body:{state}                                  |
     |                                         +------------------------------------------------------------------------------+
     |                                         | ! post appointment_request/ban_user body:{user_id}                           |
     +-----------------------------------------+------------------------------------------------------------------------------+
-    | Appointment erstellen                   | ! post appointment/set body:{dozent id}, {day}, {time}, {description}        |
+    | Appointment erstellen                   | ! post appointment/set body:{docent_id}, {day}, {time}, {description}        |
     +-----------------------------------------+------------------------------------------------------------------------------+
-    | Appointment löschen                     | ! delete appointment/{appointment id}                                        |
+    | Appointment löschen                     | ! delete appointment/{appointment_id}                                        |
     +-----------------------------------------+------------------------------------------------------------------------------+
-    | Appointments des Users                  | ! get appointment/{user id}                                                  |
+    | Appointments des Users                  | ! get appointment/{user_id}                                                  |
     |                                         +------------------------------------------------------------------------------+
-    |                                         | ! get appointment/{user id}/past/{count}                                     |
+    |                                         | ! get appointment/{user_id}/past/{count}                                     |
     |                                         +------------------------------------------------------------------------------+
-    |                                         | ! get appointment/{user id}/past/{from}/{to}                                 |
+    |                                         | ! get appointment/{user_id}/past/{from}/{to}                                 |
     +-----------------------------------------+------------------------------------------------------------------------------+
 
     +-----------------------------------------+------------------------------------------------------------------------------+
     | Settings                                | ! get settings/{user id}                                                     |
     |                                         +------------------------------------------------------------------------------+
-    |                                         | ! put settings body:{user id}, {faculties}, {pw}, {email}                    |
+    |                                         | ! put settings body:{user_id}, {faculties}, {pw}, {email}                    |
     |                                         +------------------------------------------------------------------------------+
     |                                         | ! get settings/banned_users/{docent_id}                                      |
     |                                         +------------------------------------------------------------------------------+
-    |                                         | ! delete settings/banned_users/{user_id}                                     |
+    |                                         | ! delete settings/banned_users/{docent_id}/{user_id}                                     |
     +-----------------------------------------+------------------------------------------------------------------------------+
 
 
