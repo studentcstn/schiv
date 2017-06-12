@@ -8,13 +8,13 @@ var module_docent = angular.module('docent_list', []);
 		
 		$scope.list = [
 			{id: 2, email: "hallo@hof-unversity.de", 
-			type: "Dozent", active: true},
+			type: "Dozent", active: true, faculty: "wirtschaft"},
 
 			{id: 5, email: "ciao@hof-unversity.de", 
-			type: "Dozent", active: true},
+			type: "Dozent", active: true, faculty: "wirtschaft"},
 
 			{id: 3, email: "thorsten@hof-unversity.de", 
-			type: "Dozent", active: true}
+			type: "Dozent", active: true, faculty: "wirtschaft"}
 		]
 });
 
