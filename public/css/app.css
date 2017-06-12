@@ -5,16 +5,90 @@ body {
     padding: 0px 20px;
 }
 
+
+
+
+
 #t {
     min-height: 100px;
 
     background-color: yellow;
 }
 
+#search {
+    padding: 10px 0px;
+    margin: 0px;
+}
+
 #docents {
     min-height: 100px;
     padding: 0px 10px;
 }
+
+#past {
+    min-height: 100px;
+    background-color: red;
+}
+
+#settings {
+    min-height: 100px;
+    background-color: blue;
+}
+
+
+
+.btn-default {
+    background-color: #ff7043;
+    color: inherit;
+
+    -webkit-box-shadow: 0px 0px 0px gray;
+    -moz-box-shadow: 0px 0px 0px gray;
+    box-shadow: 0px 0px 0px gray;
+
+    border-width: 0px;
+    border-radius: 2px;
+    background-image: inherit;
+    text-shadow: none;
+}
+.btn-default:hover {
+    background-color: #ff7043;
+    color: inherit;
+
+
+    -webkit-box-shadow: inset 0px 1px 1px;
+    -moz-box-shadow: inset 0px 1px 1px;
+    box-shadow: inset 0px 1px 1px;
+}
+.btn-default:active {
+    background-color: #ff7043;
+    color: inherit;
+
+    -webkit-box-shadow: inset 1px 2px 2px;
+    -moz-box-shadow: inset 1px 2px 2px;
+    box-shadow: inset 1px 2px 2px;
+}
+.btn-default:focus, .btn-default:active:hover, .btn-default:active:focus {
+    background-color: #ff7043;
+    color: inherit;
+}
+
+
+.navbar-btn {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.navbar-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.navbar-btn:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.navbar-btn:focus, .navbar-btn:active:hover, .navbar-btn:active:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+
 
 .docent {
     background-color: #ffeb3b;
@@ -42,4 +116,28 @@ body {
 }
 .docent_faculty {
     padding: 5px;
+}
+
+
+
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #ff7043;
+    border-radius: 2px;
+    line-height: 29px;
+    outline: 0px;
+
+    -webkit-box-shadow: 0px 0px 0px;
+    -moz-box-shadow: 0px 0px 0px;
+    box-shadow: 0px 0px 0px;
+}
+.form-control:focus {
+    border: none;
+    border-bottom: 2px solid #ff7043;
+    outline: 0px;
+
+    -webkit-box-shadow: 0px 0px 0px;
+    -moz-box-shadow: 0px 0px 0px;
+    box-shadow: 0px 0px 0px;
 }

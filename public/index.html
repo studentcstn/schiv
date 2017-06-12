@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" ng-app="schiv" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,9 +8,11 @@
     <link href="css/app.css" rel="stylesheet">
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/navigation_module.js"></script>
     <script src="js/docent_module.js"></script>
 </head>
-<body ng-app="docent_list">
+<body ng-controller="navigation_controller">
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -27,14 +29,14 @@
         </div>
 
         <div class="collapse navbar-collapse">
-            <button type="button" class="btn btn-default navbar-btn">Index</button>
-            <button type="button" class="btn btn-default navbar-btn">Past</button>
-            <button type="button" class="btn btn-default navbar-btn">Settings</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="index()">Index</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="past()">Past</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="settings()">Settings</button>
         </div>
     </div>
 </nav>
 
-<div id="body" class="row">
+<div id="index" class="row" ng-show="show_index">
     <div id="termine" class="col-sm-8" ng-controller="single_docent_controller">
         <div>
             <button type="button" class="btn btn-default">add termin</button>
@@ -44,9 +46,9 @@
         </div>
     </div>
     <div id="docents" class="col-sm-4" ng-controller="docent_list_controller">
-        <div>
-            <input type="text">
-            <button type="button" class="btn btn-default">suche</button>
+        <div id="search" class="input-group">
+            <input type="text" class="form-control">
+            <div type="button" class="btn btn-default input-group-addon">suche</div>
         </div>
         <div class="docent" ng-repeat="item in list">
             <div class="docent_name">{{item.email}}</div>
@@ -55,6 +57,13 @@
     </div>
 </div>
 
+<div id="past" ng-show="show_past">
+
+</div>
+
+<div id="settings" ng-show="show_settings">
+
+</div>
 
 <footer>
 
