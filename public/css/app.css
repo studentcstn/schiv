@@ -165,3 +165,20 @@ body {
     margin-bottom: 0rem;
 }
 
+
+.input-group-addon {
+    border-color: #ff7043;
+    border-width: 2px;
+    border-width: 0.2rem;
+
+    -webkit-border-radius: 2px;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 2px;
+    -moz-border-radius: 0.2rem;
+    border-radius: 2px;
+    border-radius: 0.2rem;
+}
+
+a {
+    cursor: pointer;
+}
