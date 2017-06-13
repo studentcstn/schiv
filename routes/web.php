@@ -3,14 +3,13 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::post('register', function () {});
-// Route::put('register', function ($token) {});
-
-// Route::post('appointment', 'AppointmentController');
-// Route::delete('appointment/{appointment_id}', 'AppointmentController');
-
-// Route::get('{user_id}/appointment', 'AppointmentController');
-// Route::get('{user_id}/appointment/{from}/{to}', 'AppointmentController');
+Route::get('docents', 'DocentsController@index');
+Route::get('docents/{docent_id}', 'DocentsController@show');
 
 Route::get('{user_id}/settings', 'SettingsController@show');
 Route::put('{user_id}/settings', 'SettingsController@update');
+
+Route::get('{docent_id}/banned_users', 'BannedUsersController@show');
+Route::get('{docent_id}/banned_users/{foo_id}', 'BannedUsersController@show');
+Route::post('{docent_id}/banned_users', 'BannedUsersController@update');
+Route::delete('{docent_id}/banned_users/{user_id}', 'BannedUsersController@destroy');
