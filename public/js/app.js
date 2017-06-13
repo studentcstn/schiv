@@ -1,0 +1,1 @@
+schiv_module = angular.module('schiv', []);

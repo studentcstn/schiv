@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <script type="text/javascript"
+src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript">
+            function send() {
+                var settings = {
+                    email: "test@test.de",
+                    password: "test",
+                    faculties: [{id: 1},{id: 2},{id: 3}],
+                }
+
+                $.ajax({
+                    url: '/1/settings',
+                    type: 'PUT',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log(data.msg)
+                    },
+                    data: JSON.stringify(settings)
+                });
+            }
+            send();
+        </script>
+    </body>
+</html>
