@@ -1,4 +1,4 @@
-schiv_module.controller('register_controller', function($scope, $hhtp){
+schiv_module.controller('register_controller', function($scope, $http){
 	//	$http.post('http://localhost/register',[email, password]).
 	//	then(function(response){
 	//	success
