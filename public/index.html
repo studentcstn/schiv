@@ -37,19 +37,21 @@
 </nav>
 
 <div id="index" class="row" ng-show="show_index">
-    <div id="termine" class="col-sm-8" ng-controller="single_docent_controller">
+    <div id="termine" class="col-md-8" ng-controller="single_docent_controller">
         <div>
-            <button type="button" class="btn btn-default">add termin</button>
+            <div type="button" class="btn btn-default">add termin</div>
         </div>
+        <!-- liste aller aktiven und ausstehenden termine -->
         <div id="t">
             <div>{{docent.email}}</div>
         </div>
     </div>
-    <div id="docents" class="col-sm-4" ng-controller="docent_list_controller">
+    <div id="docents" class="col-md-4" ng-controller="docent_list_controller">
         <div id="search" class="input-group">
             <input type="text" class="form-control">
             <div type="button" class="btn btn-default input-group-addon">suche</div>
         </div>
+        <!-- liste aller dozenten -->
         <div class="docent" ng-repeat="item in list">
             <div class="docent_name">{{item.email}}</div>
             <div class="docent_faculty">{{item.faculty}}</div>
@@ -57,12 +59,42 @@
     </div>
 </div>
 
-<div id="past" ng-show="show_past">
+<div id="past" ng-show="show_past" class="ng-hide">
 
 </div>
 
-<div id="settings" ng-show="show_settings">
-
+<div id="settings" ng-show="show_settings" class="ng-hide">
+    <!-- email -->
+    <div class="form-group row">
+        <label for="email_input" class="col-sm-2 col-form-label">E-mail</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <input id="email_input" type="text" class="form-control" placeholder="E-mail">
+                <div class="input-group-addon">@hof-university.de</div>
+            </div>
+        </div>
+    </div>
+    <!-- password -->
+    <div class="form-group row">
+        <label for="password_input" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input id="password_input" type="password" class="form-control" placeholder="password">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Faculties</label>
+    </div>
+    <!-- anzeige der faculties -->
+    <div class="form-check" ng-repeat="item in faculties">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            {{item.name}}
+        </label>
+    </div>
+    <!-- settings save button -->
+    <div class="col-sm-offset-0 form-group row" ng-click="settings_save()">
+        <div class="btn btn-default">Save</div>
+    </div>
 </div>
 
 <footer>
