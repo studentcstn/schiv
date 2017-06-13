@@ -11,6 +11,7 @@
     <script src="js/app.js"></script>
     <script src="js/navigation_module.js"></script>
     <script src="js/docent_module.js"></script>
+    <script src="js/settings_module.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
@@ -29,9 +30,9 @@
         </div>
 
         <div class="collapse navbar-collapse">
-            <button type="button" class="btn btn-default navbar-btn" ng-click="index()">Index</button>
-            <button type="button" class="btn btn-default navbar-btn" ng-click="past()">Past</button>
-            <button type="button" class="btn btn-default navbar-btn" ng-click="settings()">Settings</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="to_index()">Index</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="to_past()">Past</button>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="to_settings()">Settings</button>
         </div>
     </div>
 </nav>
@@ -64,36 +65,38 @@
 </div>
 
 <div id="settings" ng-show="show_settings" class="ng-hide">
-    <!-- email -->
-    <div class="form-group row">
-        <label for="email_input" class="col-sm-2 col-form-label">E-mail</label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input id="email_input" type="text" class="form-control" placeholder="E-mail">
-                <div class="input-group-addon">@hof-university.de</div>
+    <div ng-controller="settings_controller">
+        <!-- email -->
+        <div class="form-group row">
+            <label for="email_input" class="col-sm-2 col-form-label">E-mail</label>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input id="email_input" type="text" class="form-control" placeholder="E-mail" ng-value="user_settings.email">
+                    <div class="input-group-addon">@hof-university.de</div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- password -->
-    <div class="form-group row">
-        <label for="password_input" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
-            <input id="password_input" type="password" class="form-control" placeholder="password">
+        <!-- password -->
+        <div class="form-group row">
+            <label for="password_input" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input id="password_input" type="password" class="form-control" placeholder="password">
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Faculties</label>
-    </div>
-    <!-- anzeige der faculties -->
-    <div class="form-check" ng-repeat="item in faculties">
-        <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            {{item.name}}
-        </label>
-    </div>
-    <!-- settings save button -->
-    <div class="col-sm-offset-0 form-group row" ng-click="settings_save()">
-        <div class="btn btn-default">Save</div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Faculties</label>
+        </div>
+        <!-- anzeige der faculties -->
+        <div class="form-check" ng-repeat="item in user_settings.faculties">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                {{item.name}}
+            </label>
+        </div>
+        <!-- settings save button -->
+        <div class="col-sm-offset-0 form-group row" ng-click="settings_save()">
+            <div class="btn btn-default">Save</div>
+        </div>
     </div>
 </div>
 
