@@ -3,8 +3,10 @@ var module_docent = angular.module('docent_list', []);
  module_docent.controller('docent_list_controller', function($scope, $http) {
 	//	$http.get('http://localhost/docents').
 	//	then(function(response) {
-	//	$scope.list = response.data;	
-	//	});
+	//	$scope.list = response.data; //success	
+	//	}, function(response){
+	//		failed;	
+	//		});
 		
 		$scope.list = [
 			{id: 2, email: "hallo@hof-unversity.de", 
@@ -22,7 +24,9 @@ var module_docent = angular.module('docent_list', []);
 	//	$http.get('http://localhost/docent/{id}').
 	//	then(function(response) {
 	//	$scope.docent = response.data;	
-	//	});
+	//	}, function(response){
+	//		failed;	
+	//		});
 
 		$scope.docent = {
 			id: 42, email: "sonstwo@hof-university.de",
