@@ -19,14 +19,19 @@ class SettingsController extends Controller
             ->where('accounts.id', '=', $id)
             ->get();
 
-        $faculties = DB::table("accounts")
+        $account_faculties = DB::table("accounts")
             ->join('account_faculties', 'accounts.id', '=', 'account_faculties.account_id')
             ->join('faculties', 'account_faculties.faculty_id', '=', 'faculties.id')
             ->select('faculties.id', 'faculties.name')
             ->where('accounts.id', '=', $id)
             ->get();
 
+        $faculties = DB::table("faculties")
+            ->select('id', 'name')
+            ->get();
+
         $result = (array)$account[0];
+        $result['account_faculties'] = $account_faculties;
         $result['faculties'] = $faculties;
 
         return response()->json($result);
