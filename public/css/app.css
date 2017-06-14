@@ -182,3 +182,44 @@ body {
 a {
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hidden-on .col-6 .visible, .visible-on .col-6 .visible {
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+
+.responsive-utilities-test span {
+    display: block;
+    padding: 1rem .5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    border-radius: .25rem;
+}
