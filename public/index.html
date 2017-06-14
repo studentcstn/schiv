@@ -52,7 +52,7 @@
 </nav>
 
 <div id="index" class="row" ng-show="show_index">
-    <div id="termine" class="col-md-8" ng-controller="single_docent_controller">
+    <div id="termine" class="col-sm-8" ng-controller="single_docent_controller">
         <div>
             <div type="button" class="btn btn-default">add termin</div>
         </div>
@@ -61,7 +61,7 @@
             <div>{{docent.email}}</div>
         </div>
     </div>
-    <div id="docents" class="col-md-4" ng-controller="docent_list_controller">
+    <div id="docents" class="col-sm-4" ng-controller="docent_list_controller">
         <div id="search" class="input-group">
             <input type="text" class="form-control">
             <div type="button" class="btn btn-default input-group-addon">suche</div>
@@ -116,8 +116,8 @@
             </div>
         </div>
         <!-- settings save button -->
-        <div class="form-group" ng-click="settings_save()">
-            <div class="btn btn-default">Save</div>
+        <div class="form-group row" ng-click="settings_save()">
+            <div class="btn btn-default col-xs-offset-11">Save</div>
         </div>
     </div>
 </div>
