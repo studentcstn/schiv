@@ -19,7 +19,19 @@ class BannedUsersController extends Controller {
             $bannedUser = new BannedUser;
             $bannedUser->account_id = $docent_id;
             $bannedUser->account_banned_id = $request->input('user_id');
-            $bannedUser->banned_until = date('Y-m-d h:i:s', strtotime("now + 3 months"));
+            $bannedUser->bannedUntil; {
+                $currentMonth = date('m');
+                if ($currentMonth >= 3 && $currentMonth <= 9) {
+                    $bannedUser->bannedUntil = date(
+                        'Y-09-15 h:i:s'
+                    );
+                } else {
+                    $bannedUser->bannedUntil = date(
+                        'Y-02-28 h:i:s',
+                        strtotime('next year')
+                    );
+                }
+            }
             $bannedUser->save();
         });
 
