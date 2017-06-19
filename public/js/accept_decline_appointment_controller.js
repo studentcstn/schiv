@@ -5,7 +5,7 @@ schiv_module.controller('accept_appointment_controller', function($scope, $http)
 	//	}, function(response){
 	//		failed
 	//		};
-}
+});
 
 schiv_module.controller('decline_appointment_controller', function($scope, $http){
 	//	$http.delete('http://localhost/{id}/appointment_request/{id}').
@@ -14,4 +14,4 @@ schiv_module.controller('decline_appointment_controller', function($scope, $http
 	//	}, function(response){
 	//		failed
 	//		};
-}
+});

@@ -15,7 +15,7 @@ schiv_module.controller('docent_list_controller', function($scope, $http) {
 
 		{id: 3, email: "thorsten@hof-unversity.de",
 		type: "Dozent", active: true, faculty: "wirtschaft"}
-	]
+	];
 });
 
 schiv_module.controller('single_docent_controller', function($scope, $http) {
@@ -33,5 +33,5 @@ schiv_module.controller('single_docent_controller', function($scope, $http) {
 			{id: 1, description: "ich hab hunger"},
 			{id: 2, description: "ich auch"}
 		]
-	}
+	};
 });

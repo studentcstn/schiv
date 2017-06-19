@@ -6,4 +6,4 @@ schiv_module.controller('appointment_signup_controller', function($scope, $http)
 	//	}, function(response){
 	//		failed
 	//		};
-}
+});

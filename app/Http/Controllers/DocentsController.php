@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class DocentsController extends Controller {
     public function index() {
+        //todo return only docents
         $docents = DB::table("accounts")
             ->select('id', 'email')
             ->get();
@@ -13,6 +14,7 @@ class DocentsController extends Controller {
         return response()->json($docents);
     }
 
+    //todo return appointments from id (docent)
     public function show($id) {
         $docents = DB::table("accounts")
             ->select('id', 'email')

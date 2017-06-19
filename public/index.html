@@ -15,9 +15,9 @@
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/navigation_module.js"></script>
-    <script src="js/docent_module.js"></script>
-    <script src="js/settings_module.js"></script>
+    <script src="js/navigation_controller.js"></script>
+    <script src="js/docent_controller.js"></script>
+    <script src="js/settings_controller.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
@@ -57,8 +57,10 @@
             <div type="button" class="btn btn-default">add termin</div>
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
-        <div id="t">
-            <div>{{docent.email}}</div>
+        <div id="t" ng-controller="docent_list_controller">
+            <div>
+
+            </div>
         </div>
     </div>
     <div id="docents" class="col-sm-4" ng-controller="docent_list_controller">
