@@ -3,6 +3,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::post('register', 'RegisterController@store');
+Route::put('register', 'RegisterController@update');
+
 Route::get('docents', 'DocentsController@index');
 Route::get('docents/{docent_id}', 'DocentsController@show');
 

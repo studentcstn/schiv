@@ -1,8 +1,53 @@
 <html>
     <body>
-        <script type="text/javascript"
-src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <table>
+            <tr>
+                <td> <label for="method">Method</label> </td>
+                <td></td>
+                <td> 
+                    <select id="method" name="method" >
+                        <option>PUT</option>
+                        <option>POST</option>
+                        <option>DELETE</option>
+                        <option>GET</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="url">Url</label> </td>
+                <td></td>
+                <td> <input id="url" name="url" value=""> </td>
+            </tr>
+            <tr>
+                <td> <label for="content">Content</label> </td>
+                <td></td>
+                <td> <textarea id="content" name="content" rows=25 cols=55></textarea> </td>
+                <td> <textarea id="answer" rows=25 cols=55></textarea> </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>&nbsp;&nbsp;</td>
+                <td> 
+                    <input type="button" id="send" value="Send..." onclick="send()"> 
+                    <input type="button" id="pretty" value="Pretty" onclick="pretty()"> 
+                </td>
+            </tr>
+        </table>
         <script type="text/javascript">
+            function pretty() {
+                var content = $("#content")[0];
+                var answer = $("#answer")[0];
+
+                try {
+                    json = JSON.parse(content.value);
+                } catch(err) {
+                    answer.value = err.message;
+                    throw err;
+                }
+
+                content.value = JSON.stringify(json, null, 2);
+            }
             function send() {
                 var settings = {
                     email: "test@test.de",
@@ -10,18 +55,39 @@ src="bower_components/jquery/dist/jquery.min.js"></script>
                     faculties: [{id: 1},{id: 2},{id: 3}],
                 }
 
+                var method = $("#method")[0].value;
+                var url = $("#url")[0].value;
+                var content = $("#content")[0].value;
+                var answer = $("#answer")[0];
+
+                answer.value = "";
+
+                try {
+                    JSON.parse(content);
+                } catch(err) {
+                    answer.value = err.message;
+                    throw err;
+                }
+
                 $.ajax({
-                    url: '/1/settings',
-                    type: 'PUT',
+                    url: url,
+                    type: method,
                     dataType: 'json',
                     contentType: "application/json",
-                    success: function (data) {
-                        console.log(data.msg)
+                    error: function (xhr, state, exception) {
+                        if (state !== "parsererror") {
+                            window.open().document.write(xhr.responseText);
+                        } else {
+                            answer.value = xhr.responseText;
+                        }
                     },
-                    data: JSON.stringify(settings)
+                    success: function (data) {
+                        console.log(data);
+                        answer.value = JSON.stringify(data, null, 2);
+                    },
+                    data: content
                 });
             }
-            send();
         </script>
     </body>
 </html>
