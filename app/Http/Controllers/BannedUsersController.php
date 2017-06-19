@@ -8,10 +8,12 @@ use App\BannedUser;
 
 class BannedUsersController extends Controller {
     public function show($docent_id) {
-        return response()->json(
-            BannedUser::where('account_id', $docent_id)
-                ->get()
-        );
+        $bannedUsers = BannedUser::where('account_id', $docent_id)
+            ->get();
+        if (!$bannedUsers || $bannedUsers->count() == 0) {
+            abort(404);
+        }
+        return response()->json($bannedUsers);
     }
 
     public function store(Request $request, $docent_id) {
@@ -19,14 +21,14 @@ class BannedUsersController extends Controller {
             $bannedUser = new BannedUser;
             $bannedUser->account_id = $docent_id;
             $bannedUser->account_banned_id = $request->input('user_id');
-            $bannedUser->bannedUntil; {
+            $bannedUser->banned_until; {
                 $currentMonth = date('m');
                 if ($currentMonth >= 3 && $currentMonth <= 9) {
-                    $bannedUser->bannedUntil = date(
+                    $bannedUser->banned_until = date(
                         'Y-09-15 h:i:s'
                     );
                 } else {
-                    $bannedUser->bannedUntil = date(
+                    $bannedUser->banned_until = date(
                         'Y-02-28 h:i:s',
                         strtotime('next year')
                     );
@@ -35,15 +37,21 @@ class BannedUsersController extends Controller {
             $bannedUser->save();
         });
 
-        //NOTE debug
         return response()->json($bannedUser);
     }
 
     public function destroy($docent_id, $user_id) {
-        DB::transaction(function() use ($docent_id, $user_id) {
-            $bannedUser = BannedUser::where('account_id', $docent_id)
-                ->where('account_banned_id', $user_id)
-                ->delete();
+        $query = BannedUser::where('account_id', $docent_id)
+            ->where('account_banned_id', $user_id);
+
+        $count = $query->count();
+
+        if ($count == 0) {
+            abort(404);
+        }
+
+        DB::transaction(function() use ($query) {
+            $query->delete();
         });
     }
 }

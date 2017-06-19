@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
 
 class AccountsTableSeeder extends Seeder
@@ -11,7 +10,6 @@ class AccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        //factory(App\Account::class, 10)->create();
         DB::table('accounts')->insert([
             'email' => 'max.musterman@hof-university.de',
             'password' => 'clearTextPassword',

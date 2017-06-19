@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AppointmentRequestsTableSeeder::class);
         $this->call(UserTokensTableSeeder::class);
         $this->call(HolidaysTableSeeder::class);
-        
+        $this->call(BannedUsersTableSeeder::class);
+
         Model::reguard();
     }
 }
