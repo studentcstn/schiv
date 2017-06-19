@@ -62,11 +62,13 @@
 
                 answer.value = "";
 
-                try {
-                    JSON.parse(content);
-                } catch(err) {
-                    answer.value = err.message;
-                    throw err;
+                if (content != "") {
+                    try {
+                        JSON.parse(content);
+                    } catch(err) {
+                        answer.value = err.message;
+                        throw err;
+                    }
                 }
 
                 $.ajax({
@@ -78,12 +80,13 @@
                         if (state !== "parsererror") {
                             window.open().document.write(xhr.responseText);
                         } else {
-                            answer.value = xhr.responseText;
+                            answer.value = "response: " + xhr.status + "\n";
+                            answer.value += xhr.responseText;
                         }
                     },
                     success: function (data) {
-                        console.log(data);
-                        answer.value = JSON.stringify(data, null, 2);
+                        answer.value = "response: 200\n";
+                        answer.value += JSON.stringify(data, null, 2);
                     },
                     data: content
                 });
