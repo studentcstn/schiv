@@ -30,10 +30,7 @@ $factory->define(App\Account::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'type' => 'Student',
-        //$table->enum("type", ['Dozent', 'Student']);
         'active' => true,
-        //$table->boolean("active");
-        //$table->dateTime("last_login");
         'last_login' => '2017-05-10 00:00:00'
     ];
 });

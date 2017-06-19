@@ -8,13 +8,13 @@ schiv_module.controller('docent_list_controller', function($scope, $http) {
 
 	$scope.list = [
 		{id: 2, email: "hallo@hof-unversity.de",
-		type: "Dozent", active: true, faculty: "wirtschaft"},
+		type: "Docent", active: true, faculty: "wirtschaft"},
 
 		{id: 5, email: "ciao@hof-unversity.de",
-		type: "Dozent", active: true, faculty: "wirtschaft"},
+		type: "Docent", active: true, faculty: "wirtschaft"},
 
 		{id: 3, email: "thorsten@hof-unversity.de",
-		type: "Dozent", active: true, faculty: "wirtschaft"}
+		type: "Docent", active: true, faculty: "wirtschaft"}
 	];
 });
 

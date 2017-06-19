@@ -1,7 +1,7 @@
 Konten
     E-mail
     password
-    flag Dozent|student
+    flag Docent|student
     fakultät (set)
         INF|WI|ING
     Aktiv JA|Nein
@@ -49,4 +49,4 @@ account_faculties
 UserBlacklist
     id
     account_id (Student)
-    account_id (Dozent)
+    account_id (Docent)

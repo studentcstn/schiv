@@ -17,7 +17,7 @@ class CreateAccountsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string("email");
             $table->string("password");
-            $table->enum("type", ['Dozent', 'Student']);
+            $table->enum("type", ['Docent', 'Student']);
             $table->boolean("active");
             $table->dateTime("last_login");
             $table->timestamps();

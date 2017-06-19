@@ -29,14 +29,14 @@ class AccountsTableSeeder extends Seeder
         DB::table('accounts')->insert([
             'email' => 'helmut.kohl@hof-university.de',
             'password' => 'clearTextPassword',
-            'type' => 'Dozent',
+            'type' => 'Docent',
             'active' => true,
             'last_login' => '2017-05-10 13:47:05'
         ]);
         DB::table('accounts')->insert([
             'email' => 'apfel.mus@hof-university.de',
             'password' => 'clearTextPassword',
-            'type' => 'Dozent',
+            'type' => 'Docent',
             'active' => true,
             'last_login' => '2017-07-10 13:00:05'
         ]);
