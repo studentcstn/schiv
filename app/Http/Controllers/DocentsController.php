@@ -4,28 +4,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Account;
+
 class DocentsController extends Controller {
     public function index() {
-        //todo return only docents
-        $docents = DB::table("accounts")
+        $accounts = Account::where('type', 'Docent')
             ->select('id', 'email')
             ->get();
 
-        return response()->json($docents);
+        if (!$accounts || $accounts->count() == 0) {
+            abort(404);
+        } else {
+            return response()->json($accounts);
+        }
     }
 
-    //todo return appointments from id (docent)
     public function show($id) {
-        $docents = DB::table("accounts")
-            ->select('id', 'email')
-            ->where('id', '=', $id)
-            ->where('type', '=', 'Dozent')
-            ->get();
+        $account = Account::find($id);
 
-        if ($docents->count() == 0) {
+        if (!$account) {
             abort(404);
-        }
+        } else {
+            $result = [
+                'id' => $account->id,
+                'email' => $account->email,
+                'appointments' => $account->appointments()
+            ];
 
-        return response()->json($docents[0]);
+            return response()->json($result);
+        }
     }
 }
