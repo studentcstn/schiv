@@ -5,4 +5,4 @@ schiv_module.controller('login_controller', function($scope, $http){
 	//	}, function(response){
 	//		failed
 	//		};
-})
+});

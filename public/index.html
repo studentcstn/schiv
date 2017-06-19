@@ -10,21 +10,25 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-    <script src="bower_components/angular/angular.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/navigation_controller.js"></script>
+    <script src="js/login_controller.js"></script>
+    <script src="js/appointment_controller.js"></script>
     <script src="js/docent_controller.js"></script>
     <script src="js/settings_controller.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
+<!-- navigation bar -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" aria-expanded="false" data-target="#navbar">
+            <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" aria-expanded="false" data-target="#navbar" ng-show="show_nav">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -35,35 +39,90 @@
             </a>
         </div>
 
-        <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav">
+        <!-- items to navigate -->
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" ng-show="show_nav">
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="to_index()">Index</a>
+                    <a class="nav-link" ng-click="show_element('show_index'); hide_element('show_past'); hide_element('show_settings')">Index</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="to_past()">Past</a>
+                    <a class="nav-link" ng-click="hide_element('show_index'); show_element('show_past'); hide_element('show_settings')">Past</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="to_settings()">Settings</a>
+                    <a class="nav-link" ng-click="hide_element('show_index'); hide_element('show_past'); show_element('show_settings')">Settings</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right" ng-show="show_nav">
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="show_element('show_login'); hide_elements('show_index', 'show_past', 'show_settings', 'show_nav')">Log out</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div id="index" class="row" ng-show="show_index">
+<!-- login site -->
+<div id="login" ng-show="show_login" ng-controller="login_controller">
+    <div >
+        <div class="form-group row">
+            <label for="login_email_input" class="col-sm-2 col-form-label">E-mail</label>
+            <div class="col-sm-10">
+                <input id="login_email_input" type="password" class="form-control" placeholder="email">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="login_password_input" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input id="login_password_input" type="password" class="form-control" placeholder="password">
+            </div>
+        </div>
+        <div class="form-group row" ng-show="show_register">
+            <label for="login_password_repeat" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input id="login_password_repeat" type="password" class="form-control" placeholder="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_elements('show_index', 'show_nav'); hide_element('show_login')">Login</div>
+                    <div class="btn btn-default" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
+                    <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_element('show_register'); hide_element('show_login_btn')">Register</div>
+                    <div class="btn btn-default" ng-show="show_register">Register</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="index" class="row ng-hide" ng-show="show_index">
     <div id="termine" class="col-sm-8" ng-controller="single_docent_controller">
-        <div>
-            <div type="button" class="btn btn-default">add termin</div>
+        <div class="row">
+            <div class="col-xs-offset-9 col-xs-3">
+                <div type="button" class="btn btn-default pull-right">add termin</div>
+            </div>
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
-        <div id="t" ng-controller="docent_list_controller">
-            <div>
-
+        <div id="appointments" data-id='ng-controller="appointment_list_controller"' ng-controller="docent_list_controller">
+            <div class="appointment" ng-repeat="item in list" >
+                <div class="row">
+                    <div class="appointment_info col-xs-10">
+                        <div>{{item.email}}</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
+                    </div>
+                </div>
+                <div ng-show="appointment_{{item.id}}">
+                    <div class="appointment" ng-show="item in item.faculty">
+                        <div class="appointment_info">{{item.type}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div id="docents" class="col-sm-4" ng-controller="docent_list_controller">
+        <!-- suche -->
         <div id="search" class="input-group">
             <input type="text" class="form-control">
             <div type="button" class="btn btn-default input-group-addon">suche</div>
@@ -76,11 +135,11 @@
     </div>
 </div>
 
-<div id="past" ng-show="show_past" class="ng-hide">
+<div id="past" class="ng-hide" ng-show="show_past">
 
 </div>
 
-<div id="settings" ng-show="show_settings" class="ng-hide">
+<div id="settings" class="ng-hide" ng-show="show_settings">
     <div ng-controller="settings_controller">
         <!-- email -->
         <div class="form-group row">
@@ -118,8 +177,12 @@
             </div>
         </div>
         <!-- settings save button -->
-        <div class="form-group row" ng-click="settings_save()">
-            <div class="btn btn-default col-xs-offset-11">Save</div>
+        <div class="form-group row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div class="btn btn-default" ng-click="settings_save()">Save</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

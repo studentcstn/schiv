@@ -12,15 +12,16 @@ body {
 
 
 
-#t {
+#appointments {
     min-height: 100px;
 
-    background-color: yellow;
+    padding: 0px;
+    padding: 0rem;
 }
 
 #search {
-    padding: 10px 0px;
-    padding: 1rem 0rem;
+    padding: 0px 0px 10px 0px;
+    padding: 0rem 0rem 1rem 0rem;
     margin: 0px;
 }
 
@@ -72,8 +73,11 @@ body {
     color: inherit;
 
     -webkit-box-shadow: inset 1px 2px 2px;
+    -webkit-box-shadow: inset 0.1rem 0.2rem 0.2rem;
     -moz-box-shadow: inset 1px 2px 2px;
+    -moz-box-shadow: inset 0.1rem 0.2rem 0.2rem;
     box-shadow: inset 1px 2px 2px;
+    box-shadow: inset 0.1rem 0.2rem 0.2rem;
 }
 .btn-default:focus, .btn-default:active:hover, .btn-default:active:focus {
     background-color: #ff7043;
@@ -94,7 +98,72 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.appointment-btn {
+    width: 40px;
+    width: 4rem;
+    height: 30px;
+    height: 3rem;
 
+    margin-top: -10px;
+    margin-top: -1rem;
+
+
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-left-radius: 0rem;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topleft: 0rem;
+    border-top-left-radius: 0px;
+    border-top-left-radius: 0rem;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-top-right-radius: 0rem;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-topright: 0rem;
+    border-top-right-radius: 0px;
+    border-top-right-radius: 0rem;
+}
+
+
+.appointment {
+    margin: 10px 0px;
+    margin: 1rem 0rem;
+    padding: 10px;
+    padding: 1rem;
+
+    -webkit-border-radius: 2px;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 2px;
+    -moz-border-radius: 0.2rem;
+    border-radius: 2px;
+    border-radius: 0.2rem;
+
+    background-color: #4dd0e1;
+}
+.appointment .appointment {
+    margin: 10px 0px;
+    margin: 1rem 0rem;
+    margin-right: -10px;
+    margin-right: -1rem;
+    margin-left: auto;
+    padding: 10px;
+    padding: 1rem;
+
+    width: 80%;
+
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-top-right-radius: 0rem;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-topright: 0rem;
+    border-top-right-radius: 0px;
+    border-top-right-radius: 0rem;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0rem;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomright: 0rem;
+    border-bottom-right-radius: 0px;
+    border-bottom-right-radius: 0rem;
+
+    background-color: #ffb74d;
+}
 
 
 
@@ -110,7 +179,7 @@ body {
     margin: 10px 0px;
     margin: 1rem 0rem;
     padding: 10px;
-    padding: 1 rem;
+    padding: 1rem;
 }
 .docent:hover {
     -webkit-box-shadow: 0px 1px 1px;
@@ -138,6 +207,10 @@ body {
     border: none;
     border-bottom: 2px solid #ff7043;
     border-bottom-width: 0.2rem;
+    -webkit-border-radius: 2px;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 2px;
+    -moz-border-radius: 0.2rem;
     border-radius: 2px;
     border-radius: 0.2rem;
     outline: 0px;
