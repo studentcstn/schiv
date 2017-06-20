@@ -16,7 +16,7 @@ class CreateUserTokensTable extends Migration
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('account_id')->unsigned();
-            $table->integer('ttl_in_sec');
+            $table->datetime('invalid_at')->index();
             $table->string('hash');
             $table->timestamps();
 
