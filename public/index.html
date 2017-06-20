@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" ng-app="schiv" >
+<html lang="de" ng-app="schiv">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,9 +17,11 @@
     <script src="js/app.js"></script>
     <script src="js/navigation_controller.js"></script>
     <script src="js/login_controller.js"></script>
+    <!--
     <script src="js/appointment_controller.js"></script>
     <script src="js/docent_controller.js"></script>
     <script src="js/settings_controller.js"></script>
+    -->
 </head>
 <body ng-controller="navigation_controller">
 
@@ -49,7 +51,7 @@
                         <a class="nav-link" ng-click="show_element('show_past'); hide_elements('show_index', 'show_settings')">Past</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="show_element('show_settings'); hide_elements('show_index', 'show_past'); ">Settings</a>
+                        <a class="nav-link" ng-click="show_element('show_settings'); hide_elements('show_index', 'show_past')">Settings</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
@@ -61,35 +63,59 @@
         </div>
     </div>
 </nav>
+<div class="alert alert-info ng-hide" role="alert" ng-show="alert_info">
+    <button type="button" class="close ng-animate" aria-label="Close" ng-click="alerts.infoClose()">
+        <span class="ng-animate" aria-hidden="true">&times;</span>
+    </button>
+    {{alerts.messages.infoMessage}}
+</div>
+<div class="alert alert-success ng-hide" role="alert" ng-show="alert_success">
+    <button type="button" class="close" aria-label="Close" ng-click="alerts.successClose()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{alerts.messages.successMessage}}
+</div>
+<div class="alert alert-warning ng-hide" role="alert" ng-show="alert_warning">
+    <button type="button" class="close" aria-label="Close" ng-click="alerts.warningClose()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{alerts.messages.warningMessage}}
+</div>
+<div class="alert alert-danger ng-hide" role="alert" ng-show="alert_danger">
+    <button type="button" class="close" aria-label="Close" ng-click="alerts.dangerClose()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{alerts.messages.dangerMessage}}
+</div>
 
 <!-- login site -->
 <div id="login" ng-show="show_login" ng-controller="login_controller">
     <div class="form-group row">
         <label for="login_email_input" class="col-sm-2 col-form-label">E-mail</label>
         <div class="col-sm-10">
-            <input id="login_email_input" type="email" class="form-control" placeholder="email">
+            <input id="login_email_input" type="email" class="form-control" placeholder="email" ng-model="user.email">
         </div>
     </div>
     <div class="form-group row">
         <label for="login_password_input" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input id="login_password_input" type="password" class="form-control" placeholder="password">
+            <input id="login_password_input" type="password" class="form-control" placeholder="password" ng-model="user.password">
         </div>
     </div>
     <div class="form-group row ng-hide" ng-show="show_register">
         <label for="login_password_repeat" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input id="login_password_repeat" type="password" class="form-control" placeholder="password">
+            <input id="login_password_repeat" type="password" class="form-control" placeholder="password" ng-model="user.passwordRepeat">
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="pull-right">
                 <!-- login and register button -->
-                <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_elements('show_index', 'show_nav'); hide_element('show_login')">Login</div>
+                <div class="btn btn-default" ng-show="show_login_btn" ng-click="alerts.info('info'); alerts.success('success'); alerts.warning('warning'); alerts.danger('danger')">Login</div>
                 <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
                 <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_element('show_register'); hide_element('show_login_btn')">Register</div>
-                <div class="btn btn-default ng-hide" ng-show="show_register">Register</div>
+                <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="register()">Register</div>
             </div>
         </div>
     </div>
@@ -103,7 +129,7 @@
             </div>
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
-        <div id="appointments" data-id='ng-controller="appointment_list_controller"' ng-controller="docent_controller">
+        <div id="appointments">
             <div class="appointment" ng-repeat="item in list" >
                 <div class="row">
                     <div class="appointment_info col-xs-10">
@@ -121,7 +147,7 @@
             </div>
         </div>
     </div>
-    <div id="docents" class="col-sm-4" ng-controller="docent_controller">
+    <div id="docents" class="col-sm-4">
         <!-- suche -->
         <div id="search" class="input-group">
             <input type="text" class="form-control">
@@ -135,7 +161,7 @@
     </div>
 </div>
 
-<div id="last_appointments" class="ng-hide" ng-show="show_past" data-id='ng-controller="last_appointment_list_controller"' ng-controller="docent_controller">
+<div id="last_appointments" class="ng-hide" ng-show="show_past">
     <!-- liste aller alten und gelöschten  termine -->
     <div class="appointment" ng-repeat="item in list" >
         <div class="row">
@@ -154,7 +180,7 @@
     </div>
 </div>
 
-<div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
+<div id="settings" class="ng-hide" ng-show="show_settings">
     <!-- email -->
     <div class="form-group row">
         <label for="email_input" class="col-sm-2 col-form-label">E-mail</label>
@@ -205,7 +231,7 @@
 </footer>
 
 <div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscripe">
-    <div data-id='ng-controller="appointment_controller"' ng-controller="docent_controller">
+    <div>
         <div class="appointment" ng-repeat="item in list" >
             <div class="row">
                 <div class="appointment_info col-xs-10">

@@ -1,20 +1,28 @@
 schiv_module.controller('login_controller', function($scope, $http){
-    $scope.login = function($scope, $http){
-        //	$http.post('/login',[email, password]).
-        //	then(function(response){
-        //	success
-        //	}, function(response){
-        //		failed
-        //		};
+    $scope.user = {
+        email: "",
+        password: "",
+        passwordRepeat: ""
     };
 
-    $scope.register = function($scope, $http){
-        //	$http.post('/register',[email, password]).
-        //	then(function(response){
-        //	success
-        //	}, function(response){
-        //		failed
-        //		};
+    $scope.login = function(){
+        $http.post('/login',[$scope.user.email, $scope.user.password])
+            .then(function(response){
+                console.log(response);
+                show_elements('show_index', 'show_nav');
+                hide_element('show_login');
+        	}, function(response){
+                console.log(response);
+            });
+    };
+
+    $scope.register = function(){
+        $http.post('/register',[$scope.user.email, $scope.user.password, $scope.user.passwordRepeat])
+            .then(function(response){
+                console.log(response);
+            }, function(response){
+                console.log(response);
+            });
     };
 
     $scope.confirmRegistration = function($scope, $http){
