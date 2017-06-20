@@ -49,18 +49,41 @@ body {
     padding: 0rem 1rem;
 }
 
-#past {
-    min-height: 100px;
-}
-
 #last_appointments {
-    
+    min-height: 100px;
 }
 
 #settings {
     min-height: 100px;
     padding: 15px;
     padding: 1.5rem;
+}
+
+#appointment_inscribe {
+    background-color: rgba(0, 0, 0, 0.33);
+    min-height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    padding: 20px;
+    padding: 2rem;
+}
+
+#appointment_inscribe div {
+    background-color: whitesmoke;
+    min-height: 500px;
+
+    margin: auto;
+    max-width: 1024px;
+    max-width: 102.4rem;
+    min-width: 300px;
+    min-width: 30rem;
+
+    border-radius: 2px;
+    border-radius: .2rem;
 }
 
 
