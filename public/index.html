@@ -10,11 +10,10 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-
+    <script src="bower_components/angular/angular.js"></script>
     <script src="js/app.js"></script>
     <script src="js/navigation_controller.js"></script>
     <script src="js/login_controller.js"></script>
@@ -63,7 +62,7 @@
 
 <!-- login site -->
 <div id="login" ng-show="show_login" ng-controller="login_controller">
-    <div >
+    <div>
         <div class="form-group row">
             <label for="login_email_input" class="col-sm-2 col-form-label">E-mail</label>
             <div class="col-sm-10">
@@ -76,7 +75,7 @@
                 <input id="login_password_input" type="password" class="form-control" placeholder="password">
             </div>
         </div>
-        <div class="form-group row" ng-show="show_register">
+        <div class="form-group row ng-hide" ng-show="show_register">
             <label for="login_password_repeat" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
                 <input id="login_password_repeat" type="password" class="form-control" placeholder="password">
@@ -86,9 +85,9 @@
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_elements('show_index', 'show_nav'); hide_element('show_login')">Login</div>
-                    <div class="btn btn-default" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
+                    <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
                     <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_element('show_register'); hide_element('show_login_btn')">Register</div>
-                    <div class="btn btn-default" ng-show="show_register">Register</div>
+                    <div class="btn btn-default ng-hide" ng-show="show_register">Register</div>
                 </div>
             </div>
         </div>
@@ -188,39 +187,6 @@
 </div>
 
 <footer>
-    <div class="row responsive-utilities-test visible-on">
-        <div class="col-6 col-sm-3">
-            <span class="visible-xs visible">&#10004; Visible on extra small</span>
-            <span class="hidden-xs not-visible">Extra small</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-sm visible">&#10004; Visible on small</span>
-            <span class="hidden-sm not-visible">Small</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-md visible">&#10004; Visible on medium</span>
-            <span class="hidden-md not-visible">Medium</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-lg visible">&#10004; Visible on large</span>
-            <span class="hidden-lg not-visible">Large</span>
-        </div>
-    </div>
-
-    <div class="row responsive-utilities-test visible-on">
-        <div class="col-6 col-sm-3">
-            <span class="visible-xs visible-sm visible-md visible-lg visible">&#10004; Visible on extra small</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-sm visible-md visible-lg visible">&#10004; Visible on small</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-md visible-lg visible">&#10004; Visible on medium</span>
-        </div>
-        <div class="col-6 col-sm-3">
-            <span class="visible-lg visible">&#10004; Visible on large</span>
-        </div>
-    </div>
 
 </footer>
 </body>
