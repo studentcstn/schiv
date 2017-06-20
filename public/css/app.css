@@ -27,7 +27,7 @@ body {
     border-radius: 2px;
     border-radius: 0.2rem;
 
-    background-color: #03a9f4;
+    background: #03a9f4 linear-gradient(30deg, #03a9f4 0%, #03d5f4 100%);
 }
 
 #appointments {
