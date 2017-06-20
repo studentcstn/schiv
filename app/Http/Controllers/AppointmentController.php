@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -45,7 +46,11 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        //
+       $appiontments = DB::table("appointments")
+            ->where('account_id', '=', $id)
+            ->get();
+
+        return response()->json($appiontments);
     }
 
     /**
