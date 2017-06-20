@@ -14,11 +14,14 @@ class CreateBannedUsersTable extends Migration
     public function up()
     {
         Schema::create('banned_users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('account_id')->unsigend();
-            $table->integer('account_banned_id')->unsigend();
-            $table->datetime('banned_until')->unsigend();
+            $table->increments('id')->unsigned();;
+            $table->integer('account_id')->unsigned();;
+            $table->integer('account_banned_id')->unsigned();;
+            $table->datetime('banned_until');
 
+        });
+
+        Schema::table('banned_users', function (Blueprint $table) {
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('account_banned_id')->references('id')->on('accounts')->onDelete('cascade');
         });

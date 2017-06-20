@@ -13,8 +13,6 @@ class CreateAccountFacultiesTable extends Migration
      */
     public function up()
     {
-        Schema::enableForeignKeyConstraints();
-
         Schema::create('account_faculties', function (Blueprint $table) {
             $table->increments('id')->unsigend();
             $table->integer('account_id')->unsigned();
