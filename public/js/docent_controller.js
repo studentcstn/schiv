@@ -1,4 +1,4 @@
-schiv_module.controller('docent_list_controller', function($scope, $http) {
+schiv_module.controller('docent_controller', function($scope, $http) {
 	//	$http.get('http://localhost/docents').
 	//	then(function(response) {
 	//	$scope.list = response.data; //success	
@@ -18,6 +18,7 @@ schiv_module.controller('docent_list_controller', function($scope, $http) {
 	];
 });
 
+//todo do in docent_controller
 schiv_module.controller('single_docent_controller', function($scope, $http) {
 	//	$http.get('http://localhost/docent/{id}').
 	//	then(function(response) {

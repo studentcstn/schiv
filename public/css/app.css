@@ -51,7 +51,10 @@ body {
 
 #past {
     min-height: 100px;
-    background-color: red;
+}
+
+#last_appointments {
+    
 }
 
 #settings {
@@ -64,11 +67,15 @@ body {
 
 .btn-default {
     background-color: #ff7043;
+    border-color: #ff7043;
     color: inherit;
 
     -webkit-box-shadow: 0px 0px 0px gray;
+    -webkit-box-shadow: 0rem 0rem 0rem gray;
     -moz-box-shadow: 0px 0px 0px gray;
+    -moz-box-shadow: 0rem 0rem 0rem gray;
     box-shadow: 0px 0px 0px gray;
+    box-shadow: 0rem 0rem 0rem gray;
 
     border-width: 0px;
     border-width: 0rem;
@@ -79,6 +86,7 @@ body {
 }
 .btn-default:hover {
     background-color: #ff7043;
+    border-color: #ff7043;
     color: inherit;
 
 
@@ -88,6 +96,7 @@ body {
 }
 .btn-default:active {
     background-color: #ff7043;
+    border-color: #ff7043;
     color: inherit;
 
     -webkit-box-shadow: inset 1px 2px 2px;
@@ -99,6 +108,7 @@ body {
 }
 .btn-default:focus, .btn-default:active:hover, .btn-default:active:focus {
     background-color: #ff7043;
+    border-color: #ff7043;
     color: inherit;
 }
 
@@ -285,8 +295,11 @@ body {
 
 
 .input-group-addon {
+    border-color: #ff7043;
     border-width: 0px;
     border-width: 0rem;
+    border-bottom-width: 2px;
+    border-bottom-width: 0.2rem;
 
 
     -webkit-border-radius: 2px;

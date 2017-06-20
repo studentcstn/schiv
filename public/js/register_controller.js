@@ -1,3 +1,4 @@
+//todo do in login_controller
 schiv_module.controller('register_controller', function($scope, $http){
 	//	$http.post('http://localhost/register',[email, password]).
 	//	then(function(response){
