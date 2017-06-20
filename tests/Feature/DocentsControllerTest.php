@@ -36,6 +36,11 @@ class DocentsControllerTest extends TestCase {
     }
 
     public function testShowFail() {
+        $response = $this->getJson('docents/1');
+        $response->assertStatus(404);
+    }
+
+    public function testShowNoDocentFail() {
         $response = $this->getJson('docents/999');
         $response->assertStatus(404);
     }

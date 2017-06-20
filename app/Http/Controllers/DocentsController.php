@@ -13,7 +13,7 @@ class DocentsController extends Controller {
             ->get();
 
         if (!$accounts || $accounts->count() == 0) {
-            abort(404);
+            return response()->json([], 404);
         } else {
             return response()->json($accounts);
         }
@@ -26,7 +26,7 @@ class DocentsController extends Controller {
             ->first();
 
         if (!$account) {
-            abort(404);
+            return response()->json([], 404);
         } else {
             $result = [
                 'id' => $account->id,
