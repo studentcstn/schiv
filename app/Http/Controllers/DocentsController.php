@@ -20,7 +20,10 @@ class DocentsController extends Controller {
     }
 
     public function show($id) {
-        $account = Account::find($id);
+        $account = Account::where('type', 'Docent')
+            ->where('id', $id)
+            ->select('id', 'email')
+            ->first();
 
         if (!$account) {
             abort(404);
@@ -28,7 +31,7 @@ class DocentsController extends Controller {
             $result = [
                 'id' => $account->id,
                 'email' => $account->email,
-                'appointments' => $account->appointments()
+                'appointments' => $account->appointments()->get()
             ];
 
             return response()->json($result);
