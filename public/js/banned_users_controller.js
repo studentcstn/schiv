@@ -1,23 +1,27 @@
 schiv_module.controller('banned_users_controller', function($scope, $http){
-	//	$http.get('http://localhost/{id}/banned_users').
+
+});
+
+getBannedUsers = function($scope, $http){
+	//	$http.get('/' + docent_id + '/banned_users').
 	//	then(function(response){
 	//	success
 	//	}, function(response){
 	//		failed
 	//		};
 }
-//todo do in banned_users_controller
-schiv_module.controller('add_banned_user_controller', function($scope, $http){
-	//	$http.post('http://localhost/{id}/banned_user', [id]).
+
+banUser = function($scope, $http){
+	//	$http.post('/' + docent_id + '/banned_user', [id]).
 	//	then(function(response){
 	//	success
 	//	}, function(response){
 	//		failed
 	//		};
 }
-//todo do in banned_users_controller
-schiv_module.controller('remove_banned_user_controller', function($scope, $http){
-	//	$http.get('http://localhost/{id}/banned_users/{id} ').
+
+unbanUser = function($scope, $http){
+	//	$http.get('/' + docent_id + '/banned_users/' + user_id + '').
 	//	then(function(response){
 	//	success
 	//	}, function(response){

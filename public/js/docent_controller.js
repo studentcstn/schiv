@@ -1,5 +1,10 @@
 schiv_module.controller('docent_controller', function($scope, $http) {
-	//	$http.get('http://localhost/docents').
+
+});
+
+
+getDocentList = function($scope, $http){
+	//	$http.get('/docents').
 	//	then(function(response) {
 	//	$scope.list = response.data; //success	
 	//	}, function(response){
@@ -16,11 +21,10 @@ schiv_module.controller('docent_controller', function($scope, $http) {
 		{id: 3, email: "thorsten@hof-unversity.de",
 		type: "Docent", active: true, faculty: "wirtschaft"}
 	];
-});
+}
 
-//todo do in docent_controller
-schiv_module.controller('single_docent_controller', function($scope, $http) {
-	//	$http.get('http://localhost/docent/{id}').
+getSingleDocent = function($scope, $http){
+	//	$http.get('/docents/' + docent_id + '').
 	//	then(function(response) {
 	//	$scope.docent = response.data;	
 	//	}, function(response){
@@ -35,4 +39,4 @@ schiv_module.controller('single_docent_controller', function($scope, $http) {
 			{id: 2, description: "ich auch"}
 		]
 	};
-});
+}

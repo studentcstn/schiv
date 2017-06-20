@@ -24,12 +24,13 @@ work = function ($scope) {
         }
     }
 }
-//todo do in settings_controller
-schiv_module.controller('edit_settings_controller', function($scope, $http){
-	//	$http.put('http://localhost/{user id}/settings', [fauclties, password, email]).
+
+saveSettings = function($scope, $http){
+	//	$http.put('/'+ user_id +'/settings', [faculties, password, email]).
 	//	then(function(response){
 	//	success
 	//	}, function(response){
 	//		failed
 	//		};
-})
+}
+
