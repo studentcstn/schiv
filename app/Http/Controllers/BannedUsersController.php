@@ -11,7 +11,7 @@ class BannedUsersController extends Controller {
         $bannedUsers = BannedUser::where('account_id', $docent_id)
             ->get();
         if (!$bannedUsers || $bannedUsers->count() == 0) {
-            abort(404);
+            return response()->json([], 404);
         }
         return response()->json($bannedUsers);
     }
@@ -47,7 +47,7 @@ class BannedUsersController extends Controller {
         $count = $query->count();
 
         if ($count == 0) {
-            abort(404);
+            return response()->json([], 404);
         }
 
         DB::transaction(function() use ($query) {

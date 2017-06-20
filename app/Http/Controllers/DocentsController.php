@@ -13,22 +13,25 @@ class DocentsController extends Controller {
             ->get();
 
         if (!$accounts || $accounts->count() == 0) {
-            abort(404);
+            return response()->json([], 404);
         } else {
             return response()->json($accounts);
         }
     }
 
     public function show($id) {
-        $account = Account::find($id);
+        $account = Account::where('type', 'Docent')
+            ->where('id', $id)
+            ->select('id', 'email')
+            ->first();
 
         if (!$account) {
-            abort(404);
+            return response()->json([], 404);
         } else {
             $result = [
                 'id' => $account->id,
                 'email' => $account->email,
-                'appointments' => $account->appointments()
+                'appointments' => $account->appointments()->get()
             ];
 
             return response()->json($result);
