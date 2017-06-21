@@ -1,22 +1,34 @@
-schiv_module.controller('login_controller', function($scope, $http){
+schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
         email: "max.musterman@hof-university.de", //todo remove
         password: "clearTextPassword",
-        passwordRepeat: ""
+        passwordRepeat: "clearTextPassword"
     };
 
     $scope.login = function(){
-        $http({
+
+        $http.post('/login', [], {
+            headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
+        })
+        /*$http({
             method: 'POST',
             url: '/login',
             headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
-            })
+            })*/
             .then(function(response){
                 console.log(response);
-                show_elements('show_index', 'show_nav');
-                hide_element('show_login');
+                switch (response.status) {
+                    case 200:
+                        $rootScope.$broadcast("login_success");
+                        user_id = "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password);
+                        break;
+                    default:
+                        $rootScope.$broadcast("alert", "danger", "Email or password wrong.");
+                }
         	}, function(response){
                 console.log(response);
+                $rootScope.$broadcast("alert", "info", "No connection to server.");
+                $rootScope.$broadcast('login_success');
             });
     };
 

@@ -24,7 +24,18 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
             $scope.hide_element(ids[i]);
     };
 
-    var time = 5000;
+    $scope.$on("login_success", function () {
+        $scope.show_elements('show_index', 'show_nav');
+        $scope.hide_elements('show_login');
+    });
+
+
+
+    var time = 10000;
+
+    $scope.$on("alert", function (event, alertType, message) {
+        $scope.alerts[alertType](message);
+    });
 
     $scope.alerts = {
         messages: {
@@ -34,6 +45,8 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
             dangerMessage: ""
         },
         info: function (message) {
+            if ($scope.alerts.infotime != null)
+                $scope.alerts.infoClose();
             $scope.alerts.messages.infoMessage = message;
             $scope.show_element('alert_info');
             $scope.alerts.infotime = $timeout(function () {
@@ -42,9 +55,12 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         },
         infoClose: function () {
             $timeout.cancel($scope.alerts.infotime);
+            $scope.alerts.infotime = null;
             $scope.hide_element('alert_info');
         },
         success: function (message) {
+            if ($scope.alerts.successtime != null)
+                $scope.alerts.successClose();
             $scope.alerts.messages.successMessage = message;
             $scope.show_element('alert_success');
             $scope.alerts.successtime = $timeout(function () {
@@ -53,9 +69,12 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         },
         successClose: function () {
             $timeout.cancel($scope.alerts.successtime);
+            $scope.alerts.successtime = null;
             $scope.hide_element('alert_success');
         },
         warning: function (message) {
+            if ($scope.alerts.warningtime != null)
+                $scope.alerts.warningClose();
             $scope.alerts.messages.warningMessage = message;
             $scope.show_element('alert_warning');
             $scope.alerts.warningtime = $timeout(function () {
@@ -64,9 +83,12 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         },
         warningClose: function () {
             $timeout.cancel($scope.alerts.warningtime);
+            $scope.alerts.dangertime = null;
             $scope.hide_element('alert_warning');
         },
         danger: function (message) {
+            if ($scope.alerts.dangertime != null)
+                $scope.alerts.dangerClose();
             $scope.alerts.messages.dangerMessage = message;
             $scope.show_element('alert_danger');
             $scope.alerts.dangertime = $timeout(function () {
@@ -75,6 +97,7 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         },
         dangerClose: function () {
             $timeout.cancel($scope.alerts.dangertime);
+            $scope.alerts.dangertime = null;
             $scope.hide_element('alert_danger');
         }
     };
