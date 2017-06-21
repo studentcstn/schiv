@@ -18,12 +18,12 @@ schiv_module.controller('appointment_request_controller', function($scope, $http
 	}
 	
 	$scope.createAppointmentRequest = function($scope, $http){
-		//	$http.post('/' + user_id + '/appointment_request',[description,
-		//	subject, duration_in_min, request_at, appointment_id]).
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.post('/' + user_id + '/appointment_request',{"description": $scope.description,
+				"subject": $scope.subject, "duration_in_min": $scope.duration_in_min, "request_at": $scope.request_at, 
+				"appointment_id": $scope.appointment_id}).
+			then(function(response){
+			//success
+			}, function(response)
+				};
 	}
 });

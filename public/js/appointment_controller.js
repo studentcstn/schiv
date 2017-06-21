@@ -1,46 +1,42 @@
 schiv_module.controller('appointment_controller', function($scope, $http){
 	$scope.getAppointments =  function($scope, $http){
-		//	$http.get('/' + user_id + '/appointment').
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.get('/' + user_id + '/appointment').
+			then(function(response){
+			$scope.fullList = response.data;
+			}, function(response){
+				};
 	}
 	
 	$scope.getLastAppointments = function($scope, $http){
-		//	$http.get('/' + user_id '/appointment/' + count + '').
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.get('/' + user_id '/appointment/' + count + '').
+			then(function(response){
+			$scope.list = response.data;
+			}, function(response){
+				};
 	}
 
 	$scope.getAppointmentsFromTo = function($scope, $http){
-		//	$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
+			then(function(response){
+				$scope.list = response.data;
+			}, function(response){
+				};
 	}
 	
 	$scope.createAppointment = function($scope, $http){
-		//	$http.post('/' + docent_id + '/appointment', [day, time_from, time_to, description]).
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.post('/' + docent_id + '/appointment', 
+					{"day": $scope.day,"time_from": $scope.time_from, "time_to": $scope.time_to, "desription": $scope.description}).
+			then(function(response){
+			//success
+			}, function(response){
+				};
 	}
 
 	$scope.deleteAppointment = function($scope, $http){
-		//	$http.delete('/' + docent_id + '/appointment/' + appointment_id + '').
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.delete('/' + docent_id + '/appointment/' + appointment_id + '').
+			then(function(response){
+			//success
+			}, function(response){
+				};
 	}
 });
