@@ -15,19 +15,28 @@ class AuthOnceBasic {
      */
     public function handle($request, Closure $next) {
         $header = $request->header();
+        if (!isset($header['authorization'][0])) {
+            // NOTE Debug
+            return response()->json(['reason' => 1], 401);
+        }
         $basicAuth = $header['authorization'][0];
-        var_dump($basicAuth);
-        $base64 = explode(" ", $basicAuth)[1];
-        $emailpassword = explode(":", base64_decode($base64));
+        $basicBase64 = explode(" ", $basicAuth);
+        if (count($basicBase64) != 2) {
+            // NOTE Debug
+            return response()->json(['reason' => 2], 401);
+        }
+        $emailpassword = explode(":", base64_decode($basicBase64[1]));
+        if (count($emailpassword) != 2) {
+            // NOTE Debug
+            return response()->json(['reason' => 3], 401);
+        }
         $email = $emailpassword[0];
         $password = $emailpassword[1];
-
-        $email = "helmut.kohl@hof-university.de";
-        $password = "clearTextPassword";
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return $next($request);
         } else {
-            return response()->json([], 401);
+            // NOTE Debug
+            return response()->json(['reason' => 4], 401);
         }
     }
 }

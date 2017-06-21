@@ -9,7 +9,9 @@ Route::put('register', 'RegisterController@update');
 Route::get('docents', 'DocentsController@index');
 Route::get('docents/{docent_id}', 'DocentsController@show');
 
+
 Route::middleware(['auth.once.basic'])->group(function () {
+    Route::post('login', function() {});
     Route::get('{user_id}/settings', 'SettingsController@show');
     Route::put('{user_id}/settings', 'SettingsController@update');
 });

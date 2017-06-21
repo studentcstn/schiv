@@ -75,7 +75,9 @@
                     url: url,
                     type: method,
                     headers: {
-                        "Authorization": "Basic d2lraTpwZWRpYQ=="
+                        "Authorization": "Basic " + window.btoa(
+                            "helmut.kohl@hof-university.de:clearTextPassword"
+                        )
                     },
                     dataType: 'json',
                     contentType: "application/json",
