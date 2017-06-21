@@ -7,7 +7,7 @@ Route::put('register', 'RegisterController@update');
 Route::get('docents', 'DocentsController@index');
 Route::get('docents/{docent_id}', 'DocentsController@show');
 
-Route::middleware(['auth.once.basic'])->group(function () {
+Route::middleware(['auth.enforce'])->group(function () {
     Route::post('login', function() {});
 
     Route::get('appointment_request', 'AppointmentRequestController@show');
@@ -18,7 +18,7 @@ Route::middleware(['auth.once.basic'])->group(function () {
     Route::put('settings', 'SettingsController@update');
 });
 
-Route::middleware(['auth.once.basic','auth.docent'])->group(function() {
+Route::middleware(['auth.enforce','auth.docent'])->group(function() {
     Route::put('appointment_request', 'AppointmentRequestController@update');
 
     Route::get('appointment', 'AppointmentController@show');
