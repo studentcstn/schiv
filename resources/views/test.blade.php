@@ -1,22 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
         <style>
+            select:-moz-focusring {
+                color: transparent;
+                text-shadow: 0 0 0 #000;
+            }
             table.layout { height: 100% }
-            table.layout td {vertical-align: top }
-            td.output { width:100%;height:100% }
-            #output { width: 100%; height: 100% }
-            #output { border: 1px solid black }
+            td.form { width: 50%; }
+            td { padding: 1px; }
+            th { vertical-align: middle; }
+            td.output { width: 100%; height: 100%; }
+            #output {
+                border: 1px solid lightgrey;
+                width: 100%;
+                height: 100%;
+                margin-left: 5px
+            }
         </style>
+
     </head>
     <body>
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-        <table class="layout"><tr><td>
+        <table class="layout"><tr><td class="form">
         <table>
             <tr>
-                <td> <label for="user">Login</label> </td>
+                <th><label for="user">Login</label></th>
                 <td></td>
                 <td>
-                    <select id="user" name="user" onchange="change_login(this);">
+                    <select id="user" name="user" class="form-control" onchange="change_login(this);">
                         <option value="">no user</option>
                         @foreach ($accounts as $account)
                         <option value="{{ $account->email }}:{{ $account->password }}">
@@ -27,10 +44,10 @@
                 </td>
             </tr>
             <tr>
-                <td> <label for="method">Method</label> </td>
+                <th><label for="method">Method</label></th>
                 <td></td>
                 <td>
-                    <select id="method" name="method" >
+                    <select id="method" name="method" class="form-control">
                         <option>PUT</option>
                         <option>POST</option>
                         <option>DELETE</option>
@@ -39,21 +56,21 @@
                 </td>
             </tr>
             <tr>
-                <td> <label for="url">Url</label> </td>
+                <th><label for="url">Url</label></th>
                 <td></td>
-                <td> <input id="url" name="url" value=""> </td>
+                <td> <input id="url" name="url" value="" class="form-control"> </td>
             </tr>
             <tr>
-                <td> <label for="content">Content</label> </td>
+                <th><label for="content">Content</label></th>
                 <td></td>
-                <td> <textarea id="content" name="content" rows=25 cols=55></textarea> </td>
+                <td> <textarea id="content" name="content" rows=25 cols=55 class="form-control"></textarea> </td>
             </tr>
             <tr>
                 <td></td>
                 <td>&nbsp;&nbsp;</td>
                 <td>
-                    <input type="button" id="send" value="Send..." onclick="send()">
-                    <input type="button" id="pretty" value="Pretty" onclick="pretty()">
+                    <button class="btn btn-primary" id="send" onclick="send()">Send..</button>
+                    <button class="btn btn-default" id="pretty" onclick="pretty()">Pretty</button>
                 </td>
             </tr>
         </table>
