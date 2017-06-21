@@ -9,6 +9,10 @@ Route::put('register', 'RegisterController@update');
 Route::get('docents', 'DocentsController@index');
 Route::get('docents/{docent_id}', 'DocentsController@show');
 
+Route::get('{user_id}/appointment_request', 'AppointmentRequestController@show');
+Route::post('{user_id}/appointment_request', 'AppointmentRequestController@store');
+Route::put('{docent_id}/appointment_request', 'AppointmentRequestController@update');
+Route::delete('{user_id}/appointment_request/{request_id}', 'AppointmentRequestController@destroy');
 
 Route::middleware(['auth.once.basic'])->group(function () {
     Route::post('login', function() {});
