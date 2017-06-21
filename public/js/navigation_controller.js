@@ -29,6 +29,10 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         $scope.hide_elements('show_login');
     });
 
+    $scope.$on("inscribe", function () {
+        $scope.show_elements('show_appointment_inscribe');
+    });
+
 
 
     var time = 10000;

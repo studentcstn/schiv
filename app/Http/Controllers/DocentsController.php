@@ -8,6 +8,7 @@ use App\Account;
 
 class DocentsController extends Controller {
     public function index() {
+        //todo return faculty of docent
         $accounts = Account::where('type', 'Docent')
             ->select('id', 'email')
             ->get();

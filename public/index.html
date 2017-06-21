@@ -163,7 +163,7 @@
             <div type="button" class="btn btn-default input-group-addon">suche</div>
         </div>
         <!-- liste aller dozenten -->
-        <div class="docent" ng-repeat="item in list" ng-click="show_element('show_appointment_inscripe')">
+        <div class="docent" ng-repeat="item in list" ng-click="getSingleDocent('item.id')">
             <div class="docent_name">{{item.email}}</div>
             <div class="docent_faculty">{{item.faculty}}</div>
         </div>
@@ -172,7 +172,7 @@
 
 <div id="last_appointments" class="ng-hide" ng-show="show_past">
     <!-- liste aller alten und gelöschten  termine -->
-    <div class="appointment" ng-repeat="item in list" >
+    <div class="appointment" ng-repeat="item in list">
         <div class="row">
             <div class="appointment_info col-xs-10">
                 <div>{{item.email}}</div>
@@ -239,21 +239,13 @@
 
 </footer>
 
-<div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscripe">
+<div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscribe" ng-controller="appointment_request_controller">
     <div>
-        <div class="appointment" ng-repeat="item in list" >
-            <div class="row">
-                <div class="appointment_info col-xs-10">
-                    <div>{{item.email}}</div>
-                </div>
-                <div class="col-xs-2">
-                    <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
-                </div>
-            </div>
-            <div ng-show="appointment_{{item.id}}">
-                <div class="appointment" ng-show="item in item.faculty">
-                    <div class="appointment_info">{{item.type}}</div>
-                </div>
+        <div ng-repeat="item in appointments">
+            <div class="appointment">
+                <div class="appointment_info">{{item.description}}</div>
+                <div class="appointment_date">{{item.date}}</div>
+                <div class="appointment_time">{{item.time_from}} - {{item.time_to}}</div>
             </div>
         </div>
     </div>
