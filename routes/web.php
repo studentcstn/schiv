@@ -1,6 +1,9 @@
 <?php
 use App\Account;
 
+Route::post('login', 'LoginController@login');
+Route::post('logout', 'LogoutController@logout');
+
 Route::post('register', 'RegisterController@store');
 Route::put('register', 'RegisterController@update');
 
@@ -8,8 +11,6 @@ Route::get('docents', 'DocentsController@index');
 Route::get('docents/{docent_id}', 'DocentsController@show');
 
 Route::middleware(['auth.enforce'])->group(function () {
-    Route::post('login', function() {});
-
     Route::get('appointment_request', 'AppointmentRequestController@show');
     Route::post('appointment_request', 'AppointmentRequestController@store');
     Route::delete('appointment_request/{request_id}', 'AppointmentRequestController@destroy');

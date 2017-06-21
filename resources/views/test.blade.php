@@ -1,12 +1,22 @@
 <html>
+    <head>
+        <style>
+            table.layout { height: 100% }
+            table.layout td {vertical-align: top }
+            td.output { width:100%;height:100% }
+            #output { width: 100%; height: 100% }
+            #output { border: 1px solid black }
+        </style>
+    </head>
     <body>
         <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <table class="layout"><tr><td>
         <table>
             <tr>
                 <td> <label for="user">User</label> </td>
                 <td></td>
                 <td>
-                    <select id="user" name="user" >
+                    <select id="user" name="user" onchange="change_login(this);">
                         <option value="">no user</option>
                         @foreach ($accounts as $account)
                         <option value="{{ $account->email }}:{{ $account->password }}">
@@ -37,7 +47,6 @@
                 <td> <label for="content">Content</label> </td>
                 <td></td>
                 <td> <textarea id="content" name="content" rows=25 cols=55></textarea> </td>
-                <td> <textarea id="answer" rows=25 cols=55></textarea> </td>
             </tr>
             <tr>
                 <td></td>
@@ -48,34 +57,79 @@
                 </td>
             </tr>
         </table>
+        </td>
+        <td class="output"><iframe id="output"></iframe></td>
+        </tr></table>
         <script type="text/javascript">
+            var iframe = $("#output")[0];
+
+            iframe = iframe.contentWindow ||
+                iframe.contentDocument ||
+                iframe.contentDocument.document;
+
+            function write_output(str) {
+                iframe.document.open();
+                iframe.document.write(str);
+                iframe.document.close();
+            }
+
+            function request(url, method, content) {
+                console.log(content);
+                $.ajax({
+                    url: url,
+                    type: method,
+                    dataType: 'json',
+                    contentType: "application/json",
+                    error: function (xhr, state, exception) {
+                        write_output(url + "<br><b>response with " + xhr.status + "</b><hr><br>" + xhr.responseText);
+                    },
+                    success: function (data) {
+                        write_output(
+                            url + "<br><b>json response with 200</b><hr><br>" +
+                            "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
+                        );
+                    },
+                    data: content
+                });
+            }
+
+            function change_login(element) {
+                request("logout", "post", []);
+                if (element.value != "") {
+                    var emailpassword = element.value.split(":")
+                    request("login", "post", JSON.stringify({
+                        "email": emailpassword[0],
+                        "password": "clearTextPassword"
+                    }));
+                }
+            }
+
             function pretty() {
                 var content = $("#content")[0];
-                var answer = $("#answer")[0];
 
                 try {
                     json = JSON.parse(content.value);
                 } catch(err) {
-                    answer.value = err.message;
+                    write_output(err.messsage);
                     throw err;
                 }
 
                 content.value = JSON.stringify(json, null, 2);
             }
+
             function send() {
                 var user = $("#user")[0].value;
                 var method = $("#method")[0].value;
                 var url = $("#url")[0].value;
                 var content = $("#content")[0].value;
-                var answer = $("#answer")[0];
 
-                answer.value = "";
+                write_output("");
 
                 if (content != "") {
                     try {
                         JSON.parse(content);
                     } catch(err) {
-                        answer.value = err.message;
+                        write_output(err.messsage);
                         throw err;
                     }
                 }
@@ -87,26 +141,7 @@
                     };
                 }
 
-                $.ajax({
-                    url: url,
-                    type: method,
-                    headers: headers,
-                    dataType: 'json',
-                    contentType: "application/json",
-                    error: function (xhr, state, exception) {
-                        if (state !== "parsererror") {
-                            window.open().document.write(xhr.responseText);
-                        } else {
-                            answer.value = "response: " + xhr.status + "\n";
-                            answer.value += xhr.responseText;
-                        }
-                    },
-                    success: function (data) {
-                        answer.value = "response: 200\n";
-                        answer.value += JSON.stringify(data, null, 2);
-                    },
-                    data: content
-                });
+                request(url, method, content);
             }
         </script>
     </body>
