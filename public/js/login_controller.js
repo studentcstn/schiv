@@ -1,7 +1,7 @@
 schiv_module.controller('login_controller', function($scope, $http){
     $scope.user = {
-        email: "test@test.de", //todo remove
-        password: "test",
+        email: "max.musterman@hof-university.de", //todo remove
+        password: "clearTextPassword",
         passwordRepeat: ""
     };
 

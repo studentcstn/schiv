@@ -81,11 +81,14 @@
     </button>
     {{alerts.messages.warningMessage}}
 </div>
-<div class="alert alert-danger" role="alert" ng-show="alert_danger">
+<div class="alert alert-danger ng-hide" role="alert" ng-show="alert_danger">
     <button type="button" class="close" aria-label="Close" ng-click="alerts.dangerClose()">
         <span aria-hidden="true">&times;</span>
     </button>
     {{alerts.messages.dangerMessage}}
+</div>
+<div class="alert alert-danger" role="alert" ng-show="not_supported">
+    Dein Browswer wird nicht unterstützt!
 </div>
 
 <!-- login site -->
@@ -112,7 +115,7 @@
         <div class="col-xs-12">
             <div class="pull-right">
                 <!-- login and register button -->
-                <div class="btn btn-default" ng-show="show_login_btn" ng-click="login()">Login</div>
+                <div class="btn btn-default" ng-show="show_login_btn" ng-click="login(); show_elements('show_index', 'show_nav'); hide_element('show_login')">Login</div>
                 <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
                 <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_element('show_register'); hide_element('show_login_btn')">Register</div>
                 <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="register()">Register</div>

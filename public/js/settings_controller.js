@@ -1,15 +1,15 @@
 schiv_module.controller('settings_controller', function($scope, $http){
-    $http.get('/'+ user_id +'/settings')
-        .then(function(response){
-            console.log("ok");
-            $scope.user_settings = response.data;
-            $scope.work($scope);
-            }, function(response){
-            $scope.user_settings = {"email":"max","account_faculties":[{"id":"3","name":"Wirtschaft"}],"faculties":[{"id":"1","name":"Informatik"},{"id":"2","name":"Ingenieur"},{"id":"3","name":"Wirtschaft"}]}
-            $scope.work($scope);
-        });
+    $scope.settings = function() {
+        $http.get('/' + user_id + '/settings')
+            .then(function (response) {
+                console.log(response.data);
+                $scope.user_settings = response.data;
+                $scope.work($scope);
+            }, function (response) {
+            });
+    };
     
-    $scope.work = function ($scope) {
+    work = function ($scope) {
         var account_faculties = $scope.user_settings.account_faculties;
         var faculties = $scope.user_settings.faculties;
         for (var i = 0; i < faculties.length; ++i) {
@@ -22,7 +22,7 @@ schiv_module.controller('settings_controller', function($scope, $http){
                 }
             }
         }
-    }
+    };
     
     $scope.saveSettings = function($scope, $http){
     	//	$http.put('/'+ user_id +'/settings', [faculties, password, email]).
