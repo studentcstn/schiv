@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
-    //todo return information: student or docent
     public function login(Request $request) {
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
@@ -13,9 +12,20 @@ class LoginController extends Controller {
 
         if (Auth::validate($request->only(['email', 'password']))) {
             $account = Auth::getLastAttempted();
+            $account->last_login = date("Y-m-d H:i:s");
+            $account->save();
             if ($account->active) {
                 $request->session()->put('login_account_id', $account->id);
-                return response()->json(['message' => "login successful"]);
+                Auth::login($account);
+                return response()->json([
+                    "message" => "login successful",
+                    "account" => [
+                        'id' => $account->id,
+                        'email' => $account->email,
+                        'type' =>  $account->type,
+                        'last_login' => $account->last_login
+                    ]
+                ]);
             } else {
                 $reason = "account must be active";
             }
