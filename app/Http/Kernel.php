@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth.docent' => \App\Http\Middleware\AuthDocent::class,
-        'auth.once.basic' => \App\Http\Middleware\AuthOnceBasic::class,
+        'auth.enforce' => \App\Http\Middleware\AuthEnforce::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
