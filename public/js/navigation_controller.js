@@ -1,4 +1,4 @@
-schiv_module.controller("navigation_controller", function ($scope, $http, $timeout) {
+schiv_module.controller("navigation_controller", function ($scope, $http, $timeout, $rootScope) {
     $scope.show_login = true;
     $scope.show_login_btn = true;
 
@@ -80,32 +80,8 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
     };
 
     $scope.settings = function() {
-        $http.get('/' + user_id + '/settings')
-            .then(function (response) {
-                console.log(response.data);
-                work(response.data);
-      //          $scope.user_settings = response.data;
-                $rootScope.$broadcast("user_settings", response.data);
-            }, function (response) {
-                console.log(response.data);
-                $rootScope.$brodcast("user_settings", {
-                    email: "max.muster"
-                });
-            });
+        $rootScope.$broadcast("settings");
     };
 
-    work = function (user_settings) {
-        var account_faculties = user_settings.account_faculties;
-        var faculties = user_settings.faculties;
-        for (var i = 0; i < faculties.length; ++i) {
-            for (var j = 0; j < account_faculties.length; ++j) {
-                if (faculties[i].id === account_faculties[j].id) {
-                    faculties[i].is_active = true;
-                    break;
-                } else {
-                    faculties[i].is_active = false;
-                }
-            }
-        }
-    };
+
 });
