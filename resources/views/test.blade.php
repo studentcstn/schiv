@@ -146,7 +146,7 @@
                     try {
                         JSON.parse(content);
                     } catch(err) {
-                        write_output(err.message + "");
+                        write_output(err.message);
                         throw err;
                     }
                 }

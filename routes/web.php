@@ -3,6 +3,7 @@ use App\Account;
 
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LogoutController@logout');
+Route::post('reset', 'ResetPasswordController@reset');
 
 Route::post('register', 'RegisterController@store');
 Route::put('register', 'RegisterController@update');

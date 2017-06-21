@@ -39,13 +39,7 @@ class RegisterController extends Controller {
             }
 
             if ($generateToken) {
-                $account_token = new UserToken();
-                $account_token->account_id = $account->id;
-                $account_token->invalid_at = date("Y-m-d H:i:s", strtotime("+2 hours"));
-                $account_token->hash = bin2hex(openssl_random_pseudo_bytes(25));
-                $account_token->save();
-
-                $hash = $account_token->hash;
+                $hash = $this->generateToken($account);
             }
         });
 
