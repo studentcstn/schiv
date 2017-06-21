@@ -8,8 +8,11 @@
                 <td>
                     <select id="user" name="user" >
                         <option value="">no user</option>
-                        <option value="helmut.kohl@hof-university.de:clearTextPassword">1, helmut.kohl, Docent</option>
-                        <option value="hanz.wurst@hof-university.de:clearTextPassword">2, hanz.wurst, Student</option>
+                        @foreach ($accounts as $account)
+                        <option value="{{ $account->email }}:{{ $account->password }}">
+                            {{ $account->id }}:{{ $account->type }}:{{ $account->email }}
+                        </option>
+                        @endforeach
                     </select>
                 </td>
             </tr>
@@ -77,7 +80,7 @@
                     }
                 }
 
-                var headers = {}; 
+                var headers = {};
                 if (user != "") {
                     headers = {
                         "Authorization": "Basic " + window.btoa(user)
