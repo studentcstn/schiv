@@ -24,7 +24,14 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
             $scope.hide_element(ids[i]);
     };
 
-    var time = 5000;
+    $scope.$on("login_success", function () {
+        $scope.show_elements('show_index', 'show_nav');
+        $scope.hide_elements('show_login');
+    });
+
+
+
+    var time = 10000;
 
     $scope.$on("alert", function (event, alertType, message) {
         $scope.alerts[alertType](message);
