@@ -10,17 +10,21 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $http.post('/login', {email: $scope.user.email, password: $scope.user.password})
             .then(function(response){
                 console.log(response);
-                switch (response.status) {
-                    case 200:
-                        user_id = $scope.user.email;
-                        $rootScope.$broadcast("login_success", response.data);
-                        break;
-                    default:
-                        $rootScope.$broadcast("alert", "danger", "Email or password wrong.");
-                }
+                user_id = $scope.user.email;
+                $rootScope.$broadcast("login_success", response.data);
+                $rootScope.$broadcast("alert", "success", "Welcome " + user_id + " to Schiv");
         	}, function(response){
                 console.log(response);
-                $rootScope.$broadcast("alert", "info", "No connection to server.");
+                switch (response.status) {
+                    case 401:
+                        $rootScope.$broadcast("alert", "danger", "Email or password wrong.");
+                        break;
+                    case 404:
+                        $rootScope.$broadcast("alert", "info", "No connection to server.");
+                        break;
+                    default:
+                        $rootScope.$broadcast("alert", "danger", "Some error.");
+                }
                 user_id = $scope.user.email; //todo remove
                 $rootScope.$broadcast('login_success'); //todo remove
             });
@@ -45,12 +49,14 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     };
 
     $scope.logOut = function () {
-        //	$http.post('/logout', {})
-        //	.then(function(response){
-        //	success
-        //	}, function(response){
-        //		failed
-        //		};
+        $http.post('/logout', {})
+            .then(function(response){
+                console.log(response);
+                $rootScope.$broadcast("log_out_success");
+                $rootScope.$broadcast("alert", "success", "log out");
+            }, function(response){
+                console.log(response);
+            });
     };
 
     $scope.$on('log_out', function () {

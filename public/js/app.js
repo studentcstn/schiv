@@ -7,6 +7,7 @@ definition of broadcasts
 ------------------------
 
 login_success
+log_out_success
 log_out
 
 show_login

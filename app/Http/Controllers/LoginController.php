@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
+    //todo return information: student or docent
     public function login(Request $request) {
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',

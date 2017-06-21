@@ -35,10 +35,22 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         login: function () {
             show_elements('show_login');
             hide_elements('show_index', 'show_past', 'show_settings', 'show_nav');
-            $rootScope.$broadcast("")
+            $rootScope.$broadcast("");
+        },
+        logout: function () {
+            $rootScope.$broadcast("log_out");
         }
     };
 
+
+    $scope.$on("login_success", function () {
+        show_elements('show_index', 'show_nav');
+        hide_elements('show_login');
+    });
+    $scope.$on("log_out_success", function () {
+        show_elements('show_login');
+        hide_elements('show_index', 'show_nav');
+    });
 
     $scope.$on("show_register", function () {
         show_elements('show_register');
@@ -49,17 +61,11 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         hide_elements('show_register');
     });
 
-    $scope.$on("login_success", function () {
-        show_elements('show_index', 'show_nav');
-        hide_elements('show_login');
-        $scope.alerts.success("Welcome " + user_id + " to Schiv");
-    });
-
     $scope.$on("show_inscribe", function () {
-        $scope.show_elements('show_appointment_inscribe');
+        show_elements('show_appointment_inscribe');
     });
     $scope.$on("show_inscribe_close", function () {
-        $scope.hide_elements('show_appointment_inscribe');
+        hide_elements('show_appointment_inscribe');
     });
 
 
