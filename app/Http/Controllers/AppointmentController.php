@@ -44,15 +44,18 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-       $appiontments = DB::table("appointments")
-            ->where('account_id', '=', $id)
+	$auth_user = Auth::user();
+	    
+       $appiontments = DB::table('Appointments')
+            ->where('account_id', '=', $auth_user->id)
             ->get();
 
         return response()->json($appiontments);
     }
 
+    
     /**
      * Show the form for editing the specified resource.
      *
