@@ -30,7 +30,7 @@ commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
 ## REST-Schnittstelle
 
 +---------------------------+--------------------------------------------------------------+
-| Beschreibung              | Url (Body)                                                   |
+| Beschreibung              | Method:Url (Body)                                            |
 +===========================+==============================================================+
 | Login                     | put:login (email, password)                                  |
 +---------------------------+--------------------------------------------------------------+
