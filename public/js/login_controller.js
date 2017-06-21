@@ -6,7 +6,11 @@ schiv_module.controller('login_controller', function($scope, $http){
     };
 
     $scope.login = function(){
-        $http.post('/login',[$scope.user.email, $scope.user.password])
+        $http({
+            method: 'POST',
+            url: '/login',
+            headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
+            })
             .then(function(response){
                 console.log(response);
                 show_elements('show_index', 'show_nav');
@@ -17,7 +21,7 @@ schiv_module.controller('login_controller', function($scope, $http){
     };
 
     $scope.register = function(){
-        $http.post('/register',[$scope.user.email, $scope.user.password, $scope.user.passwordRepeat])
+        $http.post('/register',{"email": $scope.user.email, "password": $scope.user.password, "password_repeat": $scope.user.passwordRepeat})
             .then(function(response){
                 console.log(response);
             }, function(response){

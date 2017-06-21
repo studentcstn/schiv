@@ -79,8 +79,8 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         }
     };
 
-    $scope.settings = function() {
-        $rootScope.$broadcast("settings");
+    $scope.settings_button = function() {
+        $scope.$broadcast("settings");
     };
 
 

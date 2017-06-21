@@ -20,8 +20,8 @@
     <!--
     <script src="js/appointment_controller.js"></script>
     <script src="js/docent_controller.js"></script>
-    <script src="js/settings_controller.js"></script>
     -->
+    <script src="js/settings_controller.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
@@ -51,7 +51,7 @@
                         <a class="nav-link" ng-click="show_element('show_past'); hide_elements('show_index', 'show_settings')">Past</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="settings(); show_element('show_settings'); hide_elements('show_index', 'show_past')">Settings</a>
+                        <a class="nav-link" ng-click="settings_button(); show_element('show_settings'); hide_elements('show_index', 'show_past')">Settings</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
@@ -188,7 +188,7 @@
     </div>
 </div>
 
-<div id="settings" class="ng-hide" ng-show="show_settings">
+<div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
     <!-- email -->
     <div class="form-group row">
         <label for="email_input" class="col-sm-2 col-form-label">E-mail</label>

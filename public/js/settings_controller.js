@@ -1,6 +1,8 @@
 schiv_module.controller('settings_controller', function($scope, $http){
-    $scope.on("settings", function () {
+    $scope.$on("settings", function (event, args) {
+        console.log(args);
         $scope.setting();
+        console.log("scope: settings");
     });
 
     $scope.setting = function () {
@@ -11,9 +13,9 @@ schiv_module.controller('settings_controller', function($scope, $http){
                 $scope.user_settings = response.data;
             }, function (response) {
                 console.log(response.data);
-                $rootScope.$brodcast("user_settings", {
+                $scope.user_settings = {
                     email: "max.muster"
-                });
+                };
             });
     };
 
@@ -33,12 +35,11 @@ schiv_module.controller('settings_controller', function($scope, $http){
     };
     
     $scope.saveSettings = function($scope, $http){
-    	//	$http.put('/'+ user_id +'/settings', [faculties, password, email]).
-    	//	then(function(response){
-    	//	success
-    	//	}, function(response){
-    	//		failed
-    	//		};
-    }
+    		$http.put('/'+ user_id +'/settings', {"faculties": $scope.faculties, "password": $scope.password, "email": $scope.email})
+                .then(function(response){
+    		    //success
+    		    }, function(response){
+                });
+    };
     
 });
