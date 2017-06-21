@@ -7,6 +7,7 @@
                 <td></td>
                 <td>
                     <select id="user" name="user" >
+                        <option value="">no user</option>
                         <option value="helmut.kohl@hof-university.de:clearTextPassword">1, helmut.kohl, Docent</option>
                         <option value="hanz.wurst@hof-university.de:clearTextPassword">2, hanz.wurst, Student</option>
                     </select>
@@ -76,14 +77,17 @@
                     }
                 }
 
-                console.debug(user);
+                var headers = {}; 
+                if (user != "") {
+                    headers = {
+                        "Authorization": "Basic " + window.btoa(user)
+                    };
+                }
 
                 $.ajax({
                     url: url,
                     type: method,
-                    headers: {
-                        "Authorization": "Basic " + window.btoa(user)
-                    },
+                    headers: headers,
                     dataType: 'json',
                     contentType: "application/json",
                     error: function (xhr, state, exception) {
