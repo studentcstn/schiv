@@ -22,11 +22,11 @@ Route::middleware(['auth.once.basic'])->group(function () {
 Route::middleware(['auth.once.basic','auth.docent'])->group(function() {
     Route::put('appointment_request', 'AppointmentRequestController@update');
 
-    Route::get('appointment', 'AppointmentRequestController@show');
-    Route::get('appointment/{count}', 'AppointmentRequestController@show_count');
-    Route::get('appointment/{from}/{to}', 'AppointmentRequestController@show_from_to');
-    Route::post('appointment', 'AppointmentRequestController@store');
-    Route::delete('appointment/{appointment_id}', 'AppointmentRequestController@desroy');
+    Route::get('appointment', 'AppointmentController@show');
+    Route::get('appointment/{count}', 'AppointmentController@show_count');
+    Route::get('appointment/{from}/{to}', 'AppointmentController@show_from_to');
+    Route::post('appointment', 'AppointmentController@store');
+    Route::delete('appointment/{appointment_id}', 'AppointmentController@desroy');
     
     Route::get('banned_users', 'BannedUsersController@show');
     Route::post('banned_users', 'BannedUsersController@store');
