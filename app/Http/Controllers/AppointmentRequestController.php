@@ -51,17 +51,7 @@ class AppointmentRequestController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    	 $is_docent = DB::table('Accounts')->where('id', '=', $id)
+         $is_docent = DB::table('Accounts')->where('id', '=', $id)
        		->select('type')
 		->get();
 		
@@ -78,6 +68,16 @@ class AppointmentRequestController extends Controller
 	}
     
     	return response()->json($requests);
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+    	//
     }
     /**
      * Update the specified resource in storage.
