@@ -7,9 +7,9 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
     $scope.login = function(){
 
-        $http.post('/login', {}, {
+        $http.post('/login', {email: $scope.user.email, password: $scope.user.password} /*, {
             headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
-        }).then(function(response){
+        }*/).then(function(response){
                 console.log(response);
                 switch (response.status) {
                     case 200:
