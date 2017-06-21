@@ -50,12 +50,32 @@ class AppointmentController extends Controller
 	    
        $appiontments = DB::table('Appointments')
             ->where('account_id', '=', $auth_user->id)
+	    ->where('active', '=', 'Yes')
             ->get();
 
         return response()->json($appiontments);
     }
 
-    
+    public function show_count($count)
+    {
+	$auth_user = Auth::user();
+	    
+       $appiontments = DB::table('Appointments')
+            ->where('account_id', '=', $auth_user->id)
+	    ->where('active', '=', 'No')
+	    ->take($count)
+            ->get();
+
+	    //TODO jeweilige anfragen raussuchen
+	    
+        return response()->json($appiontments);
+    }
+	
+    public function show_from_to($from, $to)
+    {
+	    
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
