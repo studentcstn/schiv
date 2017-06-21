@@ -1,4 +1,3 @@
-//TODO rename File to appointment_request_controller.js
 schiv_module.controller('appointment_request_controller', function($scope, $http){
 	$scope.acceptAppointmentRequest = function($scope, $http){
 		//	$http.put('/' + docent_id + '/appointment_request',[id, state]).
