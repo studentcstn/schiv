@@ -23,6 +23,7 @@
     <script src="js/appointment_controller.js"></script>
     -->
     <script src="js/settings_controller.js"></script>
+    <script src="js/appointment_request_controller.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
@@ -163,7 +164,7 @@
             <div type="button" class="btn btn-default input-group-addon">suche</div>
         </div>
         <!-- liste aller dozenten -->
-        <div class="docent" ng-repeat="item in list" ng-click="getSingleDocent('item.id')">
+        <div class="docent" ng-repeat="item in list" ng-click="getSingleDocent(item.id)">
             <div class="docent_name">{{item.email}}</div>
             <div class="docent_faculty">{{item.faculty}}</div>
         </div>
@@ -241,7 +242,7 @@
 
 <div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscribe" ng-controller="appointment_request_controller">
     <div>
-        <div ng-repeat="item in appointments">
+        <div ng-repeat="item in docent.appointments">
             <div class="appointment">
                 <div class="appointment_info">{{item.description}}</div>
                 <div class="appointment_date">{{item.date}}</div>

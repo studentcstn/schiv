@@ -68,13 +68,15 @@ body {
     top: 0px;
     left: 0px;
 
+    z-index: 10;
+
     padding: 20px;
     padding: 2rem;
 }
 
 #appointment_inscribe div {
     background-color: whitesmoke;
-    min-height: 500px;
+    //min-height: 500px;
 
     margin: auto;
     max-width: 1024px;
@@ -305,6 +307,9 @@ body {
     box-shadow: 0rem 0rem 0rem;
 }
 
+.input-group .form-control {
+    z-index: 0;
+}
 
 .col-form-label {
     padding-top: calc(5px - 1px * 2);
@@ -314,7 +319,6 @@ body {
     margin-bottom: 0;
     margin-bottom: 0rem;
 }
-
 
 .input-group-addon {
     border-color: #ff7043;

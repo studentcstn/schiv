@@ -1,6 +1,6 @@
 schiv_module.controller('appointment_request_controller', function($scope, $http, $rootScope) {
 	$scope.acceptAppointmentRequest = function(){
-        $http.put('/' + docent_id + '/appointment_request',["id": $scope.id, "state": $scope.state])
+        $http.put('/' + docent_id + '/appointment_request', {"id": $scope.id, "state": $scope.state})
         .then(function(response){
             //success
         }, function(response){
@@ -28,7 +28,7 @@ schiv_module.controller('appointment_request_controller', function($scope, $http
             });
 	};
 
-	$scope.$on('inscribe', function (data) {
+	$scope.$on('inscribe', function (event, data) {
 	    $scope.docent = data;
     });
 });
