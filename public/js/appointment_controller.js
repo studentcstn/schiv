@@ -1,6 +1,7 @@
 schiv_module.controller('appointment_controller', function($scope, $http){
 	$scope.getAppointments =  function(){
-			$http.get('/' + user_id + '/appointment').
+			$http.get('/appointment', 
+				{headers:user_id}).
 			then(function(response){
 			$scope.fullList = response.data;
 			}, function(response){
