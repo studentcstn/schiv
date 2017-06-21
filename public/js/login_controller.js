@@ -6,9 +6,10 @@ schiv_module.controller('login_controller', function($scope, $http){
     };
 
     $scope.login = function(){
-        $http.post('/login', {
-            //{email: $scope.user.email, password: $scope.user.password}
-            headers: {Authorization: "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
+        $http({
+            method: 'POST',
+            url: '/login',
+            headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
             })
             .then(function(response){
                 console.log(response);
