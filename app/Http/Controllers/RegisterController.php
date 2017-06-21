@@ -8,7 +8,6 @@ use App\Account;
 use App\UserToken;
 
 class RegisterController extends Controller {
-    //todo chane error code from active account to 401, 402, 403, 409, 418, 420 or similar
     public function store(Request $request) {
         $this->validate($request, [
             'email' => 'required|email',
@@ -19,7 +18,7 @@ class RegisterController extends Controller {
             ->first();
 
         if ($account && $account->active == 1) {
-            return response()->json(['message' => 'account already registered'], 500);
+            return response()->json(['message' => 'account already registered'], 409);
         }
 
         DB::transaction(function() use ($request, $account, &$hash) {
