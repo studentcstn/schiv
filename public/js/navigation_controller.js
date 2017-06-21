@@ -31,7 +31,7 @@ schiv_module.controller("navigation_controller", function ($scope, $timeout) {
             infoMessage: "",
             successMessage: "",
             warningMessage: "",
-            dangerMessage: ""
+            dangerMessage: "Dein Browser wird nicht unterstützt"
         },
         info: function (message) {
             $scope.alerts.messages.infoMessage = message;
