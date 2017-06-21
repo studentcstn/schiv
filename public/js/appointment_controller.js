@@ -9,12 +9,15 @@ schiv_module.controller('appointment_controller', function($scope, $http){
 	}
 	
 	$scope.getLastAppointments = function(){
-			$http.get('/' + user_id + '/appointment/' + count + '').
-			then(function(response){
-			$scope.list = response.data;
-			}, function(response){
-				});
-	}
+	    $http.get('/appointment/' + count, {
+	        headers: user_id;
+	    }).then(function(response) {
+	        $scope.list = response.data;
+	        }, function(response){
+
+            }
+		);
+	};
 
 	$scope.getAppointmentsFromTo = function(){
 			$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
