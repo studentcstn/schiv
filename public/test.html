@@ -3,9 +3,19 @@
         <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <table>
             <tr>
+                <td> <label for="user">User</label> </td>
+                <td></td>
+                <td>
+                    <select id="user" name="user" >
+                        <option value="helmut.kohl@hof-university.de:clearTextPassword">1, helmut.kohl, Docent</option>
+                        <option value="hanz.wurst@hof-university.de:clearTextPassword">2, hanz.wurst, Student</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td> <label for="method">Method</label> </td>
                 <td></td>
-                <td> 
+                <td>
                     <select id="method" name="method" >
                         <option>PUT</option>
                         <option>POST</option>
@@ -28,9 +38,9 @@
             <tr>
                 <td></td>
                 <td>&nbsp;&nbsp;</td>
-                <td> 
-                    <input type="button" id="send" value="Send..." onclick="send()"> 
-                    <input type="button" id="pretty" value="Pretty" onclick="pretty()"> 
+                <td>
+                    <input type="button" id="send" value="Send..." onclick="send()">
+                    <input type="button" id="pretty" value="Pretty" onclick="pretty()">
                 </td>
             </tr>
         </table>
@@ -49,12 +59,7 @@
                 content.value = JSON.stringify(json, null, 2);
             }
             function send() {
-                var settings = {
-                    email: "test@test.de",
-                    password: "test",
-                    faculties: [{id: 1},{id: 2},{id: 3}],
-                }
-
+                var user = $("#user")[0].value;
                 var method = $("#method")[0].value;
                 var url = $("#url")[0].value;
                 var content = $("#content")[0].value;
@@ -71,13 +76,13 @@
                     }
                 }
 
+                console.debug(user);
+
                 $.ajax({
                     url: url,
                     type: method,
                     headers: {
-                        "Authorization": "Basic " + window.btoa(
-                            "helmut.kohl@hof-university.de:clearTextPassword"
-                        )
+                        "Authorization": "Basic " + window.btoa(user)
                     },
                     dataType: 'json',
                     contentType: "application/json",
