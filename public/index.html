@@ -241,12 +241,39 @@
 </footer>
 
 <div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscribe" ng-controller="appointment_request_controller">
-    <div>
-        <div ng-repeat="item in docent.appointments">
-            <div class="appointment">
-                <div class="appointment_info">{{item.description}}</div>
-                <div class="appointment_date">{{item.date}}</div>
-                <div class="appointment_time">{{item.time_from}} - {{item.time_to}}</div>
+    <div class="background">
+        <div class="appointment" ng-repeat="item in docent.appointments">
+            <div class="appointment_info">{{item.description}}</div>
+            <div class="appointment_time">{{item.date}}  {{item.time_from}} - {{item.time_to}} Uhr</div>
+        </div>
+        <div class="form-group row">
+            <div class="dropdown col-xs-6">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="appointment_inscribe_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Date
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown">
+                    <li><a>eins</a></li>
+                    <li><a>zwei</a></li>
+                    <li><a>drei</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="subject">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" placeholder="description"></textarea>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div type="button" class="btn btn-default" ng-click="inscribe_close()">Close</div>
+                    <div type="button" class="btn btn-default">Inscribe</div>
+                </div>
             </div>
         </div>
     </div>

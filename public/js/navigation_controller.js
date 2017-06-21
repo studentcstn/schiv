@@ -32,6 +32,9 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
     $scope.$on("inscribe", function () {
         $scope.show_elements('show_appointment_inscribe');
     });
+    $scope.$on("inscribe_close", function () {
+        $scope.hide_elements('show_appointment_inscribe');
+    });
 
 
 

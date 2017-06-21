@@ -68,24 +68,24 @@ body {
     top: 0px;
     left: 0px;
 
-    z-index: 10;
-
     padding: 20px;
     padding: 2rem;
 }
 
-#appointment_inscribe div {
-    background-color: whitesmoke;
+#appointment_inscribe .background {
+    background-color: white;
     //min-height: 500px;
 
     margin: auto;
-    max-width: 1024px;
-    max-width: 102.4rem;
+    max-width: 540px;
+    max-width: 54rem;
     min-width: 300px;
     min-width: 30rem;
 
     border-radius: 2px;
     border-radius: .2rem;
+
+    padding: 10px;
 }
 
 
@@ -134,6 +134,10 @@ body {
     background-color: #ff7043;
     border-color: #ff7043;
     color: inherit;
+}
+
+.btn-dropdown {
+    width: 100%;
 }
 
 
