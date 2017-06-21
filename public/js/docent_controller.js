@@ -1,5 +1,5 @@
 schiv_module.controller('docent_controller', function($scope, $http) {
-	$scope.getDocentList = function($scope, $http){
+	$scope.getDocentList = function(){
 			$http.get('/docents').
 			then(function(response) {
 			$scope.list = response.data; //success	
@@ -18,7 +18,7 @@ schiv_module.controller('docent_controller', function($scope, $http) {
 //		];
 	}
 	
-	$scope.getSingleDocent = function($scope, $http){
+	$scope.getSingleDocent = function(){
 			$http.get('/docents/' + docent_id + '').
 			then(function(response) {
 			$scope.docent = response.data;	

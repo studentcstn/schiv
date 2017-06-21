@@ -1,42 +1,42 @@
 schiv_module.controller('appointment_controller', function($scope, $http){
-	$scope.getAppointments =  function($scope, $http){
+	$scope.getAppointments =  function(){
 			$http.get('/' + user_id + '/appointment').
 			then(function(response){
 			$scope.fullList = response.data;
 			}, function(response){
-				};
+				});
 	}
 	
-	$scope.getLastAppointments = function($scope, $http){
-			$http.get('/' + user_id '/appointment/' + count + '').
+	$scope.getLastAppointments = function(){
+			$http.get('/' + user_id + '/appointment/' + count + '').
 			then(function(response){
 			$scope.list = response.data;
 			}, function(response){
-				};
+				});
 	}
 
-	$scope.getAppointmentsFromTo = function($scope, $http){
+	$scope.getAppointmentsFromTo = function(){
 			$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
 			then(function(response){
 				$scope.list = response.data;
 			}, function(response){
-				};
+				});
 	}
 	
-	$scope.createAppointment = function($scope, $http){
+	$scope.createAppointment = function(){
 			$http.post('/' + docent_id + '/appointment', 
 					{"day": $scope.day,"time_from": $scope.time_from, "time_to": $scope.time_to, "desription": $scope.description}).
 			then(function(response){
 			//success
 			}, function(response){
-				};
+				});
 	}
 
-	$scope.deleteAppointment = function($scope, $http){
+	$scope.deleteAppointment = function(){
 			$http.delete('/' + docent_id + '/appointment/' + appointment_id + '').
 			then(function(response){
 			//success
 			}, function(response){
-				};
+				});
 	}
 });

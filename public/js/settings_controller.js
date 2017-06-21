@@ -34,7 +34,7 @@ schiv_module.controller('settings_controller', function($scope, $http){
         }
     };
     
-    $scope.saveSettings = function($scope, $http){
+    $scope.saveSettings = function(){
     		$http.put('/'+ user_id +'/settings', {"faculties": $scope.faculties, "password": $scope.password, "email": $scope.email})
                 .then(function(response){
     		    //success
