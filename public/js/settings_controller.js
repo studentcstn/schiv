@@ -9,7 +9,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         $http.get('/settings')
             .then(function (response) {
                 console.log(response.data);
-                work(response);
+                work(response.data);
                 $scope.user_settings = response.data;
             }, function (response) {
                 console.log(response);
