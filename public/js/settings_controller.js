@@ -9,10 +9,10 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         $http.get('/settings')
             .then(function (response) {
                 console.log(response.data);
-                work(response.data);
+                work(response);
                 $scope.user_settings = response.data;
             }, function (response) {
-                console.log(response.data);
+                console.log(response);
             });
     };
 
@@ -32,11 +32,15 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     };
     
     $scope.saveSettings = function(){
-    		$http.put('/settings', {"faculties": $scope.user_settings.faculties, "password": $scope.user_settings.password, "email": $scope.user_settings.email})
-                .then(function(response){
-    		    //success
-    		    }, function(response){
-                });
+        $http.put('/settings', {
+                "faculties": $scope.user_settings.faculties,
+                "password": $scope.user_settings.password,
+                "email": $scope.user_settings.email
+        }).then(function(response){
+            console.log(response);
+        }, function(response){
+            console.log(response);
+        });
     };
     
 });

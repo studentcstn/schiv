@@ -1,37 +1,26 @@
 schiv_module.controller('docent_controller', function($scope, $http) {
-	$scope.getDocentList = function(){
-			$http.get('/docents').
-			then(function(response) {
-			$scope.list = response.data; //success	
-			}, function(response){	
-				});
 
-//		$scope.list = [
-//			{id: 2, email: "hallo@hof-unversity.de",
-//			type: "Docent", active: true, faculty: "wirtschaft"},
-//
-//			{id: 5, email: "ciao@hof-unversity.de",
-//			type: "Docent", active: true, faculty: "wirtschaft"},
-//
-//			{id: 3, email: "thorsten@hof-unversity.de",
-//			type: "Docent", active: true, faculty: "wirtschaft"}
-//		];
-	}
+	$scope.$on('login_success', function () {
+	    getDocentList();
+    });
+
+	$scope.getDocentList = function(){
+	    $http.get('/docents')
+            .then(function(response) {
+                $scope.list = response.data;
+                console.log(response);
+			}, function(response){
+                console.log(response);
+            });
+	};
 	
 	$scope.getSingleDocent = function(){
-			$http.get('/docents/' + docent_id + '').
-			then(function(response) {
-			$scope.docent = response.data;	
+	    $http.get('/docents/' + docent_id + '')
+            .then(function(response) {
+                $scope.docent = response.data;
+                console.log(response);
 			}, function(response){
-				});
-
-//		$scope.docent = {
-//			id: 42,
-//			email: "sonstwo@hof-university.de",
-//			appointments: [
-//				{id: 1, description: "ich hab hunger"},
-//				{id: 2, description: "ich auch"}
-//			]
-//		};
-	}
+                console.log(response);
+            });
+	};
 }
