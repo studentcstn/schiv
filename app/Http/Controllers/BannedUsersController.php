@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 use App\Account;
 use App\BannedUser;
@@ -23,19 +22,12 @@ class BannedUsersController extends Controller {
     public function store(Request $request) {
         $accountDocent = Auth::user();
 
-        $validator = Validator::make(
-            $request->all(),
-            ['account_banned_id' => 'required']
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['messages' => $validator->messages()], 500);
-        }
+        $this->validate($request, ['account_banned_id' => 'required']);
 
         $accountToBan = Account::find($request->input('account_banned_id'));
 
         if (!$accountToBan) {
-            return response()->json(['messages' => ["account to ban doesn't exists"]], 500);
+            return response()->json(['message' => "account to ban doesn't exists"], 500);
         }
 
         DB::transaction(function() use ($accountToBan, $accountDocent, &$bannedUser) {

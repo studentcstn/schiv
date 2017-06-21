@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,17 +29,11 @@ class SettingsController extends Controller {
             return response()->json([], 404);
         }
 
-        $validator = Validator::make(
-            $request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|min:10',
-                'faculties' => 'required'
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['messages' => $validator->messages()], 500);
-        }
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:10',
+            'faculties' => 'required'
+        ]);
 
         DB::transaction(function() use ($request, $account) {
             $account->password = Hash::make($request->input('password'));

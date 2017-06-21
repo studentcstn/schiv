@@ -58,11 +58,11 @@ class SettingsControllerTest extends TestCase {
         $request = $this->getValidRequest();
         $request['password'] = "foo";
         $response = $this->putJson('settings', $request);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
 
         unset($request->password);
         $response = $this->putJson('settings', $request);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
     }
 
     public function testUpdateEmailFail() {
@@ -70,11 +70,11 @@ class SettingsControllerTest extends TestCase {
         $request = $this->getValidRequest();
         $request['email'] = "foo@foo.";
         $response = $this->putJson('settings', $request);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
 
         unset($request->email);
         $response = $this->putJson('settings', $request);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
     }
 
     public function testUpdateFacultiesFail() {
@@ -84,8 +84,12 @@ class SettingsControllerTest extends TestCase {
         $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
 
-        unset($request->faculties);
+        $request['faculties'] = [['id' => 'bar']];
         $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
+
+        unset($request['faculties']);
+        $response = $this->putJson('settings', $request);
+        $response->assertStatus(422);
     }
 }

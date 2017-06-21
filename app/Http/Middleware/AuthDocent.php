@@ -17,7 +17,7 @@ class AuthDocent
     public function handle($request, Closure $next) {
         $account = Auth::user();
         if ($account->type != 'Docent') {
-            return response()->json(['reason' => 5], 401);
+            return response()->json(['message' => "account isn't of type 'Docent'"], 401);
         } else {
             return $next($request);
         }

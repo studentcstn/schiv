@@ -41,9 +41,9 @@ class BannedUsersControllerTest extends TestCase {
             'account_banned_id' => 1
         ];
         $response = $this->postJson('banned_users', ['foo' => 1]);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
         $response = $this->postJson('banned_users');
-        $response->assertStatus(500);
+        $response->assertStatus(422);
     }
 
     public function testDestroySuccess() {

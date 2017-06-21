@@ -20,12 +20,12 @@ class AuthEnforce {
 
         if ($id) {
             $account = Account::find($id);
-            if ($account) {
+            if ($account && $account->active) {
                 Auth::login($account);
                 return $next($request);
             }
         }
 
-        return response()->json(['reason' => 4], 401);
+        return response()->json(['message' => 'login required'], 401);
     }
 }

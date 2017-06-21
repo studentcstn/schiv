@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 use App\Account;
 use App\UserToken;
@@ -11,26 +10,16 @@ use App\UserToken;
 class RegisterController extends Controller {
     //todo chane error code from active account to 401, 402, 403, 409, 418, 420 or similar
     public function store(Request $request) {
-        if (!$request->has('email') || !$request->has('password')) {
-            return response()->json(['messages' => ["email or password missing"]], 500);
-        }
-
-        $validator = Validator::make(
-            $request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|min:10'
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['messages' => $validator->messages()], 500);
-        }
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:10'
+        ]);
 
         $account = Account::where('email', $request->input('email'))
             ->first();
 
         if ($account && $account->active == 1) {
-            return response()->json(['messages' => [['account already registered']]], 500);
+            return response()->json(['message' => 'account already registered'], 500);
         }
 
         DB::transaction(function() use ($request, $account, &$hash) {
@@ -82,7 +71,7 @@ class RegisterController extends Controller {
                 $account->active = 1;
                 $account->save();
                 // NOTE Debug
-                echo 'Account activated';
+                return response()->json(['message' => 'account activated']);
             }
             $token->delete();
         });

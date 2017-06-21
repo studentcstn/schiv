@@ -15,13 +15,13 @@ class RegisterControllerTest extends TestCase {
 
     public function testStoreSuccess() {
         $response = $this->postJson('register', [
-            'email' => 'foo@bar.baz',
+            'email' => 'foo@bar.ba',
             'password' => '0123456789'
         ]);
         $response->assertStatus(200);
 
         $response = $this->postJson('register', [
-            'email' => 'foo@bar.baz',
+            'email' => 'foo@bar.ba',
             'password' => '0123456789'
         ]);
         $response->assertStatus(200);
@@ -48,12 +48,12 @@ class RegisterControllerTest extends TestCase {
             'email' => 'foo@bar.baz',
             'password' => '012345678'
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
 
         $response = $this->postJson('register', [
             'email' => 'foo@bar.baz'
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
     }
 
     public function testStoreEmailFail() {
@@ -61,12 +61,12 @@ class RegisterControllerTest extends TestCase {
             'email' => 'foo@bar',
             'password' => '0123456789'
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
 
         $response = $this->postJson('register', [
             'password' => '0123456789'
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(422);
     }
 
     public function testUpdateSuccess() {
