@@ -1,4 +1,4 @@
-schiv_module.controller('login_controller', function($scope, $http){
+schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
         email: "max.musterman@hof-university.de", //todo remove
         password: "clearTextPassword",
@@ -13,10 +13,17 @@ schiv_module.controller('login_controller', function($scope, $http){
             })
             .then(function(response){
                 console.log(response);
-                show_elements('show_index', 'show_nav');
-                hide_element('show_login');
+                switch (response.status) {
+                    case 200:
+                        show_elements('show_index', 'show_nav');
+                        hide_element('show_login');
+                        break;
+                    default:
+                        $rootScope.$broadcast("alert", "danger", "Email or password wrong.");
+                }
         	}, function(response){
                 console.log(response);
+                $rootScope.$broadcast("alert", "info", "No connection to server.");
             });
     };
 

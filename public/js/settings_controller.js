@@ -1,4 +1,4 @@
-schiv_module.controller('settings_controller', function($scope, $http){
+schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
     $scope.$on("settings", function (event, args) {
         console.log(args);
         $scope.setting();
@@ -13,9 +13,6 @@ schiv_module.controller('settings_controller', function($scope, $http){
                 $scope.user_settings = response.data;
             }, function (response) {
                 console.log(response.data);
-                $scope.user_settings = {
-                    email: "max.muster"
-                };
             });
     };
 
