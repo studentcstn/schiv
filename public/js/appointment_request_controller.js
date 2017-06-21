@@ -28,11 +28,11 @@ schiv_module.controller('appointment_request_controller', function($scope, $http
             });
 	};
 
-	$scope.$on('inscribe', function (event, data) {
+	$scope.$on('show_inscribe', function (event, data) {
 	    $scope.docent = data;
     });
 
 	$scope.inscribe_close = function () {
-	    $rootScope.$broadcast('inscribe_close');
+	    $rootScope.$broadcast('show_inscribe_close');
     };
 });

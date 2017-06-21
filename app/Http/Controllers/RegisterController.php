@@ -9,6 +9,7 @@ use App\Account;
 use App\UserToken;
 
 class RegisterController extends Controller {
+    //todo chane error code from active account to 401, 402, 403, 409, 418, 420 or similar
     public function store(Request $request) {
         if (!$request->has('email') || !$request->has('password')) {
             return response()->json(['messages' => ["email or password missing"]], 500);

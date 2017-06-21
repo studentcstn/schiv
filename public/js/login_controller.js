@@ -35,13 +35,33 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             });
     };
 
-    $scope.confirmRegistration = function($scope, $http){
-        //	$http.put('/register',[token]).
-        //	then(function(response){
+    $scope.confirmRegistration = function(){
+        //	$http.put('/register',[token])
+        //	.then(function(response){
         //	success
         //	}, function(response){
         //		failed
         //		};
+    };
+
+    $scope.logOut = function () {
+        //	$http.post('/logout', {})
+        //	.then(function(response){
+        //	success
+        //	}, function(response){
+        //		failed
+        //		};
+    };
+
+    $scope.$on('log_out', function () {
+        $scope.logOut();
+    });
+
+    $scope.btn_register = function () {
+        $rootScope.$broadcast('show_register');
+    };
+    $scope.btn_back = function () {
+        $rootScope.$broadcast('show_login');
     };
 });
 

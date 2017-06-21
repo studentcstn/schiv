@@ -1,8 +1,6 @@
 schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
-    $scope.$on("settings", function (event, args) {
-        console.log(args);
+    $scope.$on("show_settings", function () {
         $scope.setting();
-        console.log("scope: settings");
     });
 
     $scope.setting = function () {

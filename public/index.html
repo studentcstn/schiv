@@ -47,18 +47,18 @@
             <div class="ng-hide" ng-show="show_nav">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="show_element('show_index'); hide_elements('show_past', 'show_settings')">Index</a>
+                        <a class="nav-link" ng-click="show.index()">Index</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="show_element('show_past'); hide_elements('show_index', 'show_settings')">Past</a>
+                        <a class="nav-link" ng-click="show.past()">Past</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="settings_button(); show_element('show_settings'); hide_elements('show_index', 'show_past')">Settings</a>
+                        <a class="nav-link" ng-click="show.settings()">Settings</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li class="nav-item">
-                        <a class="nav-link" ng-click="show_element('show_login'); hide_elements('show_index', 'show_past', 'show_settings', 'show_nav')">Log out</a>
+                        <a class="nav-link" ng-click="show.login('log_out')">Log out</a>
                     </li>
                 </ul>
             </div>
@@ -118,8 +118,8 @@
             <div class="pull-right">
                 <!-- login and register button -->
                 <div class="btn btn-default" ng-show="show_login_btn" ng-click="login()">Login</div>
-                <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="show_element('show_login_btn'); hide_element('show_register')">Back</div>
-                <div class="btn btn-default" ng-show="show_login_btn" ng-click="show_element('show_register'); hide_element('show_login_btn')">Register</div>
+                <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="btn_back()">Back</div>
+                <div class="btn btn-default" ng-show="show_login_btn" ng-click="btn_register()">Register</div>
                 <div class="btn btn-default ng-hide" ng-show="show_register" ng-click="register()">Register</div>
             </div>
         </div>
