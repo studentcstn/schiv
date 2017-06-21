@@ -27,6 +27,7 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
     $scope.$on("login_success", function () {
         $scope.show_elements('show_index', 'show_nav');
         $scope.hide_elements('show_login');
+        $scope.alerts.success("Welcome " + user_id + " to Schiv");
     });
 
     $scope.$on("inscribe", function () {

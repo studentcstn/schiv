@@ -7,14 +7,13 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
     $scope.login = function(){
 
-        $http.post('/login', {email: $scope.user.email, password: $scope.user.password} /*, {
-            headers: {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)}
-        }*/).then(function(response){
+        $http.post('/login', {email: $scope.user.email, password: $scope.user.password})
+            .then(function(response){
                 console.log(response);
                 switch (response.status) {
                     case 200:
-                        $rootScope.$broadcast("login_success");
-                        user_id = {"Authorization": "Basic " + window.btoa($scope.user.email + ":" + $scope.user.password)};
+                        user_id = $scope.user.email;
+                        $rootScope.$broadcast("login_success", response.data);
                         break;
                     default:
                         $rootScope.$broadcast("alert", "danger", "Email or password wrong.");
@@ -22,7 +21,8 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         	}, function(response){
                 console.log(response);
                 $rootScope.$broadcast("alert", "info", "No connection to server.");
-                $rootScope.$broadcast('login_success');
+                user_id = $scope.user.email; //todo remove
+                $rootScope.$broadcast('login_success'); //todo remove
             });
     };
 
