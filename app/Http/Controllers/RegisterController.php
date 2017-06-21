@@ -25,12 +25,19 @@ class RegisterController extends Controller {
             return response()->json(['messages' => $validator->messages()], 500);
         }
 
-        $hash = '';
-        DB::transaction(function() use ($request, &$hash) {
-            $account = Account::where('email', $request->input('email'))
-                ->first();
+        $account = Account::where('email', $request->input('email'))
+            ->first();
 
-            if (!$account) {
+        if ($account && $account->active == 1) {
+            return response()->json(['messages' => [['account already registered']]], 500);
+        }
+
+        DB::transaction(function() use ($request, $account, &$hash) {
+            $generateToken = true;
+            if ($account && $account->active == 0) {
+                $account->password = $request->input('password');
+                $generateToken = true;
+            } else if (!$account) {
                 $account = new Account();
                 $account->email = $request->input('email');
                 $account->password = $request->input('password');
@@ -38,15 +45,18 @@ class RegisterController extends Controller {
                 $account->active = 0;
                 $account->last_login = "0000-00-00 00:00:00";
                 $account->save();
+                $generateToken = true;
             }
 
-            $account_token = new UserToken();
-            $account_token->account_id = $account->id;
-            $account_token->invalid_at = date("Y-m-d H:i:s", strtotime("+2 hours"));
-            $account_token->hash = bin2hex(openssl_random_pseudo_bytes(25));
-            $account_token->save();
+            if ($generateToken) {
+                $account_token = new UserToken();
+                $account_token->account_id = $account->id;
+                $account_token->invalid_at = date("Y-m-d H:i:s", strtotime("+2 hours"));
+                $account_token->hash = bin2hex(openssl_random_pseudo_bytes(25));
+                $account_token->save();
 
-            $hash = $account_token->hash;
+                $hash = $account_token->hash;
+            }
         });
 
         // NOTE Debug
@@ -67,7 +77,7 @@ class RegisterController extends Controller {
 
         DB::transaction(function() use ($request, $token) {
             $account = Account::find($token->account_id);
-            if ($account) {
+            if ($account && $account->active != 1) {
                 $account->active = 1;
                 $account->save();
                 // NOTE Debug

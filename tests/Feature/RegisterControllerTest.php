@@ -19,6 +19,28 @@ class RegisterControllerTest extends TestCase {
             'password' => '0123456789'
         ]);
         $response->assertStatus(200);
+
+        $response = $this->postJson('register', [
+            'email' => 'foo@bar.baz',
+            'password' => '0123456789'
+        ]);
+        $response->assertStatus(200);
+    }
+
+    public function testStoreActiveAndRegisteredFail() {
+        $account = new Account;
+        $account->email = 'foo@bar.baz';
+        $account->password = '0123456789';
+        $account->active = 1;
+        $account->last_login = "";
+        $account->type = "Docent";
+        $account->save();
+
+        $response = $this->postJson('register', [
+            'email' => $account->email,
+            'password' => $account->password
+        ]);
+        $response->assertStatus(500);
     }
 
     public function testStorePasswordFail() {
