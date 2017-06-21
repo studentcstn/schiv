@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Account;
 use App\Faculty;
 
 class SettingsController extends Controller {
-    public function show($id) {
-        $account = Account::find($id);
-
-        if (!$account) {
-            return response()->json([], 404);
-        }
+    public function show() {
+        $account = Auth::user();
 
         $result = [
             'email' => $account->email,
@@ -25,8 +23,8 @@ class SettingsController extends Controller {
         return response()->json($result);
     }
 
-    public function update(Request $request, $id) {
-        $account = Account::find($id);
+    public function update(Request $request) {
+        $account = Auth::user();
 
         if (!$account) {
             return response()->json([], 404);
@@ -45,8 +43,7 @@ class SettingsController extends Controller {
         }
 
         DB::transaction(function() use ($request, $account) {
-            // TODO password hash (client or server?)
-            $account->password = $request->input('password');
+            $account->password = Hash::make($request->input('password'));
             $account->email = $request->input('email');
             $account->save();
 

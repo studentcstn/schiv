@@ -5,6 +5,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\Account;
 use App\Faculties;
@@ -14,19 +16,14 @@ class SettingsControllerTest extends TestCase {
     use DatabaseTransactions;
 
     public function testShowSuccess() {
-        $account = Account::find(1);
-        $response = $this->getJson('1/settings');
+        Auth::login(Account::find(1));
+        $response = $this->getJson('settings');
         $response->assertStatus(200);
         $response->assertJson([
-            'email' => $account->email,
+            'email' => Auth::user()->email,
             'account_faculties' => [],
             'faculties' => []
         ]);
-    }
-
-    public function testShowFail() {
-        $response = $this->getJson('999/settings');
-        $response->assertStatus(404);
     }
 
     private function getValidRequest() {
@@ -38,12 +35,17 @@ class SettingsControllerTest extends TestCase {
     }
 
     public function testUpdateSuccess() {
-        $response = $this->putJson('1/settings', $this->getValidRequest());
+        Auth::login(Account::find(1));
+        $oldPassword = Auth::user()->password;
+        $response = $this->putJson('settings', $this->getValidRequest());
         $response->assertStatus(200);
         $this->assertDatabaseHas('accounts', [
             'id' => 1,
-            'password' => 'foofoofoofoo',
             'email' => 'foo@foo.foo'
+        ]);
+        $this->assertDatabaseMissing('accounts', [
+            'id' => 1,
+            'password' => $oldPassword
         ]);
         $this->assertDatabaseHas('account_faculties', [
             'account_id' => 1,
@@ -52,40 +54,38 @@ class SettingsControllerTest extends TestCase {
     }
 
     public function testUpdatePasswordFail() {
+        Auth::login(Account::find(1));
         $request = $this->getValidRequest();
         $request['password'] = "foo";
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
 
         unset($request->password);
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
     }
 
     public function testUpdateEmailFail() {
+        Auth::login(Account::find(1));
         $request = $this->getValidRequest();
         $request['email'] = "foo@foo.";
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
 
         unset($request->email);
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
     }
 
     public function testUpdateFacultiesFail() {
+        Auth::login(Account::find(1));
         $request = $this->getValidRequest();
         $request['faculties'] = [['foo' => 'bar']];
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
 
         unset($request->faculties);
-        $response = $this->putJson('1/settings', $request);
+        $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
-    }
-
-    public function testUpdateFail() {
-        $response = $this->putJson('999/settings');
-        $response->assertStatus(404);
     }
 }
