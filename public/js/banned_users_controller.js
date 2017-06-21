@@ -8,8 +8,8 @@ schiv_module.controller('banned_users_controller', function($scope, $http){
 	}
 	
 	$scope.banUser = function($scope, $http){
-			$http.post('/' + docent_id + '/banned_user', [$scope.user_id, 
-								$scope.user_banned_id, $scope.banned_until]).
+			$http.post('/' + docent_id + '/banned_user', {"user_is": $scope.user_id, 
+								"account_banned_id": $scope.account_banned_id, "banned_until": $scope.banned_until}).
 			then(function(response){
 			//success
 			}, function(response){

@@ -1,20 +1,18 @@
 schiv_module.controller('appointment_request_controller', function($scope, $http){
 	$scope.acceptAppointmentRequest = function($scope, $http){
-		//	$http.put('/' + docent_id + '/appointment_request',[id, state]).
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.put('/' + docent_id + '/appointment_request',["id": $scope.id, "state": $scope.state]).
+			then(function(response){
+			//success
+			}, function(response){
+				};
 	}
 	
 	$scope.declineAppointmentRequest = function($scope, $http){
-		//	$http.delete('/' + user_id + '/appointment_request/' + 'id'). //TODO Which id? unclear in REST 
-		//	then(function(response){
-		//	success
-		//	}, function(response){
-		//		failed
-		//		};
+			$http.delete('/' + user_id + '/appointment_request/' + 'appointment_request_id'). 
+			then(function(response){
+			//success
+			}, function(response){
+				};
 	}
 	
 	$scope.createAppointmentRequest = function($scope, $http){
