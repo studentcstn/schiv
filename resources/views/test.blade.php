@@ -13,7 +13,7 @@
         <table class="layout"><tr><td>
         <table>
             <tr>
-                <td> <label for="user">User</label> </td>
+                <td> <label for="user">Login</label> </td>
                 <td></td>
                 <td>
                     <select id="user" name="user" onchange="change_login(this);">
@@ -81,11 +81,11 @@
                     dataType: 'json',
                     contentType: "application/json",
                     error: function (xhr, state, exception) {
-                        write_output(url + "<br><b>response with " + xhr.status + "</b><hr><br>" + xhr.responseText);
+                        write_output(url + "<br><b>response with " + xhr.status + "</b><hr>" + xhr.responseText);
                     },
                     success: function (data) {
                         write_output(
-                            url + "<br><b>json response with 200</b><hr><br>" +
+                            url + "<br><b>json response with 200</b><hr>" +
                             "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
                         );
                     },
@@ -110,7 +110,8 @@
                 try {
                     json = JSON.parse(content.value);
                 } catch(err) {
-                    write_output(err.messsage);
+                    console.log(err);
+                    write_output(err.message);
                     throw err;
                 }
 
@@ -118,7 +119,6 @@
             }
 
             function send() {
-                var user = $("#user")[0].value;
                 var method = $("#method")[0].value;
                 var url = $("#url")[0].value;
                 var content = $("#content")[0].value;
@@ -129,16 +129,9 @@
                     try {
                         JSON.parse(content);
                     } catch(err) {
-                        write_output(err.messsage);
+                        write_output(err.message + "");
                         throw err;
                     }
-                }
-
-                var headers = {};
-                if (user != "") {
-                    headers = {
-                        "Authorization": "Basic " + window.btoa(user)
-                    };
                 }
 
                 request(url, method, content);
