@@ -17,17 +17,19 @@ class BannedUsersControllerTest extends TestCase {
         Auth::login(Account::find(3));
         $response = $this->getJson('banned_users');
         $response->assertStatus(200);
-        $response->assertJson([['account_banned_id' => 2]]);
+        $response->assertJson([
+            ['account_banned_id' => 2]
+        ]);
     }
 
     public function testStoreSuccess() {
         Auth::login(Account::find(3));
         $expectedRow = [
             'account_id' => 3,
-            'account_banned_id' => 1
+            'account_banned_id' => 5
         ];
         $this->assertDatabaseMissing('banned_users', $expectedRow);
-        $response = $this->postJson('banned_users', ['account_banned_id' => 1]);
+        $response = $this->postJson('banned_users', ['account_banned_id' => 5]);
         $response->assertStatus(200);
         $this->assertDatabaseHas('banned_users', $expectedRow);
     }
