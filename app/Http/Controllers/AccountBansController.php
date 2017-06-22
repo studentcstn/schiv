@@ -6,57 +6,57 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Account;
-use App\BannedUser;
+use App\AccountBan;
 
-class BannedUsersController extends Controller {
+class AccountBanController extends Controller {
     public function show() {
         $accountDocent = Auth::user();
-        $bannedUsers = BannedUser::where('account_id', $accountDocent->id)
+        $accountBan = AccountBan::where('account_id', $accountDocent->id)
             ->get();
-        if (!$bannedUsers || $bannedUsers->count() == 0) {
+        if (!$accountBan || $accountBan->count() == 0) {
             return response()->json([], 404);
         }
-        return response()->json($bannedUsers);
+        return response()->json($accountBan);
     }
 
     public function store(Request $request) {
         $accountDocent = Auth::user();
 
-        $this->validate($request, ['account_banned_id' => 'required']);
+        $this->validate($request, ['account_ban_id' => 'required']);
 
-        $accountToBan = Account::find($request->input('account_banned_id'));
+        $accountToBan = Account::find($request->input('account_ban_id'));
 
         if (!$accountToBan) {
             return response()->json(['message' => "account to ban doesn't exists"], 500);
         }
 
-        DB::transaction(function() use ($accountToBan, $accountDocent, &$bannedUser) {
-            $bannedUser = new BannedUser;
-            $bannedUser->account_id = $accountDocent->id;
-            $bannedUser->account_banned_id = $accountToBan->id;
-            $bannedUser->banned_until; {
+        DB::transaction(function() use ($accountToBan, $accountDocent, &$accountBan) {
+            $accountBan = new AccountBan;
+            $accountBan->account_id = $accountDocent->id;
+            $accountBan->account_ban_id = $accountToBan->id;
+            $accountBan->ban_until; {
                 $currentMonth = date('m');
                 if ($currentMonth >= 3 && $currentMonth <= 9) {
-                    $bannedUser->banned_until = date(
+                    $accountBan->ban_until = date(
                         'Y-09-15 h:i:s'
                     );
                 } else {
-                    $bannedUser->banned_until = date(
+                    $accountBan->ban_until = date(
                         'Y-02-28 h:i:s',
                         strtotime('next year')
                     );
                 }
             }
-            $bannedUser->save();
+            $accountBan->save();
         });
 
-        return response()->json($bannedUser);
+        return response()->json($accountBan);
     }
 
     public function destroy($user_id) {
         $accountDocent = Auth::user();
-        $query = BannedUser::where('account_id', $accountDocent->id)
-            ->where('account_banned_id', $user_id);
+        $query = AccountBan::where('account_id', $accountDocent->id)
+            ->where('account_ban_id', $user_id);
 
         $count = $query->count();
 

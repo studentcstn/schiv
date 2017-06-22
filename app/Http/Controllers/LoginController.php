@@ -12,7 +12,7 @@ class LoginController extends Controller {
 
         if (Auth::validate($request->only(['email', 'password']))) {
             $account = Auth::getLastAttempted();
-            $account->last_login = date("Y-m-d H:i:s");
+            $account->last_login_at = date("Y-m-d H:i:s");
             $account->save();
             if ($account->active) {
                 $request->session()->put('login_account_id', $account->id);
@@ -23,7 +23,7 @@ class LoginController extends Controller {
                         'id' => $account->id,
                         'email' => $account->email,
                         'type' =>  $account->type,
-                        'last_login' => $account->last_login
+                        'last_login_at' => $account->last_login
                     ]
                 ]);
             } else {

@@ -35,7 +35,31 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	$auth_user = Auth::user();
+	    
+	$is_day = ctype_alpha($request->input('day'));
+	    
+	if($is_day)
+	{
+		DB::table('Appointments')->insertGetId([
+		'account_id' => $auth_user->id,
+		'description' => $request->input('description'),
+		'active' => 'Yes',
+		'weekday' => $request->input('day'),
+		'time_from' => $request->input('time_from'),
+ 		'time_to' => $request->input('time_to'),
+		]);
+	} else
+	{
+		DB::table('Appointments')->insertGetId([
+		'account_id' => $auth_user->id,
+		'description' => $request->input('description'),
+		'active' => 'Yes',
+		'date' => $request->input('day'),
+		'time_from' => $request->input('time_from'),
+ 		'time_to' => $request->input('time_to'),
+		]);
+	}
     }
 
     /**
@@ -65,15 +89,36 @@ class AppointmentController extends Controller
 	    ->where('active', '=', 'No')
 	    ->take($count)
             ->get();
-
-	    //TODO jeweilige anfragen raussuchen
+	    
+	$appointments->toArray();
+	$appointment_ids = array();
+	    
+	foreach($appointments as $value)
+	{
+		$temp = array($value->id);
+		$appointment_ids = array_merge($appointment_ids, $temp); 
+		
+	}
+	    
+	$requests = DB::table('AppointmentRequests')
+	    ->whereIn('appointment_id', $appointment_ids)
+	    ->get();
+	    
+	$requests->toArray();
+	$appointments = array_merge($appointments, $requests);
 	    
         return response()->json($appiontments);
     }
 	
     public function show_from_to($from, $to)
     {
+	    $appointments = DB::table('AppointmentRequests')
+	 		->join('Appointments', 'AppointmentRequests.appointment_id', '=', 'Appointments.id')
+		    	->where('Appointments.active', '=', 'No')
+		    	->whereBetween('AppointmentRequests.requested_at', [$from, $to])
+		    	->get();
 	    
+	    return response()->json($appointments);
     }
 
     /**
@@ -107,6 +152,11 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $auth_user = Auth::user();
+	    
+	DB::table('Appointments')
+		->where('id', '=', $id)
+		->where('account_id', '=', $auth_user->id)
+		->update(['active' => 'No']);
     }
 }

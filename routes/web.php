@@ -27,11 +27,11 @@ Route::middleware(['auth.enforce','auth.docent'])->group(function() {
     Route::get('appointment/{count}', 'AppointmentController@show_count');
     Route::get('appointment/{from}/{to}', 'AppointmentController@show_from_to');
     Route::post('appointment', 'AppointmentController@store');
-    Route::delete('appointment/{appointment_id}', 'AppointmentController@desroy');
+    Route::delete('appointment/{appointment_id}', 'AppointmentController@destroy');
 
-    Route::get('banned_users', 'BannedUsersController@show');
-    Route::post('banned_users', 'BannedUsersController@store');
-    Route::delete('banned_users/{user_id}', 'BannedUsersController@destroy');
+    Route::get('account_ban', 'AccountBanController@show');
+    Route::post('account_ban', 'AccountBanController@store');
+    Route::delete('account_ban/{user_id}', 'AccountBan@destroy');
 });
 
 Route::get('test.html', function() {

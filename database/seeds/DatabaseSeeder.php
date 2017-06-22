@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountsFacultiesTableSeeder::class);
         $this->call(AppointmentsTableSeeder::class);
         $this->call(AppointmentRequestsTableSeeder::class);
-        $this->call(UserTokensTableSeeder::class);
+        $this->call(AccountTokensTableSeeder::class);
         $this->call(HolidaysTableSeeder::class);
-        $this->call(BannedUsersTableSeeder::class);
+        $this->call(AccountBansTableSeeder::class);
 
         Model::reguard();
     }

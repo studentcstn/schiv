@@ -31,6 +31,6 @@ $factory->define(App\Account::class, function (Faker\Generator $faker) {
         'password' => $password ?: $password = bcrypt('secret'),
         'type' => 'Student',
         'active' => true,
-        'last_login' => '2017-05-10 00:00:00'
+        'last_login_at' => '2017-05-10 00:00:00'
     ];
 });
