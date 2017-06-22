@@ -48,7 +48,7 @@ commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
 +---------------------------+--------------------------------------------------------------+
 | Terminanfragen abrufen    | **D** get:appointment_request                                |
 +---------------------------+--------------------------------------------------------------+
-| Termin Einschreibung      | **A** post:appointment_request (app_id, time, ...)           |
+| Termin Einschreibung      | **A** post:appointment_request (...)                         |
 +---------------------------+--------------------------------------------------------------+
 | Termine annehmen bzw.     | **D** put:appointment_request (id, state)                  \ |
 | ablehen                   | **A** delete:appointment_request/{id}                        |
@@ -66,3 +66,8 @@ commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
 |                           | **D** post:account_ban (account_ban_id)                    \ |
 |                           | **D** delete:account_ban/{id}                                |
 +---------------------------+--------------------------------------------------------------+
+
+## Datenbank 
+
+![ER-Diagramm der Datenbank (Erstellt mit
+mysql-workbench)](../images/database.pdf){#fig:database width=70%}
