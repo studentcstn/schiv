@@ -14,20 +14,18 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="bower_components/angular/angular.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/navigation_controller.js"></script>
-    <script src="js/login_controller.js"></script>
+    <!-- controller -->
+    <script src="js/controller/app.js"></script>
+    <script src="js/controller/login_controller.js"></script>
+    <script src="js/controller/index_controller.js"></script>
+    <script src="js/controller/past_controller.js"></script>
+    <script src="js/controller/settings_controller.js"></script>
+    <script src="js/controller/request_controller.js"></script>
+    <script src="js/controller/appointment_controller.js"></script>
+    <!-- model -->
 
-    <script src="js/docent_controller.js"></script>
-    <!--
-    <script src="js/appointment_controller.js"></script>
-    -->
-    <script src="js/settings_controller.js"></script>
-    <script src="js/appointment_request_controller.js"></script>
-
-    <script src="js/login.js"></script>
 </head>
-<body ng-controller="navigation_controller">
+<body ng-controller="navigation">
 
 <!-- navigation bar -->
 <nav class="navbar navbar-default">
@@ -67,6 +65,7 @@
         </div>
     </div>
 </nav>
+<!-- alerts -->
 <div class="alert alert-info ng-hide" role="alert" ng-show="alert_info">
     <button type="button" class="close ng-animate" aria-label="Close" ng-click="alertClose('info')">
         <span class="ng-animate" aria-hidden="true">&times;</span>
@@ -95,7 +94,7 @@
     Dein Browswer wird nicht unterstützt!
 </div>
 
-<!-- login site -->
+<!-- login site with register, forgot password and activate token -->
 <div id="login" ng-show="show_login" ng-controller="login_controller">
     <div class="form-group row">
         <label for="login_email_input" class="col-sm-2 col-form-label">E-mail</label>
@@ -133,7 +132,8 @@
     </div>
 </div>
 
-<div id="index" class="row ng-hide" ng-show="show_index">
+<!-- index site with appointments, appointment request and list of docents -->
+<div id="index" class="row ng-hide" ng-show="show_index" ng-controller="index_controller">
     <div id="termine" class="col-sm-8">
         <div class="row">
             <div class="col-xs-offset-9 col-xs-3">
@@ -159,7 +159,7 @@
             </div>
         </div>
     </div>
-    <div id="docents" class="col-sm-4" ng-controller="docent_controller">
+    <div id="docents" class="col-sm-4">
         <!-- suche -->
         <div id="search" class="input-group">
             <input type="text" class="form-control">
@@ -173,7 +173,8 @@
     </div>
 </div>
 
-<div id="last_appointments" class="ng-hide" ng-show="show_past">
+<!-- site with past appointments and appointment requests -->
+<div id="last_appointments" class="ng-hide" ng-show="show_past" ng-controller="past_controller">
     <!-- liste aller alten und gelöschten  termine -->
     <div class="appointment" ng-repeat="item in list">
         <div class="row">
@@ -192,6 +193,7 @@
     </div>
 </div>
 
+<!-- site with settings -->
 <div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
     <!-- email -->
     <div class="form-group row">
@@ -242,7 +244,8 @@
 
 </footer>
 
-<div id="appointment_inscribe" class="ng-hide" ng-show="show_appointment_inscribe" ng-controller="appointment_request_controller">
+<!-- show site for make a request to a appointment. for students -->
+<div id="appointment_request" class="ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
         <div class="appointment" ng-repeat="item in docent.appointments">
             <div class="appointment_info">{{item.description}}</div>
@@ -279,6 +282,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- show details of a appointment. for docents-->
+<div id="appointment" ng-show="show_appointment" ng-controller="appointment_controller">
+
 </div>
 </body>
 </html>
