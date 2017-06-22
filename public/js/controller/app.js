@@ -35,24 +35,19 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
     $scope.show = {
         index: function () {
-            show_elements('show_index');
-            hide_elements('show_past', 'show_settings');
+            show_elements(['show_index']);
+            hide_elements(['show_past', 'show_settings']);
             $rootScope.$broadcast("show_index");
         },
         past: function () {
-            show_elements('show_past');
-            hide_elements('show_index', 'show_settings');
+            show_elements(['show_past']);
+            hide_elements(['show_index', 'show_settings']);
             $rootScope.$broadcast("show_past");
         },
         settings: function () {
-            show_elements('show_settings');
-            hide_elements('show_index', 'show_past');
+            show_elements(['show_settings']);
+            hide_elements(['show_index', 'show_past']);
             $rootScope.$broadcast("show_settings");
-        },
-        login: function () {
-            show_elements('show_login');
-            hide_elements('show_index', 'show_past', 'show_settings', 'show_nav');
-            $rootScope.$broadcast("");
         },
         logout: function () {
             $rootScope.$broadcast("log_out");
@@ -61,23 +56,13 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
 
     $scope.$on("login_success", function () {
-        show_elements('show_index', 'show_nav');
-        hide_elements('show_login');
+        show_elements(['show_index', 'show_nav']);
+        hide_elements(['show_login', 'show_past', 'show_settings']);
     });
     $scope.$on("log_out_success", function () {
-        show_elements('show_login');
-        hide_elements('show_index', 'show_nav');
+        show_elements(['show_login']);
+        hide_elements(['show_index', 'show_nav', "show_past", "show_settings"]);
     });
-
-
-
-    $scope.$on("show_inscribe", function () {
-        show_elements('show_appointment_inscribe');
-    });
-    $scope.$on("show_inscribe_close", function () {
-        hide_elements('show_appointment_inscribe');
-    });
-
 
 
     $scope.$on("alert", function (event, alertType, message) {
@@ -99,15 +84,15 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
     var alertShow = function (name) {
         if (alertTime[name] != null)
             alertClose(name);
-        show_elements(name);
+        show_elements([name]);
         alertTime[name] = $timeout(function () {
-            hide_elements(name);
+            hide_elements([name]);
         }, time);
     };
     var alertClose = function (name) {
         $timeout.cancel(alertTime[name]);
         alertTime[name] = null;
-        hide_elements(name);
+        hide_elements([name]);
     };
 });
 
@@ -117,10 +102,6 @@ definition of broadcasts
 
 login_success
 log_out_success
-log_out
-
-show_login
-show_register
 
 show_index
 show_past
@@ -129,5 +110,7 @@ show_settings
 show_inscribe [data]
 show_inscribe_close
 
-alert {info|success|warning|danger} {message}
+show [...data]
+hide [...data]
+alert {info|success|warning|danger} [message]
  */
