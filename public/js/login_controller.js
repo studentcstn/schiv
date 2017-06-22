@@ -7,11 +7,14 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
     $scope.login = function () {
         response = "test";
-        response = login.login($http, $scope.user.email, $scope.user.password);
         console.log("controler: "+response);
-        if (response != null)
-            console.log("controler: "+response.data);
+        response = login.login($http, $rootScope, 'login_c', $scope.user.email, $scope.user.password);
+        console.log("controler: "+response);
     };
+
+    $scope.$on('login_c', function (event, data) {
+        console.log("data: "+data);
+    });
     /*
     $scope.login = function(){
 
