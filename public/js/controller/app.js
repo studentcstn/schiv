@@ -59,7 +59,7 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
         show_elements(['show_index', 'show_nav']);
         hide_elements(['show_login', 'show_past', 'show_settings']);
     });
-    $scope.$on("log_out_success", function () {
+    $scope.$on("logout_success", function () {
         show_elements(['show_login']);
         hide_elements(['show_index', 'show_nav', "show_past", "show_settings"]);
     });
@@ -101,7 +101,7 @@ definition of broadcasts
 ------------------------
 
 login_success
-log_out_success
+logout_success
 
 show_index
 show_past

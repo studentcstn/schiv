@@ -25,7 +25,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         login.login($http, $rootScope, 'login_login_s', 'login_login_f', $scope.user.email, $scope.user.password);
     };
     $scope.$on('login_login_s', function (event, data) {
-        user = data.data;
+        user = data.account;
         $scope.user.email = "";
         $scope.user.password = "";
         $scope.user.passwordRepeat = "";
@@ -72,10 +72,11 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
 
     $scope.$on('log_out', function () {
-        logout.logout($http, $rootScope, "login_logout_s", "login_logout_f");
+        login.logout($http, $rootScope, "login_logout_s", "login_logout_f");
     });
     $scope.$on("login_logout_s", function (event, data) {
         $rootScope.$broadcast("alert", "success", "Successful logged out.");
+        $rootScope.$broadcast("logout_success");
     });
     $scope.$on("login_logout_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
