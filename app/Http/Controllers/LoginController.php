@@ -23,7 +23,7 @@ class LoginController extends Controller {
                         'id' => $account->id,
                         'email' => $account->email,
                         'type' =>  $account->type,
-                        'last_login_at' => $account->last_login
+                        'last_login_at' => $account->last_login_at
                     ]
                 ]);
             } else {

@@ -18,6 +18,6 @@ class Account extends Authenticatable {
         return $this->hasMany('App\Appointment');
     }
     public function bannedUsers() {
-        return $this->hashMany('App\AccountBan');
+        return $this->hasMany('App\AccountBan');
     }
 }

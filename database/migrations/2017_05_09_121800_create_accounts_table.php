@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string("password");
             $table->enum("type", ['Docent', 'Student']);
             $table->boolean("active");
-            $table->dateTime("last_login_at");
+            $table->dateTime("last_login_at")->nullable();
             $table->timestamps();
         });
     }

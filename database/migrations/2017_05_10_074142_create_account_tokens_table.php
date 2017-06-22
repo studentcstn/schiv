@@ -16,8 +16,7 @@ class CreateAccountTokensTable extends Migration
             $table->increments('id')->unsigned();
             $table->integer('account_id')->unsigned();
             $table->datetime('invalid_at')->index();
-            $table->string('hash');
-            $table->timestamps();
+            $table->string('token');
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });

@@ -32,7 +32,6 @@ class RegisterControllerTest extends TestCase {
         $account->email = 'foo@bar.baz';
         $account->password = '0123456789';
         $account->active = 1;
-        $account->last_login_at = "";
         $account->type = "Docent";
         $account->save();
 
@@ -71,7 +70,7 @@ class RegisterControllerTest extends TestCase {
 
     public function testUpdateSuccess() {
         $token = 'secret1';
-        $account = AccountToken::where('hash', $token)
+        $account = AccountToken::where('token', $token)
             ->first()
             ->account()
             ->first();

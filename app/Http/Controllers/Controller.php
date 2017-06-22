@@ -19,8 +19,8 @@ class Controller extends BaseController {
         $account_token = new AccountToken();
         $account_token->account_id = $account->id;
         $account_token->invalid_at = date("Y-m-d H:i:s", strtotime("+2 hours"));
-        $account_token->hash = bin2hex(openssl_random_pseudo_bytes(25));
+        $account_token->token = bin2hex(openssl_random_pseudo_bytes(25));
         $account_token->save();
-        return $account_token->hash;
+        return $account_token->token;
     }
 }

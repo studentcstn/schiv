@@ -21,7 +21,7 @@ class RegisterController extends Controller {
             return response()->json(['message' => 'account already registered'], 409);
         }
 
-        DB::transaction(function() use ($request, $account, &$hash) {
+        DB::transaction(function() use ($request, $account, &$token) {
             $generateToken = true;
             if ($account && $account->active == 0) {
                 $account->password = $request->input('password');
@@ -32,18 +32,17 @@ class RegisterController extends Controller {
                 $account->password = $request->input('password');
                 $account->type = "Student";
                 $account->active = 0;
-                $account->last_login_at = "0000-00-00 00:00:00";
                 $account->save();
                 $generateToken = true;
             }
 
             if ($generateToken) {
-                $hash = $this->generateToken($account);
+                $token = $this->generateToken($account);
             }
         });
 
         // NOTE Debug
-        return response()->json(['token' => $hash]);
+        return response()->json(['token' => $token]);
     }
 
     public function update(Request $request) {
@@ -51,7 +50,7 @@ class RegisterController extends Controller {
             ->delete();
 
         $token = AccountToken::where(
-            'hash', $request->input('token')
+            'token', $request->input('token')
         )->first();
 
         if (!$token) {
