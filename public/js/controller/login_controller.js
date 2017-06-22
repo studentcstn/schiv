@@ -1,13 +1,24 @@
 schiv_module.controller('login_controller', function($scope, $http, $rootScope){
-    $scope.show_login = true;
-    $scope.show_login_login = true;
-    $scope.show_login_forgotPassword = true;
-
     $scope.user = {
         email: "max.musterman@hof-university.de", //todo remove
         password: "clearTextPassword",
         passwordRepeat: "clearTextPassword"
     };
+
+
+    $scope.back = function () {
+        $rootScope.$broadcast("show", "show_login_login", "show_login_password", "show_login_forgotPassword");
+        $rootScope.$broadcast("hide", "show_login_register", "show_login_back", "show_login_send");
+    };
+    $scope.register_btn = function () {
+        $rootScope.$broadcast("show", "show_login_password", "show_login_register", "show_login_back");
+        $rootScope.$broadcast("hide", "show_login_login", "show_login_send");
+    };
+    $scope.forgotPassword = function () {
+        $rootScope.$broadcast("show", "show_login_back", "show_login_send");
+        $rootScope.$broadcast("hide", "show_login_login", "show_login_register", "show_login_forgotPassword", "show_login_password");
+    };
+
 
 
     $scope.login = function () {
@@ -18,6 +29,9 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $scope.user.email = "";
         $scope.user.password = "";
         $scope.user.passwordRepeat = "";
+        $scope.back();
+        $rootScope.$broadcast("alert", "success", "Welcome " + user.email + " to Schiv");
+        $rootScope.$broadcast("login_success");
     });
     $scope.$on('login_login_f', function (event, data) {
         switch (data.status) {
@@ -30,34 +44,42 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             default:
                 $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
         }
+        $rootScope.$broadcast("login_login_s", {data: {email: "test.test@hof-university.de"}});
     });
 
-    $scope.forgotPassword = function () {
-        $rootScope.$broadcast("show", "show_login_back");
-        $rootScope.$broadcast("hide", "show_login_login", "show_login_register");
+
+    $scope.register = function () {
+        login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password)
     };
+    $scope.$on("login_register_s", function (event, data) {
+        $rootScope.$broadcast("alert", "success", "Register complete. Pleas confirm email.");
+    });
+    $scope.$on("login_register_f", function (event, data) {
+        $rootScope.$broadcast("alert", "warning", data.statusText);
+    });
 
-/*
-    $scope.$on("show_register", function () {
-        show_elements('show_register');
-        hide_elements('show_login_btn');
+
+    $scope.send = function () {
+        login.forgotPassword($http, $rootScope, "login_forgot_s", "login_forgot_f", $scope.user.email);
+    };
+    $scope.$on("login_forgot_s", function (event, data) {
+        $rootScope.$broadcast("alert", "success", "Request send. Pleas confirm email.");
     });
-    $scope.$on("show_login", function () {
-        show_elements('show_login_btn');
-        hide_elements('show_register');
+    $scope.$on("login_forgot_f", function (event, data) {
+        $rootScope.$broadcast("alert", "warning", data.statusText);
     });
-    */
+
+
 
     $scope.$on('log_out', function () {
-        logout.logout();
+        logout.logout($http, $rootScope, "login_logout_s", "login_logout_f");
     });
-
-    $scope.btn_register = function () {
-        $rootScope.$broadcast('show_register');
-    };
-    $scope.btn_back = function () {
-        $rootScope.$broadcast('show_login');
-    };
+    $scope.$on("login_logout_s", function (event, data) {
+        $rootScope.$broadcast("alert", "success", "Successful logged out.");
+    });
+    $scope.$on("login_logout_f", function (event, data) {
+        $rootScope.$broadcast("alert", "warning", data.statusText);
+    });
 });
 
 

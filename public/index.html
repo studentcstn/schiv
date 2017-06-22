@@ -102,8 +102,8 @@
             <input id="login_email_input" type="email" class="form-control" placeholder="email" ng-model="user.email">
         </div>
     </div>
-    <div class="form-group row">
-        <label for="login_password_input" ng-show="show_login_login" class="col-sm-2 col-form-label">Password</label>
+    <div class="form-group row" ng-show="show_login_password">
+        <label for="login_password_input" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
             <input id="login_password_input" type="password" class="form-control" placeholder="password" ng-model="user.password">
         </div>
@@ -119,9 +119,10 @@
             <div class="pull-right">
                 <!-- login and register button -->
                 <div class="btn btn-default" ng-show="show_login_login" ng-click="login()">Login</div>
-                <div class="btn btn-default ng-hide" ng-show="show_login_back" ng-click="btn_back()">Back</div>
-                <div class="btn btn-default" ng-show="show_login_login" ng-click="btn_register()">Register</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_back" ng-click="back()">Back</div>
+                <div class="btn btn-default" ng-show="show_login_login" ng-click="register_btn()">Register</div>
                 <div class="btn btn-default ng-hide" ng-show="show_login_register" ng-click="register()">Register</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_send" ng-click="send()">Send</div>
             </div>
         </div>
     </div>

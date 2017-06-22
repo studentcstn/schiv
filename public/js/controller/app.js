@@ -4,24 +4,31 @@ user = {};
 
 schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
-    var show_elements = function (...ids) {
+    $scope.show_login = true;
+    $scope.show_login_login = true;
+    $scope.show_login_password = true;
+    $scope.show_login_forgotPassword = true;
+
+    var show_elements = function (ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = true;
     };
-
     $scope.$on("show", function (event, ...data) {
         show_elements(data);
     });
 
-    $scope.toggle_element = function (id) {
-        $scope[id] = !$scope[id];
+    var toggle_elements = function (ids) {
+        for (i = 0; i < ids.length; ++i)
+            $scope[ids[i]] = !$scope[ids[i]];
     };
+    $scope.$on("toggle", function (event, ...data) {
+        toggle_elements(data);
+    });
 
-    var hide_elements = function (...ids) {
+    var hide_elements = function (ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = false;
     };
-
     $scope.$on("hide", function (event, ...data) {
         hide_elements(data);
     });
