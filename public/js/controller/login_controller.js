@@ -44,7 +44,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             default:
                 $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
         }
-        $rootScope.$broadcast("login_login_s", {data: {email: "test.test@hof-university.de"}});
+        $rootScope.$broadcast("login_login_s", {account: {email: "test.test@hof-university.de"}}); //todo remove
     });
 
 
