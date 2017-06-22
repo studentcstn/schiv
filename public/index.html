@@ -24,6 +24,8 @@
     -->
     <script src="js/settings_controller.js"></script>
     <script src="js/appointment_request_controller.js"></script>
+
+    <script src="js/login.js"></script>
 </head>
 <body ng-controller="navigation_controller">
 
@@ -66,28 +68,28 @@
     </div>
 </nav>
 <div class="alert alert-info ng-hide" role="alert" ng-show="alert_info">
-    <button type="button" class="close ng-animate" aria-label="Close" ng-click="alerts.infoClose()">
+    <button type="button" class="close ng-animate" aria-label="Close" ng-click="alertClose('info')">
         <span class="ng-animate" aria-hidden="true">&times;</span>
     </button>
-    {{alerts.messages.infoMessage}}
+    {{alerts.messages.alert_info}}
 </div>
 <div class="alert alert-success ng-hide" role="alert" ng-show="alert_success">
-    <button type="button" class="close" aria-label="Close" ng-click="alerts.successClose()">
+    <button type="button" class="close" aria-label="Close" ng-click="alertClose('success')">
         <span aria-hidden="true">&times;</span>
     </button>
-    {{alerts.messages.successMessage}}
+    {{alerts.messages.alert_success}}
 </div>
 <div class="alert alert-warning ng-hide" role="alert" ng-show="alert_warning">
-    <button type="button" class="close" aria-label="Close" ng-click="alerts.warningClose()">
+    <button type="button" class="close" aria-label="Close" ng-click="alertClose('warning')">
         <span aria-hidden="true">&times;</span>
     </button>
-    {{alerts.messages.warningMessage}}
+    {{alerts.messages.alert_warning}}
 </div>
 <div class="alert alert-danger ng-hide" role="alert" ng-show="alert_danger">
-    <button type="button" class="close" aria-label="Close" ng-click="alerts.dangerClose()">
+    <button type="button" class="close" aria-label="Close" ng-click="alertClose('danger')">
         <span aria-hidden="true">&times;</span>
     </button>
-    {{alerts.messages.dangerMessage}}
+    {{alerts.messages.alert_danger}}
 </div>
 <div class="alert alert-danger" role="alert" ng-show="not_supported">
     Dein Browswer wird nicht unterstützt!

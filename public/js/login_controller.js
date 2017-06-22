@@ -5,6 +5,14 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         passwordRepeat: "clearTextPassword"
     };
 
+    $scope.login = function () {
+        response = "test";
+        response = login.login($http, $scope.user.email, $scope.user.password);
+        console.log("controler: "+response);
+        if (response != null)
+            console.log("controler: "+response.data);
+    };
+    /*
     $scope.login = function(){
 
         $http.post('/login', {email: $scope.user.email, password: $scope.user.password})
@@ -29,6 +37,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
                 $rootScope.$broadcast('login_success'); //todo remove
             });
     };
+    */
 
     $scope.register = function(){
         $http.post('/register',{"email": $scope.user.email, "password": $scope.user.password, "password_repeat": $scope.user.passwordRepeat})

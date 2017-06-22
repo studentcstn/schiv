@@ -1,6 +1,6 @@
 schiv_module = angular.module('schiv', []);
 
-user_id = "";
+user = {};
 
 /*
 definition of broadcasts

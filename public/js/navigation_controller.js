@@ -2,7 +2,7 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
     $scope.show_login = true;
     $scope.show_login_btn = true;
 
-    show_elements = function (...ids) {
+    var show_elements = function (...ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = true;
     };
@@ -11,7 +11,7 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
         $scope[id] = !$scope[id];
     };
 
-    hide_elements = function (...ids) {
+    var hide_elements = function (...ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = false;
     };
@@ -70,79 +70,34 @@ schiv_module.controller("navigation_controller", function ($scope, $http, $timeo
 
 
 
-    var time = 10000;
-
     $scope.$on("alert", function (event, alertType, message) {
-        $scope.alerts[alertType](message);
+        var name = "alert_" + alertType;
+        $scope.alerts.messages[name] = message;
+        alertShow(name);
     });
 
-    $scope.alerts = {
-        messages: {
-            infoMessage: "",
-            successMessage: "",
-            warningMessage: "",
-            dangerMessage: ""
-        },
-        info: function (message) {
-            if ($scope.alerts.infotime != null)
-                $scope.alerts.infoClose();
-            $scope.alerts.messages.infoMessage = message;
-            show_elements('alert_info');
-            $scope.alerts.infotime = $timeout(function () {
-                hide_elements('alert_info');
-            }, time);
-        },
-        infoClose: function () {
-            $timeout.cancel($scope.alerts.infotime);
-            $scope.alerts.infotime = null;
-            hide_elements('alert_info');
-        },
-        success: function (message) {
-            if ($scope.alerts.successtime != null)
-                $scope.alerts.successClose();
-            $scope.alerts.messages.successMessage = message;
-            show_elements('alert_success');
-            $scope.alerts.successtime = $timeout(function () {
-                hide_elements('alert_success');
-            }, time);
-        },
-        successClose: function () {
-            $timeout.cancel($scope.alerts.successtime);
-            $scope.alerts.successtime = null;
-            hide_elements('alert_success');
-        },
-        warning: function (message) {
-            if ($scope.alerts.warningtime != null)
-                $scope.alerts.warningClose();
-            $scope.alerts.messages.warningMessage = message;
-            show_elements('alert_warning');
-            $scope.alerts.warningtime = $timeout(function () {
-                hide_elements('alert_warning');
-            }, time);
-        },
-        warningClose: function () {
-            $timeout.cancel($scope.alerts.warningtime);
-            $scope.alerts.dangertime = null;
-            hide_elements('alert_warning');
-        },
-        danger: function (message) {
-            if ($scope.alerts.dangertime != null)
-                $scope.alerts.dangerClose();
-            $scope.alerts.messages.dangerMessage = message;
-            show_elements('alert_danger');
-            $scope.alerts.dangertime = $timeout(function () {
-                hide_elements('alert_danger');
-            }, time);
-        },
-        dangerClose: function () {
-            $timeout.cancel($scope.alerts.dangertime);
-            $scope.alerts.dangertime = null;
-            hide_elements('alert_danger');
-        }
+    $scope.alertClose = function (alertType) {
+        var name = "alert_" + alertType;
+        alertClose(name);
     };
 
-    $scope.settings_button = function() {
-        $scope.$broadcast("settings");
+    $scope.alerts = { messages: {} };
+
+    var time = 10000;
+    var alertTime = {};
+
+    var alertShow = function (name) {
+        if (alertTime[name] != null)
+            alertClose(name);
+        show_elements(name);
+        alertTime[name] = $timeout(function () {
+            hide_elements(name);
+        }, time);
+    };
+    var alertClose = function (name) {
+        $timeout.cancel(alertTime[name]);
+        alertTime[name] = null;
+        hide_elements(name);
     };
 
 
