@@ -8,15 +8,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Account;
-use App\UserToken;
+use App\AccountToken;
 
 class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function generateToken(Account $account) {
-        UserToken::where('account_id', $account->id)
+        AccountToken::where('account_id', $account->id)
             ->delete();
-        $account_token = new UserToken();
+        $account_token = new AccountToken();
         $account_token->account_id = $account->id;
         $account_token->invalid_at = date("Y-m-d H:i:s", strtotime("+2 hours"));
         $account_token->hash = bin2hex(openssl_random_pseudo_bytes(25));

@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Account;
-use App\UserToken;
+use App\AccountToken;
 
 class RegisterController extends Controller {
     public function store(Request $request) {
@@ -32,7 +32,7 @@ class RegisterController extends Controller {
                 $account->password = $request->input('password');
                 $account->type = "Student";
                 $account->active = 0;
-                $account->last_login = "0000-00-00 00:00:00";
+                $account->last_login_at = "0000-00-00 00:00:00";
                 $account->save();
                 $generateToken = true;
             }
@@ -47,10 +47,10 @@ class RegisterController extends Controller {
     }
 
     public function update(Request $request) {
-        UserToken::where('invalid_at', '<', date('Y-m-d H:i:s'))
+        AccountToken::where('invalid_at', '<', date('Y-m-d H:i:s'))
             ->delete();
 
-        $token = UserToken::where(
+        $token = AccountToken::where(
             'hash', $request->input('token')
         )->first();
 

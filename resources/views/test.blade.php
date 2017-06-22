@@ -12,19 +12,32 @@
                 color: transparent;
                 text-shadow: 0 0 0 #000;
             }
-            table.layout { height: 100% }
-            td.form { width: 50%; }
-            td { padding: 1px; }
-            th { vertical-align: middle; }
-            td.output { width: 100%; height: 100%; }
-            #output {
+            body {
+                padding: 15px;
+            }
+            table.layout {
+                height: 100%;
+            }
+            td.form {
+                width: 50%;
+            }
+            td {
+                padding: 1px;
+            }
+            th {
+                vertical-align: middle;
+            }
+            td.output {
+                width: 100%;
+                height: 100%;
+            }
+            iframe.output {
                 border: 1px solid lightgrey;
                 width: 100%;
                 height: 100%;
-                margin-left: 5px
+                margin-left: 5px;
             }
         </style>
-
     </head>
     <body>
         <table class="layout"><tr><td class="form">
@@ -69,13 +82,13 @@
                 <td></td>
                 <td>&nbsp;&nbsp;</td>
                 <td>
-                    <button class="btn btn-primary" id="send" onclick="send()">Send..</button>
+                    <button class="btn btn-primary" id="send" onclick="send()">Send...</button>
                     <button class="btn btn-default" id="pretty" onclick="pretty()">Pretty</button>
                 </td>
             </tr>
         </table>
         </td>
-        <td class="output"><iframe id="output"></iframe></td>
+        <td class="output"><iframe id="output" class="output"></iframe></td>
         </tr></table>
         <script type="text/javascript">
             var iframe = $("#output")[0];

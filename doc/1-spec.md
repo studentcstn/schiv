@@ -62,7 +62,7 @@ commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
 | Einstellungen             | **A** get:settings                                         \ |
 |                           | **A** put:settings (email, password)                         |
 +---------------------------+--------------------------------------------------------------+
-| Ausgeschlossene Benutzer  | **D** get:banned_user                                      \ |
-|                           | **D** post:baned_user (account_banned_id)                  \ |
-|                           | **D** delete:banned_user/{id}                                |
+| Ausgeschlossene Benutzer  | **D** get:account_ban                                      \ |
+|                           | **D** post:account_ban (account_ban_id)                    \ |
+|                           | **D** delete:account_ban/{id}                                |
 +---------------------------+--------------------------------------------------------------+

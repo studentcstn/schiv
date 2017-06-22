@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Account;
-use App\UserToken;
+use App\AccountToken;
 
 class RegisterControllerTest extends TestCase {
     use WithoutMiddleware;
@@ -32,7 +32,7 @@ class RegisterControllerTest extends TestCase {
         $account->email = 'foo@bar.baz';
         $account->password = '0123456789';
         $account->active = 1;
-        $account->last_login = "";
+        $account->last_login_at = "";
         $account->type = "Docent";
         $account->save();
 
@@ -40,7 +40,7 @@ class RegisterControllerTest extends TestCase {
             'email' => $account->email,
             'password' => $account->password
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(409);
     }
 
     public function testStorePasswordFail() {
@@ -71,7 +71,7 @@ class RegisterControllerTest extends TestCase {
 
     public function testUpdateSuccess() {
         $token = 'secret1';
-        $account = UserToken::where('hash', $token)
+        $account = AccountToken::where('hash', $token)
             ->first()
             ->account()
             ->first();

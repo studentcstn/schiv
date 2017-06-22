@@ -15,9 +15,13 @@ class CreateHolidaysTable extends Migration
     {
         Schema::create('holidays', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+            $table->integer('account_id')->unsigned()->nullable();
             $table->date('from');
             $table->date('to');
-            $table->timestamps();
+        });
+
+        Schema::table('holidays', function (Blueprint $table) {
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
     }
 
