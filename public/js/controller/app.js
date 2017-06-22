@@ -2,16 +2,16 @@ schiv_module = angular.module('schiv', []);
 
 user = {};
 
-schiv_module.controller('navigation', function($scope, $http, $rootScope) {
-
-    $scope.show_login = true;
-    $scope.show_login_btn = true;
-
+schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
     var show_elements = function (...ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = true;
     };
+
+    $scope.$on("show", function (event, ...data) {
+        show_elements(data);
+    });
 
     $scope.toggle_element = function (id) {
         $scope[id] = !$scope[id];
@@ -21,6 +21,10 @@ schiv_module.controller('navigation', function($scope, $http, $rootScope) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = false;
     };
+
+    $scope.$on("hide", function (event, ...data) {
+        hide_elements(data);
+    });
 
     $scope.show = {
         index: function () {
@@ -58,14 +62,7 @@ schiv_module.controller('navigation', function($scope, $http, $rootScope) {
         hide_elements('show_index', 'show_nav');
     });
 
-    $scope.$on("show_register", function () {
-        show_elements('show_register');
-        hide_elements('show_login_btn');
-    });
-    $scope.$on("show_login", function () {
-        show_elements('show_login_btn');
-        hide_elements('show_register');
-    });
+
 
     $scope.$on("show_inscribe", function () {
         show_elements('show_appointment_inscribe');
