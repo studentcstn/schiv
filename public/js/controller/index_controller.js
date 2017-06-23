@@ -48,4 +48,12 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $rootScope.$broadcast("alert", "warning", data.statusText);
     });
 
+
+    $scope.add = function () {
+
+    };
+
+    $scope.inscripe = function (id) {
+
+    };
 });
