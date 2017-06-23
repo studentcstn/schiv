@@ -1,27 +1,36 @@
 settings = {
     getSettings: function ($http, $rootScope, broadcastSuccess, broadcastFailed) {
         $http.get('/settings')
-        .then(function (response) {
-            console.log(response.data);
-            //work(response.data);
-            $rootScope.$broadcast(broadcastSuccess, response.data);
-        }, function (response) {
-            console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
-        });
+            .then(function (response) {
+                console.log(response.data);
+                work(response.data);
+                $rootScope.$broadcast(broadcastSuccess, response.data);
+            }, function (response) {
+                console.log(response);
+                $rootScope.$broadcast(broadcastFailed, response);
+            });
     },
-    saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-        $http.put('/settings', {
-            "faculties": $scope.user_settings.faculties,
-            "password": $scope.user_settings.password,
-            "email": $scope.user_settings.email
-        }).then(function(response){
-            console.log(response);
-            $rootScope.$broadcast(broadcastSuccess, response.data);
-        }, function(response){
-            console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
-        });
+    saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, faculties){
+        var settings = {};
+        if (email != null && email != "")
+            settings.email = email;
+        if (password != null && password != "")
+            settings.password = password;
+        var faculty = {};
+        for (i = 0; i < faculties.length; ++i)
+            if (faculties[i].active == true)
+                faculty.id = faculties[i].id;
+        if (faculty.length > 0)
+            settings.faculties = faculty;
+        console.log(settings);
+        $http.put('/settings', settings)
+            .then(function(response){
+                console.log(response);
+                $rootScope.$broadcast(broadcastSuccess, response.data);
+            }, function(response){
+                console.log(response);
+                $rootScope.$broadcast(broadcastFailed, response);
+            });
     }
 };
 
@@ -31,10 +40,10 @@ var work = function (user_settings) {
     for (var i = 0; i < faculties.length; ++i) {
         for (var j = 0; j < account_faculties.length; ++j) {
             if (faculties[i].id === account_faculties[j].id) {
-                faculties[i].is_active = true;
+                faculties[i].active = true;
                 break;
             } else {
-                faculties[i].is_active = false;
+                faculties[i].active = false;
             }
         }
     }
