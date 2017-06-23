@@ -23,7 +23,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         appointment_request.getAppointmentRequest($http, $rootScope, "index_appointment_s", "index_appointment_f");
     };
     $scope.$on("index_docents_s", function (event, data) {
-
+        $scope.docents = data;
     });
     $scope.$on("index_docents_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
@@ -45,6 +45,18 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     });
     $scope.$on("index_appointment_f", function (event, data) {
+        $rootScope.$broadcast("alert", "warning", data.statusText);
+    });
+
+
+
+    $scope.getSingleDocent = function (id) {
+        docent.getSingleDocent($http, $rootScope, "index_docent_s", "index_docent_f", id);
+    };
+    $scope.$on("index_docent_s", function (event, data) {
+        console.log(data);
+    });
+    $scope.$on("index_docent_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
     });
 

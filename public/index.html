@@ -170,7 +170,7 @@
             <div type="button" class="btn btn-default input-group-addon">suche</div>
         </div>
         <!-- liste aller dozenten -->
-        <div class="docent" ng-repeat="item in list" ng-click="getSingleDocent(item.id)">
+        <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)">
             <div class="docent_name">{{item.email}}</div>
             <div class="docent_faculty">{{item.faculty}}</div>
         </div>

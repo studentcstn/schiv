@@ -52,6 +52,7 @@ class AppointmentRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //todo error 500
     public function show()
     {
 	 $auth_user = Auth::user();
