@@ -1,33 +1,21 @@
-#Vehicula nec, diam.
+# Funktionalen Anforderungen
 
-Integer elementum, felis non faucibus euismod, erat massa
-dictum eros, eu ornare ligula tortor et mauris. Cras molestie magna in nibh.
-Aenean et tellus. Fusce adipiscing commodo erat. In eu justo. Nulla dictum, erat
-sed blandit venenatis, arcu dolor molestie dolor, vitae congue orci risus a
-nulla. Pellentesque sit amet arcu. In mattis laoreet enim. Pellentesque id augue
-et arcu blandit tincidunt. Pellentesque elit ante, rhoncus quis, dapibus sit
-amet, tincidunt eu, nibh. In imperdiet. Nunc lectus neque, commodo eget,
-porttitor quis, fringilla quis, purus.
+# Style-Guide
 
-Duis sagittis dignissim eros. In sit amet lectus. Fusce lacinia mauris vitae
-nisl interdum.
+## Farbschema
 
-Porta, malesuada elementum, nisi. Integer vitae enim quis risus aliquet gravida.
-Curabitur vel lorem vel erat dapibus lobortis. Donec dignissim tellus at arcu.
-Quisque molestie pulvinar sem.
+## Typographie
 
-Nulla magna neque, ullamcorper tempus, luctus eget, malesuada ut, velit. Morbi
-felis. Praesent in purus at ipsum cursus posuere. Morbi bibendum facilisis eros.
-Phasellus aliquam sapien in erat. Praesent venenatis diam dignissim dui.
-Praesent risus erat, iaculis ac, dapibus sed, imperdiet ac, erat. Nullam sed
-ipsum. Phasellus non dolor. Donec ut elit.
+## Layout
 
-Sed risus.
+## Navigation
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum sem lacus,
-commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
+# Datenbankmodel
 
-## REST-Schnittstelle
+![Datenbankmodel von schiv (Erstellt mit
+mysql-workbench)](../images/database.pdf){#fig:database width=70%}
+
+# REST-Schnittstelle
 
 +---------------------------+--------------------------------------------------------------+
 | Beschreibung              | Method:Url (Body)                                            |
@@ -67,7 +55,30 @@ commodo vitae, aliquam ut, posuere eget, dui. Praesent massa dui, mattis et.
 |                           | **D** delete:account_ban/{id}                                |
 +---------------------------+--------------------------------------------------------------+
 
-## Datenbank 
+# Implementierung
 
-![ER-Diagramm der Datenbank (Erstellt mit
-mysql-workbench)](../images/database.pdf){#fig:database width=70%}
+Sollicitudin dui. Sed in tellus id urna viverra commodo. Vestibulum enim felis,
+interdum non, sollicitudin in, posuere a, sem. Cras nibh. Sed facilisis ultrices
+dolor. Vestibulum pretium mauris sed turpis. Phasellus a pede id odio interdum
+elementum. Nam urna felis, sodales ut, luctus vel, condimentum vitae, est.
+Vestibulum ut augue. Nunc laoreet sapien quis neque semper dictum. Phasellus
+rhoncus est id turpis. Vestibulum in elit at odio pellentesque volutpat. Nam nec
+tortor. Suspendisse porttitor consequat nulla. Morbi suscipit tincidunt nisi.
+Sed laoreet, mauris et tincidunt facilisis, est nisi pellentesque ligula, sit
+amet convallis neque dolor at sapien. Aenean viverra justo ac sem.
+
+Pellentesque.
+
+# Testfälle
+
+Fermentum a, aliquet quis, sodales at, dolor. Duis eget velit eget risus
+fringilla hendrerit. Nulla facilisi. Mauris turpis pede, aliquet ac, mattis sed,
+consequat in, massa. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Etiam egestas posuere metus. Aliquam erat
+volutpat. Donec non tortor. Vivamus posuere nisi mollis dolor. Quisque porttitor
+nisi ac elit. Nullam tincidunt ligula vitae nulla.
+
+Vivamus sit amet risus et ipsum viverra malesuada. Duis luctus. Curabitur
+adipiscing metus et felis. Vestibulum tortor. Pellentesque purus. Donec
+pharetra, massa quis malesuada auctor, tortor ipsum lobortis ipsum, eget
+facilisis ante nisi eget lectus. Sed a est. Aliquam.

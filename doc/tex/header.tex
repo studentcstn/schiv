@@ -32,22 +32,22 @@
 \appto\chapterheadstartvskip{%
   \vspace{-4.5em} 
   \smash{\makebox[0pt]{%
-	\textcolor{grey}{%
+	\textcolor{lightgrey}{%
       \usesizeofkomafont{chapter}\rule[-2.5\ht\strutbox-\dp\strutbox]{2\paperwidth}{1.5\baselineskip}%
   }}}
   \smash{\makebox[0pt]{%
-	\textcolor{lightgrey}{%
+	\textcolor{grey}{%
 		\hspace*{9cm}\usesizeofkomafont{chapter}\rule[-2.18\ht\strutbox]{2\paperwidth}{0.04\baselineskip}%
   }}}
 }
 
 \renewcommand\chapterformat{%
-  \makebox[0pt][r]{\textcolor{lightgrey}{\Huge\textsc{\thechapter}}\ \
-  \textcolor{lightgrey}{\smash{\rule[-2\dp\strutbox]{1.5pt}{1.801\baselineskip}}}}%
+  \makebox[0pt][r]{\textcolor{darkgrey}{\Huge\textsc{\thechapter}}\ \
+  \textcolor{darkgrey}{\smash{\rule[-2\dp\strutbox]{1.5pt}{1.801\baselineskip}}}}%
   \enskip%
 }
 
-\addtokomafont{chapter}{\bfseries\color{lightgrey}}
+\addtokomafont{chapter}{\bfseries\color{darkgrey}}
 \addtokomafont{section}{\color{grey}}
 \addtokomafont{subsection}{\color{grey}}
 \addtokomafont{subsubsection}{\color{grey}}

@@ -8,4 +8,5 @@ Homestead.json
 Homestead.yaml
 .env
 laradock/
-doc/pdf/paper.*
+
+doc/pdf
