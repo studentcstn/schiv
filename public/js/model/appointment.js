@@ -4,9 +4,10 @@ appointment = {
 				headers:user_id
 			}).then(function(response){
 				console.log(response);
-			$scope.fullList = response.data;
+				$rootScope.$broadcast(broadcastSuccess, response.data);
 			}, function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastFailed, response);
 				});
 		},
 		
@@ -15,9 +16,10 @@ appointment = {
 		        headers: user_id
 		    }).then(function(response) {
 		    		console.log(response);
-		        $scope.list = response.data;
+		    		$rootScope.$broadcast(broadcastSuccess, response.data);
 		        }, function(response){
 		        	console.log(response);
+		        	$rootScope.$broadcast(broadcastFailed, response);
 	            });
 		},
 		
@@ -25,19 +27,22 @@ appointment = {
 			$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
 			then(function(response){
 				console.log(response);
-			$scope.list = response.data;
+				$rootScope.$broadcast(broadcastSuccess, response.data);
 			}, function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastFailed, response);
 				});
 		},
 		
-		createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id){
+		createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id, day, time_from, time_to, description){
 			$http.post('/' + docent_id + '/appointment', 
-					{"day": $scope.day,"time_from": $scope.time_from, "time_to": $scope.time_to, "desription": $scope.description}).
+					{"day": day,"time_from": time_from, "time_to": time_to, "desription": description}).
 			then(function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastSuccess);
 			}, function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastFailed, response);
 				});
 		},
 		
@@ -45,8 +50,10 @@ appointment = {
 			$http.delete('/' + docent_id + '/appointment/' + appointment_id + '').
 			then(function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastSuccess);
 			}, function(response){
 				console.log(response);
+				$rootScope.$broadcast(broadcastFailed, response);
 				});
 		}
 }
