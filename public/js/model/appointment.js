@@ -35,7 +35,7 @@ appointment = {
 		},
 		
 		createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id, day, time_from, time_to, description){
-			$http.post('/' + docent_id + '/appointment', 
+			$http.post('/appointment', 
 					{"day": day,"time_from": time_from, "time_to": time_to, "desription": description}).
 			then(function(response){
 				console.log(response);
@@ -47,10 +47,10 @@ appointment = {
 		},
 		
 		$scope.deleteAppointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id, appointment_id){
-			$http.delete('/' + docent_id + '/appointment/' + appointment_id + '').
+			$http.delete('/appointment/' + appointment_id + '').
 			then(function(response){
 				console.log(response);
-				$rootScope.$broadcast(broadcastSuccess);
+				$rootScope.$broadcast(broadcastSuccess)
 			}, function(response){
 				console.log(response);
 				$rootScope.$broadcast(broadcastFailed, response);

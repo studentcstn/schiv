@@ -1,6 +1,6 @@
 docent = {
 		getDocentList: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-		    $http.get('/docents')
+		    $http.get('/docent')
 	            .then(function(response) {
 	                console.log(response);
 	                $rootScope.$broadcast(broadcastSuccess, response.data);
@@ -11,7 +11,7 @@ docent = {
 		},
 		
 		getSingleDocent: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id){
-		    $http.get('/docents/' + docent_id)
+		    $http.get('/docent/' + docent_id)
 	            .then(function(response) {
 	                $rootScope.$broadcast(broadcastSuccess, response.data);
 	                console.log(response);
