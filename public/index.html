@@ -292,30 +292,30 @@
         <div class="form-group row">
             <div class="form-check col-xs-3" ng-repeat="item in appointment_build.frequency">
                 <label class="form-check-label">
-                    <input type="radio" name="repeat" class="form-check-input" ng-model="appointment.frequency" ng-value="item.id" ng-click="appointment.day = ''">
+                    <input type="radio" name="repeat" class="form-check-input" ng-model="appointment.frequency" ng-value="item.id" ng-click="newAppointment.day = ''">
                     {{item.name}}
                 </label>
             </div>
         </div>
-        <div class="row" ng-show="appointment.frequency == 0">
+        <div class="row" ng-show="newAppointment.frequency == 0">
             <div class="col-xs-12">
                 <div>
-                    <div class="btn" ng-repeat="item in appointment_build.day" ng-click="appointment.day = item" ng-class="appointment.day == item ? 'btn-success' : 'btn-default'">
+                    <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
                         {{item}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group" ng-show="appointment.frequency == 1" ng-class="appointment.day != null && appointment.day.length != 0 ? 'has-success' : 'has-error'">
+        <div class="form-group" ng-show="newAppointment.frequency == 1" ng-class="newAppointment.day != null && newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
             <input class="form-control" ng-model="appointment.day" ng-pattern="appointment_build.date" placeholder="Date">
             <small class="form-text text-muted">For example: 03.07.2017</small>
         </div>
         <div class="row">
-            <div class="form-group col-xs-6" ng-class="appointment.from != null && appointment.from.length != 0 ? 'has-success' : 'has-error'">
+            <div class="form-group col-xs-6" ng-class="newAppointment.from != null && newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="appointment.from" ng-pattern="appointment_build.time" placeholder="From">
                 <small class="form-text text-muted">For example: 09:45</small>
             </div>
-            <div class="form-group col-xs-6" ng-class="appointment.to != null && appointment.to.length != 0 ? 'has-success' : 'has-error'">
+            <div class="form-group col-xs-6" ng-class="newAppointment.to != null && newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="appointment.to" ng-pattern="appointment_build.time" placeholder="To">
                 <small class="form-text text-muted">For example: 11:15</small>
             </div>

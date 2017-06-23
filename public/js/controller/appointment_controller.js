@@ -1,5 +1,5 @@
 schiv_module.controller('appointment_controller', function($scope, $http, $rootScope) {
-    $scope.appointment = {
+    $scope.newAppointment = {
         frequency: 0
     };
     $scope.appointment_build = {
