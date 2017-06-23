@@ -3,6 +3,10 @@ login = {
         $http.post('/login', {email: email, password: password})
             .then(function (response) {
                 console.log(response);
+                var d = response.data.account;
+                d.email = d.email.substring(0, d.email.indexOf('@'));
+                d.name = d.email.substring(0, d.email.indexOf('.'));
+                d.last = d.email.substring(d.email.indexOf('.')+1);
                 $rootScope.$broadcast(broadcastSuccess, response.data);
             }, function (response) {
                 console.log(response);

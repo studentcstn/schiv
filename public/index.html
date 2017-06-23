@@ -201,25 +201,27 @@
 <!-- site with settings -->
 <div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
     <!-- email -->
-    <div class="form-group row">
+    <div class="form-group row" ng-class="user_settings.email == newUser_settings.email ? '' : newUser_settings.email != null && newUser_settings.email.length != 0 ? 'has-success' : 'has-error'">
         <label class="col-sm-2 col-form-label">E-mail</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="E-mail" ng-value="user_settings.email">
+                <input type="text" class="form-control" placeholder="E-mail" ng-model="newUser_settings.email" ng-pattern="settings.email">
                 <div class="input-group-addon">@hof-university.de</div>
             </div>
         </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">For change e-mail address. Note: E-mail address is only changed after confirmation.</small>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">For changing e-mail address type new address. Note: E-mail address is only changed after confirmation.</small>
     </div>
     <!-- password -->
-    <div class="form-group row">
+    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
         <label class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" placeholder="password" ng-ng-value="user_settings.password">
+            <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.password" ng-minlength="10">
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">Type password for changing</small>
+    </div>
+    <div class="form-group row" ng-class="newUser_settings.password.length == 0 || newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="password" class="form-control" placeholder="password" ng-value="user_settings.password_repeat">
+            <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.passwordRepeat">
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">Repeat password for changing</small>
     </div>
@@ -230,7 +232,7 @@
     <div class="form-group">
         <div class="form-check" ng-repeat="item in user_settings.faculties">
             <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" ng-checked="item.active">
+                <input type="checkbox" class="form-check-input" ng-model="item.active">
                 {{item.name}}
             </label>
         </div>

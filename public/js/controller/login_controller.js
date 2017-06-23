@@ -30,7 +30,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $scope.user.password = "";
         $scope.user.passwordRepeat = "";
         $scope.back();
-        $rootScope.$broadcast("alert", "success", "Welcome " + user.email + " to Schiv");
+        $rootScope.$broadcast("alert", "success", "Welcome " + user.name + " " + user.last + " to Schiv");
         $rootScope.$broadcast("login_success");
     });
     $scope.$on('login_login_f', function (event, data) {
@@ -44,7 +44,12 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             default:
                 $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
         }
-        $rootScope.$broadcast("login_login_s", {account: {email: "test.test@hof-university.de", id: 1, type: "Student"}}); //todo remove
+        var da = {account: {email: "test.test@hof-university.de", id: 1, type: "Student"}};
+        var d = da.account;
+        d.email = d.email.substring(0, d.email.indexOf('@'));
+        d.name = d.email.substring(0, d.email.indexOf('.'));
+        d.last = d.email.substring(d.email.indexOf('.')+1);
+        $rootScope.$broadcast("login_login_s", da); //todo remove
     });
 
 

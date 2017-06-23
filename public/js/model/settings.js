@@ -2,7 +2,9 @@ settings = {
     getSettings: function ($http, $rootScope, broadcastSuccess, broadcastFailed) {
         $http.get('/settings')
             .then(function (response) {
-                console.log(response.data);
+                console.log(response);
+                var d = response.data;
+                d.email = d.email.substring(0, d.email.indexOf('@'));
                 work(response.data);
                 $rootScope.$broadcast(broadcastSuccess, response.data);
             }, function (response) {
@@ -13,13 +15,13 @@ settings = {
     saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, faculties){
         var settings = {};
         if (email != null && email != "")
-            settings.email = email;
+            settings.email = email+"@hof-university.de";
         if (password != null && password != "")
             settings.password = password;
-        var faculty = {};
+        var faculty = [];
         for (i = 0; i < faculties.length; ++i)
             if (faculties[i].active == true)
-                faculty.id = faculties[i].id;
+                faculty.push(faculties[i].id);
         if (faculty.length > 0)
             settings.faculties = faculty;
         console.log(settings);
