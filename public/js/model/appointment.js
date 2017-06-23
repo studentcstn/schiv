@@ -21,8 +21,8 @@ appointment = {
             });
     },
 
-    getAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id, from, to){
-        $http.get('/' + user_id + '/appointment/' + from + '/' + to +'')
+    getLastAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id, from, to){
+        $http.get('/appointment/' + from + '/' + to)
             .then(function(response){
                 console.log(response);
                 $rootScope.$broadcast(broadcastSuccess, response.data);

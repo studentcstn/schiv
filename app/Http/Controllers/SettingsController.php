@@ -22,6 +22,8 @@ class SettingsController extends Controller {
         return response()->json($result);
     }
 
+    //todo schnitstellenbeschreibung anpassen
+    //todo nur email, password oder faculties aenderungen?
     public function update(Request $request) {
         $account = Auth::user();
 

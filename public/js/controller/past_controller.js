@@ -14,7 +14,7 @@ schiv_module.controller('past_controller', function($scope, $http, $rootScope) {
         appointment_request.getAppointments($http, $rootScope, "past_appointment_s", "past_appointment_f");
     };
     var docent = function () {
-        appointment.getpast($http, $rootScope, "past_appointment_s", "past_appointment_f");
+        appointment.getLastAppointments($http, $rootScope, "past_appointment_s", "past_appointment_f");
     };
     $scope.$on("past_appointment_s", function (event, data) {
 

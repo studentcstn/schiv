@@ -20,7 +20,7 @@ schiv_module.controller('appointment_controller', function($scope, $http){
             });
 	};
 
-	$scope.getAppointmentsFromTo = function(){
+	$scope.getLastAppointmentsFromTo = function(){
 			$http.get('/' + user_id + '/appointment/' + from + '/' + to +'').
 			then(function(response){
 				$scope.list = response.data;

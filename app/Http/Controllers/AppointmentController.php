@@ -68,6 +68,7 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //todo error 500
     public function show()
     {
 	$auth_user = Auth::user();
@@ -80,6 +81,7 @@ class AppointmentController extends Controller
         return response()->json($appiontments);
     }
 
+    //todo error 500
     public function show_count($count)
     {
 	$auth_user = Auth::user();
@@ -109,7 +111,8 @@ class AppointmentController extends Controller
 	    
         return response()->json($appiontments);
     }
-	
+
+    //todo genaue beschreibung von from und to
     public function show_from_to($from, $to)
     {
 	    $appointments = DB::table('AppointmentRequests')
