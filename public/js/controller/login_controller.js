@@ -78,6 +78,11 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
     $scope.$on('log_out', function () {
         login.logout($http, $rootScope, "login_logout_s", "login_logout_f");
+        $scope.user = {
+            email: "max.musterman@hof-university.de", //todo remove
+            password: "clearTextPassword",
+            passwordRepeat: "clearTextPassword"
+        };
     });
     $scope.$on("login_logout_s", function (event, data) {
         $rootScope.$broadcast("alert", "success", "Successful logged out.");
