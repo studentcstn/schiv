@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Account;
 use App\AccountBan;
 
-class AccountBanController extends Controller {
+class AccountBansController extends Controller {
     public function show() {
         $accountDocent = Auth::user();
         $accountBan = AccountBan::where('account_id', $accountDocent->id)

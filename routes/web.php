@@ -3,7 +3,7 @@ use App\Account;
 
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LogoutController@logout');
-Route::post('reset', 'ResetPasswordController@reset');
+Route::put('reset', 'ResetPasswordController@reset');
 
 Route::post('register', 'RegisterController@store');
 Route::put('register', 'RegisterController@update');
@@ -29,9 +29,9 @@ Route::middleware(['auth.enforce','auth.docent'])->group(function() {
     Route::post('appointment', 'AppointmentController@store');
     Route::delete('appointment/{appointment_id}', 'AppointmentController@destroy');
 
-    Route::get('account_ban', 'AccountBanController@show');
-    Route::post('account_ban', 'AccountBanController@store');
-    Route::delete('account_ban/{user_id}', 'AccountBan@destroy');
+    Route::get('account_ban', 'AccountBansController@show');
+    Route::post('account_ban', 'AccountBansController@store');
+    Route::delete('account_ban/{user_id}', 'AccountBansController@destroy');
 });
 
 Route::get('test.html', function() {
