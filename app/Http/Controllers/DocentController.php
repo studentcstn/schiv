@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Account;
 
-class DocentsController extends Controller {
+class DocentController extends Controller {
     public function index() {
         //todo return faculty of docent
         $accounts = Account::where('type', 'Docent')

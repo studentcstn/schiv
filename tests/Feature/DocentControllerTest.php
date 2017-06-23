@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Account;
 use App\Appointment;
 
-class DocentsControllerTest extends TestCase {
+class DocentControllerTest extends TestCase {
     use WithoutMiddleware;
     use DatabaseTransactions;
 

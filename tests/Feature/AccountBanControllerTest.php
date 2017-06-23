@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Account;
 
-class AccountBansControllerTest extends TestCase {
+class AccountBanControllerTest extends TestCase {
     use WithoutMiddleware;
     use DatabaseTransactions;
 
     public function testShowSuccess() {
         Auth::login(Account::find(3));
-        $response = $this->getJson('account_ban');
+        $response = $this->getJson('account_bans');
         $response->assertStatus(200);
         $response->assertJson([
             ['account_ban_id' => 2]
@@ -29,7 +29,7 @@ class AccountBansControllerTest extends TestCase {
             'account_ban_id' => 5
         ];
         $this->assertDatabaseMissing('account_bans', $expectedRow);
-        $response = $this->postJson('account_ban', ['account_ban_id' => 5]);
+        $response = $this->postJson('account_bans', ['account_ban_id' => 5]);
         $response->assertStatus(200);
         $this->assertDatabaseHas('account_bans', $expectedRow);
     }
@@ -40,9 +40,9 @@ class AccountBansControllerTest extends TestCase {
             'account_id' => 3,
             'account_ban_id' => 1
         ];
-        $response = $this->postJson('account_ban', ['foo' => 1]);
+        $response = $this->postJson('account_bans', ['foo' => 1]);
         $response->assertStatus(422);
-        $response = $this->postJson('account_ban');
+        $response = $this->postJson('account_bans');
         $response->assertStatus(422);
     }
 
@@ -53,7 +53,7 @@ class AccountBansControllerTest extends TestCase {
             'account_ban_id' => 2
         ];
         $this->assertDatabaseHas('account_bans', $expectedRow);
-        $response = $this->deleteJson('account_ban/2');
+        $response = $this->deleteJson('account_bans/2');
         $response->assertStatus(200);
         $this->assertDatabaseMissing('account_bans', $expectedRow);
     }
@@ -65,7 +65,7 @@ class AccountBansControllerTest extends TestCase {
             'account_ban_id' => 2
         ];
         $this->assertDatabaseHas('account_bans', $expectedRow);
-        $response = $this->deleteJson('account_ban/999');
+        $response = $this->deleteJson('account_bans/999');
         $response->assertStatus(404);
         $this->assertDatabaseHas('account_bans', $expectedRow);
     }

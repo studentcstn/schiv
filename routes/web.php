@@ -8,36 +8,35 @@ Route::put('reset', 'ResetPasswordController@reset');
 Route::post('register', 'RegisterController@store');
 Route::put('register', 'RegisterController@update');
 
-Route::get('docents', 'DocentsController@index');
-Route::get('docents/{docent_id}', 'DocentsController@show');
+Route::get('docents', 'DocentController@index');
+Route::get('docents/{docent_id}', 'DocentController@show');
 
 Route::middleware(['auth.enforce'])->group(function () {
-    Route::get('appointment_request', 'AppointmentRequestController@show');
-    Route::post('appointment_request', 'AppointmentRequestController@store');
-    Route::delete('appointment_request/{request_id}', 'AppointmentRequestController@destroy');
+    Route::get('appointment_requests', 'AppointmentRequestController@show');
+    Route::post('appointment_requests', 'AppointmentRequestController@store');
+    Route::delete('appointment_requests/{request_id}', 'AppointmentRequestController@destroy');
 
-    Route::get('settings', 'SettingsController@show');
-    Route::put('settings', 'SettingsController@update');
+    Route::get('settings', 'SettingController@show');
+    Route::put('settings', 'SettingController@update');
 });
 
 Route::middleware(['auth.enforce','auth.docent'])->group(function() {
-    Route::put('appointment_request', 'AppointmentRequestController@update');
+    Route::put('appointment_requests', 'AppointmentRequestController@update');
 
-    Route::get('appointment', 'AppointmentController@show');
-    Route::get('appointment/{count}', 'AppointmentController@show_count');
-    Route::get('appointment/{from}/{to}', 'AppointmentController@show_from_to');
-    Route::post('appointment', 'AppointmentController@store');
-    Route::delete('appointment/{appointment_id}', 'AppointmentController@destroy');
+    Route::get('appointments', 'AppointmentController@show');
+    Route::get('appointments/{count}', 'AppointmentController@show_count');
+    Route::get('appointments/{from}/{to}', 'AppointmentController@show_from_to');
+    Route::post('appointments', 'AppointmentController@store');
+    Route::delete('appointments/{appointment_id}', 'AppointmentController@destroy');
 
-    Route::get('account_ban', 'AccountBansController@show');
-    Route::post('account_ban', 'AccountBansController@store');
-    Route::delete('account_ban/{user_id}', 'AccountBansController@destroy');
+    Route::get('account_bans', 'AccountBanController@show');
+    Route::post('account_bans', 'AccountBanController@store');
+    Route::delete('account_bans/{user_id}', 'AccountBanController@destroy');
 });
 
 Route::get('test.html', function() {
     if (App::environment('local')) {
-        $accounts = Account::all();
-        return view('test', ['accounts' => $accounts]);
+        return view('test', ['accounts' => Account::all()]);
     } else {
         abort(404);
     }
