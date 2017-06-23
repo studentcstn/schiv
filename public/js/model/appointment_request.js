@@ -1,4 +1,4 @@
-appointmentment_request = {
+appointment_request = {
 		acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
 	        $http.put('/appointment_request', {"id": id, "state": state})
 	        .then(function(response){
@@ -31,5 +31,16 @@ appointmentment_request = {
 	            	console.log(response);
 	            	$rootScope.$broadcast(broadcastFailed, response);
 	            });
+		},
+		
+		getAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed){
+			$http.get('appointment_request')
+				.then(function(response){
+	            	console.log(response);
+	            	$rootScope.$broadcast(broadcastSuccess, response.data);
+				}, function(response){
+	            	console.log(response);
+	            	$rootScope.$broadcast(broadcastFailed, response);
+				});
 		}
 }
