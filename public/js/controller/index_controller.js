@@ -10,13 +10,13 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     var show = function () {
         if (user.type === "Docent") {
-            docent();
+            index_docent();
         } else {
-            student();
+            index_student();
         }
     };
 
-    var student = function () {
+    var index_student = function () {
         $scope.type = "Student";
         $rootScope.$broadcast("hide", "show_index_docent");
         docent.getDocentList($http, $rootScope, "index_docents_s", "index_docents_f");
@@ -36,7 +36,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     });
 
 
-    var docent = function () {
+    var index_docent = function () {
         $scope.type = "Docent";
         $rootScope.$broadcast("show", "show_index_docent");
         appointment.getAppointments($http, $rootScope, "index_appointment_s", "index_appointment_f");

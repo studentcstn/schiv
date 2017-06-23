@@ -29,10 +29,10 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 | Register                  | post:register (email, password)                            \ |
 |                           | put:register (token)                                         |
 +---------------------------+--------------------------------------------------------------+
-| Suche                     | get:docent                                                   |
+| Suche                     | get:docents                                                  |
 +---------------------------+--------------------------------------------------------------+
 | Informationen bzw.        |                                                              |
-| Termine von Dozenten      | get:docent/{docent_id}                                       |
+| Termine von Dozenten      | get:docents/{docent_id}                                       |
 +---------------------------+--------------------------------------------------------------+
 | Terminanfragen abrufen    | **D** get:appointment_request                                |
 +---------------------------+--------------------------------------------------------------+
