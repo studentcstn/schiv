@@ -9,7 +9,7 @@ docent = {
 	            });
 		};
 		
-		$scope.getSingleDocent = function(docent_id){
+		getSingleDocent: function($http, docent_id){
 		    $http.get('/docents/' + docent_id)
 	            .then(function(response) {
 	                $rootScope.$broadcast("show_inscribe", response.data);
