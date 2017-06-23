@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Account;
 use App\Faculty;
 
-class SettingsController extends Controller {
+class SettingController extends Controller {
     public function show() {
         $account = Auth::user();
 

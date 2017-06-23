@@ -20,6 +20,7 @@ class ResetPasswordController extends Controller {
         }
 
         $newPassword = str_random(10);
+
         $account->active = false;
         $account->password = Hash::make($newPassword);
         $account->save();

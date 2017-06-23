@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Account;
 use App\Faculties;
 
-class SettingsControllerTest extends TestCase {
+class SettingControllerTest extends TestCase {
     use WithoutMiddleware;
     use DatabaseTransactions;
 

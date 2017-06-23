@@ -1,4 +1,21 @@
-# Funktionalen Anforderungen
+# Funktionale Anforderungen
+
+Eine Liste von Funktionalen Anforderungen:
+
+#. Konten sind nur registrierbar mit E-Mail-Adressen (`@hof-university.de`) der
+   Hochschule Hof 
+#. Zur Registrierung wird nur die E-Mail-Adresse benötigt
+#. Konten werden nach der Registrierung als "Studenten" behandelt
+#. Konten können nur "Dozent" werden, wenn bereits ein deaktiviertes Konto
+   diesen Typs angelegt ist
+#. Jedem Konto sind ein oder mehrere Fakultäten zugeordnet
+#. Aktivierung eines Kontos erfolgt über eine E-Mail die nach der Registrierung
+   mit einem Aktivierungs-Link geschickt wird.
+#. Dozenten werden über die Schnittstelle der iOS-Stundenplan-App abgefragt.
+   Hierbei muss aus den Namen des Dozenten die E-Mail-Adresse
+   abgeleitet werden, da die diese nicht direkt abfragbar ist.
+#. Die Anwendung soll mindestens auf normalen Desktop-PCs mit 
+   den weitverbreitetsten Browsern laufen.
 
 # Style-Guide
 
@@ -17,43 +34,42 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 
 # REST-Schnittstelle
 
-+---------------------------+--------------------------------------------------------------+
-| Beschreibung              | Method:Url (Body)                                            |
-+===========================+==============================================================+
-| Login                     | put:login (email, password)                                  |
-+---------------------------+--------------------------------------------------------------+
-| Logout                    | put:logout (email, password)                                 |
-+---------------------------+--------------------------------------------------------------+
-| Reset                     | put:reset (email, password)                                  |
-+---------------------------+--------------------------------------------------------------+
-| Register                  | post:register (email, password)                            \ |
-|                           | put:register (token)                                         |
-+---------------------------+--------------------------------------------------------------+
-| Suche                     | get:docents                                                  |
-+---------------------------+--------------------------------------------------------------+
-| Informationen bzw.        |                                                              |
-| Termine von Dozenten      | get:docents/{docent_id}                                       |
-+---------------------------+--------------------------------------------------------------+
-| Terminanfragen abrufen    | **D** get:appointment_request                                |
-+---------------------------+--------------------------------------------------------------+
-| Termin Einschreibung      | **A** post:appointment_request (...)                         |
-+---------------------------+--------------------------------------------------------------+
-| Termine annehmen bzw.     | **D** put:appointment_request (id, state)                  \ |
-| ablehen                   | **A** delete:appointment_request/{id}                        |
-+---------------------------+--------------------------------------------------------------+
-| Termine Dozenten          | **D** get:appointment                                      \ |
-|                           | **D** get:appointment/{count}                              \ |
-|                           | **D** get:appointment/{from}/{to}                          \ |
-|                           | **D** post:appointment (day, time_from, time_to, desc)     \ |
-|                           | **D** delete:appointment/{id}                                |
-+---------------------------+--------------------------------------------------------------+
-| Einstellungen             | **A** get:settings                                         \ |
-|                           | **A** put:settings (email, password)                         |
-+---------------------------+--------------------------------------------------------------+
-| Ausgeschlossene Benutzer  | **D** get:account_ban                                      \ |
-|                           | **D** post:account_ban (account_ban_id)                    \ |
-|                           | **D** delete:account_ban/{id}                                |
-+---------------------------+--------------------------------------------------------------+
++------------------------------------------+--------------------------------------------------------------+
+| Beschreibung                             | Method:Url (Body)                                            |
++==========================================+==============================================================+
+| Login                                    | put:login (email, password)                                  |
++------------------------------------------+--------------------------------------------------------------+
+| Logout                                   | put:logout (email, password)                                 |
++------------------------------------------+--------------------------------------------------------------+
+| Reset Passwort                           | put:reset (email, password)                                  |
++------------------------------------------+--------------------------------------------------------------+
+| Registrieren                             | post:register (email, password)                            \ |
+|                                          | put:register (token)                                         |
++------------------------------------------+--------------------------------------------------------------+
+| Suche                                    | get:docents                                                  |
++------------------------------------------+--------------------------------------------------------------+
+| Informationen bzw. Termine von Dozenten  | get:docents/{docent_id}                                      |
++------------------------------------------+--------------------------------------------------------------+
+| Terminanfragen abrufen                   | **D** get:appointment_requests                               |
++------------------------------------------+--------------------------------------------------------------+
+| Termin Einschreibung                     | **A** post:appointment_requests (...)                        |
++------------------------------------------+--------------------------------------------------------------+
+| Termine annehmen bzw. ablehen            | **D** put:appointment_requests (id, state)                 \ |
+|                                          | **A** delete:appointment_requests/{id}                       |
++------------------------------------------+--------------------------------------------------------------+
+| Termine Dozenten                         | **D** get:appointments                                     \ |
+|                                          | **D** get:appointments/{count}                             \ |
+|                                          | **D** get:appointments/{from}/{to}                         \ |
+|                                          | **D** post:appointments (day, time_from, time_to, desc)    \ |
+|                                          | **D** delete:appointments/{appointment_id}                   |
++------------------------------------------+--------------------------------------------------------------+
+| Einstellungen                            | **A** get:settings                                         \ |
+|                                          | **A** put:settings (email, password)                         |
++------------------------------------------+--------------------------------------------------------------+
+| Ausgeschlossene Konten                   | **D** get:account_bans                                     \ |
+|                                          | **D** post:account_bans (account_ban_id)                   \ |
+|                                          | **D** delete:account_bans/{id}                               |
++------------------------------------------+--------------------------------------------------------------+
 
 # Implementierung
 

@@ -20,6 +20,7 @@ class CreateAccountsTable extends Migration
             $table->enum("type", ['Docent', 'Student']);
             $table->boolean("active");
             $table->dateTime("last_login_at")->nullable();
+            $table->string("remember_token")->nullable();
             $table->timestamps();
         });
     }

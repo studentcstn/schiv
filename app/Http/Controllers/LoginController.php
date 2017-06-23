@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller {
     public function login(Request $request) {
         $this->validate($request, [
-            'email' => 'required|email', 'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
         if (Auth::validate($request->only(['email', 'password']))) {
