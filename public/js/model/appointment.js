@@ -39,7 +39,7 @@ appointment = {
 					{"day": day,"time_from": time_from, "time_to": time_to, "desription": description}).
 			then(function(response){
 				console.log(response);
-				$rootScope.$broadcast(broadcastSuccess);
+				$rootScope.$broadcast(broadcastSuccess, response);
 			}, function(response){
 				console.log(response);
 				$rootScope.$broadcast(broadcastFailed, response);
@@ -50,7 +50,7 @@ appointment = {
 			$http.delete('/appointment/' + appointment_id + '').
 			then(function(response){
 				console.log(response);
-				$rootScope.$broadcast(broadcastSuccess)
+				$rootScope.$broadcast(broadcastSuccess, response)
 			}, function(response){
 				console.log(response);
 				$rootScope.$broadcast(broadcastFailed, response);
