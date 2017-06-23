@@ -1,5 +1,5 @@
 appointment = {
-		getAppointments:  function($http, $rootScope, broadcastSuccess, broadcastFailed){
+		getAppointments:  function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
 			$http.get('/appointment', {
 				headers:user_id
 			}).then(function(response){
@@ -10,7 +10,7 @@ appointment = {
 				});
 		},
 		
-		getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
+		getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id, count){
 		    $http.get('/appointment/' + count, {
 		        headers: user_id
 		    }).then(function(response) {
