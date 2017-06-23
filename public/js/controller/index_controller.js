@@ -54,7 +54,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         docent.getSingleDocent($http, $rootScope, "index_docent_s", "index_docent_f", id);
     };
     $scope.$on("index_docent_s", function (event, data) {
-        console.log(data);
+        $rootScope.$broadcast("show_inscribe", data);
     });
     $scope.$on("index_docent_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
