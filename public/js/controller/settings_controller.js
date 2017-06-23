@@ -4,7 +4,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     });
 
     var setting = function () {
-        settings.settings($http, $rootScope, "settings_settings_s", "settings_settings_f");
+        settings.getSettings($http, $rootScope, "settings_settings_s", "settings_settings_f");
     };
     $scope.$on("settings_settings_s", function (event, data) {
         $scope.user_settings = data;
