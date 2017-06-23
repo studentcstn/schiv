@@ -1,5 +1,5 @@
 docent = {
-		getDocentList: function($http){
+		getDocentList: function($http, $rootScope, broadcastSuccess, broadcastFailed){
 		    $http.get('/docents')
 	            .then(function(response) {
 	                $scope.list = response.data;
@@ -9,7 +9,7 @@ docent = {
 	            });
 		};
 		
-		getSingleDocent: function($http, docent_id){
+		getSingleDocent: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id){
 		    $http.get('/docents/' + docent_id)
 	            .then(function(response) {
 	                $rootScope.$broadcast("show_inscribe", response.data);
