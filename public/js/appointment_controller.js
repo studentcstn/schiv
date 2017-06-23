@@ -16,9 +16,8 @@ schiv_module.controller('appointment_controller', function($scope, $http){
 	    }).then(function(response) {
 	        $scope.list = response.data;
 	        }, function(response){
-
-            }
-		);
+	        	
+            });
 	};
 
 	$scope.getAppointmentsFromTo = function(){

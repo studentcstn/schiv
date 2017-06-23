@@ -7,7 +7,7 @@ docent = {
 				}, function(response){
 	                console.log(response);
 	            });
-		};
+		},
 		
 		getSingleDocent: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id){
 		    $http.get('/docents/' + docent_id)
@@ -17,5 +17,5 @@ docent = {
 				}, function(response){
 	                console.log(response);
 	            });
-		};
+		}
 }
