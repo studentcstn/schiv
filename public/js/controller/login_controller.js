@@ -91,6 +91,26 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.$on("login_logout_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
     });
+
+
+
+    var registration = function (token) {
+        login.register($http, $rootScope, "login_register_s", "login_register_f", token);
+    };
+    $scope.$on("login_register_s", function (event, data) {
+
+    });
+    $scope.$on("login_register_f", function (event, data) {
+        $rootScope.$broadcast("alert", "danger", data.statusText);
+    });
+
+
+    if (window.location.href.match(".*?.*token=.*")) {
+        var token = window.location.href;
+        token = token.substring(token.indexOf('?')+1);
+        registration(token.substring(token.indexOf('=')+1));
+        window.location.href = window.location.href.substring(0, window.location.href.indexOf('?'));
+    }
 });
 
 

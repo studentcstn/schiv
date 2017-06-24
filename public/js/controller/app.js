@@ -9,7 +9,6 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
     $scope.show_login_password = true;
     $scope.show_login_forgotPassword = true;
 
-
     var show_elements = function (ids) {
         for (i = 0; i < ids.length; ++i)
             $scope[ids[i]] = true;
@@ -95,6 +94,7 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
         alertTime[name] = null;
         hide_elements([name]);
     };
+
 });
 
 /*

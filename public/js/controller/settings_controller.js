@@ -25,10 +25,10 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
 
 
     $scope.save = function () {
-        settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.user_settings.email, $scope.user_settings.password, $scope.user_settings.faculties);
+        settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.newUser_settings.email, $scope.newUser_settings.password, $scope.newUser_settings.faculties);
     };
     $scope.$on("settings_save_s", function (event, data) {
-        $scope.user_settings = data;
+        $rootScope.$broadcast("settings_settings_s", data)
     });
     $scope.$on("settings_save_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
