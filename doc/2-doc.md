@@ -35,7 +35,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 # REST-Schnittstelle
 
 +------------------------------------------+--------------------------------------------------------------+
-| Beschreibung                             | Method:Url (Body)                                            |
+| Beschreibung                             | [A|D] Method:Url (Body) -> (Result)                          |
 +==========================================+==============================================================+
 | Login                                    | put:login (email, password)                                  |
 +------------------------------------------+--------------------------------------------------------------+
@@ -43,7 +43,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 +------------------------------------------+--------------------------------------------------------------+
 | Reset Passwort                           | put:reset (email, password)                                  |
 +------------------------------------------+--------------------------------------------------------------+
-| Registrieren                             | post:register (email, password)                            \ |
+| Registrieren                             | post:register (email, password) -> (token)                 \ |
 |                                          | put:register (token)                                         |
 +------------------------------------------+--------------------------------------------------------------+
 | Suche                                    | get:docents                                                  |
@@ -60,7 +60,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 | Termine Dozenten                         | **D** get:appointments                                     \ |
 |                                          | **D** get:appointments/{count}                             \ |
 |                                          | **D** get:appointments/{from}/{to}                         \ |
-|                                          | **D** post:appointments (day, time_from, time_to, desc)    \ |
+|                                          | **D** post:appointments (...)                              \ |
 |                                          | **D** delete:appointments/{appointment_id}                   |
 +------------------------------------------+--------------------------------------------------------------+
 | Einstellungen                            | **A** get:settings                                         \ |
@@ -70,6 +70,11 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 |                                          | **D** post:account_bans (account_ban_id)                   \ |
 |                                          | **D** delete:account_bans/{id}                               |
 +------------------------------------------+--------------------------------------------------------------+
+
+: Tabelle zeigt den Aufbau der REST-Schnittstelle 
+
+(Urls die mit **D** gekennzeichnet sind, sind nur als Dozent zugreifbar, Urls mit **A** sind nur als eingeloggter Nutzer 
+zugreifbar)
 
 # Implementierung
 
