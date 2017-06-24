@@ -14,17 +14,19 @@ class RegisterControllerTest extends TestCase {
     use DatabaseTransactions;
 
     public function testStoreSuccess() {
-        $response = $this->postJson('register', [
-            'email' => 'foo@bar.ba',
-            'password' => '0123456789'
-        ]);
-        $response->assertStatus(200);
+        $email = 'foo@bar.ba';
+        $password = '0123456789';
 
         $response = $this->postJson('register', [
             'email' => 'foo@bar.ba',
             'password' => '0123456789'
         ]);
         $response->assertStatus(200);
+
+        $this->assertDatabaseMissing('accounts', [
+            'email' => $email,
+            'password' => $password
+        ]);
     }
 
     public function testStoreActiveAndRegisteredFail() {
@@ -89,6 +91,6 @@ class RegisterControllerTest extends TestCase {
         $response = $this->putJson('register', [
             'token' => 'secret2'
         ]);
-        $response->assertStatus(500);
+        $response->assertStatus(404);
     }
 }

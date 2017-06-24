@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
-    //todo can not login with active account
+    // TODO can not login with active account???
     public function login(Request $request) {
         $this->validate($request, [
             'email' => 'required|email',
