@@ -152,7 +152,7 @@
                     <div class="appointment_info col-xs-10">
                         <div>{{item.description}}</div>
                     </div>
-                    <div class="col-xs-2" ng-class="type == 'Student ? hidden : 'ng-hide'">
+                    <div class="col-xs-2" ng-class="type == 'Student' ? 'hidden' : 'ng-hide'">
                         <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
                     </div>
                     <div class="appointment_info col-xs-12">
@@ -160,12 +160,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4">{{item.request_at}}</div>
+                    <div class="col-xs-4">{{item.requested_at}}</div>
                     <div class="col-xs-4">{{item.appointment_at}}</div>
                     <div class="col-xs-4">{{item.duration_in_min}} min</div>
                 </div>
                 <div ng-show="appointment_{{item.id}}">
-                    <div class="appointment" ng-show="item in item">
+                    <div class="appointment" ng-show="item in item.s">
                         <div class="appointment_info">{{item.description}}</div>
                     </div>
                 </div>
@@ -262,20 +262,26 @@
 <!-- show site for make a request to a appointment. for students -->
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
-        <div class="appointment" ng-repeat="item in docent.appointments">
+        <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id">
             <div class="appointment_info">{{item.description}}</div>
-            <div class="appointment_time">{{item.date}}  {{item.time_from}} - {{item.time_to}} Uhr</div>
+            <div class="row">
+                <div class="col-xs-offset-4 col-xs-4">
+                    {{item.date}}
+                </div>
+                <div class="col-xs-4">
+                    {{item.time_from}} - {{item.time_to}} Uhr
+                </div>
+            </div>
         </div>
+        {{newAppointment_request.id}}
         <div class="form-group row">
             <div class="dropdown col-xs-6">
                 <button class="btn btn-dropdown dropdown-toggle" type="button" id="appointment_inscribe_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Date
+                    {{newAppointment_request.date}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown">
-                    <li><a>eins</a></li>
-                    <li><a>zwei</a></li>
-                    <li><a>drei</a></li>
+                    <li><a>{{newAppointment_request.date}}</a></li>
                 </ul>
             </div>
             <div class="col-xs-6">
@@ -283,16 +289,16 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="subject">
+            <input type="text" class="form-control" placeholder="subject" ng-model="newAppointment_request.subject">
         </div>
         <div class="form-group">
-            <textarea class="form-control" placeholder="description"></textarea>
+            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.descripton"></textarea>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="inscribe_close()">Close</div>
-                    <div type="button" class="btn btn-default">Inscribe</div>
+                    <div type="button" class="btn btn-default" ng-click="inscripe()">Inscribe</div>
                 </div>
             </div>
         </div>

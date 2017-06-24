@@ -21,9 +21,8 @@ appointment_request = {
 	            });
 		},
 		
-		createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, duration_in_min, request_at, appointment_id){
-	        $http.post('/appointment_request',{"description": description, "subject": subject, "duration_in_min": duration_in_min, 
-	        			"request_at": request_at,  "appointment_id": appointment_id})
+		createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
+	        $http.post('/appointment_request',{"description": description, "subject": subject, "appointment_id": appointment_id, "date": date})
 	            .then(function(response){
 	            	console.log(response);
 	            	$rootScope.$broadcast(broadcastSuccess, response);
