@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
-    // TODO can not login with active account???
     public function login(Request $request) {
         $this->validate($request, [
             'email' => 'required|email',
@@ -21,12 +20,7 @@ class LoginController extends Controller {
                 Auth::login($account);
                 return response()->json([
                     "message" => "login successful",
-                    "account" => [
-                        'id' => $account->id,
-                        'email' => $account->email,
-                        'type' =>  $account->type,
-                        'last_login_at' => $account->last_login_at
-                    ]
+                    "account" => $account->toArray()
                 ]);
             } else {
                 $reason = "account must be active";

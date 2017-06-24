@@ -1,6 +1,6 @@
-# Funktionale Anforderungen
+# Funktionale Anforderungen {#sec:guideline}
 
-Eine Liste von Funktionalen Anforderungen die während des Interviews mit dem
+Eine Liste von Funktionalen Anforderungen die während der Gespräche mit dem
 Auftraggeber beschlossen wurden:
 
 #. Konten sind nur registrierbar mit E-Mail-Adressen (`@hof-university.de`) der
@@ -22,7 +22,8 @@ Auftraggeber beschlossen wurden:
    ("unsichtbar gemacht").
 #. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
    sich dann wieder erneut registrieren
-#. 
+#. Aktivierungslink wird über einen GET abgesetzt, d.h. der Aktivierungslink
+   muss im Frontend implementiert sein. 
 
 [^IOSAPP]:
 <https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server> 
@@ -71,7 +72,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 +------------------------------------------+--------------------------------------------------------------+
 | Logout                                   | put:logout (email, password)                                 |
 +------------------------------------------+--------------------------------------------------------------+
-| Reset Passwort                           | put:reset (email, password)                                  |
+| Reset Passwort                           | put:reset (email)                                            |
 +------------------------------------------+--------------------------------------------------------------+
 | Registrieren                             | post:register (email, password)                            \ |
 |                                          | put:register (token)                                         |
@@ -116,58 +117,133 @@ Anmerkungen:
 
 ### Allgemein
 
-Die Nachrichten sind im JSON-Format. Im Erfolgsfall kommt der HTTP-Status
+Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
 **200** zurück, im Fehlerfall kann **401**, **404**, **422** oder **500**
 zurückgegeben werden:
 
-- **401**: (TODO)
+- **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht
+  falls die kein Rückgabewert nötig ist.
 
-    ```{#lst:422 .json}
+- **401**: Falls der Login fehlschlägt, der Benutzer nicht eingeloggt ist oder
+  der Benutzer ein Dozent sein um auf die Route zugreifen zu können. Als Antwort
+  kommt eine Fehlermeldung mit dem Grund zurück. Beispiel:
+
+    ```json
     {"message":"login unsuccessful"}
+    {"message":"account isn't of type 'Docent'"}
+    {"message":"login required"}
     ```
 
-- **404**: Die angefragten Objekte sind nicht in der Datenbank vorhanden, oder
-  es kann auf sie nicht zugegriffen werden, da die Berechtigung fehlt. Als
+- **404**: Die angefragten Objekte sind nicht in der Datenbank vorhanden. Als
   Antwort kommt eine leere Nachricht zurück. Beispiel:
 
-
-    ```{#lst:422 .json}
+    ```json
     []
     ```
 
 - **422**: Die Anfrage enthält nicht alle nötigen Felder, oder ein Feld ist
   falsch formatiert. Die Antwort enthält als Attribute die Feldnamen bei denen
   ein Fehler festgestellt wurde. Als Wert der Attribute wird ein Array mit
-  Fehlermeldungen zürückgegeben. Beispiel:
+  Fehlermeldungen zurückgegeben. Beispiel:
 
-    Anfrage:
+    Anfrage an `post:register`:
 
-    ```{#lst:422 .json}
-    {"email": "foo","password": "foo"}
+    ```json
+    {"email": "alice","password": "bob"}
     ```
-    Antwort:
 
-    ```{#lst:422 .json}
+    Antwort von `post:register`:
+
+    ```json
     {"email":["validation.required"],"password":["validation.min.string"]}
     ```
 
-- **500**: Ein allgemeiner Fehler. Als Antwort wird eine Fehlermeldung im
-  Attribut `message` zurückgegeben. Beispiel:
+- **500**: Ein allgemeiner Fehler (Syntaxfehler oder nicht behandelter Fehler).
+  Als Antwort wird eine Fehlermeldung im Attribut `message` zurückgegeben.
+  *Hinweis:* Ist die Anwendung im Debugmodus (`app.debug == true`), dann wird
+  die Meldung aus der auslösenden Exception zurückgegeben. Es kann im Log unter
+  `storage/logs/laravel.log` die genaue Fehlermeldung nachgeschaut werden.
+  Beispiel:
 
-    ```{#lst:422 .json}
-    {"message": "TODO"}
+    ```json
+    {"message": "fatal error"}
+
     ```
 
-Eine Nachricht kann zum genaueren spezifizieren des Fehlers das Attribut
-'message' enthalten.
+### Register, Login, Logout und Reset Password
 
-### Login, Register und Reset Password
+Der Login funktioniert über eine Session, die serverseitig gespeichert wird.
+Auf Clientseite muss in einem Cookie die geschickte Session-Id mitgeführt werden.
+Da die Anwendung sowieso in einem Browser läuft, kümmert sich der Browser um die
+Cookie Verwaltung. Auf dem Server kümmert sich Laravel um die Session, die für
+jede Verbindung eindeutig ist und sein muss. Der Webserver muss später mit über
+das HTTPS-Protkoll angesprochen werden, sonst könnte ein Angreifer die Session
+"hijacken".
+
+**Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
+und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
+den Benutzer mit einem Aktivierungslink geschickt (Momentan: wird einfach zum
+Testen der Token mit in der Antwort zurückgeben). Beispiel:
+
+```json
+{"email":"alice@wonder.land","password":"rabbithole"}
+```
+
+Momentane Antwort:
+
+```json
+{"token":"twon-ha"}
+```
+
+**Login**: Wenn der Login nicht erfolgreich ist wird ein **401** zurückgeben,
+sonst ein **200** mit leerer Nachricht. Beispiel: siehe **Register**.
+
+**Logout**: Löscht die Session auf dem Server und loggt den Benutzer aus. Falls
+ein nicht angemeldeter Benutzer versucht sich auszuloggen wird ein **401**
+zurückgeliefert.
+
+**Reset Password:** Benötigt nur die E-Mail-Adresse und schickt eine E-Mail an
+den Benutzer mit einem neu generierten Passwort und einem Aktivierungslink.
+(Momentan: wird einfach zum Testen der Token und das neue Passwort mit in der
+Antwort `{"token":"<token>","password":"<password>"}` zurückgeben). Nach einem
+Klick auf den Aktivierungslink ist das Konto des Benutzer wieder aktiviert.
+Einloggen kann sich der Benutzer dann mit dem generierten Passwort. Das Passwort
+ist permant und dem Benutzer ist es freigestellt es wieder zu ändern. Beispiel:
+
+```json
+{"email":"alice@wonder.land"}
+```
+
+Momentane Antwort:
+
+```json
+{"token":"twon-ha","password":"rabbithole2"}
+```
+
+Laut Vorgabe (siehe [@sec:guideline]) muss der Aktivierungslink im Frontend
+implementiert sein. Da der Link über ein `GET` abgesetzt wird, aber das Backend
+ein `PUT` benötigt. Das Frontend muss dann ein `put:register` mit dem Token in
+der Nachricht absetzen, um das Konto wieder zu aktivieren.
+
+### Suche
+
+(TODO)
+
+### Termine
+
+(TODO)
+
+### Einstellungen
+
+(TODO)
+
+### Konten Sperren
 
 (TODO)
 
 # Implementierung
 
-# Allgemein
+## Allgemein
 
 Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
 werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in

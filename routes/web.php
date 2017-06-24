@@ -6,7 +6,6 @@ Route::get('/', function () {
 });
 
 Route::put('login', 'LoginController@login');
-Route::put('logout', 'LogoutController@logout');
 Route::put('reset', 'ResetPasswordController@reset');
 
 Route::post('register', 'RegisterController@store');
@@ -16,6 +15,8 @@ Route::get('docents', 'DocentController@index');
 Route::get('docents/{docent_id}', 'DocentController@show');
 
 Route::middleware(['auth.enforce'])->group(function () {
+    Route::put('logout', 'LogoutController@logout');
+
     Route::get('appointment_requests', 'AppointmentRequestController@show');
     //todo add appointment_requests/{count}
     Route::post('appointment_requests', 'AppointmentRequestController@store');
