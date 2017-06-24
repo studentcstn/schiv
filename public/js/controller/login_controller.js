@@ -1,6 +1,6 @@
 schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
-        email: "hanz.wurst@hof-university.de", //todo remove
+        email: "helmut.kohlt@hof-university.de", //todo remove
         password: "clearTextPassword",
         passwordRepeat: ""
     };
@@ -73,8 +73,8 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.$on('log_out', function () {
         login.logout($http, $rootScope, "login_logout_s", "login_logout_f");
         $scope.user = {
-            email: "test.test@hof-university.de", //todo remove
-            password: "1234567890",
+            email: "",
+            password: "",
             passwordRepeat: ""
         };
     });
