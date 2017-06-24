@@ -24,8 +24,8 @@ Route::middleware(['auth.enforce','auth.docent'])->group(function() {
     Route::put('appointment_requests', 'AppointmentRequestController@update');
 
     Route::get('appointments', 'AppointmentController@show');
-    Route::get('appointments/{count}', 'AppointmentController@show_count');
-    Route::get('appointments/{from}/{to}', 'AppointmentController@show_from_to');
+    Route::get('appointments/{count}', 'AppointmentController@showCount');
+    Route::get('appointments/{from}/{to}', 'AppointmentController@showFromTo');
     Route::post('appointments', 'AppointmentController@store');
     Route::delete('appointments/{appointment_id}', 'AppointmentController@destroy');
 

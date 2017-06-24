@@ -4,26 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class AppointmentRequestController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+class AppointmentRequestController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
@@ -31,57 +12,43 @@ class AppointmentRequestController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-	$auth_user = Auth::user();
-    
+    public function store(Request $request) {
+        $auth_user = Auth::user();
+
         DB::table('appointment_requests')->insertGetId([
-		'account_id' => $auth_user->id,
-		'appointment_id' => $request->input('appointment_id'),
-		'description' => $request->input('description'),
-		'subject' => $request->input('subject'),
-		'duration_in_min' => $request->input('duration_in_min'),
-		'requested_at' => $request->input('requested_at'),
-		'state' => 'idle'
-		]);
+            'account_id' => $auth_user->id,
+            'appointment_id' => $request->input('appointment_id'),
+            'description' => $request->input('description'),
+            'subject' => $request->input('subject'),
+            'duration_in_min' => $request->input('duration_in_min'),
+            'appointment_at' => $request->input('appointment_at'),
+            'requested_at' => $request->input('requested_at'),
+            'state' => 'idle'
+        ]);
     }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //todo error 500
-    public function show()
-    {
-	 $auth_user = Auth::user();
-	    
-	 $requests;
-	    
-	if($auth_user->type == 'Docent')
-	{
-		$requests = DB::table('appointment_requests')
-			->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-			->where('appointments.account_id', '=', $auth_user->id)
-			->get();
-	} else
-	{
-		$requests = DB::table('appointment_requests')->where('account_id', '=', $auth_user->id)
-			->get();
-	}
-    
-    	return response()->json($requests);
+    public function show() {
+        $auth_user = Auth::user();
+
+        if($auth_user->type == 'Docent') {
+            $requests = DB::table('appointment_requests')
+                ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+                ->where('appointments.account_id', '=', $auth_user->id)
+                ->get();
+        } else {
+            $requests = DB::table('appointment_requests')->where('account_id', '=', $auth_user->id)
+                ->get();
+        }
+
+        return response()->json($requests);
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    	//
-    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -91,14 +58,15 @@ class AppointmentRequestController extends Controller
      */
     public function update(Request $request)
     {
-	$auth_user = Auth::user();
-	    
-	DB::table('appointment_requests')
-		->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-		->where('appointment_requests.id', '=', $request->input('id'))
-		->where('appointment.account_id', '=', $auth_user->id)
-		->update(['state' => $request->input('state')]);
+        $auth_user = Auth::user();
+
+        DB::table('appointment_requests')
+            ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+            ->where('appointment_requests.id', '=', $request->input('id'))
+            ->where('appointment.account_id', '=', $auth_user->id)
+            ->update(['state' => $request->input('state')]);
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -106,12 +74,11 @@ class AppointmentRequestController extends Controller
      * @param  int  $request_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-	$auth_user = Auth::user();
-	    
+    public function destroy($id) {
+        $auth_user = Auth::user();
+
         DB::table('appointment_requests')->where('id', '=', $id)
-		->where('account_id', '=', $auth_user->id)
-		->delete();
+            ->where('account_id', '=', $auth_user->id)
+            ->delete();
     }
 }

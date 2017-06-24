@@ -27,7 +27,7 @@ class AppointmentsTableSeeder extends Seeder
             'account_id' => 2,
             'description' => 'das ist auch ein Test-Termin.',
             'active' => true,
-            'weekdays' => 'Sun',
+            'weekday' => 'Sun',
             'time_from' => '11:00:00',
             'time_to' => '12:00:00',
         ]);
