@@ -18,7 +18,9 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     });
     $scope.$on("settings_settings_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
-        $rootScope.$broadcast("settings_settings_s", {email: "test.test@hof-university.de"})  //todo remove
+        var d = {email: "test.test@hof-university.de"}; //todo remove    \/
+        d.email = d.email.substring(0, d.email.indexOf('@'));
+        $rootScope.$broadcast("settings_settings_s", d)  //todo remove   /\
     });
 
 

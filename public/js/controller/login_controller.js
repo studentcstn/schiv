@@ -44,12 +44,12 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             default:
                 $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
         }
-        var da = {account: {email: "test.test@hof-university.de", id: 1, type: "Student"}};
+        var da = {account: {email: "test.test@hof-university.de", id: 1, type: "Student"}};  //todo remove \/
         var d = da.account;
         d.email = d.email.substring(0, d.email.indexOf('@'));
         d.name = d.email.substring(0, d.email.indexOf('.'));
         d.last = d.email.substring(d.email.indexOf('.')+1);
-        $rootScope.$broadcast("login_login_s", da); //todo remove
+        $rootScope.$broadcast("login_login_s", da); //todo remove                                          /\
     });
 
 

@@ -379,8 +379,10 @@ body {
 
 
 
-.has-error .form-control,
-.has-success .form-control {
+.has-error .form-control {
+    background-color: rgba(169, 68, 66, 0.05);
+    color: #a94442;
+
     -webkit-box-shadow: 0px 0px 0px;
     -webkit-box-shadow: 0rem 0rem 0rem;
     -moz-box-shadow: 0px 0px 0px;
@@ -388,6 +390,19 @@ body {
     box-shadow: 0px 0px 0px;
     box-shadow: 0rem 0rem 0rem;
 }
+
+.has-success .form-control {
+    background-color: rgba(60, 118, 61, 0.05);
+    color: #3c763d;
+
+    -webkit-box-shadow: 0px 0px 0px;
+    -webkit-box-shadow: 0rem 0rem 0rem;
+    -moz-box-shadow: 0px 0px 0px;
+    -moz-box-shadow: 0rem 0rem 0rem;
+    box-shadow: 0px 0px 0px;
+    box-shadow: 0rem 0rem 0rem;
+}
+
 .has-error .form-control:focus,
 .has-success .form-control:focus {
     -webkit-box-shadow: 0px 0px 0px;
@@ -398,6 +413,18 @@ body {
     box-shadow: 0rem 0rem 0rem;
 }
 
+
+.alert-info,
+.alert-success,
+.alert-warning,
+.alert-danger {
+    background-image: inherit;
+}
+
+
+.navbar {
+    background-image: inherit;
+}
 
 
 .col-form-label {
