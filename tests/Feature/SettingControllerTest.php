@@ -53,6 +53,29 @@ class SettingControllerTest extends TestCase {
         ]);
     }
 
+    public function testUpdateSingleSuccess() {
+        Auth::login(Account::find(1));
+
+        $combinations = [
+            ['email'],
+            ['password'],
+            ['faculties'],
+            ['email', 'password'],
+            ['email', 'faculties'],
+            ['password', 'faculties']
+        ];
+
+        foreach ($combinations as $combination) {
+            $request = [];
+            $requestTemplate = $this->getValidRequest();
+            foreach ($combination as $key) {
+                $request[$key] = $requestTemplate[$key];
+            }
+            $response = $this->putJson('settings', $request);
+            $response->assertStatus(200);
+        }
+    }
+
     public function testUpdatePasswordFail() {
         Auth::login(Account::find(1));
         $request = $this->getValidRequest();
@@ -87,9 +110,5 @@ class SettingControllerTest extends TestCase {
         $request['faculties'] = [['id' => 'bar']];
         $response = $this->putJson('settings', $request);
         $response->assertStatus(500);
-
-        unset($request['faculties']);
-        $response = $this->putJson('settings', $request);
-        $response->assertStatus(422);
     }
 }

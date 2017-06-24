@@ -22,32 +22,31 @@ class SettingController extends Controller {
         return response()->json($result);
     }
 
-    //todo schnitstellenbeschreibung anpassen
-    //todo nur email, password oder faculties aenderungen?
     public function update(Request $request) {
         $account = Auth::user();
 
-        if (!$account) {
-            return response()->json([], 404);
-        }
-
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:10',
-            'faculties' => 'required'
+            'email' => 'email',
+            'password' => 'min:10'
         ]);
 
         DB::transaction(function() use ($request, $account) {
-            $account->password = Hash::make($request->input('password'));
-            $account->email = $request->input('email');
+            if ($request->has('password')) {
+                $account->password = Hash::make($request->input('password'));
+            }
+            if ($request->has('email')) {
+                $account->email = $request->input('email');
+            }
             $account->save();
 
-            $account->faculties()->detach();
+            if ($request->has('faculties')) {
+                $account->faculties()->detach();
 
-            foreach ($request->input('faculties') as $faculty) {
-                $account->faculties()->save(
-                    Faculty::find($faculty['id'])
-                );
+                foreach ($request->input('faculties') as $faculty) {
+                    $account->faculties()->save(
+                        Faculty::find($faculty['id'])
+                    );
+                }
             }
         });
     }

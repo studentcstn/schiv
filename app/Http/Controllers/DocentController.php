@@ -8,7 +8,6 @@ use App\Account;
 
 class DocentController extends Controller {
     public function index() {
-        //todo return faculty of docent
         $accounts = Account::where('type', 'Docent')
             ->select('id', 'email')
             ->get();
@@ -16,7 +15,14 @@ class DocentController extends Controller {
         if (!$accounts || $accounts->count() == 0) {
             return response()->json([], 404);
         } else {
-            return response()->json($accounts);
+            $result = [];
+            foreach ($accounts as $account) {
+                $result[] = array_merge(
+                    $account->toArray(),
+                    ['faculties' => $account->faculties]
+                );
+            }
+            return response()->json($result);
         }
     }
 
@@ -32,7 +38,8 @@ class DocentController extends Controller {
             $result = [
                 'id' => $account->id,
                 'email' => $account->email,
-                'appointments' => $account->appointments()->get()
+                'appointments' => $account->appointments,
+                'faculties' => $account->faculties
             ];
 
             return response()->json($result);
