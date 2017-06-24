@@ -30,7 +30,7 @@ class SettingControllerTest extends TestCase {
         return [
             'password' => 'foofoofoofoo',
             'email' => 'foo@foo.foo',
-            'faculties' => [['id' => 3]]
+            'faculties' => [3]
         ];
     }
 

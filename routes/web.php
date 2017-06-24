@@ -1,6 +1,10 @@
 <?php
 use App\Account;
 
+Route::get('/', function () {
+    return redirect('index.html');
+});
+
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LogoutController@logout');
 Route::put('reset', 'ResetPasswordController@reset');

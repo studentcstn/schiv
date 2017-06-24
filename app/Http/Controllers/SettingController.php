@@ -44,7 +44,7 @@ class SettingController extends Controller {
 
                 foreach ($request->input('faculties') as $faculty) {
                     $account->faculties()->save(
-                        Faculty::find($faculty['id'])
+                        Faculty::find($faculty)
                     );
                 }
             }
