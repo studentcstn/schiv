@@ -1,7 +1,7 @@
 schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
-        email: "test.test@hof-university.de", //todo remove
-        password: "1234567890",
+        email: "hanz.wurst@hof-university.de", //todo remove
+        password: "clearTextPassword",
         passwordRepeat: ""
     };
 
@@ -104,7 +104,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         var token = window.location.href;
         token = token.substring(token.indexOf('?')+1);
         registration(token.substring(token.indexOf('=')+1));
-        window.history.pushState("Schiv", "SchiV", "");
+        window.history.pushState(null, null, "/");
     }
 });
 

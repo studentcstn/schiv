@@ -147,18 +147,21 @@
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
         <div id="appointments">
-            <div class="appointment" ng-repeat="item in list" >
+            <div class="appointment" ng-repeat="item in appintments" >
                 <div class="row">
                     <div class="appointment_info col-xs-10">
-                        <div>{{item.email}}</div>
+                        <div>{{item.description}}</div>
                     </div>
                     <div class="col-xs-2">
                         <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
                     </div>
+                    <div class="appointment_info col-xs-12">
+                        <div>{{item.subject}}</div>
+                    </div>
                 </div>
                 <div ng-show="appointment_{{item.id}}">
-                    <div class="appointment" ng-show="item in item.faculty">
-                        <div class="appointment_info">{{item.type}}</div>
+                    <div class="appointment" ng-show="item in item">
+                        <div class="appointment_info">{{item.description}}</div>
                     </div>
                 </div>
             </div>

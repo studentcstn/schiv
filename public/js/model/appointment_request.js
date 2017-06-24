@@ -34,7 +34,7 @@ appointment_request = {
 		},
 		
 		getAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-			$http.get('appointment_request')
+			$http.get('appointment_requests')
 				.then(function(response){
 	            	console.log(response);
 	            	$rootScope.$broadcast(broadcastSuccess, response.data);

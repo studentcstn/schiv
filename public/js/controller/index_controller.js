@@ -29,7 +29,12 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $rootScope.$broadcast("alert", "warning", data.statusText);
     });
     $scope.$on("index_appointment_s", function (event, data) {
-
+        console.log("student: " + data)
+        if (data.lenght == 0) {
+            data = [{id: 0,
+                description: "Du hast momentan keine termine."};
+        }
+        $scope.appintments = data;
     });
     $scope.$on("index_appointment_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
@@ -61,11 +66,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     });
 
 
-    $scope.add = function () {
-
-    };
-
-    $scope.inscripe = function (id) {
-
-    };
+    $scope.toggle_element = function (id) {
+        $rootScope.$broadcast("toggle", id);
+    }
 });
