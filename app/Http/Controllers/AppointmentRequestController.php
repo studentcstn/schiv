@@ -36,14 +36,14 @@ class AppointmentRequestController extends Controller
     	use Carbon\Carbon;
 	$auth_user = Auth::user();
     
-        DB::table('AppointmentRequests')->insertGetId([
+        DB::table('appointment_requests')->insertGetId([
 		'account_id' => $auth_user->id,
 		'appointment_id' => $request->input('appointment_id'),
 		'description' => $request->input('description'),
 		'subject' => $request->input('subject'),
 		'duration_in_min' => $request->input('duration_in_min'),
 		'requested_at' => Carbon::now()->toDayDateTimeString(),
-		'state' => 'Idle'
+		'state' => 'idle'
 		]);
     }
     /**
@@ -61,12 +61,13 @@ class AppointmentRequestController extends Controller
 	    
 	if($auth_user->type == 'Docent')
 	{
-		$requests = DB::table('AppointmentRequests')->join('Appointments', 'AppointmentRequests.appointment_id', '=', 'Appointments.id')
-			->where('Appointments.account_id', '=', $auth_user->id)
+		$requests = DB::table('appointment_requests')
+			->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+			->where('appointments.account_id', '=', $auth_user->id)
 			->get();
 	} else
 	{
-		$requests = DB::table('AppointmentRequests')->where('account_id', '=', $auth_user->id)
+		$requests = DB::table('appointment_requests')->where('account_id', '=', $auth_user->id)
 			->get();
 	}
     
@@ -93,9 +94,10 @@ class AppointmentRequestController extends Controller
     {
 	$auth_user = Auth::user();
 	    
-	DB::table('AppointmentRequests')->join('Appointments', 'AppointmentRequests.appointment_id', '=', 'Appointments.id')
-		->where('AppiontmentRequest.id', '=', $request->input('id'))
-		->where('Appointment.account_id', '=', $auth_user->id)
+	DB::table('appointment_requests')
+		->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+		->where('appointment_requests.id', '=', $request->input('id'))
+		->where('appointment.account_id', '=', $auth_user->id)
 		->update(['state' => $request->input('state')]);
     }
     /**
@@ -109,7 +111,7 @@ class AppointmentRequestController extends Controller
     {
 	$auth_user = Auth::user();
 	    
-        DB::table('AppointmentRequests')->where('id', '=', $id)
+        DB::table('appointment_requests')->where('id', '=', $id)
 		->where('account_id', '=', $auth_user->id)
 		->delete();
     }
