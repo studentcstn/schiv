@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Config;
 
 class Handler extends ExceptionHandler
 {
@@ -43,11 +44,17 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception) {
-        if (Config::get("app.debug")) {
-            return response()->json(['message' => $exception->getMessage()], 500);
-        } else {
-            return response()->json(['message' => 'fatal error'], 500);
+        if ($this->isHttpException($exception)) {
+            if ($exception instanceof  ValidationException) {
+                return response()->json(['message' => $exception->getMessage()], 422);
+            }
+            if (Config::get("app.debug")) {
+                return response()->json(['message' => $exception->getMessage()], 500);
+            } else {
+                return response()->json(['message' => 'fatal error'], 500);
+            }
         }
+        return parent::render($request, $exception);
     }
 
     /**

@@ -16,7 +16,7 @@ class LoginControllerTest extends TestCase {
     public function testLoginSuccess() {
         $account = Account::find(1);
         $this->assertTrue(Auth::user() === null);
-        $response = $this->postJson('login', [
+        $response = $this->put('login', [
             'email' => $account->email,
             'password' => 'clearTextPassword'
         ]);
@@ -26,18 +26,18 @@ class LoginControllerTest extends TestCase {
     }
 
     public function testLoginFail() {
-        $response = $this->postJson('login', [
+        $response = $this->putJson('login', [
             'email' => "abc",
             'password' => 'clearTextPassword'
         ]);
         $response->assertStatus(422);
 
-        $response = $this->postJson('login', [
+        $response = $this->putJson('login', [
             'email' => "abc@abc.abc"
         ]);
         $response->assertStatus(422);
 
-        $response = $this->postJson('login', [
+        $response = $this->putJson('login', [
             'email' => "abc@abc.abc",
             'password' => "abc"
         ]);

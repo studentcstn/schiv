@@ -16,7 +16,7 @@ class LogoutControllerTest extends TestCase {
     public function testLogoutSuccess() {
         $account = Account::find(1);
         $this->assertTrue(Auth::user() === null);
-        $response = $this->postJson('login', [
+        $response = $this->put('login', [
             'email' => $account->email,
             'password' => 'clearTextPassword'
         ]);
@@ -24,7 +24,7 @@ class LogoutControllerTest extends TestCase {
         $response->assertSessionHas('login_account_id', $account->id);
         $this->assertEquals($account->id, Auth::user()->id);
 
-        $response = $this->postJson('logout', []);
+        $response = $this->put('logout', []);
         $response->assertStatus(200);
         $response->assertSessionMissing('login_account_id', $account->id);
         $this->assertTrue(Auth::user() === null);
