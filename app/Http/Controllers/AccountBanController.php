@@ -27,7 +27,7 @@ class AccountBanController extends Controller {
         $accountToBan = Account::find($request->input('account_ban_id'));
 
         if (!$accountToBan) {
-            return response()->json(['message' => "account to ban doesn't exists"], 500);
+            return response()->json(['message' => "account to ban doesn't exists"], 404);
         }
 
         DB::transaction(function() use ($accountToBan, $accountDocent, &$accountBan) {

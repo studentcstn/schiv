@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Config;
 
 class Kernel extends ConsoleKernel
 {
@@ -22,10 +23,33 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')
-        //          ->hourly();
+    protected function schedule(Schedule $schedule) {
+        if (Config::get('app.debug')) {
+            $dateOfYear = "03-15";
+
+            $schedule
+                ->command('retrieve:docents --from-cache')
+                ->everyMinute()
+                ->when(function () use ($dateOfYear) {
+                    return (
+                        $dateOfYear == "03-15" ||
+                        $dateOfYear == "09-31"
+                    );
+                });
+        } else {
+            $dateOfYear = date("m-d");
+
+            $schedule
+                ->command('retrieve:docents')
+                ->daily()
+                ->at('12:00')
+                ->when(function () use ($dateOfYear) {
+                    return (
+                        $dateOfYear == "03-15" ||
+                        $dateOfYear == "09-31"
+                    );
+                });
+        }
     }
 
     /**

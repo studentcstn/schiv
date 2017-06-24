@@ -124,10 +124,10 @@
             }
 
             function change_login(element) {
-                request("logout", "post", []);
+                request("logout", "put", []);
                 if (element.value != "") {
                     var emailpassword = element.value.split(":")
-                    request("login", "post", JSON.stringify({
+                    request("login", "put", JSON.stringify({
                         "email": emailpassword[0],
                         "password": "clearTextPassword"
                     }));

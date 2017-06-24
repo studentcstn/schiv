@@ -1,41 +1,71 @@
 # Funktionale Anforderungen
 
-Eine Liste von Funktionalen Anforderungen:
+Eine Liste von Funktionalen Anforderungen die während des Interviews mit dem
+Auftraggeber beschlossen wurden:
 
 #. Konten sind nur registrierbar mit E-Mail-Adressen (`@hof-university.de`) der
-   Hochschule Hof 
-#. Zur Registrierung wird nur die E-Mail-Adresse benötigt
-#. Konten werden nach der Registrierung als "Studenten" behandelt
+   Hochschule Hof.
+#. Zur Registrierung wird nur die E-Mail-Adresse und ein Passwort benötigt.
+#. Konten werden nach der Registrierung als "Studenten" behandelt.
+#. Eine Liste der aktiven Dozenten wird über die Schnittstelle der
+   iOS-Stundenplan-App[^IOSAPP] abgefragt. Hierbei muss aus den Namen des Dozenten die
+   E-Mail-Adresse abgeleitet werden, da die diese nicht direkt abfragbar ist.
+   Für jeden Dozenten wird ein deaktiviertes Konto angelegt.
 #. Konten können nur "Dozent" werden, wenn bereits ein deaktiviertes Konto
-   diesen Typs angelegt ist
-#. Jedem Konto sind ein oder mehrere Fakultäten zugeordnet
+   diesen Typs angelegt ist.
+#. Jedem Konto sind ein oder mehrere Fakultäten zugeordnet.
 #. Aktivierung eines Kontos erfolgt über eine E-Mail die nach der Registrierung
    mit einem Aktivierungs-Link geschickt wird.
-#. Dozenten werden über die Schnittstelle der iOS-Stundenplan-App abgefragt.
-   Hierbei muss aus den Namen des Dozenten die E-Mail-Adresse
-   abgeleitet werden, da die diese nicht direkt abfragbar ist.
-#. Die Anwendung soll mindestens auf normalen Desktop-PCs mit 
+#. Die Anwendung soll mindestens auf normalen Desktop-PCs mit
    den weitverbreitetsten Browsern laufen.
+#. Es werden generell keine Datensätze gelöscht, sondern nur weich gelöscht
+   ("unsichtbar gemacht").
+#. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
+   sich dann wieder erneut registrieren
+#. 
+
+[^IOSAPP]:
+<https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server> 
 
 # Style-Guide
 
 ## Farbschema
 
+(TODO)
+
+Es wird sich am Farbschema der Hochschule Hof orientiert. 
+
 ## Typographie
+
+(TODO)
+
+Als Schriftart wird `Roboto`[^ROBOTO] verwendet, da diese klar lesbar ist.
+
+[^ROBOTO]: <https://fonts.google.com/specimen/Roboto?selection.family=Roboto>
 
 ## Layout
 
+(TODO)
+
+Beim Layout muss zwischen Student und Dozent unterschieden werden.
+Das Layout der Seite soll möglichst einfach und übersichtlich sein.
+
 ## Navigation
+
+Es wird nur eine Navigationleiste am oberen Rand geben, die immer sichtbar ist.
+Alle Funktionen sind darüber mit wenigen Klicks erreichbar.
 
 # Datenbankmodel
 
 ![Datenbankmodel von schiv (Erstellt mit
 mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 
-# REST-Schnittstelle
+# REST-Schnittstelle {#sec:rest}
+
+## Überblick
 
 +------------------------------------------+--------------------------------------------------------------+
-| Beschreibung                             | [A|D] Method:Url (Body) -> (Result)                          |
+| Beschreibung                             | [A|D] Method:Url (Body)                                      |
 +==========================================+==============================================================+
 | Login                                    | put:login (email, password)                                  |
 +------------------------------------------+--------------------------------------------------------------+
@@ -43,7 +73,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 +------------------------------------------+--------------------------------------------------------------+
 | Reset Passwort                           | put:reset (email, password)                                  |
 +------------------------------------------+--------------------------------------------------------------+
-| Registrieren                             | post:register (email, password) -> (token)                 \ |
+| Registrieren                             | post:register (email, password)                            \ |
 |                                          | put:register (token)                                         |
 +------------------------------------------+--------------------------------------------------------------+
 | Suche                                    | get:docents                                                  |
@@ -71,35 +101,122 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 |                                          | **D** delete:account_bans/{id}                               |
 +------------------------------------------+--------------------------------------------------------------+
 
-: Tabelle zeigt den Aufbau der REST-Schnittstelle 
+: Zeigt den Aufbau der REST-Schnittstelle
 
-(Urls die mit **D** gekennzeichnet sind, sind nur als Dozent zugreifbar, Urls mit **A** sind nur als eingeloggter Nutzer 
-zugreifbar)
+Anmerkungen:
+
+-  `(...)` bedeutet das alle Felder, wie im Model definiert, verwendet werden
+   können.
+- `get:appointments/{from}/{to}`: `from` und `to` müssen im Datumsformat
+  `YYYY-MM-DD HH:II:SS` angegeben werden.
+- **A**: Zugriff nur wenn man als Student oder Dozent eingeloggt.
+- **D**: Zugriff nur wenn man als Dozent eingeloggt.
+
+## Details {#sec:rest-details}
+
+### Allgemein
+
+Die Nachrichten sind im JSON-Format. Im Erfolgsfall kommt der HTTP-Status
+**200** zurück, im Fehlerfall kann **401**, **404**, **422** oder **500**
+zurückgegeben werden:
+
+- **401**: (TODO)
+
+    ```{#lst:422 .json}
+    {"message":"login unsuccessful"}
+    ```
+
+- **404**: Die angefragten Objekte sind nicht in der Datenbank vorhanden, oder
+  es kann auf sie nicht zugegriffen werden, da die Berechtigung fehlt. Als
+  Antwort kommt eine leere Nachricht zurück. Beispiel:
+
+
+    ```{#lst:422 .json}
+    []
+    ```
+
+- **422**: Die Anfrage enthält nicht alle nötigen Felder, oder ein Feld ist
+  falsch formatiert. Die Antwort enthält als Attribute die Feldnamen bei denen
+  ein Fehler festgestellt wurde. Als Wert der Attribute wird ein Array mit
+  Fehlermeldungen zürückgegeben. Beispiel:
+
+    Anfrage:
+
+    ```{#lst:422 .json}
+    {"email": "foo","password": "foo"}
+    ```
+    Antwort:
+
+    ```{#lst:422 .json}
+    {"email":["validation.required"],"password":["validation.min.string"]}
+    ```
+
+- **500**: Ein allgemeiner Fehler. Als Antwort wird eine Fehlermeldung im
+  Attribut `message` zurückgegeben. Beispiel:
+
+    ```{#lst:422 .json}
+    {"message": "TODO"}
+    ```
+
+Eine Nachricht kann zum genaueren spezifizieren des Fehlers das Attribut
+'message' enthalten.
+
+### Login, Register und Reset Password
+
+(TODO)
 
 # Implementierung
 
-Sollicitudin dui. Sed in tellus id urna viverra commodo. Vestibulum enim felis,
-interdum non, sollicitudin in, posuere a, sem. Cras nibh. Sed facilisis ultrices
-dolor. Vestibulum pretium mauris sed turpis. Phasellus a pede id odio interdum
-elementum. Nam urna felis, sodales ut, luctus vel, condimentum vitae, est.
-Vestibulum ut augue. Nunc laoreet sapien quis neque semper dictum. Phasellus
-rhoncus est id turpis. Vestibulum in elit at odio pellentesque volutpat. Nam nec
-tortor. Suspendisse porttitor consequat nulla. Morbi suscipit tincidunt nisi.
-Sed laoreet, mauris et tincidunt facilisis, est nisi pellentesque ligula, sit
-amet convallis neque dolor at sapien. Aenean viverra justo ac sem.
+# Allgemein
 
-Pellentesque.
+Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
+werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
+[@sec:rest-details] beschrieben.
 
 # Testfälle
 
-Fermentum a, aliquet quis, sodales at, dolor. Duis eget velit eget risus
-fringilla hendrerit. Nulla facilisi. Mauris turpis pede, aliquet ac, mattis sed,
-consequat in, massa. Cum sociis natoque penatibus et magnis dis parturient
-montes, nascetur ridiculus mus. Etiam egestas posuere metus. Aliquam erat
-volutpat. Donec non tortor. Vivamus posuere nisi mollis dolor. Quisque porttitor
-nisi ac elit. Nullam tincidunt ligula vitae nulla.
+## Backend
 
-Vivamus sit amet risus et ipsum viverra malesuada. Duis luctus. Curabitur
-adipiscing metus et felis. Vestibulum tortor. Pellentesque purus. Donec
-pharetra, massa quis malesuada auctor, tortor ipsum lobortis ipsum, eget
-facilisis ante nisi eget lectus. Sed a est. Aliquam.
+Es sind für jeden Controller Testfälle im Verzeichnis `tests/Feature` angelegt.
+
+## Fontend
+
+(TODO)
+
+# Benutzerhandbuch
+
+## Installation für Entwicklung und zum Ausprobieren (unter Ubuntu 17.04)
+
+```{#lst:install .bash .numberLines}
+$ sudo apt update
+$ sudo apt install git composer unzip php php-mbstring php-xml 
+$ sudo apt install php-sqlite3 sqlitebrowser
+$ cd $HOME
+$ git clone https://github.com/studentcstn/schiv
+$ cd schiv
+$ composer install
+$ cp .env.sqlite .env
+$ touch /tmp/db 
+$ php artisan migrate:refresh --seed
+$ php artisan serve
+$ php artisan retrieve:docents <username> <password>
+$ firefox http://localhost:8000
+```
+
+## Dozenten aktualisieren
+
+Am Ende des Semester können die Dozenten-Konten aktualisiert werden. Dazu dient
+der Befehl `php artisan retrieve:docents`. Es werden alle vorhanden
+Dozenten-Kontos deaktiviert und das Passwort zurückgesetzt. Nur Dozenten die
+noch Zugriff auf ihr E-Mail-Konto haben können sich erneut registrieren und
+anmelden. Die Zugangsdaten für die Schnittstelle der iOS-Stundenplan-App müssen
+in der `.env`-Datei eingetragen werden (Schlüssel: `IOSAPP_USERNAME` und
+`IOSAPP_PASSWORD`).
+
+Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
+Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde
+am 15. März bzw. 31. September jedes Jahr ausgeführt.
+
+Zum Testen kann noch die Option `--from-cache` verwendet werden. Hier werden die
+Daten nur einmal vom Server geholt und dann in einer lokalen Datei
+`/tmp/docents` zwischengespeichert.

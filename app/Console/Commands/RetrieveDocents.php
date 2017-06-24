@@ -2,7 +2,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 
+use ErrorException;
 use App\Account;
 
 class RetrieveDocents extends Command
@@ -12,7 +14,7 @@ class RetrieveDocents extends Command
      *
      * @var string
      */
-    protected $signature = 'retrieve:docents {username} {password}';
+    protected $signature = 'retrieve:docents {--from-cache}';
 
     /**
      * The console command description.
@@ -34,50 +36,70 @@ class RetrieveDocents extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
+        $cache = '/tmp/docents';
         $baseurl = "https://www.hof-university.de/soap/client.php?";
-        $username = $this->argument('username');
-        $password = $this->argument('password');
 
-        $context = stream_context_create([
-            'http' => [
-                'header' => "Authorization: Basic ".base64_encode("$username:$password")
-            ]
-        ]);
+        if ($this->option('from-cache') && file_exists($cache)) {
+            $docents = unserialize(file_get_contents($cache));
+        } else {
+            $username = env('IOSAPP_USERNAME', false);
+            $password = env('IOSAPP_PASSWORD', false);
 
-        $response = file_get_contents($baseurl."f=Courses&tt=SS", false, $context);
-        $courses = json_decode($response)->courses;
+            if (!$username || !$password) {
+                $this->error("Username or password missing. " .
+                    "Please check the keys IOSAPP_USERNAME and IOSAPP_PASSWORD in '.env' file"
+                );
+                return;
+            }
 
-        $types = ["SS", "WS"];
-        foreach ($courses as $course) {
-            $name = $course->course;
-            $semester = $course->semester;
-            foreach ($semester as $s) {
-                foreach ($types as $type) {
-                    $url = sprintf(
-                        $baseurl."f=Schedule&stg=%s&sem=%s&tt=%s",
-                        urlencode($name),
-                        urlencode($s),
-                        urlencode($type)
-                    );
-                    $response = file_get_contents($url, false, $context);
-                    $lectures = json_decode($response);
-                    foreach ($lectures->schedule as $lecture) {
-                        $docentString = $lecture->docent;
-                        if (!$docentString) {
-                            continue;
-                        }
-                        $pieces = preg_split("#§§|/#", $docentString);
-                        foreach ($pieces as $piece) {
-                            $piece = trim($piece);
-                            $docents[$piece] = $piece;
+            $context = stream_context_create([
+                'http' => [
+                    'header' => "Authorization: Basic ".base64_encode("$username:$password")
+                ]
+            ]);
+
+            try {
+                $response = file_get_contents($baseurl."f=Courses&tt=SS", false, $context);
+                $courses = json_decode($response)->courses;
+            } catch (ErrorException $e) {
+                $this->error("Check username and password:\n" . trim($e->getMessage()));
+                return;
+            }
+
+            $types = ["SS", "WS"];
+            foreach ($courses as $course) {
+                $name = $course->course;
+                $semester = $course->semester;
+                foreach ($semester as $s) {
+                    foreach ($types as $type) {
+                        $url = sprintf(
+                            $baseurl."f=Schedule&stg=%s&sem=%s&tt=%s",
+                            urlencode($name),
+                            urlencode($s),
+                            urlencode($type)
+                        );
+                        $response = file_get_contents($url, false, $context);
+                        $lectures = json_decode($response);
+                        foreach ($lectures->schedule as $lecture) {
+                            $docentString = $lecture->docent;
+                            if (!$docentString) {
+                                continue;
+                            }
+                            $pieces = preg_split("#§§|/#", $docentString);
+                            foreach ($pieces as $piece) {
+                                $piece = trim($piece);
+                                $docents[$piece] = $piece;
+                            }
                         }
                     }
                 }
             }
+
+            file_put_contents($cache, serialize($docents));
         }
 
         foreach ($docents as $docent) {
@@ -107,12 +129,16 @@ class RetrieveDocents extends Command
             $partOne = strtolower($names[$length - 2]);
             $partTwo = strtolower($names[$length - 1]);
 
-            $account = new Account;
-            $account->email = "$partOne.$partTwo@hof-university.de";
+            Account::where('type', 'Docent')
+                ->update(['active' => false]);
+
+            $email = "$partOne.$partTwo@hof-university.de";
+
+            $account = Account::firstOrNew(['email' => $email]);
+            $account->email = $email;
             $account->password = "";
             $account->type = 'Docent';
             $account->active = false;
-            $account->last_login = "0000-00-00 00:00:00";
             $account->save();
 
             echo $account->email."\n";

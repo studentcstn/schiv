@@ -5,8 +5,8 @@ Route::get('/', function () {
     return redirect('index.html');
 });
 
-Route::post('login', 'LoginController@login');
-Route::post('logout', 'LogoutController@logout');
+Route::put('login', 'LoginController@login');
+Route::put('logout', 'LogoutController@logout');
 Route::put('reset', 'ResetPasswordController@reset');
 
 Route::post('register', 'RegisterController@store');

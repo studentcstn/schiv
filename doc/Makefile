@@ -1,8 +1,5 @@
 .PHONY: paper
 
-#--filter pandoc-fignos  \
-#--filter pandoc-tablenos \
-
 paper:
 	mkdir -p pdf
 	pandoc \
