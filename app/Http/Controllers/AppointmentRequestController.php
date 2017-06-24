@@ -33,7 +33,6 @@ class AppointmentRequestController extends Controller
      */
     public function store(Request $request)
     {
-    	use Carbon\Carbon;
 	$auth_user = Auth::user();
     
         DB::table('appointment_requests')->insertGetId([
@@ -42,7 +41,7 @@ class AppointmentRequestController extends Controller
 		'description' => $request->input('description'),
 		'subject' => $request->input('subject'),
 		'duration_in_min' => $request->input('duration_in_min'),
-		'requested_at' => Carbon::now()->toDayDateTimeString(),
+		'requested_at' => $request->input('requested_at'),
 		'state' => 'idle'
 		]);
     }
