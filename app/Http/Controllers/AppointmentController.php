@@ -41,20 +41,20 @@ class AppointmentController extends Controller
 	    
 	if($is_day)
 	{
-		DB::table('Appointments')->insertGetId([
+		DB::table('appointments')->insertGetId([
 		'account_id' => $auth_user->id,
 		'description' => $request->input('description'),
-		'active' => 'Yes',
+		'active' => true,
 		'weekday' => $request->input('day'),
 		'time_from' => $request->input('time_from'),
  		'time_to' => $request->input('time_to'),
 		]);
 	} else
 	{
-		DB::table('Appointments')->insertGetId([
+		DB::table('appointments')->insertGetId([
 		'account_id' => $auth_user->id,
 		'description' => $request->input('description'),
-		'active' => 'Yes',
+		'active' => true,
 		'date' => $request->input('day'),
 		'time_from' => $request->input('time_from'),
  		'time_to' => $request->input('time_to'),
@@ -73,9 +73,9 @@ class AppointmentController extends Controller
     {
 	$auth_user = Auth::user();
 	    
-       $appiontments = DB::table('Appointments')
+       $appiontments = DB::table('appointments')
             ->where('account_id', '=', $auth_user->id)
-	    ->where('active', '=', 'Yes')
+	    ->where('active', '=', true)
             ->get();
 
         return response()->json($appiontments);
@@ -86,9 +86,9 @@ class AppointmentController extends Controller
     {
 	$auth_user = Auth::user();
 	    
-       $appiontments = DB::table('Appointments')
+       $appiontments = DB::table('appointments')
             ->where('account_id', '=', $auth_user->id)
-	    ->where('active', '=', 'No')
+	    ->where('active', '=', false)
 	    ->take($count)
             ->get();
 	    
@@ -102,7 +102,7 @@ class AppointmentController extends Controller
 		
 	}
 	    
-	$requests = DB::table('AppointmentRequests')
+	$requests = DB::table('appointment_requests')
 	    ->whereIn('appointment_id', $appointment_ids)
 	    ->get();
 	    
@@ -115,10 +115,10 @@ class AppointmentController extends Controller
     //todo genaue beschreibung von from und to
     public function show_from_to($from, $to)
     {
-	    $appointments = DB::table('AppointmentRequests')
-	 		->join('Appointments', 'AppointmentRequests.appointment_id', '=', 'Appointments.id')
-		    	->where('Appointments.active', '=', 'No')
-		    	->whereBetween('AppointmentRequests.requested_at', [$from, $to])
+	    $appointments = DB::table('appointment_requests')
+	 		->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+		    	->where('appointments.active', '=', 'No')
+		    	->whereBetween('appointment_requests.requested_at', [$from, $to])
 		    	->get();
 	    
 	    return response()->json($appointments);
@@ -157,9 +157,9 @@ class AppointmentController extends Controller
     {
         $auth_user = Auth::user();
 	    
-	DB::table('Appointments')
+	DB::table('appointments')
 		->where('id', '=', $id)
 		->where('account_id', '=', $auth_user->id)
-		->update(['active' => 'No']);
+		->update(['active' => false]);
     }
 }
