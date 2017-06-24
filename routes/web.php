@@ -17,6 +17,7 @@ Route::get('docents/{docent_id}', 'DocentController@show');
 
 Route::middleware(['auth.enforce'])->group(function () {
     Route::get('appointment_requests', 'AppointmentRequestController@show');
+    //todo add appointment_requests/{count}
     Route::post('appointment_requests', 'AppointmentRequestController@store');
     Route::delete('appointment_requests/{request_id}', 'AppointmentRequestController@destroy');
 
@@ -29,7 +30,7 @@ Route::middleware(['auth.enforce','auth.docent'])->group(function() {
 
     Route::get('appointments', 'AppointmentController@show');
     Route::get('appointments/{count}', 'AppointmentController@showCount');
-    Route::get('appointments/{from}/{to}', 'AppointmentController@showFromTo');
+    Route::get('appointments/{from}/{to}', 'AppointmentController@showFromTo'); //todo at first not so important
     Route::post('appointments', 'AppointmentController@store');
     Route::delete('appointments/{appointment_id}', 'AppointmentController@destroy');
 
