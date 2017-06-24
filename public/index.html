@@ -181,8 +181,8 @@
     <div id="docents" ng-class="type == 'Student' ? 'col-sm-4' : 'ng-hide'">
         <!-- suche -->
         <div id="search" class="input-group">
-            <input type="text" class="form-control">
-            <div type="button" class="btn btn-default input-group-addon">suche</div>
+            <input type="text" class="form-control" ng-model="searchString">
+            <div type="button" class="btn btn-default input-group-addon" ng-class="search()">suche</div>
         </div>
         <!-- liste aller dozenten -->
         <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)">
@@ -319,7 +319,7 @@
         <h4>New Appointment</h4>
         <div class="row">
             <div class="form-group col-xs-12" ng-class="newAppointment.description != null && newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
-                <input type="text" ng-model="newAppointment.description" placeholder="description">
+                <input class="form-control" type="text" ng-model="newAppointment.description" placeholder="description">
             </div>
         </div>
         <div class="form-group row">

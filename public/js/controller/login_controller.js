@@ -102,8 +102,8 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
     if (window.location.href.match(".*?.*token=.*")) {
         var token = window.location.href;
-        token = token.substring(token.indexOf('?')+1);
-        registration(token.substring(token.indexOf('=')+1));
+        token = token.substring(token.indexOf("token=")+6);
+        registration(token);
         window.history.pushState(null, null, "/");
     }
 });

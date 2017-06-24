@@ -73,5 +73,9 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     $scope.addNewTermin = function () {
         $rootScope.$broadcast("show", "show_appointment");
-    }
+    };
+
+    $scope.search = function () {
+        $rootScope.$broadcast("alert", "info", $scope.searchString);
+    };
 });
