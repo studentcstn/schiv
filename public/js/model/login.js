@@ -23,7 +23,7 @@ login = {
                 $rootScope.$broadcast(broadcastFailed, response);
             });
     },
-    confirmRegistration: function($http, broadcastSuccess, broadcastFailed, token){
+    confirmRegistration: function($http, $rootScope, broadcastSuccess, broadcastFailed, token){
         $http.put('/register', {token: token})
             .then(function(response){
                 console.log(response);

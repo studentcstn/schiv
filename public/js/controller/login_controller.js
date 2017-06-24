@@ -1,8 +1,8 @@
 schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
-        email: "max.musterman@hof-university.de", //todo remove
-        password: "clearTextPassword",
-        passwordRepeat: "clearTextPassword"
+        email: "test.test@hof-university.de", //todo remove
+        password: "1234567890",
+        passwordRepeat: ""
     };
 
 
@@ -44,12 +44,6 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             default:
                 $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
         }
-        var da = {account: {email: "test.test@hof-university.de", id: 1, type: "Student"}};  //todo remove \/
-        var d = da.account;
-        d.email = d.email.substring(0, d.email.indexOf('@'));
-        d.name = d.email.substring(0, d.email.indexOf('.'));
-        d.last = d.email.substring(d.email.indexOf('.')+1);
-        $rootScope.$broadcast("login_login_s", da); //todo remove                                          /\
     });
 
 
@@ -79,9 +73,9 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.$on('log_out', function () {
         login.logout($http, $rootScope, "login_logout_s", "login_logout_f");
         $scope.user = {
-            email: "max.musterman@hof-university.de", //todo remove
-            password: "clearTextPassword",
-            passwordRepeat: "clearTextPassword"
+            email: "test.test@hof-university.de", //todo remove
+            password: "1234567890",
+            passwordRepeat: ""
         };
     });
     $scope.$on("login_logout_s", function (event, data) {
@@ -95,13 +89,13 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
 
     var registration = function (token) {
-        login.confirmRegistration($http, $rootScope, "login_register_s", "login_register_f", token);
+        login.confirmRegistration($http, $rootScope, "login_registration_s", "login_registration_f", token);
     };
-    $scope.$on("login_register_s", function (event, data) {
-        $rootScope.$broadcast("alert", "success", data);
+    $scope.$on("login_registration_s", function (event, data) {
+        $rootScope.$broadcast("alert", "success", "Register confirmation successful.");
         console.log(data);
     });
-    $scope.$on("login_register_f", function (event, data) {
+    $scope.$on("login_registration_f", function (event, data) {
         $rootScope.$broadcast("alert", "danger", data.statusText);
     });
 
@@ -110,7 +104,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         var token = window.location.href;
         token = token.substring(token.indexOf('?')+1);
         registration(token.substring(token.indexOf('=')+1));
-        window.location.href = window.location.href.substring(0, window.location.href.indexOf('?'));
+        window.history.pushState("Schiv", "SchiV", "");
     }
 });
 

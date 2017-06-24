@@ -8,6 +8,7 @@ use App\Account;
 use App\AccountToken;
 
 class RegisterController extends Controller {
+    //todo save password not in clear text
     public function store(Request $request) {
         $this->validate($request, [
             'email' => 'required|email',
@@ -45,6 +46,7 @@ class RegisterController extends Controller {
         return response()->json(['token' => $token]);
     }
 
+    //todo fix error 500 at second send of token
     public function update(Request $request) {
         AccountToken::where('invalid_at', '<', date('Y-m-d H:i:s'))
             ->delete();
