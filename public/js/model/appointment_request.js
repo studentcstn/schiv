@@ -1,6 +1,6 @@
 appointment_request = {
 		acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
-	        $http.put('/appointment_request', {"id": id, "state": state})
+	        $http.put('/appointment_requests', {"id": id, "state": state})
 	        .then(function(response){
 	        	console.log(response);
 	        	$rootScope.$broadcast(broadcastSuccess, response);
@@ -11,7 +11,7 @@ appointment_request = {
 		},
 		
 		declineAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id){
-	        $http.delete('/appointment_request/' + appointment_request_id)
+	        $http.delete('/appointment_requests/' + appointment_request_id)
 	            .then(function(response){
 	            	console.log(response);
 	            	$rootScope.$broadcast(broadcastSuccess, response);
@@ -22,7 +22,7 @@ appointment_request = {
 		},
 		
 		createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
-	        $http.post('/appointment_request',{"description": description, "subject": subject, "appointment_id": appointment_id, "date": date})
+	        $http.post('/appointment_requests',{"description": description, "subject": subject, "appointment_id": appointment_id, "date": date})
 	            .then(function(response){
 	            	console.log(response);
 	            	$rootScope.$broadcast(broadcastSuccess, response);

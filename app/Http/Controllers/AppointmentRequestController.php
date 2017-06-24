@@ -12,6 +12,7 @@ class AppointmentRequestController extends Controller {
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    //todo can not send duration_in_minute and requested_at
     public function store(Request $request) {
         $auth_user = Auth::user();
 

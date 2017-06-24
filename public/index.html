@@ -263,7 +263,7 @@
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
         <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date">
-            <div class="appointment_info">{{item.description}}</div>
+            <div>{{item.description}}</div>
             <div class="row">
                 <div class="col-xs-offset-4 col-xs-3">
                     {{item.date}}
