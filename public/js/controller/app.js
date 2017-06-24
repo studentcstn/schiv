@@ -78,7 +78,7 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
     $scope.alerts = { messages: {} };
 
-    var time = 10000;
+    var time = 7000;
     var alertTime = {};
 
     var alertShow = function (name) {

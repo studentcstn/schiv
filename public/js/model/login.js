@@ -1,6 +1,6 @@
 login = {
     login: function ($http, $rootScope, broadcastSuccess, broadcastFailed, email, password) {
-        $http.post('/login', {email: email, password: password})
+        $http.put('/login', {email: email, password: password})
             .then(function (response) {
                 console.log(response);
                 var d = response.data.account;
@@ -44,7 +44,7 @@ login = {
             });
     },
     logout: function ($http, $rootScope, broadcastSuccess, broadcastFailed) {
-        $http.post('/logout', {})
+        $http.put('/logout', {})
             .then(function(response){
                 console.log(response);
                 $rootScope.$broadcast(broadcastSuccess, response.data);

@@ -327,16 +327,14 @@
         </div>
         <div class=row" ng-show="appointment.frequency == 0">
             <div class="form-group col-xs-12">
-                <div>
-                    <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
-                        {{item}}
-                    </div>
+                <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
+                    {{item}}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-xs-12" ng-show="appointment.frequency == 1" ng-class="newAppointment.day != null && newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="appointment.day" ng-pattern="appointment_build.date" placeholder="Date">
+                <input class="form-control" ng-model="newAppointment.day" ng-pattern="appointment_build.date" placeholder="Date">
                 <small class="form-text text-muted">For example: 03.07.2017</small>
             </div>
         </div>
@@ -354,7 +352,7 @@
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="appointment_close()">Close</div>
-                    <div type="button" class="btn btn-default">Create</div>
+                    <div type="button" class="btn btn-default" ng-click="create()">Create</div>
                 </div>
             </div>
         </div>
