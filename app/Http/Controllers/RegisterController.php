@@ -47,6 +47,7 @@ class RegisterController extends Controller {
     }
 
     //todo fix error 500 at second send of token
+    //todo remove token if account is activated
     public function update(Request $request) {
         AccountToken::where('invalid_at', '<', date('Y-m-d H:i:s'))
             ->delete();
