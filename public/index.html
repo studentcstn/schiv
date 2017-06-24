@@ -137,7 +137,7 @@
     </div>
 </div>
 
-<!-- index site with appointments, appointment request and list of docents -->
+<!-- index site with appointments, appointment request and list of docents and appointment_request of students -->
 <div id="index" class="row ng-hide" ng-show="show_index" ng-controller="index_controller">
     <div id="termine" ng-class="type == 'Student' ? 'col-sm-8' : 'col-sm-12'">
         <div class="row" ng-class="type == 'Student' ? 'ng-hide' : ''">
@@ -152,17 +152,22 @@
                     <div class="appointment_info col-xs-10">
                         <div>{{item.description}}</div>
                     </div>
-                    <div class="col-xs-2" ng-class="type == 'Student' ? 'hidden' : 'ng-hide'">
+                    <div class="col-xs-2" ng-class="type == 'Student' ? 'hidden' : ''">
                         <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
                     </div>
                     <div class="appointment_info col-xs-12">
                         <div>{{item.subject}}</div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-show="type = 'Student'">
                     <div class="col-xs-4">{{item.requested_at}}</div>
                     <div class="col-xs-4">{{item.appointment_at}}</div>
                     <div class="col-xs-4">{{item.duration_in_min}} min</div>
+                </div>
+                <div class="row" ng-show="type = 'Docent'">
+                    <div class="col-xs-4">{{item.date}}</div>
+                    <div class="col-xs-4">{{item.time_from}}</div>
+                    <div class="col-xs-4">{{item.time_to}}</div>
                 </div>
                 <div ng-show="appointment_{{item.id}}">
                     <div class="appointment" ng-show="item in item.s">
