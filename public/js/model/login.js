@@ -23,12 +23,14 @@ login = {
                 $rootScope.$broadcast(broadcastFailed, response);
             });
     },
-    confirmRegistration: function($http){
-        $http.put('/register',[token])
+    confirmRegistration: function($http, broadcastSuccess, broadcastFailed, token){
+        $http.put('/register', {token: token})
             .then(function(response){
                 console.log(response);
+                $rootScope.$broadcast(broadcastSuccess, response.data);
             }, function(response){
                 console.log(response);
+                $rootScope.$broadcast(broadcastFailed, response);
             });
     },
     forgotPassword: function($http, $rootScope, broadcastSuccess, broadcastFailed, email) {

@@ -95,10 +95,11 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
 
     var registration = function (token) {
-        login.register($http, $rootScope, "login_register_s", "login_register_f", token);
+        login.confirmRegistration($http, $rootScope, "login_register_s", "login_register_f", token);
     };
     $scope.$on("login_register_s", function (event, data) {
-
+        $rootScope.$broadcast("alert", "success", data);
+        console.log(data);
     });
     $scope.$on("login_register_f", function (event, data) {
         $rootScope.$broadcast("alert", "danger", data.statusText);
