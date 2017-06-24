@@ -262,18 +262,17 @@
 <!-- show site for make a request to a appointment. for students -->
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
-        <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id">
+        <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date">
             <div class="appointment_info">{{item.description}}</div>
             <div class="row">
-                <div class="col-xs-offset-4 col-xs-4">
+                <div class="col-xs-offset-4 col-xs-3">
                     {{item.date}}
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-5">
                     {{item.time_from}} - {{item.time_to}} Uhr
                 </div>
             </div>
         </div>
-        {{newAppointment_request.id}}
         <div class="form-group row">
             <div class="dropdown col-xs-6">
                 <button class="btn btn-dropdown dropdown-toggle" type="button" id="appointment_inscribe_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -292,13 +291,16 @@
             <input type="text" class="form-control" placeholder="subject" ng-model="newAppointment_request.subject">
         </div>
         <div class="form-group">
-            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.descripton"></textarea>
+            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.description"></textarea>
+        </div>
+        <div>
+            {{newAppointment_request.id}} {{newAppointment_request.date}} {{newAppointment_request.subject}} {{newAppointment_request.description}}
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="inscribe_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="inscripe()">Inscribe</div>
+                    <div type="button" class="btn btn-default" ng-click="inscribe()">Inscribe</div>
                 </div>
             </div>
         </div>
