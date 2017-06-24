@@ -68,5 +68,10 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     $scope.toggle_element = function (id) {
         $rootScope.$broadcast("toggle", id);
+    };
+
+
+    $scope.addNewTermin = function () {
+        $rootScope.$broadcast("show", "show_appointment");
     }
 });
