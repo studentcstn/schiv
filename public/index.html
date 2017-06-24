@@ -317,8 +317,13 @@
 <div id="appointment" class="window ng-hide" ng-show="show_appointment" ng-controller="appointment_controller">
     <div class="background">
         <h4>New Appointment</h4>
+        <div class="row">
+            <div class="form-group col-xs-12" ng-class="newAppointment.description != null && newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
+                <input type="text" ng-model="newAppointment.description" placeholder="description">
+            </div>
+        </div>
         <div class="form-group row">
-            <div class="form-check col-xs-3" ng-repeat="item in appointment_build.frequency">
+            <div class="form-check col-xs-4" ng-repeat="item in appointment_build.frequency">
                 <label class="form-check-label">
                     <input type="radio" name="repeat" class="form-check-input" ng-model="appointment.frequency" ng-value="item.id" ng-click="newAppointment.day = ''">
                     {{item.name}}
