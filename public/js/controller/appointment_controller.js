@@ -1,5 +1,5 @@
 schiv_module.controller('appointment_controller', function($scope, $http, $rootScope) {
-    $scope.newAppointment = {
+    $scope.appointment = {
         frequency: 0
     };
     $scope.appointment_build = {
@@ -14,5 +14,16 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
 
     $scope.appointment_close = function () {
         $rootScope.$broadcast("hide", "show_appointment");
+        $scope.newAppointment_request = {};
     };
+
+    $scope.create = function () {
+        appointment.createAppointment($http, $rootScope, "create_s", "create_f", $scope.newAppointment_request.day, $scope.newAppointment_request.time_from, $scope.newAppointment_request.time_to, $rootScope.newAppointment_request.description)
+    };
+    $scope.$on("create_s", function (event, data) {
+
+    });
+    $scope.$on("create_f", function (event, data) {
+        $rootScope.$broadcast("alert", "warning", data.statusText);
+    });
 });

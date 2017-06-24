@@ -32,7 +32,7 @@ appointment = {
             });
     },
 
-    createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id, day, time_from, time_to, description){
+    createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
         $http.post('/appointments',
                 {"day": day,"time_from": time_from, "time_to": time_to, "desription": description})
             .then(function(response){
