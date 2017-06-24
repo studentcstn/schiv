@@ -262,7 +262,7 @@
 <!-- show site for make a request to a appointment. for students -->
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
-        <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date">
+        <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date; newAppointment_request.time_from = item.time_from; newAppointment_request.time_to = item.time_to">
             <div>{{item.description}}</div>
             <div class="row">
                 <div class="col-xs-offset-4 col-xs-3">
@@ -279,12 +279,12 @@
                     {{newAppointment_request.date}}
                     <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown">
+                <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown+item.id">
                     <li><a>{{newAppointment_request.date}}</a></li>
                 </ul>
             </div>
             <div class="col-xs-6">
-
+                {{newAppointment_request.time_from}} - {{newAppointment_request.time_to}}
             </div>
         </div>
         <div class="form-group">
@@ -299,8 +299,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div type="button" class="btn btn-default" ng-click="inscribe_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="inscribe()">Inscribe</div>
+                    <div class="btn btn-default" ng-click="inscribe_close()">Close</div>
+                    <div class="btn btn-default" ng-click="inscribe()">Inscribe</div>
                 </div>
             </div>
         </div>

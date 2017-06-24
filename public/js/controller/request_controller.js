@@ -7,6 +7,8 @@ schiv_module.controller('request_controller', function($scope, $http, $rootScope
         $rootScope.$broadcast("show", "show_appointment_request");
     });
 
+    $scope.newAppointment_request = {};
+
     $scope.inscribe_close = function () {
         $rootScope.$broadcast("hide", "show_appointment_request");
         $scope.newAppointment_request = {};
