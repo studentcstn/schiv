@@ -6,9 +6,9 @@ body {
     min-width: 30rem;
     padding: 0px 20px;
     padding: 0rem 2rem;
+
+    font-family: 'Roboto', sans-serif;
 }
-
-
 
 #login {
     margin: auto;
