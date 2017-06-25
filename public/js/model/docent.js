@@ -17,16 +17,16 @@ docent = {
     	for(i = 0; i<docents.length;++i){
     		if(docents[i].email.match(".*" + searchString + ".*"))
     		{
-//    			docents[i].visible = true;
+    			docents[i].visible = true;
     		}
     		else if(checkIfFacultiesMatch(docents[i].faculties, searchString)){
-//    			docents[i].visible = true;
+    			docents[i].visible = true;
     		}
 //    		else if((docents[i].name.matches(".*" + searchString + ".*")){
 //    		    docents[i].visible = true;
 //    		}
     		else{
-//    			docents[i].visible = false;
+    			docents[i].visible = false;
     		}
     	} 	
     }
