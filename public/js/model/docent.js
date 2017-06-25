@@ -20,7 +20,7 @@ docent = {
     			docents[i].visible = true;
     			continue;
     		}
-    		else if((docents[i].faculties.matches(".*" + searchString + ".*")){
+    		else if(checkIfFacultiesMatch(docent[i].faculties, searchString)){
     			docents[i].visible = true;
     			continue;
     		}
@@ -61,4 +61,15 @@ var get_SingleDocent = function($http, $rootScope, broadcastSuccess, broadcastFa
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
+};
+
+var checkIfFacultiesMatch = function(faculties, searchString){
+	for(i = 0; i< faculties.length; ++i){
+		if(faculties[i].matches(".*"+searchString+".*")){
+			return true;	
+		} else{
+			continue;
+		}
+	}
+	return false;
 };
