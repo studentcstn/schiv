@@ -13,9 +13,9 @@ docent = {
 	},
 
     search: function (docents, searchString) {
-
+		searchString = (".*" + searchString + ".*").toLocaleLowerCase();
     	for(var i = 0; i<docents.length;++i){
-    		if(docents[i].email.match(".*" + searchString + ".*"))
+    		if(docents[i].email.toLocaleLowerCase().match(searchString))
     		{
     			docents[i].visible = true;
     		}
@@ -62,7 +62,7 @@ var get_SingleDocent = function($http, $rootScope, broadcastSuccess, broadcastFa
 
 var checkIfFacultiesMatch = function(faculties, searchString){
 	for(var i = 0; i< faculties.length; ++i){
-		if(faculties[i].name.match(".*"+searchString+".*")){
+		if(faculties[i].name.toLocaleLowerCase().match(searchString)){
 			return true;	
 		}
 	}
