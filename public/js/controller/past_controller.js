@@ -18,8 +18,8 @@ schiv_module.controller('past_controller', function($scope, $http, $rootScope) {
     $scope.$on("past_appointment_s", function (event, data) {
         $scope.appointments = data;
     });
-    $scope.$on("past_appointment_s", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+    $scope.$on("past_appointment_f", function (event, data) {
+        error(data);
     });
 
     var received = 0;
@@ -36,7 +36,7 @@ schiv_module.controller('past_controller', function($scope, $http, $rootScope) {
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("past_appointment_docent_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
     $scope.$on("past_appointment_requests_s", function (event, data) {
         $scope.appointment_requests = data;
@@ -45,6 +45,10 @@ schiv_module.controller('past_controller', function($scope, $http, $rootScope) {
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("past_appointment_requests_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
+
+    var error = function (data) {
+        $rootScope.$broadcast("error", data);
+    }
 });

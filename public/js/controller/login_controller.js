@@ -38,11 +38,8 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
             case 401:
                 $rootScope.$broadcast("alert", "warning", "Email or password wrong");
                 break;
-            case 404:
-                $rootScope.$broadcast("alert", "warning", "Connection problem to Server");
-                break;
             default:
-                $rootScope.$broadcast("alert", "info", "Error "+data.statusText);
+                error(data);
         }
     });
 
@@ -54,7 +51,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $rootScope.$broadcast("alert", "success", "Register complete. Pleas confirm email.");
     });
     $scope.$on("login_register_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -65,7 +62,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $rootScope.$broadcast("alert", "success", "Request send. Pleas confirm email.");
     });
     $scope.$on("login_forgot_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -83,7 +80,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $rootScope.$broadcast("logout_success");
     });
     $scope.$on("login_logout_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -96,7 +93,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         console.log(data);
     });
     $scope.$on("login_registration_f", function (event, data) {
-        $rootScope.$broadcast("alert", "danger", data.statusText);
+        error(data);
     });
 
 
@@ -105,6 +102,10 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         token = token.substring(token.indexOf("token=")+6);
         registration(token);
         window.history.pushState(null, null, "/");
+    }
+
+    var error = function (data) {
+        $rootScope.$broadcast("error", data);
     }
 });
 

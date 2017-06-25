@@ -95,6 +95,17 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
         hide_elements([name]);
     };
 
+
+    $scope.$on("error", function (event, data) {
+       switch (data.status) {
+           case 401:
+               $rootScope.$broadcast("logout_success");
+               break;
+           default:
+               $scope.alerts.messages.danger = data.statusText;
+               alertShow("danger");
+       }
+    });
 });
 
 /*

@@ -27,6 +27,10 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
         $scope.newAppointment = {day: ""};
     });
     $scope.$on("create_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data)
     });
+
+    var error = function (data) {
+        $rootScope.$broadcast("error", data);
+    }
 });

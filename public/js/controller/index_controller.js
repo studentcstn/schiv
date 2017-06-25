@@ -26,7 +26,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.docents = data;
     });
     $scope.$on("index_docents_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
     $scope.$on("index_appointment_s", function (event, data) {
         console.log("student: " + data)
@@ -37,7 +37,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appintments = data;
     });
     $scope.$on("index_appointment_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -57,7 +57,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
     $scope.$on("index_appointment_request_s", function (event, data) {
         $scope.appintments_requests = data;
@@ -66,7 +66,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -78,7 +78,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $rootScope.$broadcast("show_inscribe", data);
     });
     $scope.$on("index_docent_f", function (event, data) {
-        $rootScope.$broadcast("alert", "warning", data.statusText);
+        error(data);
     });
 
 
@@ -94,4 +94,8 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.search = function () {
         $rootScope.$broadcast("alert", "info", $scope.searchString);
     };
+
+    var error = function (data) {
+        $rootScope.$broadcast("error", data);
+    }
 });
