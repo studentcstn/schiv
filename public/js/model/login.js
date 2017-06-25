@@ -74,7 +74,7 @@ var confirm_Registration = function($http, $rootScope, broadcastSuccess, broadca
         });
 };
 
-var forgot_Password: function($http, $rootScope, broadcastSuccess, broadcastFailed, email) {
+var forgot_Password = function($http, $rootScope, broadcastSuccess, broadcastFailed, email) {
     $http.put('/reset', {"email": email})
         .then(function(response){
         	connection.free();
