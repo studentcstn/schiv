@@ -30,7 +30,7 @@ appointment = {
     },
 
     merge_appointments: function(appointments, appointment_requests) {
-    	for(n = 0; n<appointments.length; ++i){
+    	for(n = 0; n<appointments.length; ++n){
             appointments[n].requests = [];
     		for(i = 0; i<appointment_requests.length; ++i){
     			if(appointments[n].id == appointment_requests[i].appointment_id){
