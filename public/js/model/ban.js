@@ -24,14 +24,22 @@ ban = {
         });
     },
 
-    unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
-        $http.delete('/account_bans/' + user_id + '').
-        then(function(response){
-       	 console.log(response);
-            $rootScope.$broadcast(broadcastSuccess, response);
-       }, function(response){
-       	 console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
-       });
+    unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned){
+    	for(i = 0; i<list_of_unbanned.length; ++i){
+    		if(list_of_unbanned[i].active == false){
+    	        $http.delete('/account_bans/' + user_id + '').
+    	        then(function(response){
+    	          	 console.log(response);
+    	               $rootScope.$broadcast(broadcastSuccess, response);
+    	          }, function(response){
+    	          	 console.log(response);
+    	               $rootScope.$broadcast(broadcastFailed, response);
+    	          });
+    		} else{
+    			continue;
+    		}
+
+    	}
+
     }
 };
