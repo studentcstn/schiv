@@ -176,7 +176,7 @@
                     <div class="col-xs-7">{{item.time_from}} - {{item.time_to}} Uhr</div>
                 </div>
                 <div ng-show="appointment_{{item.id}}">
-                    <div class="appointment_in" ng-show="requests in item.requests">
+                    <div class="appointment_in" ng-repeat="requests in item.requests">
                         <div>{{requests.description}}</div>
                         <div>{{requests.subject}}</div>
                     </div>
@@ -273,7 +273,7 @@
     </div>
     <!-- baned users -->
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Faculties</label>
+        <label class="col-sm-2 col-form-label" ng-show="ban.length != 0">Banned users</label>
     </div>
     <div ng-show="type == 'Docent'">
         <div class="form-group">
@@ -283,7 +283,7 @@
                         <input type="checkbox" class="form-check-input" ng-model="item.active">
                     </div>
                     <div class="col-xs-11">
-                        {{item.account_ban_id}}
+                        {{item.email}}
                     </div>
                 </div>
             </div>

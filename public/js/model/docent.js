@@ -16,6 +16,7 @@ docent = {
 var get_DocentList = function($http, $rootScope, broadcastSuccess, broadcastFailed){
     $http.get('/docents')
         .then(function(response) {
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
 		}, function(response){
@@ -27,9 +28,11 @@ var get_DocentList = function($http, $rootScope, broadcastSuccess, broadcastFail
 var get_SingleDocent = function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id){
     $http.get('/docents/' + docent_id)
         .then(function(response) {
+            connection.free();
             $rootScope.$broadcast(broadcastSuccess, response.data);
             console.log(response);
 		}, function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });

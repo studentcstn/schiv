@@ -49,9 +49,11 @@ var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broad
 var accept_AppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
     $http.put('/appointment_requests', {"id": id, "state": state})
     .then(function(response){
+        connection.free();
         console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response);
     }, function(response){
+        connection.free();
         console.log(response);
         $rootScope.$broadcast(broadcastFailed, response);
     });
@@ -60,9 +62,11 @@ var accept_AppointmentRequest = function($http, $rootScope, broadcastSuccess, br
 var decline_AppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id){
     $http.delete('/appointment_requests/' + appointment_request_id)
         .then(function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
@@ -71,9 +75,11 @@ var decline_AppointmentRequest = function($http, $rootScope, broadcastSuccess, b
 var create_AppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
     $http.post('/appointment_requests',{"description": description, "subject": subject, "appointment_id": appointment_id, "date": date})
         .then(function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response) {
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
@@ -82,9 +88,11 @@ var create_AppointmentRequest = function($http, $rootScope, broadcastSuccess, br
 var get_AppointmentRequestCount = function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
     $http.get('/appointment_requests/' + count)
         .then(function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
