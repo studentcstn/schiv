@@ -31,10 +31,10 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         error(data);
     });
 
-    var saved = 1;
+    var saved = 0;
 
     $scope.save = function () {
-        saved = 1;
+        ++saved;
         settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.newUser_settings.email, $scope.newUser_settings.password, $scope.newUser_settings.faculties);
         if (user.type == "Docent") {
             ++saved;
