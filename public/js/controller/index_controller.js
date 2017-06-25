@@ -52,7 +52,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.$on("index_appointment_s", function (event, data) {
         $scope.appintments = data;
         if ($scope.appointment_requests != {})
-            appointment.merge_appointment($scope.appointments, $scope.appointment_requests);
+            appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
@@ -60,7 +60,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.$on("index_appointment_request_s", function (event, data) {
         $scope.appintments_requests = data;
         if ($scope.appointments != {})
-            appointment.merge_appointment($scope.appointments, $scope.appointment_requests);
+            appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
         $rootScope.$broadcast("alert", "warning", data.statusText);
