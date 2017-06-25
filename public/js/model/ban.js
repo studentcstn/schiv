@@ -12,22 +12,22 @@ ban = {
 		});
 	},
 
-    unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned){
+    unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned) {
         var success = true;
 
-        for(i = 0; i<list_of_unbanned.length; ++i){
-            if(list_of_unbanned[i].active == false){
+        for (i = 0; i < list_of_unbanned.length; ++i) {
+            if (list_of_unbanned[i].active == false) {
                 user_id = list_of_unbanned[i].account_ban_id;
 
-                connection.lock(function(){
+                connection.lock(function () {
                     unban_Account($http, success, user_id);
                 });
-            } else{
+            } else {
                 continue;
             }
 
             connection.lock(function () {
-                if(success){
+                if (success) {
                     $rootScope.$broadcast(broadcastSuccess);
                 } else {
                     $rootScope.$broadcast(broadcastFailed);
@@ -35,9 +35,10 @@ ban = {
                 connection.free();
             });
         }
+    }
 
 
-    };
+};
 
 var get_AccountBans = function($http, $rootScope, broadcastSuccess, broadcastFailed){
     $http.get('/account_bans', {})

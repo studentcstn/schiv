@@ -20,7 +20,7 @@ class CreateHolidaysTable extends Migration
             $table->date('from');
             $table->date('to');
 
-            $table->unique('from', 'to', 'name');
+            $table->unique(['from', 'to', 'name']);
         });
 
         Schema::table('holidays', function (Blueprint $table) {

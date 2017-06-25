@@ -29,7 +29,6 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         error(data);
     });
     $scope.$on("index_appointment_s", function (event, data) {
-        console.log("student: " + data)
         if (data.lenght == 0) {
             data = [{id: 0,
                 description: "Du hast momentan keine termine."}];
