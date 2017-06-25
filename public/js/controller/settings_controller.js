@@ -8,9 +8,12 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     });
 
     var setting = function () {
+        $scope.type = "Student";
         settings.getSettings($http, $rootScope, "settings_settings_s", "settings_settings_f");
-        if (type == "Docent")
+        if (user.type == "Docent") {
+            $scope.type = "Docent";
             ban.getAccountBans($http, $rootScope, "settings_ban_s", "settings_ban_f");
+        }
     };
     $scope.$on("settings_settings_s", function (event, data) {
         $scope.user_settings = user;
