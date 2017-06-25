@@ -100,6 +100,8 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
        switch (data.status) {
            case 401:
                $rootScope.$broadcast("logout_success");
+               $scope.alerts.messages.warning = data.statusText;
+               alertShow("warning");
                break;
            default:
                $scope.alerts.messages.danger = data.statusText;

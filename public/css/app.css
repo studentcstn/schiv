@@ -265,25 +265,6 @@ body {
 
     background-color: #4dd0e1;
 }
-.appointment:hover, appointment_in:hover {
-    -webkit-box-shadow: 0px 0px 0px;
-    -webkit-box-shadow: 0rem 0rem 0rem;
-    -moz-box-shadow: 0px 0px 0px;
-    -moz-box-shadow: 0rem 0rem 0rem;
-    box-shadow: 0px 0px 0px;
-    box-shadow: 0rem 0rem 0rem;
-}
-.appointment:active, .appointment:active {
-    -webkit-box-shadow: inset 0px 1px 1px;
-    -webkit-box-shadow: inset 0rem 0.1rem 0.1rem;
-    -moz-box-shadow: inset 0px 1px 1px;
-    -moz-box-shadow: inset 0rem 0.1rem 0.1rem;
-    box-shadow: inset 0px 1px 1px;
-    box-shadow: inset 0rem 0.1rem 0.1rem;
-}
-.appointment:focus {
-
-}
 .appointment_in {
     margin: 10px 0px;
     margin: 1rem 0rem;
@@ -311,6 +292,23 @@ body {
 
     background-color: #ffb74d;
 }
+.appointment_in:hover, appointment_in:hover {
+    -webkit-box-shadow: 0px 0px 0px;
+    -webkit-box-shadow: 0rem 0rem 0rem;
+    -moz-box-shadow: 0px 0px 0px;
+    -moz-box-shadow: 0rem 0rem 0rem;
+    box-shadow: 0px 0px 0px;
+    box-shadow: 0rem 0rem 0rem;
+}
+.appointment_in:active {
+    -webkit-box-shadow: inset 0px 1px 1px;
+    -webkit-box-shadow: inset 0rem 0.1rem 0.1rem;
+    -moz-box-shadow: inset 0px 1px 1px;
+    -moz-box-shadow: inset 0rem 0.1rem 0.1rem;
+    box-shadow: inset 0px 1px 1px;
+    box-shadow: inset 0rem 0.1rem 0.1rem;
+}
+
 
 
 

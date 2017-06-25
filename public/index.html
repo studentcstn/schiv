@@ -252,10 +252,10 @@
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">Repeat password for changing</small>
     </div>
+    <!-- anzeige der faculties -->
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Faculties</label>
     </div>
-    <!-- anzeige der faculties -->
     <div class="form-group">
         <div class="form-check" ng-repeat="item in newUser_settings.faculties">
             <label class="form-check-label">
@@ -269,6 +269,17 @@
         <div class="col-xs-12">
             <div class="pull-right">
                 <div class="btn btn-default" ng-click="save()">Save</div>
+            </div>
+        </div>
+    </div>
+    <!-- baned users -->
+    <div ng-show="type == 'Docent'">
+        <div class="form-group">
+            <div class="form-check" ng-repeat="item in ban">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" ng-model="item.active">
+                    {{item.account_id}} {{item.ban_until}}
+                </label>
             </div>
         </div>
     </div>

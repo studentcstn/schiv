@@ -1,10 +1,13 @@
 ban = {
-    getAccountBans: function(){
-        $http.get('/' + docent_id + '/account_ban').
-        then(function(response){
-            $scope.list = respose.data;
-        }, function(response){
-        });
+    getAccountBans: function($http, $rootScope, broadcastSuccess, broadcastFailed){
+        $http.get('/account_bans')
+            .then(function(response){
+                console.log(response);
+                $rootScope.$broadcast(broadcastSuccess, response.data);
+            }, function(response){
+                console.log(response);
+                $rootScope.$broadcast(broadcastFailed, response);
+            });
     },
 
     banAccount: function(){

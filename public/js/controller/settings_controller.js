@@ -9,6 +9,8 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
 
     var setting = function () {
         settings.getSettings($http, $rootScope, "settings_settings_s", "settings_settings_f");
+        if (type == "Docent")
+            ban.getAccountBans($http, $rootScope, "settings_ban_s", "settings_ban_f");
     };
     $scope.$on("settings_settings_s", function (event, data) {
         $scope.user_settings = user;
@@ -17,6 +19,12 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         $scope.newUser_settings.passwordRepeat = "";
     });
     $scope.$on("settings_settings_f", function (event, data) {
+        error(data);
+    });
+    $scope.$on("settings_ban_s", function (event, data) {
+        $scope.ban = data;
+    });
+    $scope.$on("settings_ban_s", function (event, data) {
         error(data);
     });
 
