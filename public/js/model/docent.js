@@ -18,6 +18,9 @@ var get_DocentList = function($http, $rootScope, broadcastSuccess, broadcastFail
         .then(function(response) {
             connection.free();
             console.log(response);
+            for(i = 0; i<response.data.length; ++i){
+            	response.data[i].visible = true;
+            }
             $rootScope.$broadcast(broadcastSuccess, response.data);
 		}, function(response){
             console.log(response);
