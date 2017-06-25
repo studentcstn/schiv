@@ -67,7 +67,7 @@ class HolidayController extends Controller {
 
         $holiday = Holiday::find($request->input("id"));
 
-        if (!$holiday) {
+        if (!$holiday || $holiday->account_id != Auth::user()->id) {
             return response()->json(null, 404);
         }
 
@@ -81,9 +81,8 @@ class HolidayController extends Controller {
     }
 
     public function destroy($id) {
-
         $holiday = Holiday::find($id);
-        if (!$holiday) {
+        if (!$holiday || $holiday->account_id != Auth::user()->id) {
             return response()->json(null, 404);
         }
 
