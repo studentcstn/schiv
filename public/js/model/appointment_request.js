@@ -52,9 +52,11 @@ appointment_request = {
 var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed){
     $http.get('appointment_requests')
         .then(function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
+            connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
