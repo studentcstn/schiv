@@ -12,7 +12,7 @@ connection = {
     },
     free: function () {
         if (waitConnections.length > 0) {
-            waitConnections.pop()();
+            waitConnections.shift()();
             return;
         }
         working = false;

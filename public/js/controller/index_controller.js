@@ -91,7 +91,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     };
 
     $scope.search = function () {
-        $rootScope.$broadcast("alert", "info", $scope.searchString);
+        docent.search($scope.docents, $scope.searchString);
     };
 
     var error = function (data) {
