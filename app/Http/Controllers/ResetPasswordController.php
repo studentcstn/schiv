@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
 
 use App\Account;
+use App\Mail\Reactivate;
 
 class ResetPasswordController extends Controller {
     public function reset(Request $request) {
@@ -26,10 +28,14 @@ class ResetPasswordController extends Controller {
         $account->save();
 
         $debug = Config::get('app.debug');
+        $token = $this->generateToken($account);
+
+        Mail::to($account->email)
+            ->send(new Reactivate($token, $newPassword));
 
         if ($debug) {
             return response()->json([
-                'token' => $this->generateToken($account),
+                'token' => $token,
                 'password' => $newPassword,
             ]);
         } else {

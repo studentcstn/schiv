@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use App\Account;
 use App\AccountToken;
+use App\Mail\Registered;
 
 class RegisterController extends Controller {
     public function store(Request $request) {
@@ -41,6 +43,9 @@ class RegisterController extends Controller {
                 $token = $this->generateToken($account);
             }
         });
+
+        Mail::to($account->email)
+            ->send(new Registered($token));
 
         // NOTE Debug
         return response()->json(['token' => $token]);
