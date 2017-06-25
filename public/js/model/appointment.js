@@ -1,5 +1,5 @@
 appointment = {
-    getAppointments:  function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
+    getAppointments:  function($http, $rootScope, broadcastSuccess, broadcastFailed){
         $http.get('/appointments')
             .then(function(response){
                 console.log(response);
@@ -10,7 +10,7 @@ appointment = {
             });
     },
 
-    getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id, count){
+    getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
         $http.get('/appointments/' + count)
             .then(function(response) {
                 console.log(response);
@@ -21,7 +21,7 @@ appointment = {
             });
     },
 
-    getLastAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id, from, to){
+    getLastAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
         $http.get('/appointments/' + from + '/' + to)
             .then(function(response){
                 console.log(response);
@@ -43,7 +43,7 @@ appointment = {
                 $rootScope.$broadcast(broadcastFailed, response);
             });
     },
-    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id, appointment_id){
+    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
         $http.delete('/appointments/' + appointment_id + '')
             .then(function(response){
                 console.log(response);

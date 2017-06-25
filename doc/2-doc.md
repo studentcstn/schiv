@@ -81,7 +81,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 +------------------------------------------+--------------------------------------------------------------+
 | Informationen bzw. Termine von Dozenten  | get:docents/{docent_id}                                      |
 +------------------------------------------+--------------------------------------------------------------+
-| Terminanfragen abrufen                   | **D** get:appointment_requests                               |
+| Terminanfragen abrufen                   | **A** get:appointment_requests                               |
 +------------------------------------------+--------------------------------------------------------------+
 | Termin Einschreibung                     | **A** post:appointment_requests (...)                        |
 +------------------------------------------+--------------------------------------------------------------+
