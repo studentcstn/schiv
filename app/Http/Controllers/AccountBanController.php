@@ -9,16 +9,22 @@ use App\Account;
 use App\AccountBan;
 
 class AccountBanController extends Controller {
-    //todo return name of baned user
-    //todo return [] 200 instead of [] 404
     public function show() {
         $accountDocent = Auth::user();
-        $accountBan = AccountBan::where('account_id', $accountDocent->id)
+        $accountBans = AccountBan::where('account_id', $accountDocent->id)
             ->get();
-        if (!$accountBan || $accountBan->count() == 0) {
-            return response()->json([], 404);
+        if (!$accountBans || $accountBans->count() == 0) {
+            return response()->json([], 200);
         }
-        return response()->json($accountBan);
+
+        $result = [];
+        foreach ($accountBans as $accountBan) {
+            $row = $accountBan->toArray();
+            $row['email'] = Account::find($row['account_ban_id'])->email;
+            $result[] = $row;
+        }
+
+        return response()->json($result);
     }
 
     public function store(Request $request) {
@@ -26,7 +32,9 @@ class AccountBanController extends Controller {
 
         $this->validate($request, ['account_ban_id' => 'required']);
 
-        $accountToBan = Account::find($request->input('account_ban_id'));
+        $accountToBan = Account::find(
+            $request->input('account_ban_id')
+        );
 
         if (!$accountToBan) {
             return response()->json([], 404);
