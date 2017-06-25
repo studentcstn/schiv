@@ -1,7 +1,7 @@
 schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
     $scope.settings = {
         email: "[a-z]+[.][a-z]+[0-9]*"
-    }
+    };
 
     $scope.$on("show_settings", function () {
         setting();

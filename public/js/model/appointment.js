@@ -52,5 +52,9 @@ appointment = {
                 console.log(response);
                 $rootScope.$broadcast(broadcastFailed, response);
             });
+    },
+
+    merge_appointments: function (appointments, appointment_requests) {
+
     }
 };

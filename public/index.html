@@ -171,7 +171,7 @@
                     <div class="col-xs-4">{{item.time_to}}</div>
                 </div>
                 <div ng-show="appointment_{{item.id}}">
-                    <div class="appointment" ng-show="item in item.s">
+                    <div class="appointment_in" ng-show="item in item.requests">
                         <div class="appointment_info">{{item.description}}</div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
         <!-- suche -->
         <div id="search" class="input-group">
             <input type="text" class="form-control" ng-model="searchString">
-            <div type="button" class="btn btn-default input-group-addon" ng-class="search()">suche</div>
+            <div type="button" class="btn btn-default input-group-addon" ng-click="search()">suche</div>
         </div>
         <!-- liste aller dozenten -->
         <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)">
@@ -223,7 +223,7 @@
                 <div class="input-group-addon">@hof-university.de</div>
             </div>
         </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">For changing e-mail address type new address. Note: E-mail address is only changed after confirmation.</small>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">For changing e-mail address type new address.</small>
     </div>
     <!-- password -->
     <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
