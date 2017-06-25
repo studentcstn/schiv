@@ -1,13 +1,17 @@
 appointment = {
     getAppointments:  function($http, $rootScope, broadcastSuccess, broadcastFailed){
-        $http.get('/appointments')
-            .then(function(response){
-                console.log(response);
-                $rootScope.$broadcast(broadcastSuccess, response.data);
-            }, function(response){
-                console.log(response);
-                $rootScope.$broadcast(broadcastFailed, response);
-            });
+        if (connection.isFree(appointment.getAppointments($http, $rootScope, broadcastSuccess, broadcastFailed))) {
+            $http.get('/appointments')
+                .then(function (response) {
+                    connection.free();
+                    console.log(response);
+                    $rootScope.$broadcast(broadcastSuccess, response.data);
+                }, function (response) {
+                    connection.free();
+                    console.log(response);
+                    $rootScope.$broadcast(broadcastFailed, response);
+                });
+        }
     },
 
     getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
