@@ -15,7 +15,7 @@ docent = {
     search: function (docents, searchString) {
 
     	for(i = 0; i<docents.length;++i){
-    		if(docents[i].email.matches(".*" + searchString + ".*"))
+    		if(docents[i].email.match(".*" + searchString + ".*"))
     		{
     			docents[i].visible = true;
     		}
@@ -62,7 +62,7 @@ var get_SingleDocent = function($http, $rootScope, broadcastSuccess, broadcastFa
 
 var checkIfFacultiesMatch = function(faculties, searchString){
 	for(i = 0; i< faculties.length; ++i){
-		if(faculties[i].matches(".*"+searchString+".*")){
+		if(faculties[i].name.match(".*"+searchString+".*")){
 			return true;	
 		}
 	}
