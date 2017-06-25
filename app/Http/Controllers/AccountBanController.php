@@ -10,6 +10,7 @@ use App\AccountBan;
 
 class AccountBanController extends Controller {
     //todo return name of baned user
+    //todo return [] 200 instead of [] 404
     public function show() {
         $accountDocent = Auth::user();
         $accountBan = AccountBan::where('account_id', $accountDocent->id)
