@@ -51,17 +51,12 @@ appointment = {
 
     merge_appointments: function(appointments, appointment_requests) {
     	for(n = 0; n<appointments.length; ++i){
-    		//appointment_requests_loop = [];
-    		//counter = 0;
-            /////////appointments[n].requests = [];
+            appointments[n].requests = [];
     		for(i = 0; i<appointment_requests.length; ++i){
-    		//if(appointments[n].id == appointment_requests[i].appointment_id){
-    		//	appointment_request_loop[counter] = appointment_request[i];
-            /////////appointments[n].requests.push(appointment_requests[i]);
-    		//	counter++;
-    		//}
+    			if(appointments[n].id == appointment_requests[i].appointment_id){
+    				appointments[n].requests.push(appointment_requests[i]);			
+    			}
     		}
-    		//appointments[n].appointment_requests = appointment_requests_loop
     	}
     }
 };
