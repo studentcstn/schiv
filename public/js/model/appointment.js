@@ -1,5 +1,5 @@
 appointment = {
-    getAppointments: function ($http, $rootScope, broadcastSuccess, broadcastFailed) {
+    getAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed) {
         connection.lock(function () {
             get_appointments($http, $rootScope, broadcastSuccess, broadcastFailed)
         });
@@ -49,7 +49,7 @@ appointment = {
             });
     },
 
-    merge_appointments: function (appointments, appointment_requests) {
+    merge_appointments: function(appointments, appointment_requests) {
     	for(n = 0; n<appointments.length; ++i){
     		//appointment_requests_loop = [];
     		//counter = 0;
