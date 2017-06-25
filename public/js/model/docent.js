@@ -18,15 +18,12 @@ docent = {
     		if(docents[i].email.matches(".*" + searchString + ".*"))
     		{
     			docents[i].visible = true;
-    			continue;
     		}
     		else if(checkIfFacultiesMatch(docent[i].faculties, searchString)){
     			docents[i].visible = true;
-    			continue;
     		}
 //    		else if((docents[i].name.matches(".*" + searchString + ".*")){
 //    		    docents[i].visible = true;
-//    			continue;
 //    		}
     		else{
     			docents[i].visible = false;
@@ -67,8 +64,6 @@ var checkIfFacultiesMatch = function(faculties, searchString){
 	for(i = 0; i< faculties.length; ++i){
 		if(faculties[i].matches(".*"+searchString+".*")){
 			return true;	
-		} else{
-			continue;
 		}
 	}
 	return false;
