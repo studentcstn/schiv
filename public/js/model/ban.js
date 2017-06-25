@@ -29,18 +29,21 @@ ban = {
     	
     	for(i = 0; i<list_of_unbanned.length; ++i){
     		if(list_of_unbanned[i].active == false){
-    			user_id = list_of_unbanned[i].id;
-    			 $http.delete('/account_bans/' + user_id + '').
-    			 then(function(response){
-    				 console.log(response);
-    			 }, function(response){
-    				 console.log(response);
-    				 success = false;})
+    			user_id = list_of_unbanned[i].account_ban_id;
+    			 $http.delete('/account_bans/' + user_id + '')
+                     .then(function(response){
+                         console.log(response);
+                     }, function(response){
+                         console.log(response);
+                         success = false;})
     		} else{
     			continue;
     		}
-    		if(success){ $rootScope.$broadcast(broadcastSuccess);}
-    		else		{ $rootScope.$broadcast(broadcastFailed);}
+    		if(success){
+    		    $rootScope.$broadcast(broadcastSuccess);
+    		} else {
+    		    $rootScope.$broadcast(broadcastFailed);
+    		}
     	}
 
     }
