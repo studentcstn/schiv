@@ -177,7 +177,8 @@
                 </div>
                 <div ng-show="appointment_{{item.id}}">
                     <div class="appointment_in" ng-show="item in item.requests">
-                        <div class="appointment_info">{{item.description}}</div>
+                        <div>{{item.description}}</div>
+                        <div>{{item.subject}}</div>
                     </div>
                 </div>
             </div>
@@ -252,7 +253,7 @@
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">Type password for changing</small>
     </div>
-    <div class="form-group row" ng-class="newUser_settings.password.length == 0 || newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
+    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
         <div class="col-sm-offset-2 col-sm-10">
             <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.passwordRepeat">
         </div>
