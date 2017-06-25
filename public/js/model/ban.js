@@ -13,20 +13,25 @@ ban = {
             });
     },
 
-    banAccount: function(){
-        $http.post('/' + docent_id + '/account_ban', {"user_is": $scope.user_id,
-            "account_ban_id": $scope.account_ban_id, "ban_until": $scope.ban_until}).
+    banAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, account_ban_id){
+        $http.post('/account_bans/', {"account_ban_id": account_ban_id}).
         then(function(response){
-            //success
+        	 console.log(response);
+             $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
+        	 console.log(response);
+             $rootScope.$broadcast(broadcastFailed, response);
         });
     },
 
-    unbanAccount: function(){
-        $http.delete('/' + docent_id + '/account_ban/' + user_id + '').
+    unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
+        $http.delete('/account_ban/' + user_id + '').
         then(function(response){
-            //success
-        }, function(response){
-        });
+       	 console.log(response);
+            $rootScope.$broadcast(broadcastSuccess, response);
+       }, function(response){
+       	 console.log(response);
+            $rootScope.$broadcast(broadcastFailed, response);
+       });
     }
 };
