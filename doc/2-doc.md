@@ -15,7 +15,7 @@ Auftraggeber beschlossen wurden:
    diesen Typs angelegt ist.
 #. Jedem Konto sind ein oder mehrere Fakultäten zugeordnet.
 #. Aktivierung eines Kontos erfolgt über eine E-Mail die nach der Registrierung
-   mit einem Aktivierungs-Link geschickt wird.
+   mit einem Aktivierungslink geschickt wird.
 #. Die Anwendung soll mindestens auf normalen Desktop-PCs mit
    den weitverbreitetsten Browsern laufen.
 #. Es werden generell keine Datensätze gelöscht, sondern nur weich gelöscht
@@ -52,6 +52,8 @@ Beim Layout muss zwischen Student und Dozent unterschieden werden.
 Das Layout der Seite soll möglichst einfach und übersichtlich sein.
 
 ## Navigation
+
+(TODO)
 
 Es wird nur eine Navigationleiste am oberen Rand geben, die immer sichtbar ist.
 Alle Funktionen sind darüber mit wenigen Klicks erreichbar.
@@ -110,8 +112,8 @@ Anmerkungen:
    können.
 - `get:appointments/{from}/{to}`: `from` und `to` müssen im Datumsformat
   `YYYY-MM-DD HH:II:SS` angegeben werden.
-- **A**: Zugriff nur wenn man als Student oder Dozent eingeloggt.
-- **D**: Zugriff nur wenn man als Dozent eingeloggt.
+- **A**: Zugriff nur wenn man als Student oder Dozent angemeldet ist.
+- **D**: Zugriff nur wenn man als Dozent angemeldet ist.
 
 ## Details {#sec:rest-details}
 
@@ -124,7 +126,7 @@ zurückgegeben werden:
 - **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht
   falls die kein Rückgabewert nötig ist.
 
-- **401**: Falls der Login fehlschlägt, der Benutzer nicht eingeloggt ist oder
+- **401**: Falls der Login fehlschlägt, der Benutzer nicht angemeldet ist oder
   der Benutzer ein Dozent sein um auf die Route zugreifen zu können. Als Antwort
   kommt eine Fehlermeldung mit dem Grund zurück. Beispiel:
 
@@ -167,7 +169,6 @@ zurückgegeben werden:
 
     ```json
     {"message": "fatal error"}
-
     ```
 
 ### Register, Login, Logout und Reset Password
@@ -178,7 +179,10 @@ Da die Anwendung sowieso in einem Browser läuft, kümmert sich der Browser um d
 Cookie Verwaltung. Auf dem Server kümmert sich Laravel um die Session, die für
 jede Verbindung eindeutig ist und sein muss. Der Webserver muss später mit über
 das HTTPS-Protkoll angesprochen werden, sonst könnte ein Angreifer die Session
-"hijacken".
+"hijacken". Wenn man mit die Implementierung von Laravel für die Session
+verwendet, wird bei jeder Anfrage die Session-ID geändert, aus
+Sicherheitsgründen. Als Konsequenz müssen die Anfragen per Javascript an die
+Schnittstelle synchron erfolgen.
 
 **Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
 und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
@@ -198,8 +202,8 @@ Momentane Antwort:
 **Login**: Wenn der Login nicht erfolgreich ist wird ein **401** zurückgeben,
 sonst ein **200** mit leerer Nachricht. Beispiel: siehe **Register**.
 
-**Logout**: Löscht die Session auf dem Server und loggt den Benutzer aus. Falls
-ein nicht angemeldeter Benutzer versucht sich auszuloggen wird ein **401**
+**Logout**: Löscht die Session auf dem Server und meldet den Benutzer ab. Falls
+ein nicht angemeldeter Benutzer versucht sich abzumelden wird ein **401**
 zurückgeliefert.
 
 **Reset Password:** Benötigt nur die E-Mail-Adresse und schickt eine E-Mail an
@@ -207,8 +211,8 @@ den Benutzer mit einem neu generierten Passwort und einem Aktivierungslink.
 (Momentan: wird einfach zum Testen der Token und das neue Passwort mit in der
 Antwort `{"token":"<token>","password":"<password>"}` zurückgeben). Nach einem
 Klick auf den Aktivierungslink ist das Konto des Benutzer wieder aktiviert.
-Einloggen kann sich der Benutzer dann mit dem generierten Passwort. Das Passwort
-ist permant und dem Benutzer ist es freigestellt es wieder zu ändern. Beispiel:
+Anmelden kann sich der Benutzer dann mit dem generierten Passwort. Das Passwort
+ist fest und dem Benutzer ist es freigestellt es wieder zu ändern. Beispiel:
 
 ```json
 {"email":"alice@wonder.land"}
@@ -275,7 +279,7 @@ $ cp .env.sqlite .env
 $ touch /tmp/db 
 $ php artisan migrate:refresh --seed
 $ php artisan serve
-$ php artisan retrieve:docents <username> <password>
+$ php artisan retrieve:docents
 $ firefox http://localhost:8000
 ```
 

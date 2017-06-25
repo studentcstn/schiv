@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Config;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,15 +46,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception) {
         if ($this->isHttpException($exception)) {
-            if ($exception instanceof  ValidationException) {
-                return response()->json(['message' => $exception->getMessage()], 422);
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json(['message' => "route doesn't exists"], 404);
             }
             if (Config::get("app.debug")) {
-                return response()->json(['message' => $exception->getMessage()], 500);
+                $message = $exception->getMessage();
+                if (!$message) {
+                    $message = get_class($exception);
+                }
+                return response()->json(['message' => $message], 500);
             } else {
                 return response()->json(['message' => 'fatal error'], 500);
             }
         }
+
         return parent::render($request, $exception);
     }
 
