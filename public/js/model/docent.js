@@ -13,7 +13,25 @@ docent = {
 	},
 
     search: function (docents, searchString) {
-        
+
+    	for(i = 0; i<docents.length;++i){
+    		if(docents[i].email.matches(".*" + searchString + ".*"))
+    		{
+    			docents[i].visible = true;
+    			continue;
+    		}
+    		else if((docents[i].faculties.matches(".*" + searchString + ".*")){
+    			docents[i].visible = true;
+    			continue;
+    		}
+//    		else if((docents[i].name.matches(".*" + searchString + ".*")){
+//    		    docents[i].visible = true;
+//    			continue;
+//    		}
+    		else{
+    			docents[i].visible = false;
+    		}
+    	} 	
     }
 };
 
