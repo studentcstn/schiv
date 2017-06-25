@@ -16,9 +16,10 @@ class AppointmentController extends Controller {
     public function store(Request $request) {
         $auth_user = Auth::user();
 
-        $is_day = ctype_alpha($request->input('day'));
+        $is_day = $request->input('day');
+        $muster = '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
 
-        if($is_day) {
+        if(($is_day == 'MON') || $is_day == 'TUE') || $is_day == 'WED') || $is_day == 'THU') || $is_day == 'FRI') || $is_day == 'SAT') || $is_day == 'SUN')) {
             DB::table('appointments')->insertGetId([
                 'account_id' => $auth_user->id,
                 'description' => $request->input('description'),
@@ -27,7 +28,7 @@ class AppointmentController extends Controller {
                 'time_from' => $request->input('time_from'),
                 'time_to' => $request->input('time_to'),
             ]);
-        } else {
+        } else if(preg_match($muster, $is_day)){
             DB::table('appointments')->insertGetId([
                 'account_id' => $auth_user->id,
                 'description' => $request->input('description'),
