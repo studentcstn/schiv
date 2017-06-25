@@ -15,7 +15,7 @@ class CreateAppointmentRequestsTable extends Migration {
             $table->increments('id')->unsigned();
             $table->string('description');
             $table->string('subject');
-            $table->integer('duration_in_min');
+            $table->integer('duration_in_min')-nullable();
             $table->dateTime('appointment_at')->nullable();
             $table->dateTime('requested_at');
             $table->enum('state', ['Accepted', 'Declined', 'Idle']);
