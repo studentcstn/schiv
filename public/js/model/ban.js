@@ -1,6 +1,6 @@
 ban = {
 		
-	getAccountBans:function($http, $rootScope, broadcastSuccess, broadcastFailed){
+	getAccountBans: function($http, $rootScope, broadcastSuccess, broadcastFailed){
 		connection.lock(function(){
 			get_AccountBans($http, $rootScope, broadcastSuccess, broadcastFailed);
 		});
