@@ -106,6 +106,7 @@
             function request(url, method, content) {
                 console.log(content);
                 $.ajax({
+                    async: false,
                     url: url,
                     type: method,
                     dataType: 'json',
