@@ -10,7 +10,11 @@ docent = {
 		connection.lock(function(){
 			get_SingleDocent($http, $rootScope, broadcastSuccess, broadcastFailed, docent_id);
 		});
-	}
+	},
+
+    search: function (docents, searchString) {
+        
+    }
 };
 
 var get_DocentList = function($http, $rootScope, broadcastSuccess, broadcastFailed){
