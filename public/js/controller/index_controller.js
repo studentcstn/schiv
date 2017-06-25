@@ -44,7 +44,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     var receive = 0;
 
     var index_docent = function () {
-        receive = 0;
+        receive += 2;
         $scope.type = "Docent";
         $rootScope.$broadcast("show", "show_index_docent");
         appointment.getAppointments($http, $rootScope, "index_appointment_s", "index_appointment_f");
@@ -52,8 +52,8 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     };
     $scope.$on("index_appointment_s", function (event, data) {
         $scope.appintments = data;
-        ++receive;
-        if (receive === 2)
+        --receive;
+        if (receive === 0)
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_f", function (event, data) {
@@ -61,8 +61,8 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     });
     $scope.$on("index_appointment_request_s", function (event, data) {
         $scope.appintments_requests = data;
-        ++receive;
-        if (receive === 2)
+        --receive;
+        if (receive === 0)
             appointment.merge_appointments($scope.appointments, $scope.appointment_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
