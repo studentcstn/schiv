@@ -25,7 +25,7 @@ ban = {
     },
 
     unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
-        $http.delete('/account_ban/' + user_id + '').
+        $http.delete('/account_bans/' + user_id + '').
         then(function(response){
        	 console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response);
