@@ -1,6 +1,6 @@
 ban = {
     getAccountBans: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-        $http.get('/account_bans')
+        $http.get('/account_bans', {})
             .then(function(response){
                 console.log(response);
                 var data = response.data;
