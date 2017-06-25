@@ -32,5 +32,14 @@ class AppointmentRequestsTableSeeder extends Seeder
             'appointment_id' => 2,
 
        ]);
+
+        DB::table('appointment_requests')->insert([
+            'description' => 'dies ist auch eine Testanfrage',
+            'subject' => 'über das möchte ich nicht reden',
+            'requested_at' => '2017-07-23 22:30:34',
+            'state' => 'idle',
+            'account_id'=> 1,
+            'appointment_id' => 3,
+        ]);
     }
 }
