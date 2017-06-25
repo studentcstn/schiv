@@ -9,6 +9,7 @@ use App\Account;
 use App\AccountBan;
 
 class AccountBanController extends Controller {
+    //todo return name of baned user
     public function show() {
         $accountDocent = Auth::user();
         $accountBan = AccountBan::where('account_id', $accountDocent->id)

@@ -26,6 +26,7 @@
     <!-- model -->
     <script src="js/model/appointment.js"></script>
     <script src="js/model/appointment_request.js"></script>
+    <script src="js/model/ban.js"></script>
     <script src="js/model/docent.js"></script>
     <script src="js/model/login.js"></script>
     <script src="js/model/settings.js"></script>
@@ -278,7 +279,14 @@
             <div class="form-check" ng-repeat="item in ban">
                 <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" ng-model="item.active">
-                    {{item.account_id}} {{item.ban_until}}
+                    <div class="row">
+                        <div class="col-xs-4">
+                            {{item.account_id}}
+                        </div>
+                        <div class="col-xs-6">
+                            Bun until: {{item.ban_until}}
+                        </div>
+                    </div>
                 </label>
             </div>
         </div>

@@ -3,6 +3,9 @@ ban = {
         $http.get('/account_bans')
             .then(function(response){
                 console.log(response);
+                var data = response.data;
+                for (i = 0; i < data.length; ++i)
+                    data[i].active = true;
                 $rootScope.$broadcast(broadcastSuccess, response.data);
             }, function(response){
                 console.log(response);
