@@ -38,7 +38,7 @@ appointment_request = {
         })
     },
     getAppointmentRequestCount: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
-        $http.get('appointment_requests/' + count)
+        $http.get('/appointment_requests/' + count)
             .then(function(response){
                 console.log(response);
                 $rootScope.$broadcast(broadcastSuccess, response.data);
@@ -50,7 +50,7 @@ appointment_request = {
 };
 
 var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed){
-    $http.get('appointment_requests')
+    $http.get('/appointment_requests')
         .then(function(response){
             connection.free();
             console.log(response);

@@ -26,7 +26,5 @@ schiv_module.controller('request_controller', function($scope, $http, $rootScope
 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
-    }
-
-    $http.get();
+    };
 });
