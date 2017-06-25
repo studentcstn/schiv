@@ -79,7 +79,7 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 | Registrieren                             | post:register (email, password)                            \ |
 |                                          | put:register (token)                                         |
 +------------------------------------------+--------------------------------------------------------------+
-| Suche                                    | get:docents                                                  |
+| Suche: Dozenten                          | get:docents                                                  |
 +------------------------------------------+--------------------------------------------------------------+
 | Informationen bzw. Termine von Dozenten  | get:docents/{docent_id}                                      |
 +------------------------------------------+--------------------------------------------------------------+
@@ -96,6 +96,11 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 |                                          | **D** post:appointments (...)                              \ |
 |                                          | **D** delete:appointments/{appointment_id}                   |
 +------------------------------------------+--------------------------------------------------------------+
+| Feiertage                                | **A** get:holidays/{from}/{to}                             \ |
+|                                          | **D** post:holidays (from, to, name)                       \ |
+|                                          | **D** put:holidays (id, from, to, name)                    \ |
+|                                          | **D** delete:holidays/{id}                                   |
++------------------------------------------+--------------------------------------------------------------+
 | Einstellungen                            | **A** get:settings                                         \ |
 |                                          | **A** put:settings (email, password)                         |
 +------------------------------------------+--------------------------------------------------------------+
@@ -110,8 +115,6 @@ Anmerkungen:
 
 -  `(...)` bedeutet das alle Felder, wie im Model definiert, verwendet werden
    können.
-- `get:appointments/{from}/{to}`: `from` und `to` müssen im Datumsformat
-  `YYYY-MM-DD HH:II:SS` angegeben werden.
 - **A**: Zugriff nur wenn man als Student oder Dozent angemeldet ist.
 - **D**: Zugriff nur wenn man als Dozent angemeldet ist.
 
@@ -127,8 +130,8 @@ zurückgegeben werden:
   falls die kein Rückgabewert nötig ist.
 
 - **401**: Falls der Login fehlschlägt, der Benutzer nicht angemeldet ist oder
-  der Benutzer ein Dozent sein um auf die Route zugreifen zu können. Als Antwort
-  kommt eine Fehlermeldung mit dem Grund zurück. Beispiel:
+  der Benutzer ein Dozent sein muss um auf die Route zugreifen zu können. Als
+  Antwort kommt eine Fehlermeldung mit dem Grund zurück. Beispiel:
 
     ```json
     {"message":"login unsuccessful"}
@@ -229,21 +232,108 @@ implementiert sein. Da der Link über ein `GET` abgesetzt wird, aber das Backend
 ein `PUT` benötigt. Das Frontend muss dann ein `put:register` mit dem Token in
 der Nachricht absetzen, um das Konto wieder zu aktivieren.
 
-### Suche
+### Suche: Dozenten
 
-(TODO)
+Liefert alle Dozenten zurück, um im Frontend eine Suche implementieren zu
+können.
+
+Bei `get:docents`: Liefert alle Dozenten zurück (`id`, `email`). Zusätzlich noch
+die Fakultät des Dozenten. Beispiel:
+
+```json
+[
+  { 
+    "id": 3, 
+    "email": "helmut.kohl@hof-university.de",
+    "faculties": [{"id": 2, "name": "Ingenieur"}] 
+  },
+  { "id": 4, "email": "apfel.mus@hof-university.de", "faculties": [] }
+]
+```
+
+Bei `get:docents/{id}`: Wird zu allen obigen Informationen noch die Termine des
+Dozenten zurückgegeben. Beispiel:
+
+```json
+{
+  "id": 3,
+  "email": "helmut.kohl@hof-university.de",
+  "appointments": [
+    {
+      "id": 3,
+      "account_id": "3",
+      "description": "Klausureinsicht",
+      "active": "1",
+      "weekday": null,
+      "date": "2017-05-17",
+      "time_from": "11:00:00",
+      "time_to": "12:00:00",
+    }
+  ],
+  "faculties": [
+    { "id": 2, "name": "Ingenieur" }
+  ]
+}
+```
+
 
 ### Termine
 
 (TODO)
 
+<!--
+`get:appointments/{from}/{to}`: `from` und `to` müssen im Datumsformat
+`YYYY-MM-DD HH:II:SS` angegeben werden.
+-->
+
+Versucht ein gesperrter Student eine Anfrage zu stellen, wird ein **401**
+zurückgegeben.
+
+### Feiertage
+
+Allgemeine Feiertage (sprich: Feiertage die nicht mit einem Konto verknüpft
+sind) können nicht direkt bearbeitet werden, sondern nur abgefragt werden.
+
+Sollte versucht werden einen allgemeinen Feiertag zu bearbeiten kommt ein
+**404** als Fehler zurück.
+
+Das Format von `{from}` und `{to}` ist im Format `YYYY-MM-DD`.
+
+Bei `post:holidays`: Liefert die Id des eingefügten Satzes zurück. Falls bereits
+ein Feiertag mit `from`, `to` und `name` eingetragen wurde, wird die Id dieses
+Satzes zurückgegeben.
+
 ### Einstellungen
 
-(TODO)
+Liefert die Einstellungen des angemeldeten Benutzers zurück.
+
+Bei `get:settings`: Liefert die Einstellungen des Kontos zurück, also eine
+Untermenge der Attribute von der `accounts`-Tabelle. Zusätzlich enthält die
+Antwort noch die Fakultäten des Kontos und alle möglichen Fakultäten. Beispiel: 
+
+```json
+{
+  "email": "max.musterman@hof-university.de",
+  "account_faculties": [
+    { "id": 3, "name": "Wirtschaft" }
+  ],
+  "faculties": [
+    { "id": 1, "name": "Informatik" },
+    { "id": 2, "name": "Ingenieur" },
+    { "id": 3, "name": "Wirtschaft" }
+  ]
+}
+```
+
+Bei `put:settings`: Kann E-Mail, Passwort und Fakultäten übergeben werden. Die
+Fakultäten werden als Array von Ids übergeben: `[1, 2, 3]`.
 
 ### Konten Sperren
 
-(TODO)
+Liefert Kontosperrungen des angemeldeten Dozenten zurück. Alle gesperrten
+Benutzer können keine Anfragen mehr stellen. Bis sie aus der Tabelle gelöscht
+werden oder die Zeit für die Sperrung abgelaufen ist (Die Sperrung ist
+standardmäßig bis zum Ende des Semesters 15.03 oder 30.09). 
 
 # Implementierung
 
@@ -252,6 +342,8 @@ der Nachricht absetzen, um das Konto wieder zu aktivieren.
 Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
 werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
 [@sec:rest-details] beschrieben.
+
+(TODO)
 
 # Testfälle
 
