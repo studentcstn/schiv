@@ -266,6 +266,9 @@
         </div>
     </div>
     <!-- baned users -->
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Faculties</label>
+    </div>
     <div ng-show="type == 'Docent'">
         <div class="form-group">
             <div class="form-check" ng-repeat="item in ban">
@@ -273,11 +276,8 @@
                     <div class="col-xs-1">
                         <input type="checkbox" class="form-check-input" ng-model="item.active">
                     </div>
-                    <div class="col-xs-4">
-                        {{item.account_id}} {{item.active}}
-                    </div>
-                    <div class="col-xs-6">
-                        Bun until: {{item.ban_until}}
+                    <div class="col-xs-11">
+                        {{item.account_id}}
                     </div>
                 </div>
             </div>
