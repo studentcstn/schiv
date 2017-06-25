@@ -22,19 +22,17 @@ ban = {
                 connection.lock(function () {
                     unban_Account($http, success, user_id);
                 });
-            } else {
-                continue;
-            }
-
-            connection.lock(function () {
-                if (success) {
-                    $rootScope.$broadcast(broadcastSuccess);
-                } else {
-                    $rootScope.$broadcast(broadcastFailed);
-                }
-                connection.free();
-            });
+            } 
         }
+
+        connection.lock(function () {
+            connection.free();
+            if (success) {
+                $rootScope.$broadcast(broadcastSuccess);
+            } else {
+                $rootScope.$broadcast(broadcastFailed);
+            }
+        });
     }
 
 
