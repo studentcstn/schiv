@@ -25,20 +25,22 @@ ban = {
     },
 
     unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned){
+    	success = true;
+    	
     	for(i = 0; i<list_of_unbanned.length; ++i){
     		if(list_of_unbanned[i].active == false){
-    	        $http.delete('/account_bans/' + user_id + '').
-    	        then(function(response){
-    	          	 console.log(response);
-    	               $rootScope.$broadcast(broadcastSuccess, response);
-    	          }, function(response){
-    	          	 console.log(response);
-    	               $rootScope.$broadcast(broadcastFailed, response);
-    	          });
+    			user_id = list_of_unbanned[i].id;
+    			 $http.delete('/account_bans/' + user_id + '').
+    			 then(function(response){
+    				 console.log(response);
+    			 }, function(response){
+    				 console.log(response);
+    				 success = false;})
     		} else{
     			continue;
     		}
-
+    		if(success){ $rootScope.$broadcast(broadcastSuccess);}
+    		else		{ $rootScope.$broadcast(broadcastFailed);}
     	}
 
     }
