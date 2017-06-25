@@ -1,14 +1,20 @@
-var freeConnection = true;
+var waitConnections = [];
+var working = false;
 
 connection = {
-    isFree: function (f) {
-        if (!freeConnection) {
-            setTimeout(f, 100);
-            return false;
+    lock: function (f) {
+        if (!working) {
+            working = true;
+            f();
+            return;
         }
-        return true;
+        waitConnections.push(f);
     },
     free: function () {
-        freeConnection = true;
+        if (waitConnections.length > 0) {
+            waitConnections.pop()();
+            return;
+        }
+        working = false;
     }
 };

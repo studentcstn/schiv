@@ -33,14 +33,9 @@ appointment_request = {
     },
 
     getAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-        $http.get('appointment_requests')
-            .then(function(response){
-                console.log(response);
-                $rootScope.$broadcast(broadcastSuccess, response.data);
-            }, function(response){
-                console.log(response);
-                $rootScope.$broadcast(broadcastFailed, response);
-            });
+        connection.lock(function () {
+            get_appointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed)
+        })
     },
     getAppointmentRequestCount: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
         $http.get('appointment_requests/' + count)
@@ -52,4 +47,17 @@ appointment_request = {
                 $rootScope.$broadcast(broadcastFailed, response);
             });
     }
-}
+};
+
+var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed){
+    $http.get('appointment_requests')
+        .then(function(response){
+            connection.free();
+            console.log(response);
+            $rootScope.$broadcast(broadcastSuccess, response.data);
+        }, function(response){
+            connection.free();
+            console.log(response);
+            $rootScope.$broadcast(broadcastFailed, response);
+        });
+};
