@@ -85,14 +85,16 @@ mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 +------------------------------------------+--------------------------------------------------------------+
 | Terminanfragen abrufen                   | **A** get:appointment_requests                               |
 +------------------------------------------+--------------------------------------------------------------+
+| Vergangene Terminanfragen                | **A** get:appointment_requests/past                          |
++------------------------------------------+--------------------------------------------------------------+
 | Termin Einschreibung                     | **A** post:appointment_requests (...)                        |
 +------------------------------------------+--------------------------------------------------------------+
-| Termine annehmen bzw. ablehen            | **D** put:appointment_requests (id, state)                 \ |
-|                                          | **A** delete:appointment_requests/{id}                       |
+| Terminanfrage annehmen bzw. ablehen      | **D** put:appointment_requests (id, state, duration_in_min)\ |
++------------------------------------------+--------------------------------------------------------------+
+| Terminanfrage zurücknehmen               | **A** delete:appointment_requests/{id}                       |
 +------------------------------------------+--------------------------------------------------------------+
 | Termine Dozenten                         | **D** get:appointments                                     \ |
-|                                          | **D** get:appointments/{count}                             \ |
-|                                          | **D** get:appointments/{from}/{to}                         \ |
+|                                          | **D** get:appointments/past                                \ |
 |                                          | **D** post:appointments (...)                              \ |
 |                                          | **D** delete:appointments/{appointment_id}                   |
 +------------------------------------------+--------------------------------------------------------------+
@@ -279,12 +281,36 @@ Dozenten zurückgegeben. Beispiel:
 
 ### Termine
 
-(TODO)
+**Terminanfragen**:
 
-<!--
-`get:appointments/{from}/{to}`: `from` und `to` müssen im Datumsformat
-`YYYY-MM-DD HH:II:SS` angegeben werden.
--->
+Bei `get:appointment_requests`: Liefert bei einem Studenten die eigenen Anfragen zurück.
+Bei einem Dozenten die Anfragen zu den eigenen Terminen.
+
+Bei `get:appointment_requests/past`: Liefert bei einem Studenten alle Anfragen des Studenten
+zurück, die sich auf vergangene Termine beziehen. Bei einem Dozenten alle Anfragen zu den eigenen
+abgelaufenen Terminen.
+
+Bei `post:appointment_requests`: Legt eine neue Terminanfrage in der Datenbank an.
+Zu übergebene Parameter im **JSON-Objekt**: **{appointment_id}** (Id des Termins an den angefragt wird),
+**{description}** (Beschreibung was besprochen werden soll), **{subject}** (Betreff der Anfrage).
+
+Bei `put:appointment_requests`: Damit wird der Status der Anfrage geändert sowie die Dauer der Besprechung.
+Zu übergebende Parameter im **JSON-Objekt**: **{id}** (Id der zu bearbeitenden Anfrage), **{state}** (Neuer Status der Anfrage: `Accepted`, `Declined`), **{duration_in_min}** (Voraussichtliche Dauer der Besprechung)
+
+Bei `delete:appointment_requests/{id}`: Damit wird die in `id` angegebene Anfrage gelöscht.
+
+**Termine**:
+
+Bei `get:appointments`: Liefert alle Termine des Aufrufers zurück.
+
+Bei `get:appointments/past`: Liefert alle inaktiven Termine des Aufrufers zurück.
+
+Bei `post:appointments`: Legt einen neuen Termin in der Datenbank an. Bei wiederholenden Terminen werden
+alle anfallenden wiederholungen bis zum Ende des Semesters mit angelegt. Zu übergebende Parameter im **JSON-Objekt**:
+**{weekday}** (Identifiziert einen wiederholenden Termin. Gültige eingaben sind: `MON` `TUE` `WED` `THU` `FRI` `SAT` `SUN` `NULL`),
+**{date}** (Gibt das Datum des Termins an. Bei wiederholenden Terminen das Startdatum. `YYYY-MM-DD`), **{time_from}** (Beginn des Termins: `HH:MM:SS`), **{time_to}** (Ende des Termins: `HH:MM:SS`).
+
+Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins auf `Inactive`.
 
 Versucht ein gesperrter Student eine Anfrage zu stellen, wird ein **401**
 zurückgegeben.
