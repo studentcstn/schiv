@@ -57,7 +57,7 @@
 
         <!-- items to navigate -->
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav" ng-show="show_nav">
+            <ul class="nav navbar-nav ng-hide" ng-show="show_nav">
                 <li class="nav-item">
                     <a class="nav-link" ng-click="show.index()">{{languages.nav.index[lang]}}</a>
                 </li>
@@ -68,14 +68,14 @@
                     <a class="nav-link" ng-click="show.settings()">{{languages.nav.settings[lang]}}</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav pull-right" ng-show="show_login">
                 <li>
                     <a class="navbar-link" ng-click="setLang('de')">DE</a>
                 </li>
                 <li>
                     <a class="navbar-link" ng-click="setLang('en')">EN</a>
                 </li>
-                <li class="nav-item" ng-show="show_nav">
+                <li class="nav-item ng-hide" ng-show="show_nav">
                     <a class="nav-link" ng-click="show.logout()">{{languages.nav.logout[lang]}}</a>
                 </li>
             </ul>
@@ -195,8 +195,7 @@
         <div id="search" class="input-group">
             <input type="text" class="form-control" ng-model="searchString">
             <div type="button" class="btn btn-default input-group-addon" ng-click="search()">{{languages.index.search_button[lang]}}</div>
-            <div class="btn input-group-addon" ng-click="
-">
+            <div class="btn input-group-addon" ng-click="search_delete()">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </div>
         </div>
