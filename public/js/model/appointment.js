@@ -5,17 +5,18 @@ appointment = {
         });
     },
 
-    getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
+    getLastAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed){
         connection.lock(function () {
-            get_lastAppointments($http, $rootScope, broadcastSuccess, broadcastFailed, count);
+            get_lastAppointments($http, $rootScope, broadcastSuccess, broadcastFailed);
         });
     },
 
+    /*
     getLastAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
         connection.lock(function () {
             get_lastAppointmentsFromTo($http, $rootScope, broadcastSuccess, broadcastFailed, from, to);
         });
-    },
+    },*/
 
     createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
         connection.lock(function () {
@@ -54,8 +55,8 @@ var get_appointments = function($http, $rootScope, broadcastSuccess, broadcastFa
         });
 };
 
-var get_lastAppointments = function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
-    $http.get('/appointments/' + count)
+var get_lastAppointments = function($http, $rootScope, broadcastSuccess, broadcastFailed){
+    $http.get('/appointments/past')
         .then(function(response) {
             connection.free();
             console.log(response);
@@ -67,6 +68,7 @@ var get_lastAppointments = function($http, $rootScope, broadcastSuccess, broadca
         });
 };
 
+/*
 var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
     $http.get('/appointments/' + from + '/' + to)
         .then(function(response){
@@ -79,6 +81,7 @@ var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, b
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
+*/
 
 var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
     time_from = controlTime(time_from);

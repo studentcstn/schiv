@@ -24,9 +24,9 @@ appointment_request = {
 	    	});
 	    },
 
-	    getAppointmentRequestCount: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
+	    getLastAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
 	    	connection.lock(function(){
-	    		get_AppointmentRequestCount($http, $rootScope, broadcastSuccess, broadcastFailed, count);
+	    		get_LastAppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, count);
 	    	});
 	    }
 
@@ -43,6 +43,11 @@ var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broad
             connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
+
+            //todo remove
+            response.data = [{"id":"1","description":"dies ist eine Testanfrage","subject":"\u00fcber das m\u00f6chte ich reden","duration_in_min":"30","appointment_at":null,"requested_at":"2017-07-25 17:30:34","state":"Idle","account_id":"2","appointment_id":"1","created_at":null,"updated_at":null},{"id":"2","description":"dies ist auch eine Testanfrage","subject":"\u00fcber das m\u00f6chte ich nicht reden","duration_in_min":"30","appointment_at":null,"requested_at":"2017-07-23 22:30:34","state":"Idle","account_id":"2","appointment_id":"2","created_at":null,"updated_at":null}];
+            console.log(response);
+            $rootScope.$broadcast(broadcastSuccess, response.data);
         });
 };
 
@@ -85,8 +90,8 @@ var create_AppointmentRequest = function($http, $rootScope, broadcastSuccess, br
         });
 };
 
-var get_AppointmentRequestCount = function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
-    $http.get('/appointment_requests/' + count)
+var get_LastAppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed){
+    $http.get('/appointment_requests/past')
         .then(function(response){
             connection.free();
             console.log(response);
