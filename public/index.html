@@ -35,6 +35,8 @@
     <script src="js/model/docent.js"></script>
     <script src="js/model/login.js"></script>
     <script src="js/model/settings.js"></script>
+    <!-- languages -->
+    <script src="js/languages/languages.js"></script>
 </head>
 <body ng-controller="app">
 
@@ -55,8 +57,8 @@
 
         <!-- items to navigate -->
         <div id="navbar" class="navbar-collapse collapse">
-            <div class="ng-hide" ng-show="show_nav">
-                <ul class="nav navbar-nav">
+            <div class="ng-hide">
+                <ul class="nav navbar-nav" ng-show="show_nav">
                     <li class="nav-item">
                         <a class="nav-link" ng-click="show.index()">Index</a>
                     </li>
@@ -68,6 +70,14 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
+                    <li>
+                        <s class="navbar-link" ng-click="lang = 'de'">DE</s>
+                    </li>
+                    <li>
+                        <a class="navbar-link" ng-click="lang = 'en'">EN</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right" ng-show="show_nav">
                     <li class="nav-item">
                         <a class="nav-link" ng-click="show.logout()">Log out</a>
                     </li>
@@ -114,7 +124,7 @@
         </div>
     </div>
     <div class="form-group row" ng-show="show_login_password">
-        <label for="login_password_input" class="col-sm-2 col-form-label">Password</label>
+        <label for="login_password_input" class="col-sm-2 col-form-label">{{languages.login.password[lang]}}</label>
         <div class="col-sm-10">
             <input id="login_password_input" type="password" class="form-control" placeholder="password" ng-model="user.password">
         </div>
@@ -272,10 +282,10 @@
         </div>
     </div>
     <!-- baned users -->
-    <div class="form-group row">
-        <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">Banned users</label>
-    </div>
     <div ng-show="type == 'Docent'">
+        <div class="form-group row">
+            <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">Banned users</label>
+        </div>
         <div class="form-group">
             <div class="form-check" ng-repeat="item in ban">
                 <div class="row">

@@ -4,6 +4,10 @@ user = {};
 
 schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
+    $scope.lang = 'en';
+
+    $scope.languages = languages;
+
     $scope.show_login = true;
     $scope.show_login_login = true;
     $scope.show_login_password = true;
