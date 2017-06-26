@@ -11,6 +11,10 @@ languages = {
     	settings: {
     		en: "Settings",
     		de: "Einstellungen"
+    	},
+    	logout: {
+    		en: "Log out",
+    		de: "Ausloggen"
     	}
     },
     login: {
@@ -61,6 +65,37 @@ languages = {
 
     },
     settings: {
-
+        email: {
+            en: "E-mail",
+            de: "E-mail"
+        },
+        email_line: {
+            en: "To change your e-mail address, type the new address here.",
+            de: "Um Ihre E-mail zu ändern, schreiben sie Ihre neue Adresse hier."
+        },
+        password: {
+            en: "Password",
+            de: "Passwort"
+        },
+        password_line: {
+            en: "To change your password, type your new password here.",
+            de: "Um Ihr Passwort zu ändern, schreiben sie Ihr neues Passwort hier."
+        },
+        password_repeat_line: {
+            en: "Repeat the new password to confirm the changes",
+            de: "Wiederholen Sie das Passwort um die Änderung zu bestätigen."
+        },
+        faculties: {
+            en: "Faculties",
+            de: "Fakultäten"
+        },
+        banned_users: {
+            en: "Banned user",
+            de: "Blockierte Benutzer" 
+        },
+        save_button: {
+            en: "Save",
+            de: "Speichern"
+        }
     }
 };

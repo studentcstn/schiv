@@ -76,7 +76,7 @@
                     <a class="navbar-link" ng-click="lang = 'en'">EN</a>
                 </li>
                 <li class="nav-item" ng-show="show_nav">
-                    <a class="nav-link" ng-click="show.logout()">Log out</a>
+                    <a class="nav-link" ng-click="show.logout()">{{languages.nav.logout[lang]}}</a>
                 </li>
             </ul>
         </div>
@@ -242,32 +242,32 @@
 <div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
     <!-- email -->
     <div class="form-group row" ng-class="user_settings.email == newUser_settings.email ? '' : newUser_settings.email != null && newUser_settings.email.length != 0 ? 'has-success' : 'has-error'">
-        <label class="col-sm-2 col-form-label">E-mail</label>
+        <label class="col-sm-2 col-form-label">{{languages.settings.email[lang]}}</label>
         <div class="col-sm-10">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="E-mail" ng-model="newUser_settings.email" ng-pattern="settings.email">
                 <div class="input-group-addon">@hof-university.de</div>
             </div>
         </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">For changing e-mail address type new address.</small>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.email_line[lang]}}</small>
     </div>
     <!-- password -->
     <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
-        <label class="col-sm-2 col-form-label">Password</label>
+        <label class="col-sm-2 col-form-label">{{languages.settings.password[lang]}}</label>
         <div class="col-sm-10">
             <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.password" ng-minlength="10">
         </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">Type password for changing</small>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_line[lang]}}</small>
     </div>
     <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
         <div class="col-sm-offset-2 col-sm-10">
             <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.passwordRepeat">
         </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">Repeat password for changing</small>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_repeat_line[lang]}}</small>
     </div>
     <!-- anzeige der faculties -->
     <div class="form-group row">
-        <label class="col-sm-12 col-form-label">Faculties</label>
+        <label class="col-sm-12 col-form-label">{{languages.settings.faculties[lang]}}</label>
     </div>
     <div class="form-group">
         <div class="form-check" ng-repeat="item in newUser_settings.faculties">
@@ -280,7 +280,7 @@
     <!-- baned users -->
     <div ng-show="type == 'Docent'">
         <div class="form-group row">
-            <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">Banned users</label>
+            <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">{{languages.settings.banned_users[lang]}}</label>
         </div>
         <div class="form-group">
             <div class="form-check" ng-repeat="item in ban">
@@ -299,7 +299,7 @@
     <div class="form-group row">
         <div class="col-xs-12">
             <div class="pull-right">
-                <div class="btn btn-default" ng-click="save()">Save</div>
+                <div class="btn btn-default" ng-click="save()">{{languages.settings.save_button[lang]}}</div>
             </div>
         </div>
     </div>
