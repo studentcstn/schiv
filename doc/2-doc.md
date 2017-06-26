@@ -315,8 +315,8 @@ Semesters mit angelegt. Zu übergebende Parameter im *JSON-Objekt*: `weekday`
 (Identifiziert einen wiederholenden Termin. Gültige eingaben sind: `MON` `TUE`
 `WED` `THU` `FRI` `SAT` `SUN` `NULL`), `date` (Identifiziert einen Einzeltermin.
 Falls `weekday` nicht den Wert `NULL` hat wird `date` nicht beachtet. Angabe wie folgt: `YYYY-MM-DD`),
-`time_from` (Beginn des Termins: `HH:MM:SS`), `time_to` (Ende des Termins:
-`HH:MM:SS`).
+`time_from` (Beginn des Termins: `HH:MM:SS`), `time_to` (Ende des Termins:`HH:MM:SS`),
+`description` (Beschreibung des Termis).
 
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
