@@ -88,7 +88,7 @@ class AppointmentRequestController extends Controller {
         DB::table('appointment_requests')
             ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
             ->where('appointment_requests.id', '=', $request->input('id'))
-            ->where('appointment.account_id', '=', $auth_user->id)
+            ->where('appointments.account_id', '=', $auth_user->id)
             ->update(['state' => $request->input('state')]);
     }
 

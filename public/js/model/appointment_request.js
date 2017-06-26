@@ -6,9 +6,9 @@ appointment_request = {
         });
     },
 
-    acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
+    acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state, time){
         connection.lock(function(){
-            accept_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, id, state);
+            accept_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, id, state, time);
         });
     },
 
@@ -66,8 +66,8 @@ var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broad
         });
 };
 
-var accept_AppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
-    $http.put('/appointment_requests', {"id": id, "state": state})
+var accept_AppointmentRequest = function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state, time){
+    $http.put('/appointment_requests', {"id": id, "state": state, "duration_in_min": time})
     .then(function(response){
         connection.free();
         console.log(response);

@@ -7,10 +7,11 @@ schiv_module.controller('appointment_edit_controller', function($scope, $http, $
     });
 
     $scope.updateRequest = function () {
-        appointment_request.acceptAppointmentRequest($http, $rootScope, "appointment_edit_s", "appointment_edit_f", data.requestID, "Accepted", data.durationTime);
+        appointment_request.acceptAppointmentRequest($http, $rootScope, "appointment_edit_s", "appointment_edit_f", $scope.appointment.requestID, "Accepted", $scope.durationTime);
     };
     $scope.$on("appointment_edit_s", function (event, data) {
-        console.log(data);
+        $rootScope.$broadcast("hide", "show_appointment_edit");
+        $rootScope.$broadcast("show_index");
     });
     $scope.$on("appointment_edit_f", function (event, data) {
         error(data);
