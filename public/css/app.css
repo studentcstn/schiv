@@ -241,6 +241,11 @@ body {
     border-top-right-radius: 0rem;
 }
 
+.appointment-setting-btn {
+    margin-top: 5px;
+    margin-top: 0.5rem;
+}
+
 
 .appointment, appointment_in {
     margin: 10px 0px;

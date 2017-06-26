@@ -1,15 +1,22 @@
-schiv_module = angular.module('schiv', []);
+schiv_module = angular.module('schiv', ['ngCookies']);
 
 user = {};
 language = 'en';
 
-schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
+schiv_module.controller('app', function($scope, $http, $rootScope, $timeout, $cookies, $cookieStore) {
 
     $scope.lang = 'en';
+
     $scope.setLang = function (data) {
+        if (data == undefined || !data.match("(en|de)"))
+            data = 'en';
         $scope.lang = data;
         language = data;
+        $cookieStore.put("lang", data);
     };
+
+    $scope.setLang($cookieStore.get("lang"));
+
 
     $scope.languages = languages;
 
