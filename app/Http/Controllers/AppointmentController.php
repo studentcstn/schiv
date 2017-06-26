@@ -7,6 +7,57 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller {
+    private is_schaltjahr($date)
+    {
+        $year = substr($date, 0, 4);
+        
+        if(($year % 100 == 0)
+        {
+            if(($year % 400 == 0))
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+        }else if($year % 4 == 0)
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+    
+    private valid_date($date)
+    {
+        if(substr($date, 5, 2) == '02')
+        {
+            if(is_schaltjahr($date))
+            {
+                if(substr($date, 8, 2) <= 29)
+                {
+                    return true;
+                }else
+                {
+                    return false;
+                }
+            }else
+            {
+                if(substr($date, 8, 2) <= 28)
+                {
+                    return true;
+                }else
+                {
+                    return false;
+                }
+            }
+        }else
+        {
+            return true;
+        }
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -16,19 +67,20 @@ class AppointmentController extends Controller {
     public function store(Request $request) {
         $auth_user = Auth::user();
 
-        $is_day = $request->input('day');
-        $muster = '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
-
-        if($is_day == 'MON' || $is_day == 'TUE' || $is_day == 'WED' || $is_day == 'THU' || $is_day == 'FRI' || $is_day == 'SAT' || $is_day == 'SUN') {
+        $is_day = $request->input('weekday');
+        //$muster = '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$';
+        $muster = '^\d\d\d\d[-](((0[13578]|1[02])[-](0[1-9]|[12][0-9]|3[01]))|((0[2469]|1[1])[-](0[1-9]|[12][0-9]|3[0])))$';
+        
+        if(($is_day == 'MON' || $is_day == 'TUE' || $is_day == 'WED' || $is_day == 'THU' || $is_day == 'FRI' || $is_day == 'SAT' || $is_day == 'SUN') && ($request->input('date') == 'NULL')) {
             DB::table('appointments')->insertGetId([
                 'account_id' => $auth_user->id,
                 'description' => $request->input('description'),
                 'active' => true,
-                'weekday' => $request->input('day'),
+                'weekday' => $request->input('weekday'),
                 'time_from' => $request->input('time_from'),
                 'time_to' => $request->input('time_to'),
             ]);
-        } else if(preg_match($muster, $is_day)){
+        } else if(preg_match($muster, $is_day) && ($request->input('weekday') == 'NULL') && valid_date($request->input('date'))){
             DB::table('appointments')->insertGetId([
                 'account_id' => $auth_user->id,
                 'description' => $request->input('description'),
@@ -43,7 +95,6 @@ class AppointmentController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show() {
@@ -57,45 +108,15 @@ class AppointmentController extends Controller {
         return response()->json($appointments);
     }
 
-    public function showCount($count) {
+    public function showPast() {
         $auth_user = Auth::user();
-
-        $appointments = DB::table('appointments')
+        
+        $past = DB:table('appointments')
             ->where('account_id', '=', $auth_user->id)
             ->where('active', '=', false)
-            ->take($count)
             ->get();
-
-        $appointment_ids = [];
-        foreach($appointments->toArray() as $value) {
-            $appointment_ids[] = $value->id;
-        }
-
-        $requests = DB::table('appointment_requests')
-            ->whereIn('appointment_id', $appointment_ids)
-            ->get();
-
-        $appointments = array_merge(
-            $appointments->toArray(),
-            $requests->toArray()
-        );
-
-        return response()->json($appointments);
-    }
-
-    /**
-     * @param string $from date with format 'YYYY-MM-DD HH:MM:SS'
-     * @param string $to date with format 'YYYY-MM-DD HH:MM:SS'
-     * @return \Illuminate\Http\Response
-     */
-    public function showFromTo($from, $to) {
-        $appointments = DB::table('appointment_requests')
-            ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-            ->where('appointments.active', '=', false)
-            ->whereBetween('appointment_requests.appointment_at', [$from, $to])
-            ->get();
-
-        return response()->json($appointments);
+        
+        return response()->json($past);
     }
 
     /**
