@@ -27,6 +27,7 @@
     <script src="js/controller/settings_controller.js"></script>
     <script src="js/controller/request_controller.js"></script>
     <script src="js/controller/appointment_controller.js"></script>
+    <script src="js/controller/appointment_edit_controller.js"></script>
     <!-- model -->
     <script src="js/model/appointment.js"></script>
     <script src="js/model/appointment_request.js"></script>
@@ -434,7 +435,7 @@
         <div>{{time}}</div>
         <div class="form-group">
             <label>Duration in miniutes</label>
-            <input type="number" class="form-control" ng-model="time" placeholder="To">
+            <input type="number" class="form-control" ng-model="durationTime" placeholder="To">
             <small class="form-text text-muted">For example: 15</small>
         </div>
         <div class="row">
