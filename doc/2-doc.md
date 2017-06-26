@@ -378,6 +378,13 @@ Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
 werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
 [@sec:rest-details] beschrieben.
 
+## Verschicken von E-Mails
+
+Die E-Mails werden nur in die Logdatei `storage/logs/laravel.log` geschrieben
+und nicht verschickt. Falls E-Mails verschickt werden sollen, kann dies in der
+Konfiguration `config/email.php` geändert werden. Die Templates für die E-Mail
+Nachrichten befinden sich unter: `resources/views/emails`.
+
 (TODO)
 
 # Testfälle
@@ -424,7 +431,7 @@ $ sudo apt install texlive-latex-extra texlive-fonts-extra
 $ sudo apt install texlive-luatex texlive-lang-german
 ```
 
-Ubuntu hat nicht die neueste Version von `pandoc`, deshalb muss diese erst mit
+Ubuntu hat kein Paket `pandoc-crossref`, deshalb muss diese erst mit
 `cabal` heruntergeladen und kompiliert werden. Nächsten Absatz beachten!
 
 ```{.bash .numberLines}
@@ -434,7 +441,7 @@ $ cabal install pandoc pandoc-crossref
 $ export PATH=~/.cabal/bin/pandoc:$PATH
 ```
 
-Der vorherige Schritt kann weggelassen werden und das Standardpacket
+Der vorherige Schritt kann weggelassen werden und das Standardpaket
 installiert werden, allerdings funktionieren dann keine Referenzen. Zusätzlich
 muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile` entfernt
 werden.

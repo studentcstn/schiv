@@ -10,3 +10,6 @@ Für die Implementierung dürfen folgende Hilfsmittel verwendet werden:
 - Javascript (Angular JS, Bootstrap, Ajax, jQuery)
 - PHP (Laravel)
 - MySQL
+
+Dateinamen beziehen sich immer auf das Wurzel-Verzeichnis des Projekts und sind
+in `Proportionalschrift` geschrieben.
