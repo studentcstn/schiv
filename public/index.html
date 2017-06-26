@@ -57,32 +57,30 @@
 
         <!-- items to navigate -->
         <div id="navbar" class="navbar-collapse collapse">
-            <div class="ng-hide">
-                <ul class="nav navbar-nav" ng-show="show_nav">
-                    <li class="nav-item">
-                        <a class="nav-link" ng-click="show.index()">Index</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ng-click="show.past()">Past</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ng-click="show.settings()">Settings</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav pull-right">
-                    <li>
-                        <s class="navbar-link" ng-click="lang = 'de'">DE</s>
-                    </li>
-                    <li>
-                        <a class="navbar-link" ng-click="lang = 'en'">EN</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav pull-right" ng-show="show_nav">
-                    <li class="nav-item">
-                        <a class="nav-link" ng-click="show.logout()">Log out</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav" ng-show="show_nav">
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="show.index()">Index</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="show.past()">Past</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="show.settings()">Settings</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a class="navbar-link" ng-click="lang = 'de'">DE</a>
+                </li>
+                <li>
+                    <a class="navbar-link" ng-click="lang = 'en'">EN</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right" ng-show="show_nav">
+                <li class="nav-item">
+                    <a class="nav-link" ng-click="show.logout()">Log out</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
