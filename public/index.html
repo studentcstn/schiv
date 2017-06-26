@@ -179,9 +179,6 @@
                                     <div>{{requests.subject}}</div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
-                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                    </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>
@@ -191,13 +188,16 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-offset-1 col-xs-1">
-                        <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="item.requests.length > 0" ng-show="type == 'Docent'"></div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn">
+                        <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </div>
                     </div>

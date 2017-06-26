@@ -37,6 +37,8 @@ var get_appointmentRequest = function($http, $rootScope, broadcastSuccess, broad
     $http.get('/appointment_requests')
         .then(function(response){
             connection.free();
+            for (var i = 0; i < response.data.length; ++i)
+                response.data[i].editable = true;
             console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){

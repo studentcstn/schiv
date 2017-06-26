@@ -33,9 +33,12 @@ appointment = {
     merge_appointments: function(appointments, appointment_requests) {
     	for(n = 0; n<appointments.length; ++n){
             appointments[n].requests = [];
+            appointments[n].editable = true;
     		for(i = 0; i<appointment_requests.length; ++i){
     			if(appointments[n].id == appointment_requests[i].appointment_id){
-    				appointments[n].requests.push(appointment_requests[i]);			
+    				appointments[n].requests.push(appointment_requests[i]);
+    				if (appointment_requests[i].status == 'Accepted')
+    				    appointments[n].editable = false;
     			}
     		}
     	}
