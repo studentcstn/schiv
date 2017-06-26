@@ -35,7 +35,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
 
     $scope.save = function () {
         ++saved;
-        settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.newUser_settings.email, $scope.newUser_settings.password, $scope.newUser_settings.faculties);
+        settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.newUser_settings.email, $scope.newUser_settings.password, $scope.newUser_settings.passwordRepeat, $scope.newUser_settings.faculties);
         if (user.type == "Docent") {
             ++saved;
             ban.unbanAccount($http, $rootScope, "settings_unbun_s", "settings_unbun_f", $scope.ban);
