@@ -49,6 +49,10 @@ languages = {
         forgot_password: {
         	en: "Forgot password?",
         	de: "Passwort vergessen?"
+        },
+        wrong_password_or_email:{
+        	en: "Email or password is incorrect. Please check your data.",
+        	de: "Email oder Passwort ist falsch. Bitte überfprüfen Sie Ihre Daten."
         }
     },
     index: {
