@@ -44,7 +44,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     $scope.$on("settings_save_s", function () {
         --saved;
         if (saved == 0) {
-            $rootScope.$broadcast("alert", "success", "Changes saved.");
+            $rootScope.$broadcast("alert", "success", languages.settings.changes_saved[language]);
             setting();
         }
     });
@@ -54,7 +54,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     $scope.$on("settings_unbun_s", function () {
         --saved;
         if (saved == 0) {
-            $rootScope.$broadcast("alert", "success", "Changes saved.");
+            $rootScope.$broadcast("alert", "success", languages.settings.changes_saved[language]);
             setting();
         }
     });

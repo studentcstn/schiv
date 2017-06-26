@@ -31,7 +31,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.$on("index_appointment_s", function (event, data) {
         if (data.lenght == 0) {
             data = [{id: 0,
-                description: "Du hast momentan keine termine."}];
+                description: languages.index.no_appointments[language]}];
         }
         $scope.appintments = data;
     });

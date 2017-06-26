@@ -23,7 +23,7 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
         appointment.createAppointment($http, $rootScope, "create_s", "create_f", $scope.newAppointment.day, $scope.newAppointment.from, $scope.newAppointment.to, $scope.newAppointment.description)
     };
     $scope.$on("create_s", function () {
-        $rootScope.$broadcast("alert", "success", "Appointment created");
+        $rootScope.$broadcast("alert", "success", languages.appointment.appointment_created[language]);
         $scope.appointment_close();
         $scope.newAppointment = {day: ""};
         $rootScope.$broadcast("show_index");
