@@ -186,7 +186,7 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(item.id, 'Declined', 0)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(item)">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="requests.work = true; activateRequest(item)">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
@@ -432,7 +432,7 @@
 <div id="appointment" class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
     <div class="background">
         <h4>Activate Appointment</h4>
-        <div>{{time}}</div>
+        <div>There are {{appointment.time}} minutes.</div>
         <div class="form-group">
             <label>Duration in miniutes</label>
             <input type="number" class="form-control" ng-model="durationTime" placeholder="To">

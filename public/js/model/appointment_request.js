@@ -32,7 +32,7 @@ appointment_request = {
 
 
     calcRestTime: function (data) {
-        var time_from = date.time_from.split(':');
+        var time_from = data.time_from.split(':');
         time_from = time_from[0] * 60 + time_from[1];
         var time_to = data.time_to.split(':');
         time_to = time_to[0] * 60 + time_to[1];
