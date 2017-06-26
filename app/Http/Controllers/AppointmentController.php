@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller {
-    private is_schaltjahr($date)
+    private function is_schaltjahr($date)
     {
         $year = substr($date, 0, 4);
         
-        if(($year % 100 == 0)
+        if($year % 100 == 0)
         {
             if(($year % 400 == 0))
             {
@@ -29,7 +29,7 @@ class AppointmentController extends Controller {
         }
     }
     
-    private valid_date($date)
+    private function valid_date($date)
     {
         if(substr($date, 5, 2) == '02')
         {
