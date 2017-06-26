@@ -15,9 +15,9 @@ Route::middleware(['auth.enforce'])->group(function () {
     Route::put('logout', 'LogoutController@logout');
 
     Route::get('appointment_requests', 'AppointmentRequestController@show');
-    //todo add appointment_requests/{count}
+    Route::get('appointment_requests/past', 'AppointmentRequestController@showPast');
     Route::post('appointment_requests', 'AppointmentRequestController@store');
-    Route::delete('appointment_requests/{request_id}', 'AppointmentRequestController@destroy');
+    Route::delete('appointment_requests/{id}', 'AppointmentRequestController@destroy');
 
     Route::get('holidays/{from}/{to}', 'HolidayController@show');
 
@@ -29,10 +29,9 @@ Route::middleware(['auth.enforce','auth.docent'])->group(function() {
     Route::put('appointment_requests', 'AppointmentRequestController@update');
 
     Route::get('appointments', 'AppointmentController@show');
-    Route::get('appointments/{count}', 'AppointmentController@showCount');
-    Route::get('appointments/{from}/{to}', 'AppointmentController@showFromTo'); //todo at first not so important
+    Route::get('appointments/past', 'AppointmentController@showPast');
     Route::post('appointments', 'AppointmentController@store');
-    Route::delete('appointments/{appointment_id}', 'AppointmentController@destroy');
+    Route::delete('appointments/{id}', 'AppointmentController@destroy');
 
     Route::post('holidays', 'HolidayController@store');
     Route::put('holidays', 'HolidayController@update');
