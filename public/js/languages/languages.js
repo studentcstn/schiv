@@ -55,12 +55,20 @@ languages = {
         	de: "Email oder Passwort ist falsch. Bitte überfprüfen Sie Ihre Daten."
         },
         welcome_start: {
-    	    en: "Welcome",
-            de: "Welcome"
+    	    en: "Ahoy! Welcome aboard the Schiv",
+            de: "Ahoi! Willkommen auf dem Schiv"
         },
         welcome_end: {
-    	    en: "to schiv",
-            de: "to schiv"
+    	    en: "",
+            de: ""
+        },
+        successful_registration:{
+        	en:"You have succesfully boarded the Shiv. Pleaase confirm your Email.",
+        	de:"Sie sind erfolgreich am Board des Schiv gegangen. Bitte bestätigen Sie ihre Email."
+        },
+        successful_activation:{
+        	en: "You have confirmed your Email. Your account is now active.",
+        	de: "Sie haben Ihre Email bestätigt. Ihr Konto ist nun aktiv."
         }
     },
     index: {
@@ -72,6 +80,10 @@ languages = {
     		en: "Add appointment",
     		de: "Termin hinzufügen"
     	}
+    	no_appointments:{
+    		en: "You have no appointments.",
+    		de: "Sie haben keine Termine."
+    	},
     },
     past: {
 
@@ -108,6 +120,17 @@ languages = {
         save_button: {
             en: "Save",
             de: "Speichern"
+        },
+        changes_saved:{
+        	en:"Your settings have been updated.",
+        	de:"Ihre Einstellungen wurden aktualisiert."
         }
+    },
+    appointment:{
+    	appointment_created:{
+    		en: "Appointment was created succesfully.",
+    		de: "Termin wurde erfolgreich erstellt."
+    	},
+    	
     }
 };
