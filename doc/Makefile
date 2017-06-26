@@ -12,7 +12,6 @@ paper:
 		-B tex/title.tex \
 		-N \
 		-V lang=de-DE \
-		--top-level-division=chapter \
 		--highlight-style tango \
 		-o pdf/paper.tex \
 		*.md
