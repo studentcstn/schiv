@@ -81,10 +81,10 @@ var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, b
 };
 
 var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
-    controlTime(time_from);
-    controlTime(time_to);
+    time_from = controlTime(time_from);
+    time_to = controlTime(time_to);
     $http.post('/appointments',
-        {"day": day,"time_from": time_from, "time_to": time_to, "desription": description})
+        {"day": day,"time_from": time_from, "time_to": time_to, "description": description})
         .then(function(response){
             connection.free();
             console.log(response);
@@ -99,7 +99,7 @@ var create_appointment = function($http, $rootScope, broadcastSuccess, broadcast
 var controlTime = function(time) {
     if (time.length < 5)
         time = "0"+time;
-    time += ":00";
+    return time + ":00";
 };
 
 var delete_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
