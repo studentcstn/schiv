@@ -59,13 +59,13 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav" ng-show="show_nav">
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="show.index()">Index</a>
+                    <a class="nav-link" ng-click="show.index()">{{languages.nav.index[lang]}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="show.past()">Past</a>
+                    <a class="nav-link" ng-click="show.past()">{{languages.nav.past[lang]}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-click="show.settings()">Settings</a>
+                    <a class="nav-link" ng-click="show.settings()">{{languages.nav.settings[lang]}}</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right">
@@ -110,7 +110,7 @@
     {{alerts.messages.alert_danger}}
 </div>
 <div class="alert alert-danger" role="alert" ng-show="not_supported">
-    Dein Browswer wird nicht unterstützt!
+    Dein Broswer wird nicht unterstützt! / Your Browser is not supported!
 </div>
 
 <!-- login site with register, forgot password and activate token -->
@@ -140,7 +140,7 @@
                 <div class="btn btn-default" ng-show="show_login_login" ng-click="login()">{{languages.login.login_button[lang]}}</div>
                 <div class="btn btn-default ng-hide" ng-show="show_login_back" ng-click="back()">{{languages.login.back_button[lang]}}</div>
                 <div class="btn btn-default" ng-show="show_login_login" ng-click="register_btn()">{{languages.login.register_button[lang]}}</div>
-                <div class="btn btn-default ng-hide" ng-show="show_login_register" ng-click="register()">{{languages.login.register_button[lang]}</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_register" ng-click="register()">{{languages.login.register_button[lang]}}</div>
                 <div class="btn btn-default ng-hide" ng-show="show_login_send" ng-click="send()">{{languages.login.reset_button[lang]}}</div>
             </div>
         </div>
@@ -157,7 +157,7 @@
     <div id="termine" ng-class="type == 'Student' ? 'col-sm-8' : 'col-sm-12'">
         <div class="row" ng-class="type == 'Student' ? 'ng-hide' : ''">
             <div class="col-xs-12">
-                <div type="button" class="btn btn-default pull-right" ng-click="addNewTermin()">add termin</div>
+                <div type="button" class="btn btn-default pull-right" ng-click="addNewTermin()">{{languages.index.add_appointment_button[lang]}}</div>
             </div>
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
@@ -196,7 +196,7 @@
         <!-- suche -->
         <div id="search" class="input-group">
             <input type="text" class="form-control" ng-model="searchString">
-            <div type="button" class="btn btn-default input-group-addon" ng-click="search()">suche</div>
+            <div type="button" class="btn btn-default input-group-addon" ng-click="search()">{{languages.index.search_button[lang]}}</div>
         </div>
         <!-- liste aller dozenten -->
         <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)" ng-show="item.visible">

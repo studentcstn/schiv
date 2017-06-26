@@ -1,6 +1,17 @@
 languages = {
     nav: {
-
+    	index: {
+    		en: "Home",
+    		de: "Startseite"
+    	},
+    	past: {
+    		en: "Past",
+    		de: "Verganenes"
+    	},
+    	settings: {
+    		en: "Settings",
+    		de: "Einstellungen"
+    	}
     },
     login: {
     	login_button: {
@@ -37,7 +48,14 @@ languages = {
         }
     },
     index: {
-
+    	search_button: {
+    		en: "Search",
+    		de: "Suchen"
+    	},
+    	add_appointment_button: {
+    		en: "Add appointment",
+    		de: "Termin hinzufügen"
+    	}
     },
     past: {
 
