@@ -50,6 +50,10 @@ languages = {
         	en: "Forgot password?",
         	de: "Passwort vergessen?"
         },
+        send_forgot_password:{
+        	en:"A password reset has been sent to your email.",
+        	de:"Eine Passwortzurücksetzung wurde an Ihre Email gesendet."
+        },
         wrong_password_or_email: {
         	en: "Email or password is incorrect. Please check your data.",
         	de: "Email oder Passwort ist falsch. Bitte überfprüfen Sie Ihre Daten."
@@ -69,6 +73,10 @@ languages = {
         successful_activation:{
         	en: "You have confirmed your Email. Your account is now active.",
         	de: "Sie haben Ihre Email bestätigt. Ihr Konto ist nun aktiv."
+        },
+        logout_message:{
+        	en:"You have left the Schiv. Logout succesful.",
+        	de:"Sie haben das Schiv verlassen. Logout erfolgreich."
         }
     },
     index: {
