@@ -37,6 +37,7 @@ class AppointmentRequestController extends Controller {
             //todo return email of student
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id')
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->get();
         } else {
