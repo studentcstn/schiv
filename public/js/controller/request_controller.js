@@ -1,17 +1,16 @@
 schiv_module.controller('request_controller', function($scope, $http, $rootScope) {
 
-
     $scope.$on('show_inscribe', function (event, data) {
         $scope.docent = data;
         $scope.appointments = data.appointments;
         $rootScope.$broadcast("show", "show_appointment_request");
     });
 
-    $scope.newAppointment_request = {};
+    $scope.newAppointment_request = {id: "", data: "", subject: "", description: ""};
 
     $scope.inscribe_close = function () {
         $rootScope.$broadcast("hide", "show_appointment_request");
-        $scope.newAppointment_request = {};
+        $scope.newAppointment_request = {id: "", data: "", subject: "", description: ""};
     };
 
     $scope.inscribe = function () {

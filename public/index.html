@@ -112,7 +112,7 @@
 </div>
 
 <!-- login site with register, forgot password and activate token -->
-<div id="login" ng-show="show_login" ng-controller="login_controller">
+<div id="login" class="ng-hide" ng-show="show_login" ng-controller="login_controller">
     <div class="form-group row">
         <label for="login_email_input" class="col-sm-2 col-form-label">{{languages.login.email[lang]}}</label>
         <div class="col-sm-10">
@@ -195,6 +195,10 @@
         <div id="search" class="input-group">
             <input type="text" class="form-control" ng-model="searchString">
             <div type="button" class="btn btn-default input-group-addon" ng-click="search()">{{languages.index.search_button[lang]}}</div>
+            <div class="btn input-group-addon" ng-click="
+">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </div>
         </div>
         <!-- liste aller dozenten -->
         <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)" ng-show="item.visible">
@@ -338,16 +342,16 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="subject" ng-model="newAppointment_request.subject">
+            <input type="text" class="form-control" placeholder="subject" ng-model="newAppointment_request.subject" ng-class="newAppointment_request.subject.length != 0 ? 'has-success' : 'has-error'">
         </div>
         <div class="form-group">
-            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.description"></textarea>
+            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.description" ng-class="newAppointment_request.description.length != 0 ? 'has-success' : 'has-error'"></textarea>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div class="btn btn-default" ng-click="inscribe_close()">Close</div>
-                    <div class="btn btn-default" ng-click="inscribe()" ng-class="disabled">Inscribe</div>
+                    <div class="btn btn-default" ng-click="inscribe()" ng-show="newAppointment_request.id.length != 0 && newAppointment_request.date.length != 0 && newAppointment_request.subject.length != 0 && newAppointment_request.description.length != 0">Inscribe</div>
                 </div>
             </div>
         </div>
@@ -359,7 +363,7 @@
     <div class="background">
         <h4>New Appointment</h4>
         <div class="row">
-            <div class="form-group col-xs-12" ng-class="newAppointment.description != null && newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
+            <div class="form-group col-xs-12" ng-class="newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
                 <input class="form-control" type="text" ng-model="newAppointment.description" placeholder="description">
             </div>
         </div>
@@ -379,17 +383,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-12" ng-show="appointment.frequency == 1" ng-class="newAppointment.day != null && newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
+            <div class="form-group col-xs-12" ng-show="appointment.frequency == 1" ng-class="newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.day" ng-pattern="appointment_build.date" placeholder="Date">
                 <small class="form-text text-muted">For example: 03.07.2017</small>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-6" ng-class="newAppointment.from != null && newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
+            <div class="form-group col-xs-6" ng-class="newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="From">
                 <small class="form-text text-muted">For example: 09:45</small>
             </div>
-            <div class="form-group col-xs-6" ng-class="newAppointment.to != null && newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
+            <div class="form-group col-xs-6" ng-class="newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="To">
                 <small class="form-text text-muted">For example: 11:15</small>
             </div>

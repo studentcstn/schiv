@@ -93,6 +93,9 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.search = function () {
         docent.search($scope.docents, $scope.searchString);
     };
+    $scope.search_delete = function () {
+        docent.search($scope.docents, "");
+    };
 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
