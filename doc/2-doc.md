@@ -308,7 +308,7 @@ Bei `get:appointments/past`: Liefert alle inaktiven Termine des Aufrufers zurüc
 Bei `post:appointments`: Legt einen neuen Termin in der Datenbank an. Bei wiederholenden Terminen werden
 alle anfallenden wiederholungen bis zum Ende des Semesters mit angelegt. Zu übergebende Parameter im **JSON-Objekt**:
 **{weekday}** (Identifiziert einen wiederholenden Termin. Gültige eingaben sind: `MON` `TUE` `WED` `THU` `FRI` `SAT` `SUN` `NULL`),
-**{date}** (Gibt das Datum des Termins an. Bei wiederholenden Terminen das Startdatum. `YYYY-MM-DD`), **{time_from}** (Beginn des Termins: `HH:MM:SS`), **{time_to}** (Ende des Termins: `HH:MM:SS`).
+**{date}** (Identifiziert einen Einzeltermin. Falls {weekday} auf Wert `NULL` Angabe wie folgt: `YYYY-MM-DD` sonst: `NULL`), **{time_from}** (Beginn des Termins: `HH:MM:SS`), **{time_to}** (Ende des Termins: `HH:MM:SS`).
 
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins auf `Inactive`.
 
