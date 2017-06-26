@@ -26,12 +26,12 @@ ban = {
         }
 
         connection.lock(function () {
-            connection.free();
             if (success) {
                 $rootScope.$broadcast(broadcastSuccess);
             } else {
                 $rootScope.$broadcast(broadcastFailed);
             }
+            connection.free();
         });
     }
 

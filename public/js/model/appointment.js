@@ -37,7 +37,7 @@ appointment = {
     		for(i = 0; i<appointment_requests.length; ++i){
     			if(appointments[n].id == appointment_requests[i].appointment_id){
     				appointments[n].requests.push(appointment_requests[i]);
-    				if (appointment_requests[i].status == 'Accepted')
+    				if (appointment_requests[i].state == 'Accepted')
     				    appointments[n].editable = false;
     			}
     		}

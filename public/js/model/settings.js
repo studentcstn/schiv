@@ -51,15 +51,12 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
     if (email != null && email != "")
         settings.email = email+"@hof-university.de";
     else{
+        connection.free();
     	$rootScope.$broadcast(broadcastFailed, "Error at Email");
     	return;
     }
     if (password != null && password != "" && password == password_repeat)
         settings.password = password;
-    else{
-    	$rootScope.$broadcast(broadcastFailed, "Error at Password");
-		return;
-	}
     var faculty = [];
     for (i = 0; i < faculties.length; ++i)
         if (faculties[i].active == true)
@@ -67,6 +64,7 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
     if (faculty.length > 0)
         settings.faculties = faculty;
     else{
+        connection.free();
     	$rootScope.$broadcast(broadcastFailed, "Choose at least one Faculty");
 		return;
 	}

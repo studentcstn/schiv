@@ -81,6 +81,7 @@ class AppointmentRequestController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //todo update duration_in_minutes
     public function update(Request $request)
     {
         $auth_user = Auth::user();
