@@ -110,13 +110,9 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
            case 401:
                $rootScope.$broadcast("logout_success");
                $rootScope.$broadcast("alert", "warning", data.statusText);
-               //$scope.alerts.messages.warning = data.statusText;
-               //alertShow("warning");
                break;
            default:
                $rootScope.$broadcast("alert", "danger", data.statusText);
-               //$scope.alerts.messages.danger = data.statusText;
-               //alertShow("danger");
        }
     });
 });
