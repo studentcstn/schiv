@@ -50,9 +50,17 @@ languages = {
         	en: "Forgot password?",
         	de: "Passwort vergessen?"
         },
-        wrong_password_or_email:{
+        wrong_password_or_email: {
         	en: "Email or password is incorrect. Please check your data.",
         	de: "Email oder Passwort ist falsch. Bitte überfprüfen Sie Ihre Daten."
+        },
+        welcome_start: {
+    	    en: "Welcome",
+            de: "Welcome"
+        },
+        welcome_end: {
+    	    en: "to schiv",
+            de: "to schiv"
         }
     },
     index: {

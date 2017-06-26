@@ -1,10 +1,15 @@
 schiv_module = angular.module('schiv', []);
 
 user = {};
+language = 'en';
 
 schiv_module.controller('app', function($scope, $http, $rootScope, $timeout) {
 
     $scope.lang = 'en';
+    $scope.setLang = function (data) {
+        $scope.lang = data;
+        language = data;
+    };
 
     $scope.languages = languages;
 

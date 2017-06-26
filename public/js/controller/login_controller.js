@@ -30,13 +30,13 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         $scope.user.password = "";
         $scope.user.passwordRepeat = "";
         $scope.back();
-        $rootScope.$broadcast("alert", "success", "Welcome " + user.name + " " + user.last + " to Schiv");
+        $rootScope.$broadcast("alert", "success", languages.login.welcome_start[language] + " " + user.name + " " + user.last + " " + languages.login.welcome_end[language]);
         $rootScope.$broadcast("login_success");
     });
     $scope.$on('login_login_f', function (event, data) {
         switch (data.status) {
             case 401:
-                $rootScope.$broadcast("alert", "warning", "Email or password wrong");
+                $rootScope.$broadcast("alert", "warning", languages.login.wrong_password_or_email[language]);
                 break;
             default:
                 error(data);

@@ -27,7 +27,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     $scope.$on("settings_ban_s", function (event, data) {
         $scope.ban = data;
     });
-    $scope.$on("settings_ban_s", function (event, data) {
+    $scope.$on("settings_ban_f", function (event, data) {
         error(data);
     });
 
