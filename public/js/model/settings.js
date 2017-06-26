@@ -6,9 +6,9 @@ settings = {
 		});
 	},
 		
-	saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, faculties){
+	saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties){
 		connection.lock(function(){
-			save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, faculties)
+			save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties)
 		});
 	}
 
