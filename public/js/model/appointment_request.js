@@ -31,15 +31,16 @@ appointment_request = {
     },
 
 
-    calcRestTime: function (data) {
+    prepareEditAppointment: function (data) {
         var time_from = data.time_from.split(':');
-        time_from = time_from[0] * 60 + time_from[1];
+        time_from = time_from[0] * 60 + time_from[1] * 1;
         var time_to = data.time_to.split(':');
-        time_to = time_to[0] * 60 + time_to[1];
+        time_to = time_to[0] * 60 + time_to[1] * 1;
         data.time = time_to - time_from;
-        for (var i = 0; i < data.requests.length; ++i)
+        for (var i = 0; i < data.requests.length; ++i) {
             if (data.requests[i].duration_in_min != null)
                 data.time -= data.requests[i].duration_in_min;
+        }
     }
 
 

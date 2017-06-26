@@ -105,7 +105,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     };
 
     $scope.activateRequest = function (data) {
-        appointment_request.calcRestTime(data);
+        appointment_request.prepareEditAppointment(data);
         $rootScope.$broadcast("edit_appointment", data);
     };
 
