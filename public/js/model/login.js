@@ -45,6 +45,16 @@ var login_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed, ema
         	connection.free();
             console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
+
+            //todo remove
+            response.data = {"message":"login successful","account":{"id":3,"email":"helmut.kohl@hof-university.de","type":"Docent","active":"1","last_login_at":"2017-06-26 15:18:49"}};
+            response.data = {"message":"login successful","account":{"id":2,"email":"hanz.wurst@hof-university.de","type":"Student","active":"1","last_login_at":"2017-06-26 14:53:36"}};
+            console.log(response);
+            var d = response.data.account;
+            d.email = d.email.substring(0, d.email.indexOf('@'));
+            d.name = d.email.substring(0, d.email.indexOf('.'));
+            d.last = d.email.substring(d.email.indexOf('.')+1);
+            $rootScope.$broadcast(broadcastSuccess, response.data);
         });
 };
 
