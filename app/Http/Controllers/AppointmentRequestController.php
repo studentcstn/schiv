@@ -38,6 +38,7 @@ class AppointmentRequestController extends Controller {
         $auth_user = Auth::user();
 
         if($auth_user->type == 'Docent') {
+            //todo return email of student
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
                 ->where('appointments.account_id', '=', $auth_user->id)

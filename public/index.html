@@ -179,13 +179,16 @@
                                     <div>{{requests.subject}}</div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
                                 </div>

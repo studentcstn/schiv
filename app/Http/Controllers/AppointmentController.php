@@ -111,7 +111,7 @@ class AppointmentController extends Controller {
     public function showPast() {
         $auth_user = Auth::user();
         
-        $past = DB:table('appointments')
+        $past = DB::table('appointments')
             ->where('account_id', '=', $auth_user->id)
             ->where('active', '=', false)
             ->get();
