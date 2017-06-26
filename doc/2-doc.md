@@ -23,10 +23,10 @@ Auftraggeber beschlossen wurden:
 #. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
    sich dann wieder erneut registrieren
 #. Aktivierungslink wird über einen GET abgesetzt, d.h. der Aktivierungslink
-   muss im Frontend implementiert sein. 
+   muss im Frontend implementiert sein.
 
 [^IOSAPP]:
-<https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server> 
+<https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server>
 
 # Style-Guide
 
@@ -34,7 +34,7 @@ Auftraggeber beschlossen wurden:
 
 (TODO)
 
-Es wird sich am Farbschema der Hochschule Hof orientiert. 
+Es wird sich am Farbschema der Hochschule Hof orientiert.
 
 ## Typographie
 
@@ -244,10 +244,10 @@ die Fakultät des Dozenten. Beispiel:
 
 ```json
 [
-  { 
-    "id": 3, 
+  {
+    "id": 3,
     "email": "helmut.kohl@hof-university.de",
-    "faculties": [{"id": 2, "name": "Ingenieur"}] 
+    "faculties": [{"id": 2, "name": "Ingenieur"}]
   },
   { "id": 4, "email": "apfel.mus@hof-university.de", "faculties": [] }
 ]
@@ -335,7 +335,7 @@ Liefert die Einstellungen des angemeldeten Benutzers zurück.
 
 Bei `get:settings`: Liefert die Einstellungen des Kontos zurück, also eine
 Untermenge der Attribute von der `accounts`-Tabelle. Zusätzlich enthält die
-Antwort noch die Fakultäten des Kontos und alle möglichen Fakultäten. Beispiel: 
+Antwort noch die Fakultäten des Kontos und alle möglichen Fakultäten. Beispiel:
 
 ```json
 {
@@ -359,7 +359,7 @@ Fakultäten werden als Array von Ids übergeben: `[1, 2, 3]`.
 Liefert Kontosperrungen des angemeldeten Dozenten zurück. Alle gesperrten
 Benutzer können keine Anfragen mehr stellen. Bis sie aus der Tabelle gelöscht
 werden oder die Zeit für die Sperrung abgelaufen ist (Die Sperrung ist
-standardmäßig bis zum Ende des Semesters 15.03 oder 30.09). 
+standardmäßig bis zum Ende des Semesters 15.03 oder 30.09).
 
 # Implementierung
 
@@ -383,22 +383,64 @@ Es sind für jeden Controller Testfälle im Verzeichnis `tests/Feature` angelegt
 
 # Benutzerhandbuch
 
-## Installation für Entwicklung und zum Ausprobieren (unter Ubuntu 17.04)
+## Installation für Entwicklung unter Ubuntu 17.04 {#sec:install}
+
+Es wird von einer neuen Installation ausgegangen.
 
 ```{#lst:install .bash .numberLines}
 $ sudo apt update
-$ sudo apt install git composer unzip php php-mbstring php-xml 
+$ sudo apt install git composer unzip php php-mbstring php-xml
 $ sudo apt install php-sqlite3 sqlitebrowser
 $ cd $HOME
 $ git clone https://github.com/studentcstn/schiv
 $ cd schiv
 $ composer install
 $ cp .env.sqlite .env
-$ touch /tmp/db 
+$ touch /tmp/db
 $ php artisan migrate:refresh --seed
 $ php artisan serve
 $ php artisan retrieve:docents
-$ firefox http://localhost:8000
+$ xdg-open http://localhost:8000
+```
+
+## Dokumentation erstellen
+
+Es wird davon ausgegangen das der vorherige Schritt in [@sec:install] ausgeführt
+wurde und das Arbeitsverzeichnis unverändert ist.
+
+```{.bash .numberLines}
+$ sudo apt install make latexmk
+$ sudo apt install texlive-latex-recommended texlive-fonts-recommended
+$ sudo apt install texlive-latex-extra texlive-fonts-extra
+$ sudo apt install texlive-luatex texlive-lang-german
+```
+
+Ubuntu hat nicht die neueste Version von `pandoc`, deshalb muss diese erst mit
+`cabal` heruntergeladen und kompiliert werden. Nächsten Absatz beachten!
+
+```{.bash .numberLines}
+$ sudo apt install cabal-install
+$ cabal update
+$ cabal install pandoc pandoc-crossref
+$ export PATH=~/.cabal/bin/pandoc:$PATH
+```
+
+Der vorherige Schritt kann weggelassen werden und das Standardpacket
+installiert werden, allerdings funktionieren dann keine Referenzen. Zusätzlich
+muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile` entfernt
+werden.
+
+```{.bash .numberLines}
+$ apt install pandoc
+```
+
+Nach dem `pandoc` installiert ist, kann die Dokumentation wie folgt erstellt
+werden:
+
+```{.bash .numberLines}
+$ cd doc
+$ make
+$ xdg-open pdf/paper.pdf
 ```
 
 ## Dozenten aktualisieren
@@ -415,6 +457,6 @@ Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
 Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde
 am 15. März bzw. 31. September jedes Jahr ausgeführt.
 
-Zum Testen kann noch die Option `--from-cache` verwendet werden. Hier werden die
+Zum Testen kann die Option `--from-cache` verwendet werden. Hier werden die
 Daten nur einmal vom Server geholt und dann in einer lokalen Datei
 `/tmp/docents` zwischengespeichert.
