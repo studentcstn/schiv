@@ -59,11 +59,11 @@ languages = {
             de: "Ahoi! Willkommen auf dem Schiv"
         },
         welcome_end: {
-    	    en: "",
-            de: ""
+    	    en: ".",
+            de: "."
         },
         successful_registration:{
-        	en:"You have succesfully boarded the Shiv. Pleaase confirm your Email.",
+        	en:"You have succesfully boarded the Schiv. Pleaase confirm your Email.",
         	de:"Sie sind erfolgreich am Board des Schiv gegangen. Bitte bestätigen Sie ihre Email."
         },
         successful_activation:{
@@ -79,7 +79,7 @@ languages = {
     	add_appointment_button: {
     		en: "Add appointment",
     		de: "Termin hinzufügen"
-    	}
+    	},
     	no_appointments:{
     		en: "You have no appointments.",
     		de: "Sie haben keine Termine."
