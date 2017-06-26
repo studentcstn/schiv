@@ -90,6 +90,10 @@ var create_appointment = function($http, $rootScope, broadcastSuccess, broadcast
             return;
         }
     }
+    if(description == null || description == ""){
+    	$rootScope.$broadcast(broadcastFailed, "Description must at least have one character");
+    	return;
+    }
     $http.post('/appointments',
         {"day": day,"time_from": time_from, "time_to": time_to, "description": description})
         .then(function(response){

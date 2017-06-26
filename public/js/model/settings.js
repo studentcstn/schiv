@@ -45,18 +45,31 @@ var get_Settings = function ($http, $rootScope, broadcastSuccess, broadcastFaile
         });
 };
 
-var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, faculties){
+var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties){
     var settings = {};
+    
     if (email != null && email != "")
         settings.email = email+"@hof-university.de";
-    if (password != null && password != "")
+    else{
+    	$rootScope.$broadcast(broadcastFailed, "Error at Email");
+    	return;
+    }
+    if (password != null && password != "" && password == password_repeat)
         settings.password = password;
+    else{
+    	$rootScope.$broadcast(broadcastFailed, "Error at Password");
+		return;
+	}
     var faculty = [];
     for (i = 0; i < faculties.length; ++i)
         if (faculties[i].active == true)
             faculty.push(faculties[i].id);
     if (faculty.length > 0)
         settings.faculties = faculty;
+    else{
+    	$rootScope.$broadcast(broadcastFailed, "Choose at least one Faculty");
+		return;
+	}
     console.log(settings);
     $http.put('/settings', settings)
         .then(function(response){

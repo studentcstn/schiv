@@ -32,7 +32,16 @@ login = {
 };
 
 var login_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed, email, password) {
-    $http.put('/login', {email: email, password: password})
+	if(email == "" || email == null || !email.match(".*@hof-university.de")){
+		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
+		return;
+	}
+	if(password == "" || password == null){
+		$rootScope.$broadcast(broadcastFailed, "Password is empty");
+		return;
+	}
+	
+	$http.put('/login', {email: email, password: password})
         .then(function (response) {
         	connection.free();
             console.log(response);
@@ -48,8 +57,21 @@ var login_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed, ema
         });
 };
 
-var register_ = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password) {
-    $http.post('/register',{"email": email, "password": password})
+var register_ = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, repeat_password) { 
+	if(email == "" || email == null || !email.match(".*@hof-university.de")){
+		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
+		return;
+	}
+	if(password == "" || password == null ){
+		$rootScope.$broadcast(broadcastFailed, "Password is empty");
+		return;
+	}
+	if(password != repeat_password){
+		$rootScope.$broadcast(broadcastFailed, "Password is not repeated properly");
+		return;
+	}
+	
+	$http.post('/register',{"email": email, "password": password})
         .then(function(response){
         	connection.free();
             console.log(response);
@@ -75,6 +97,11 @@ var confirm_Registration = function($http, $rootScope, broadcastSuccess, broadca
 };
 
 var forgot_Password = function($http, $rootScope, broadcastSuccess, broadcastFailed, email) {
+	if(email == "" || email == null || !email.match(".*@hof-university.de")){
+		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
+		return;
+	}
+	
     $http.put('/reset', {"email": email})
         .then(function(response){
         	connection.free();
