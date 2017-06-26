@@ -12,7 +12,6 @@ class AppointmentRequestController extends Controller {
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    //todo can not send duration_in_minute and requested_at
     public function store(Request $request) {
         $auth_user = Auth::user();
 
@@ -21,10 +20,7 @@ class AppointmentRequestController extends Controller {
             'appointment_id' => $request->input('appointment_id'),
             'description' => $request->input('description'),
             'subject' => $request->input('subject'),
-            'duration_in_min' => $request->input('duration_in_min'),
-            'appointment_at' => $request->input('appointment_at'),
-            'requested_at' => $request->input('requested_at'),
-            'state' => 'idle'
+            'state' => 'Idle'
         ]);
     }
 
@@ -43,18 +39,44 @@ class AppointmentRequestController extends Controller {
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->get();
         } else {
-            $requests = DB::table('appointment_requests')->where('account_id', '=', $auth_user->id)
+            $requests = DB::table('appointment_requests')
+                ->where('account_id', '=', $auth_user->id)
                 ->get();
         }
 
         return response()->json($requests);
     }
 
+    public function showPast()
+    {
+        $auth_user = Auth::user();
+        $past;
+        
+        if($auth_user->type == 'Docent')
+        {
+            $past = DB::table('appointment_requests')
+                ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id')
+                ->where('appointments.account_id', '=', $auth_user->id)
+                ->where('appointments.active', '=', false)
+                ->get();
+        }else
+        {
+            $past = DB::table('appointment_requests')
+                ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id')
+                ->where('appointment_requests.account_id', '=', $auth_user->id)
+                ->where('appointments.active', '=', false)
+                ->get();
+        }
+        
+        return response()->json($past);
+    }
+    
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -71,14 +93,14 @@ class AppointmentRequestController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $user_id
-     * @param  int  $request_id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
         $auth_user = Auth::user();
 
-        DB::table('appointment_requests')->where('id', '=', $id)
+        DB::table('appointment_requests')
+            ->where('id', '=', $id)
             ->where('account_id', '=', $auth_user->id)
             ->delete();
     }
