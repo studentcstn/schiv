@@ -1,34 +1,47 @@
 appointment_request = {
 		
-		getAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed){
-			connection.lock(function () {
-				get_appointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed);
-	        });
-	    },
-		
-	    acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
-	    	connection.lock(function(){
-	    		accept_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, id, state);
-	    	});
-	    },
-	    
-	    declineAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id){
-	    	connection.lock(function(){
-	    		decline_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id);
-	    	});	
-	    },
-	    
-	    createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
-	    	connection.lock(function(){
-	    		create_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date);
-	    	});
-	    },
+    getAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed){
+        connection.lock(function () {
+            get_appointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed);
+        });
+    },
 
-	    getLastAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
-	    	connection.lock(function(){
-	    		get_LastAppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, count);
-	    	});
-	    }
+    acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state){
+        connection.lock(function(){
+            accept_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, id, state);
+        });
+    },
+
+    declineAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id){
+        connection.lock(function(){
+            decline_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_request_id);
+        });
+    },
+
+    createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
+        connection.lock(function(){
+            create_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date);
+        });
+    },
+
+    getLastAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, count){
+        connection.lock(function(){
+            get_LastAppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, count);
+        });
+    },
+
+
+    calcRestTime: function (data) {
+        var time_from = date.time_from.split(':');
+        time_from = time_from[0] * 60 + time_from[1];
+        var time_to = data.time_to.split(':');
+        time_to = time_to[0] * 60 + time_to[1];
+        var time = time_to - time_from;
+        data.time = time;
+        for (var i = 0; i < data.requests.length; ++i)
+            if (data.requests[i].duration_in_min != null)
+                data.time -= data.requests[i].duration_in_min;
+    }
 
 
 };

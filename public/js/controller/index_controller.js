@@ -98,6 +98,18 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.search();
     };
 
+
+
+    $scope.setRequest = function (id, state, time) {
+        appointment_request.acceptAppointmentRequest(id, state, time)
+    };
+
+    $scope.activateRequest = function (data) {
+        appointment_request.calcRestTime(data);
+        $rootScope.$broadcast("edit_appointment", data);
+    };
+
+
     var error = function (data) {
         $rootScope.$broadcast("error", data);
     }

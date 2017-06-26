@@ -182,10 +182,10 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(item.id, 'Declined', 0)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(item)">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
@@ -422,6 +422,29 @@
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="appointment_close()">Close</div>
                     <div type="button" class="btn btn-default" ng-click="create()" ng-show="newAppointment.description.length != 0 && newAppointment.day.length != 0 && newAppointment.from.length != 0 && newAppointment.to.length != 0">Create</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- activate appointment request -->
+<div id="appointment" class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
+    <div class="background">
+        <h4>Activate Appointment</h4>
+        <div>{{time}}</div>
+        <div class="form-group">
+            <label>Duration in miniutes</label>
+            <input type="number" class="form-control" ng-model="time" placeholder="To">
+            <small class="form-text text-muted">For example: 15</small>
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div type="button" class="btn btn-default" ng-click="appointment_close()">Close</div>
+                    <div type="button" class="btn btn-default" ng-click="create()" ng-show="">Create</div>
                 </div>
             </div>
         </div>
