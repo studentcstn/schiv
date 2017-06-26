@@ -12,11 +12,11 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
         time: "([01]?[0-9]|2[0-3])[:][0-5][0-9]"
     };
 
-    $scope.newAppointment = {day: ""};
+    $scope.newAppointment = {day: "", to: "", from: "", description: ""};
 
     $scope.appointment_close = function () {
         $rootScope.$broadcast("hide", "show_appointment");
-        $scope.newAppointment = {day: ""};
+        $scope.newAppointment = {day: "", to: "", from: "", description: ""};
     };
 
     $scope.create = function () {
