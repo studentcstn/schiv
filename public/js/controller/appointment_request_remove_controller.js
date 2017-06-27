@@ -15,7 +15,7 @@ schiv_module.controller('remove_appointment_request_controller', function($scope
     };
 
     $scope.remove = function () {
-        if ($scope.type = "Docent") {
+        if ($scope.type == "Docent") {
             appointment_request.acceptAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.id, "Declined", 0);
         } else {
             appointment_request.declineAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.id);

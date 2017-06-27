@@ -104,8 +104,14 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $rootScope.$broadcast("remove_appointment_request", type, id, data);
     };
     $scope.setRequest = function (id, state, time) {
-        appointment_request.acceptAppointmentRequest(id, state, time);
+        appointment_request.acceptAppointmentRequest($http, $rootScope, "decline_request_s", "decline_request_f", id, state, time);
     };
+    $scope.$on("decline_request_s", function (event, data) {
+
+    });
+    $scope.$on("decline_request_f", function (event, data) {
+        error(data);
+    });
 
     $scope.activateRequest = function (id, data) {
         $rootScope.$broadcast("edit_appointment", id, data);
