@@ -47,8 +47,8 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.register = function () {
         login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password, $scope.user.passwordRepeat)
     };
-    $scope.$on("login_register_s", function () {
-        $rootScope.$broadcast("alert", "success", languages.login.send_forgot_password[language]);
+    $scope.$on("login_register_s", function (event, data) {
+        $rootScope.$broadcast("alert", "success", languages.login.succesful_registration[language]);
     });
     $scope.$on("login_register_f", function (event, data) {
         error(data);
@@ -59,7 +59,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
         login.forgotPassword($http, $rootScope, "login_forgot_s", "login_forgot_f", $scope.user.email);
     };
     $scope.$on("login_forgot_s", function (event, data) {
-        $rootScope.$broadcast("alert", "success", languages.login.successful_registration[language]);
+        $rootScope.$broadcast("alert", "success", languages.login.send_forgot_password[language]);
     });
     $scope.$on("login_forgot_f", function (event, data) {
         error(data);

@@ -192,7 +192,7 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="banUser(requests.account_id)">
                                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </div>
                                 </div>

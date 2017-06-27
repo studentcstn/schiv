@@ -122,6 +122,10 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $rootScope.$broadcast("remove_appointment", id, data);
     };
 
+    $scope.banUser = function(id){
+        $rootScope.$broadcast("ban_user",id);
+    };
+
 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
