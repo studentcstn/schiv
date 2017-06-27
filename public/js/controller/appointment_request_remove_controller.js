@@ -1,4 +1,4 @@
-schiv_module.controller('remove_appointment_remove_controller', function($scope, $http, $rootScope) {
+schiv_module.controller('remove_appointment_request_controller', function($scope, $http, $rootScope) {
 
     $scope.$on('remove_appointment_request', function (event, type, id, data) {
         $scope.id = id;
