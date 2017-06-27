@@ -151,4 +151,8 @@ definition of Error codes
 
 1000 Error at Email
 1001 Choose at least one faculty Error
+1002 Password is empty Error (login)
+1003 Password repeat Error
+1004 Error in date
+1005 Description empty Error
 */

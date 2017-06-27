@@ -1,12 +1,32 @@
 login = {
 		
 		login: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password){
+			if(email == "" || email == null || !email.match(".*@hof-university.de")){
+				$rootScope.$broadcast(broadcastFailed, {status: 1000, statusText:"Email is not accepted"});
+				return;
+			}
+			if(password == "" || password == null){
+				$rootScope.$broadcast(broadcastFailed,{status:1002, statusText:"Password is empty"});
+				return;
+			}
 			connection.lock(function(){
 				login_($http, $rootScope, broadcastSuccess, broadcastFailed, email, password);
 			});
 		},
 
 		register: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password){
+		if(email == "" || email == null || !email.match(".*@hof-university.de")){
+			$rootScope.$broadcast(broadcastFailed, {status: 1000, statusText:"Email is not accepted"});
+			return;
+		}
+		if(password == "" || password == null ){
+			$rootScope.$broadcast(broadcastFailed, {status: 1002, statusText:"Password is empty"});
+			return;
+		}
+		if(password != repeat_password){
+			$rootScope.$broadcast(broadcastFailed, {status:1003, statusText:"Password is not repeated properly"});
+			return;
+		}
 			connection.lock(function(){
 				register_($http, $rootScope, broadcastSuccess, broadcastFailed, email, password);
 			});
@@ -19,6 +39,10 @@ login = {
 		 },
 
 		 forgotPassword: function($http, $rootScope, broadcastSuccess, broadcastFailed, email){
+		if(email == "" || email == null || !email.match(".*@hof-university.de")){
+			$rootScope.$broadcast(broadcastFailed, {status: 1000, statusText:"Email is not accepted"});
+			return;
+		}
 				connection.lock(function(){
 					forgot_Password($http, $rootScope, broadcastSuccess, broadcastFailed, email);
 				});
@@ -32,14 +56,6 @@ login = {
 };
 
 var login_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed, email, password) {
-	if(email == "" || email == null || !email.match(".*@hof-university.de")){
-		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
-		return;
-	}
-	if(password == "" || password == null){
-		$rootScope.$broadcast(broadcastFailed, "Password is empty");
-		return;
-	}
 	
 	$http.put('/login', {email: email, password: password})
         .then(function (response) {
@@ -68,18 +84,6 @@ var login_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed, ema
 };
 
 var register_ = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, repeat_password) { 
-	if(email == "" || email == null || !email.match(".*@hof-university.de")){
-		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
-		return;
-	}
-	if(password == "" || password == null ){
-		$rootScope.$broadcast(broadcastFailed, "Password is empty");
-		return;
-	}
-	if(password != repeat_password){
-		$rootScope.$broadcast(broadcastFailed, "Password is not repeated properly");
-		return;
-	}
 	
 	$http.post('/register',{"email": email, "password": password})
         .then(function(response){
@@ -107,10 +111,6 @@ var confirm_Registration = function($http, $rootScope, broadcastSuccess, broadca
 };
 
 var forgot_Password = function($http, $rootScope, broadcastSuccess, broadcastFailed, email) {
-	if(email == "" || email == null || !email.match(".*@hof-university.de")){
-		$rootScope.$broadcast(broadcastFailed, "Email is not accepted");
-		return;
-	}
 	
     $http.put('/reset', {"email": email})
         .then(function(response){
