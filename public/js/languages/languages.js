@@ -135,6 +135,14 @@ languages = {
         }
     },
     appointment:{
+	frequent:{
+		en:"frequent",
+		de:"wiederholend"	
+	},
+	singular:{
+		en:"singular",
+		de:"einzeln"	
+	},
 	from:
 	{
 		en:"From",
@@ -209,5 +217,35 @@ languages = {
 		en: "Are you sure that you want to delete this appointment?",
 		de: "Sind Sie sicher, dass Sie diesen Termin löschen wollen?"
     	}
+    },
+    days:{
+	monday:{
+		en:"MON",
+		de:"MO"
+	},
+	tuesday:{
+		en:"TUE",
+		de:"DI"
+	},
+	wednesday:{
+		en:"WED",
+		de:"MI"
+	},
+	thursday:{
+		en:"THU",
+		de:"DO"
+	},
+	friday:{
+		en:"FRI",
+		de:"FR"
+	},
+	saturday:{
+		en:"SAT",
+		de:"SA"
+	},
+	sunday:{
+		en:"SUN",
+		de:"SO"
+	}
     }
 };

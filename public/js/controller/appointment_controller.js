@@ -4,10 +4,16 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
     };
     $scope.appointment_build = {
         frequency: [
-            {id: 0, name: "frequent"},
-            {id: 1, name: "singular"}
+            {id: 0, name: languages.appointment.frequent[language]},
+            {id: 1, name: languages.appointment.singular[language]}
             ],
-        day: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+        day: [	languages.days.monday[language], 
+		languages.days.tuesday[language], 
+		languages.days.wednesday[language], 
+		languages.days.thursday[language], 
+		languages.days.friday[language], 
+		languages.days.saturday[language], 
+		languages.days.sunday[language]],
         date: "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[0-2])[.]([0-9]{2}|[0-9]{4})",
         time: "([01]?[0-9]|2[0-3])[:][0-5][0-9]"
     };
