@@ -403,8 +403,8 @@
         </div>
         <div class="row" ng-show="appointment.frequency == 0">
             <div class="form-group col-xs-12">
-                <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
-                    {{item}}
+                <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item.id" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
+                    {{item.name}}
                 </div>
             </div>
         </div>

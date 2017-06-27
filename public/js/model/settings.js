@@ -15,7 +15,7 @@ settings = {
 			$rootScope.$broadcast(broadcastFailed, {status: 1000, statusText:"Error at Email"});
 		return;
 		}
-		if (password != "" && password == password_repeat)
+		if (password != "" && password.length >= 10 && password == password_repeat)
 			settings.password = password;
 		var faculty = [];
 		for (i = 0; i < faculties.length; ++i)
@@ -30,7 +30,7 @@ settings = {
 		console.log(settings);
 
 		connection.lock(function(){
-		save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties)
+			save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, settings)
 		});
 	}
 
@@ -67,7 +67,7 @@ var get_Settings = function ($http, $rootScope, broadcastSuccess, broadcastFaile
         });
 };
 
-var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties){
+var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFailed, settings){
 
     $http.put('/settings', settings)
         .then(function(response){

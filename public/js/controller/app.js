@@ -13,6 +13,7 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout, $co
         $scope.lang = data;
         language = data;
         $cookieStore.put("lang", data);
+        $rootScope.$broadcast("lang_changed");
     };
 
     $scope.setLang($cookieStore.get("lang"));

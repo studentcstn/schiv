@@ -105,6 +105,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     };
     $scope.setRequest = function (id, state, time) {
         appointment_request.acceptAppointmentRequest($http, $rootScope, "decline_request_s", "decline_request_f", id, state, time);
+        $rootScope.$broadcast("show_index");
     };
     $scope.$on("decline_request_s", function (event, data) {
 
