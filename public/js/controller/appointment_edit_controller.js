@@ -1,8 +1,9 @@
 schiv_module.controller('appointment_edit_controller', function($scope, $http, $rootScope) {
 
-    $scope.$on("edit_appointment", function (event, data) {
+    $scope.$on("edit_appointment", function (event, id, data) {
         $scope.appointment = data;
-
+        $scope.id = id;
+        appointment_request.prepareEditAppointment(data);
         $rootScope.$broadcast("show", "show_appointment_edit");
     });
 
@@ -11,7 +12,7 @@ schiv_module.controller('appointment_edit_controller', function($scope, $http, $
     };
 
     $scope.updateRequest = function () {
-        appointment_request.acceptAppointmentRequest($http, $rootScope, "appointment_edit_s", "appointment_edit_f", $scope.appointment.requestID, "Accepted", $scope.durationTime);
+        appointment_request.acceptAppointmentRequest($http, $rootScope, "appointment_edit_s", "appointment_edit_f", $scope.id, "Accepted", $scope.durationTime);
     };
     $scope.$on("appointment_edit_s", function () {
         $rootScope.$broadcast("hide", "show_appointment_edit");

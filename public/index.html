@@ -28,6 +28,7 @@
     <script src="js/controller/request_controller.js"></script>
     <script src="js/controller/appointment_controller.js"></script>
     <script src="js/controller/appointment_edit_controller.js"></script>
+    <script src="js/controller/appointment_remove_controller.js"></script>
     <!-- model -->
     <script src="js/model/appointment.js"></script>
     <script src="js/model/appointment_request.js"></script>
@@ -181,13 +182,13 @@
                                     <div>{{requests.subject}}</div>
                                 </div>
                                 <div class="col-xs-2">
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest(requests.id, item)">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(item.id, 'Declined', 0)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="item.requestID = requests.id; activateRequest(item)">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'">
@@ -430,7 +431,7 @@
     </div>
 </div>
 <!-- activate appointment request -->
-<div id="appointment" class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
+<div class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
     <div class="background">
         <h4>Activate Appointment</h4>
         <div class="form-group" ng-class="durationTime <= appointment.time && durationTime >= 10 ? 'has-success' : durationTime < 0 ? 'has-error' : ''">
@@ -443,6 +444,25 @@
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="edit_close()">Close</div>
                     <div type="button" class="btn btn-default" ng-click="updateRequest()" ng-show="durationTime >= 0">Create</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- remove appointment request -->
+<div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
+    <div class="background">
+        <h4>Delete appointment?</h4>
+        <div class="form-group">
+            <label>Delete appointment?</label>
+        </div>
+        <div>{{appointment.description}}</div>
+        <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div type="button" class="btn btn-default" ng-click="remove_close()">Close</div>
+                    <div type="button" class="btn btn-default" ng-click="remove()">Create</div>
                 </div>
             </div>
         </div>

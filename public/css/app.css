@@ -275,11 +275,10 @@ body {
     margin: 1rem 0rem;
     margin-right: -10px;
     margin-right: -1rem;
-    margin-left: auto;
+    margin-left: 10px;
+    margin-left: 1rem;
     padding: 10px;
     padding: 1rem;
-
-    width: 80%;
 
     -webkit-border-top-right-radius: 0px;
     -webkit-border-top-right-radius: 0rem;
@@ -297,6 +296,7 @@ body {
 
     background-color: #ffb74d;
 }
+/*
 .appointment_in:hover, appointment_in:hover {
     -webkit-box-shadow: 0px 0px 0px;
     -webkit-box-shadow: 0rem 0rem 0rem;
@@ -312,7 +312,7 @@ body {
     -moz-box-shadow: inset 0rem 0.1rem 0.1rem;
     box-shadow: inset 0px 1px 1px;
     box-shadow: inset 0rem 0.1rem 0.1rem;
-}
+}*/
 
 
 
