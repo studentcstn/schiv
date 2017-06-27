@@ -3,6 +3,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 use ErrorException;
 use App\Account;
@@ -102,6 +103,7 @@ class RetrieveDocents extends Command
             file_put_contents($cache, serialize($docents));
         }
 
+        DB::beginTransaction();
         foreach ($docents as $docent) {
             $docent = str_replace("Professoren", "", $docent);
             $docent = str_replace("Prüfungsaufsicht", "", $docent);
@@ -143,5 +145,6 @@ class RetrieveDocents extends Command
 
             echo $account->email."\n";
         }
+        DB::commit();
     }
 }
