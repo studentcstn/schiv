@@ -72,10 +72,11 @@ var unban_Account = function($http, $rootScope, broadcastSuccess, broadcastFaile
         .then(function(response){
             connection.free();
             console.log(response);
+	    $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
             connection.free();
             console.log(response);
-            success = false;
+            $rootScope.$broadcast(broadcastFailed, response);
         });
 };
 
