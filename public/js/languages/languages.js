@@ -155,6 +155,10 @@ languages = {
 	create_button:{
 		en: "Create",
 		de: "Erstelen"
+    	},
+	register_button:{
+		en: "Register",
+		de: "Einschreiben"
     	}
     }
 };

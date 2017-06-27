@@ -372,8 +372,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div class="btn btn-default" ng-click="inscribe_close()">Close</div>
-                    <div class="btn btn-default" ng-click="inscribe()" ng-show="newAppointment_request.id.length != 0 && newAppointment_request.date.length != 0 && newAppointment_request.subject.length != 0 && newAppointment_request.description.length != 0">Inscribe</div>
+                    <div class="btn btn-default" ng-click="inscribe_close()">{{languages.appointment.close_button[lang]}}</div>
+                    <div class="btn btn-default" ng-click="inscribe()" ng-show="newAppointment_request.id.length != 0 && newAppointment_request.date.length != 0 && newAppointment_request.subject.length != 0 && newAppointment_request.description.length != 0">{{languages.appointment.register_button[lang]}}</div>
                 </div>
             </div>
         </div>
