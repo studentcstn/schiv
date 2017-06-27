@@ -202,7 +202,7 @@ languages = {
 		de: "Minuten für diesen Termin vorhanden."
     	},
 	delete_appointment_request:{
-		en: "Are you sure that you want to delete this request?",{{languages.login.email[lang]}}
+		en: "Are you sure that you want to delete this request?",
 		de: "Sind Sie sicher, dass Sie diese Anfrage löschen wollen?"
     	},
 	delete_appointment:{
