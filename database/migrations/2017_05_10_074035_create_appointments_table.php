@@ -18,13 +18,14 @@ class CreateAppointmentsTable extends Migration
             $table->integer('account_id')->unsigned();
             $table->string('description');
             $table->boolean('active');
-            $table->enum('weekday', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])->nullable();
-            $table->date('date')->nullable();
+            $table->integer('parent_id')->nullable();
+            $table->date('date');
             $table->time('time_from');
             $table->time('time_to');
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('appointments')->onDelete('cascade');
         });
     }
 

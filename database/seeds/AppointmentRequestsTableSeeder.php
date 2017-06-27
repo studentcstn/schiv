@@ -15,8 +15,8 @@ class AppointmentRequestsTableSeeder extends Seeder
             'description' => 'dies ist eine Testanfrage',
             'subject' => 'über das möchte ich reden',
             'duration_in_min' => 30,
-            'requested_at' => '2017-07-25 17:30:34',
-            'state' => 'idle',
+            'active' => true,
+            'state' => 'Idle',
             'account_id'=> 2,
             'appointment_id' => 1,
 
@@ -26,8 +26,8 @@ class AppointmentRequestsTableSeeder extends Seeder
             'description' => 'dies ist auch eine Testanfrage',
             'subject' => 'über das möchte ich nicht reden',
             'duration_in_min' => 30,
-            'requested_at' => '2017-07-23 22:30:34',
-            'state' => 'idle',
+            'active' => true,
+            'state' => 'Idle',
             'account_id'=> 2,
             'appointment_id' => 2,
 
@@ -36,8 +36,8 @@ class AppointmentRequestsTableSeeder extends Seeder
         DB::table('appointment_requests')->insert([
             'description' => 'dies ist auch eine Testanfrage',
             'subject' => 'über das möchte ich nicht reden',
-            'requested_at' => '2017-07-23 22:30:34',
-            'state' => 'idle',
+            'active' => true,
+            'state' => 'Idle',
             'account_id'=> 1,
             'appointment_id' => 3,
         ]);
