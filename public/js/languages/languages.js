@@ -187,7 +187,7 @@ languages = {
     	},
 	create_button:{
 		en: "Create",
-		de: "Erstelen"
+		de: "Erstellen"
     	},
 	register_button:{
 		en: "Register",
