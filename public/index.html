@@ -430,7 +430,7 @@
     </div>
 </div>
 <!-- activate appointment request -->
-<div id="appointment" class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
+<div class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
     <div class="background">
         <h4>Activate Appointment</h4>
         <div class="form-group" ng-class="durationTime <= appointment.time && durationTime >= 10 ? 'has-success' : durationTime < 0 ? 'has-error' : ''">
@@ -449,12 +449,14 @@
     </div>
 </div>
 <!-- remove appointment request -->
-<div id="appointment" class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
+<div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
         <h4>Delete appointment?</h4>
         <div class="form-group">
             <label>Delete appointment?</label>
         </div>
+        <div>{{appointment.description}}</div>
+        <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">

@@ -14,7 +14,7 @@ schiv_module.controller('remove_appointment_controller', function($scope, $http,
     };
 
     $scope.remove = function () {
-        appointment_request.createAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.newAppointment_request.description, $scope.newAppointment_request.subject, $scope.newAppointment_request.id, $scope.newAppointment_request.date);
+        appointment_request.createAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.id);
     };
     $scope.$on("remove_s", function () {
         $rootScope.$broadcast("hide", "show_remove_appointment");
