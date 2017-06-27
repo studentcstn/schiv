@@ -67,7 +67,7 @@ $http.post('/account_bans/', {"account_ban_id": account_ban_id})
     });
 };
 
-var unban_Account = function($http, success, user_id){
+var unban_Account = function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
     $http.delete('/account_bans/' + user_id + '')
         .then(function(response){
             connection.free();
