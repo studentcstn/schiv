@@ -24,7 +24,7 @@ class RegisterController extends Controller {
             return response()->json(['message' => 'account already registered'], 409);
         }
 
-        DB::transaction(function() use ($request, $account, &$token) {
+        DB::transaction(function() use ($request, &$account, &$token) {
             $generateToken = true;
             if ($account && $account->active == 0) {
                 $account->password = Hash::make($request->input('password'));

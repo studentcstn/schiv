@@ -310,13 +310,13 @@ Bei `get:appointments/past`: Liefert alle inaktiven Termine des Aufrufers
 zurück.
 
 Bei `post:appointments`: Legt einen neuen Termin in der Datenbank an. Bei
-wiederholenden Terminen werden alle anfallenden wiederholungen bis zum Ende des
+wiederholenden Terminen werden alle anfallenden Wiederholungen bis zum Ende des
 Semesters mit angelegt. Zu übergebende Parameter im *JSON-Objekt*: `weekday`
 (Identifiziert einen wiederholenden Termin. Gültige eingaben sind: `MON` `TUE`
 `WED` `THU` `FRI` `SAT` `SUN` `NULL`), `date` (Identifiziert einen Einzeltermin.
-Falls `weekday` nicht den Wert `NULL` hat wird `date` nicht beachtet. Angabe wie folgt: `YYYY-MM-DD`),
-`time_from` (Beginn des Termins: `HH:MM:SS`), `time_to` (Ende des Termins:`HH:MM:SS`),
-`description` (Beschreibung des Termis).
+Falls `weekday` nicht den Wert `NULL` hat wird `date` nicht beachtet. Angabe wie
+folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
+(Ende des Termins:`HH:MM:SS`), `description` (Beschreibung des Termins).
 
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
@@ -382,8 +382,9 @@ werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
 
 Die E-Mails werden nur in die Logdatei `storage/logs/laravel.log` geschrieben
 und nicht verschickt. Falls E-Mails verschickt werden sollen, kann dies in der
-Konfiguration `config/email.php` geändert werden. Die Templates für die E-Mail
-Nachrichten befinden sich unter: `resources/views/emails`.
+Konfiguration `config/email.php` geändert werden. Die Vorlagen für die E-Mail
+Nachrichten befinden sich unter: `resources/views/emails`. Diese haben den
+nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
 (TODO)
 
@@ -411,6 +412,7 @@ $ cd $HOME
 $ git clone https://github.com/studentcstn/schiv
 $ cd schiv
 $ composer install
+$ composer dumpautoload
 $ cp .env.sqlite .env
 $ touch /tmp/db
 $ php artisan migrate:refresh --seed
@@ -442,16 +444,16 @@ $ export PATH=~/.cabal/bin/pandoc:$PATH
 ```
 
 Der vorherige Schritt kann weggelassen werden und das Standardpaket
-installiert werden, allerdings funktionieren dann keine Referenzen. Zusätzlich
-muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile` entfernt
-werden.
+installiert werden, allerdings funktionieren dann keine Referenzen. Als Folge
+daraus muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile`
+entfernt werden.
 
 ```{.bash .numberLines}
 $ apt install pandoc
 ```
 
-Nach dem `pandoc` installiert ist, kann die Dokumentation wie folgt erstellt
-werden:
+Nach dem `pandoc` installiert ist, kann die Dokumentation wie folgt
+erstellt werden:
 
 ```{.bash .numberLines}
 $ cd doc
