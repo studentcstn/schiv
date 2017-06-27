@@ -198,9 +198,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-offset-1 col-xs-1">
+                    <div class="col-xs-2">
                         <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable" ng>
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable" ng-click="removeAppointment(item.id, appointments)">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -450,13 +450,29 @@
     </div>
 </div>
 <!-- remove appointment request -->
-<div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
+<div class="window ng-hide" ng-show="show_remove_appointment_request" ng-controller="remove_appointment_request_controller">
     <div class="background">
-        <h4>Delete appointment?</h4>
+        <h4>Delete appointment request?</h4>
         <div>{{appointment.description}}</div>
         <div>{{appointment.subject}}</div>
         <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div>{{appointment.duration_in_min}}</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right">
+                    <div type="button" class="btn btn-default" ng-click="remove_close()">Close</div>
+                    <div type="button" class="btn btn-default" ng-click="remove()">Delete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- remove appointment -->
+<div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
+    <div class="background">
+        <h4>Delete appointment?</h4>
+        <div>{{appointment.description}}</div>
+        <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">

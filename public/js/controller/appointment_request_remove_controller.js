@@ -1,15 +1,16 @@
-schiv_module.controller('remove_appointment_controller', function($scope, $http, $rootScope) {
+schiv_module.controller('remove_appointment_remove_controller', function($scope, $http, $rootScope) {
 
-    $scope.$on('remove_appointment', function (event, id, data) {
+    $scope.$on('remove_appointment_request', function (event, type, id, data) {
         $scope.id = id;
-        $scope.appointments = data;
-        $rootScope.$broadcast("show", "show_remove_appointment");
+        $scope.appointment = data;
+        $scope.type = type;
+        $rootScope.$broadcast("show", "show_remove_appointment_request");
     });
 
     $scope.newAppointment_request = {id: "", data: "", subject: "", description: ""};
 
     $scope.remove_close = function () {
-        $rootScope.$broadcast("hide", "show_remove_appointment");
+        $rootScope.$broadcast("hide", "show_remove_appointment_request");
         $scope.newAppointment_request = {id: "", data: "", subject: "", description: ""};
     };
 
@@ -21,7 +22,7 @@ schiv_module.controller('remove_appointment_controller', function($scope, $http,
         }
     };
     $scope.$on("remove_s", function () {
-        $rootScope.$broadcast("hide", "show_remove_appointment");
+        $rootScope.$broadcast("hide", "show_remove_appointment_request");
     });
     $scope.$on("remove_f", function (event, data) {
         error(data);
