@@ -23,6 +23,7 @@ schiv_module.controller('remove_appointment_request_controller', function($scope
     };
     $scope.$on("remove_s", function () {
         $rootScope.$broadcast("hide", "show_remove_appointment_request");
+        $rootScope.$broadcast("alert", "success", "request deleted");
         $rootScope.$broadcast("show_index");
     });
     $scope.$on("remove_f", function (event, data) {
