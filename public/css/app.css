@@ -275,11 +275,10 @@ body {
     margin: 1rem 0rem;
     margin-right: -10px;
     margin-right: -1rem;
-    margin-left: auto;
+    margin-left: 10px;
+    margin-left: 1rem;
     padding: 10px;
     padding: 1rem;
-
-    width: 80%;
 
     -webkit-border-top-right-radius: 0px;
     -webkit-border-top-right-radius: 0rem;
