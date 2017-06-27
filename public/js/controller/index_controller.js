@@ -33,7 +33,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
             data = [{id: 0,
                 description: languages.index.no_appointments[language]}];
         }
-        $scope.appintments = data;
+        $scope.appointments = data;
     });
     $scope.$on("index_appointment_f", function (event, data) {
         error(data);
@@ -50,10 +50,10 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         appointment_request.getAppointmentRequest($http, $rootScope, "index_appointment_request_s", "index_appointment_request_f");
     };
     $scope.$on("index_appointment_s", function (event, data) {
-        $scope.appintments = data;
+        $scope.appointments = data;
         --receive;
         if (receive === 0)
-            appointment.merge_appointments($scope.appintments, $scope.appointments_requests);
+            appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
     });
     $scope.$on("index_appointment_f", function (event, data) {
         error(data);
@@ -62,7 +62,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appointments_requests = data;
         --receive;
         if (receive === 0)
-            appointment.merge_appointments($scope.appintments, $scope.appointments_requests);
+            appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
         error(data);
