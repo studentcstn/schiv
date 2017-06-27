@@ -1,4 +1,4 @@
-schiv_module.controller('remove_appointment_remove_controller', function($scope, $http, $rootScope) {
+schiv_module.controller('remove_appointment_request_controller', function($scope, $http, $rootScope) {
 
     $scope.$on('remove_appointment_request', function (event, type, id, data) {
         $scope.id = id;
@@ -23,6 +23,7 @@ schiv_module.controller('remove_appointment_remove_controller', function($scope,
     };
     $scope.$on("remove_s", function () {
         $rootScope.$broadcast("hide", "show_remove_appointment_request");
+        $rootScope.$broadcast("show_index");
     });
     $scope.$on("remove_f", function (event, data) {
         error(data);
