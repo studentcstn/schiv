@@ -159,6 +159,30 @@ languages = {
 	register_button:{
 		en: "Register",
 		de: "Einschreiben"
+    	},
+	delete_button:{
+		en: "Delete",
+		de: "Löschen"
+    	},
+	accept_request:{
+		en: "Accept request",
+		de: "Anfrage annehmen"
+    	},
+	minutes_left1:{
+		en: "Enter the duration of the request in minutes. There are",
+		de: "Geben Sie die Dauer der Anfrage in Minuten ein. Es sind"
+    	},
+	minutes_left2:{
+		en: "minutes left for this appointment.",
+		de: "Minuten für diesen Termin vorhanden."
+    	},
+	delete_appointment_request:{
+		en: "Are you sure that you want to delete this request?",
+		de: "Sind Sie sicher, dass Sie diese Anfrage löschen wollen?"
+    	},
+	delete_appointment:{
+		en: "Are you sure that you want to delete this appointment?",
+		de: "Sind Sie sicher, dass Sie diesen Termin löschen wollen?"
     	}
     }
 };

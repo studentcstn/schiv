@@ -433,11 +433,11 @@
 <!-- activate appointment request -->
 <div class="window ng-hide" ng-show="show_appointment_edit" ng-controller="appointment_edit_controller">
     <div class="background">
-        <h4>Activate Appointment</h4>
+        <h4>{{languages.appointment.accept_request[lang]}}</h4>
         <div class="form-group" ng-class="durationTime <= appointment.time && durationTime >= 10 ? 'has-success' : durationTime < 0 ? 'has-error' : ''">
-            <label>Duration in miniutes. There are {{appointment.time}} minutes.</label>
+            <label>{{languages.appointment.minutes_left1[lang]}} {{appointment.time}} {{languages.appointment.minutes_left2[lang]}}</label>
             <input type="number" class="form-control" ng-model="durationTime" placeholder="To">
-            <small class="form-text text-muted">For example: 15</small>
+            <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 15</small>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -452,7 +452,7 @@
 <!-- remove appointment request -->
 <div class="window ng-hide" ng-show="show_remove_appointment_request" ng-controller="remove_appointment_request_controller">
     <div class="background">
-        <h4>Delete appointment request?</h4>
+        <h4>{{languages.appointment.delete_appointment_request[lang]}}</h4>
         <div>{{appointment.description}}</div>
         <div>{{appointment.subject}}</div>
         <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
@@ -460,8 +460,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div type="button" class="btn btn-default" ng-click="remove_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="remove()">Delete</div>
+                    <div type="button" class="btn btn-default" ng-click="remove_close()">{{languages.appointment.close_button[lang]}}</div>
+                    <div type="button" class="btn btn-default" ng-click="remove()">{{languages.appointment.delete_button[lang]}}</div>
                 </div>
             </div>
         </div>
@@ -470,14 +470,14 @@
 <!-- remove appointment -->
 <div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
-        <h4>Delete appointment?</h4>
+        <h4>{{languages.appointment.delete_appointment[lang]}}</h4>
         <div>{{appointment.description}}</div>
         <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div type="button" class="btn btn-default" ng-click="remove_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="remove()">Delete</div>
+                    <div type="button" class="btn btn-default" ng-click="remove_close()">{{languages.appointment.close_button[lang]}}</div>
+                    <div type="button" class="btn btn-default" ng-click="remove()">{{languages.appointment.delete_button[lang]}}</div>
                 </div>
             </div>
         </div>
