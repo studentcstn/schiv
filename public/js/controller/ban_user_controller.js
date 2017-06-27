@@ -25,4 +25,4 @@ schiv_module.controller('ban_user_controller', function($scope, $http, $rootScop
 	var error = function(data){
 		$rootScope.$broadcast("error", data);
 	};
-};
+});
