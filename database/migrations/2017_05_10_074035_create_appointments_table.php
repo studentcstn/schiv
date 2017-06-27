@@ -23,7 +23,9 @@ class CreateAppointmentsTable extends Migration
             $table->time('time_from');
             $table->time('time_to');
             $table->timestamps();
+        });
 
+        Schema::table('appointments', function (Blueprint $table) {
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('appointments')->onDelete('cascade');
         });

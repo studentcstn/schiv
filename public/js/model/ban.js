@@ -55,7 +55,7 @@ var get_AccountBans = function($http, $rootScope, broadcastSuccess, broadcastFai
 };
 
 var ban_Account = function($http, $rootScope, broadcastSuccess, broadcastFailed, account_ban_id){
-$http.post('/account_bans/', {"account_ban_id": account_ban_id})
+$http.post('/account_bans', {"account_ban_id": account_ban_id})
     .then(function(response){
         connection.free();
         console.log(response);
