@@ -16,6 +16,7 @@ schiv_module.controller('appointment_edit_controller', function($scope, $http, $
     };
     $scope.$on("appointment_edit_s", function () {
         $rootScope.$broadcast("hide", "show_appointment_edit");
+        $rootScope.$broadcast("alert", "success", "accepted success");
         $rootScope.$broadcast("show_index");
     });
     $scope.$on("appointment_edit_f", function (event, data) {
