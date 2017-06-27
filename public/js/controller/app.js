@@ -155,4 +155,5 @@ definition of Error codes
 1003 Password repeat Error
 1004 Error in date
 1005 Description empty Error
+1006 Holiday empty name error
 */

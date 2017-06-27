@@ -1,18 +1,38 @@
 holiday ={
 
 		getHolidays: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
+			if(!controlDate(from) || !controlDate(to)){
+				$rootScope.$broadcast(broadcastFailed, {status:1004, statusText:"Error in date"});
+				return;	
+			}
 			connection.lock(function(){
 				get_Holidays($http, $rootScope, broadcastSuccess, broadcastFailed, from, to);
 			});
 		},
 
 		createHolidays: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name){
+			if(!controlDate(from) || !controlDate(to)){
+				$rootScope.$broadcast(broadcastFailed, {status:1004, statusText:"Error in date"});
+				return;	
+			}
+			if(name ==""){
+				$rootScope.$broadcast(broadcastFailed, {status:1006, statusText:"Holiday empty name error"});
+				return;	
+			}
 			connection.lock(function(){
 				create_Holidays($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name);
 			});
 		},
 
 		editHoliday: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name, id){
+			if(!controlDate(from) || !controlDate(to)){
+				$rootScope.$broadcast(broadcastFailed, {status:1004, statusText:"Error in date"});
+				return;	
+			}
+			if(name ==""){
+				$rootScope.$broadcast(broadcastFailed, {status:1006, statusText:"Holiday empty name error"});
+				return;	
+			}
 			connection.lock(function(){
 				edit_Holiday($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name, id);
 			});
