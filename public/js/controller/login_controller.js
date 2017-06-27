@@ -45,9 +45,9 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
 
     $scope.register = function () {
-        login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password)
+        login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password, $scope.user.passwordRepeat)
     };
-    $scope.$on("login_register_s", function (event, data) {
+    $scope.$on("login_register_s", function () {
         $rootScope.$broadcast("alert", "success", languages.login.send_forgot_password[language]);
     });
     $scope.$on("login_register_f", function (event, data) {
