@@ -155,5 +155,8 @@ definition of Error codes
 1003 Password repeat Error
 1004 Error in date
 1005 Description empty Error
-1006 Holiday empty name error
+1006 Holiday empty name Error
+1007 Illegal state Error
+1008 Illegal time Error
+1009 Subject is empty Error
 */

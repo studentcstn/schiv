@@ -7,6 +7,14 @@ appointment_request = {
     },
 
     acceptAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, id, state, time){
+	if(state != "Accepted" || state != "Declined"){
+		$rootScope.$broadcast(broadcastFailed, {status:1007, statusText: "The change of state is not excepted"});
+		return;
+	}
+	if(time <0){
+		$rootScope.$broadcast(broadcastFailed, {status:1008, statusText: "Time of zero is not excepted"});
+		return;
+	}
         connection.lock(function(){
             accept_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, id, state, time);
         });
@@ -19,6 +27,18 @@ appointment_request = {
     },
 
     createAppointmentRequest: function($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date){
+	if(subject == ""){
+		$rootScope.$broadcast(broadcastFailed, {status:1009, statusText: "Subject is empty Error"});
+		return;
+	}
+	if(description == ""){
+		$rootScope.$broadcast(broadcastFailed, {status:1005, statusText: "Description is empty Error"});
+		return;
+	}
+	if(controlDate(date)){
+		$rootScope.$broadcast(broadcastFailed, {status:1004, statusText: "Error in date"});
+		return;
+	}
         connection.lock(function(){
             create_AppointmentRequest($http, $rootScope, broadcastSuccess, broadcastFailed, description, subject, appointment_id, date);
         });
