@@ -45,7 +45,7 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
 
 
     $scope.register = function () {
-        login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password)
+        login.register($http, $rootScope, "login_register_s", "login_register_f", $scope.user.email, $scope.user.password, $scope.user.passwordRepeat)
     };
     $scope.$on("login_register_s", function (event, data) {
         $rootScope.$broadcast("alert", "success", languages.login.succesful_registration[language]);
