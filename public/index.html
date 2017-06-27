@@ -383,7 +383,7 @@
 <!-- show details of a appointment. for docents-->
 <div id="appointment" class="window ng-hide" ng-show="show_appointment" ng-controller="appointment_controller">
     <div class="background">
-        <h4>New Appointment</h4>
+        <h4>{{languages.appointment.new_appointment[lang]}}</h4>
         <div class="row">
             <div class="form-group col-xs-12" ng-class="newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
                 <input class="form-control" type="text" ng-model="newAppointment.description" placeholder="description">
@@ -407,24 +407,24 @@
         <div class="row">
             <div class="form-group col-xs-12" ng-show="appointment.frequency == 1" ng-class="newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.day" ng-pattern="appointment_build.date" placeholder="Date">
-                <small class="form-text text-muted">For example: 03.07.2017</small>
+                <small class="form-text text-muted">{{languages.appointment.new_appointment[lang]}} 03.07.2017</small>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-xs-6" ng-class="newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="From">
-                <small class="form-text text-muted">For example: 09:45</small>
+                <small class="form-text text-muted">{{languages.appointment.new_appointment[lang]}} 09:45</small>
             </div>
             <div class="form-group col-xs-6" ng-class="newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
                 <input class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="To">
-                <small class="form-text text-muted">For example: 11:15</small>
+                <small class="form-text text-muted">{{languages.appointment.new_appointment[lang]}} 11:15</small>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div type="button" class="btn btn-default" ng-click="appointment_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="create()" ng-show="newAppointment.description.length != 0 && newAppointment.day.length != 0 && newAppointment.from.length != 0 && newAppointment.to.length != 0">Create</div>
+                    <div type="button" class="btn btn-default" ng-click="appointment_close()">{{languages.appointment.close_button[lang]}}</div>
+                    <div type="button" class="btn btn-default" ng-click="create()" ng-show="newAppointment.description.length != 0 && newAppointment.day.length != 0 && newAppointment.from.length != 0 && newAppointment.to.length != 0">{{languages.appointment.create_button[lang]}}</div>
                 </div>
             </div>
         </div>
@@ -442,8 +442,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <div type="button" class="btn btn-default" ng-click="edit_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="updateRequest()" ng-show="durationTime >= 0">Create</div>
+                    <div type="button" class="btn btn-default" ng-click="edit_close()">{{languages.appointment.close_button[lang]}}</div>
+                    <div type="button" class="btn btn-default" ng-click="updateRequest()" ng-show="durationTime >= 0">{{languages.appointment.create_button[lang]}}</div>
                 </div>
             </div>
         </div>

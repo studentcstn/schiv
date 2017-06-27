@@ -139,6 +139,22 @@ languages = {
     		en: "Appointment was created succesfully.",
     		de: "Termin wurde erfolgreich erstellt."
     	},
-    	
+	
+    	new_appointment:{
+		en: "New appointment",
+		de: "Neuer Termin"
+    	},
+   	for_example:{
+		en: "For example:",
+		de: "Zum Beispiel:"
+    	},
+	close_button:{
+		en: "Cancel",
+		de: "Abbrechen"
+    	},
+	create_button:{
+		en: "Create",
+		de: "Erstelen"
+    	}
     }
 };
