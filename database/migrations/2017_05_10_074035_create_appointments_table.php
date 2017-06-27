@@ -18,7 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('account_id')->unsigned();
             $table->string('description');
             $table->boolean('active');
-            $table->integer('parent_id')->nullable();
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->date('date');
             $table->time('time_from');
             $table->time('time_to');
