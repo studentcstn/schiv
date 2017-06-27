@@ -143,3 +143,12 @@ show [...data]
 hide [...data]
 alert {info|success|warning|danger} [message]
  */
+
+/*
+
+definition of Error codes
+-------------------------
+
+1000 Error at Email
+1001 Choose at least one faculty Error
+*/

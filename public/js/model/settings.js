@@ -7,8 +7,30 @@ settings = {
 	},
 		
 	saveSettings: function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties){
+		var settings = {};
+
+		if (email != null && email != "")
+			settings.email = email+"@hof-university.de";
+		else{
+			$rootScope.$broadcast(broadcastFailed, {status: 1000, statusText:"Error at Email"});
+		return;
+		}
+		if (password != "" && password == password_repeat)
+			settings.password = password;
+		var faculty = [];
+		for (i = 0; i < faculties.length; ++i)
+		if (faculties[i].active == true)
+			faculty.push(faculties[i].id);
+		if (faculty.length > 0)
+			settings.faculties = faculty;
+		else{
+			$rootScope.$broadcast(broadcastFailed, {status: 1001, statusText:"Choose at least one Faculty"});
+		return;
+		}
+		console.log(settings);
+
 		connection.lock(function(){
-			save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties)
+		save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties)
 		});
 	}
 
@@ -46,29 +68,7 @@ var get_Settings = function ($http, $rootScope, broadcastSuccess, broadcastFaile
 };
 
 var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFailed, email, password, password_repeat, faculties){
-    var settings = {};
-    
-    if (email != null && email != "")
-        settings.email = email+"@hof-university.de";
-    else{
-        connection.free();
-    	$rootScope.$broadcast(broadcastFailed, "Error at Email");
-    	return;
-    }
-    if (password != null && password != "" && password == password_repeat)
-        settings.password = password;
-    var faculty = [];
-    for (i = 0; i < faculties.length; ++i)
-        if (faculties[i].active == true)
-            faculty.push(faculties[i].id);
-    if (faculty.length > 0)
-        settings.faculties = faculty;
-    else{
-        connection.free();
-    	$rootScope.$broadcast(broadcastFailed, "Choose at least one Faculty");
-		return;
-	}
-    console.log(settings);
+
     $http.put('/settings', settings)
         .then(function(response){
         	connection.free();
