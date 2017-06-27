@@ -112,7 +112,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     };
 
     $scope.removeAppointment = function (id, data) {
-        rootScope.$broadcast("remove_appointment", id, data);
+        $rootScope.$broadcast("remove_appointment", id, data);
     };
 
 

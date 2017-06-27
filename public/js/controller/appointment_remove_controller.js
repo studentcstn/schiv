@@ -14,16 +14,13 @@ schiv_module.controller('remove_appointment_controller', function($scope, $http,
     };
 
     $scope.remove = function () {
-        if ($scope.type = "Docent") {
-            appointment_request.acceptAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.id, "Declined", 0);
-        } else {
-            appointment_request.declineAppointmentRequest($http, $rootScope, "remove_s", "remove_f", $scope.id);
-        }
+        appointment.deleteAppointment($http, $rootScope, "remove_appointment_s", "remove_appointment_f", $scope.id);
     };
-    $scope.$on("remove_s", function () {
+    $scope.$on("remove_appointment_s", function () {
         $rootScope.$broadcast("hide", "show_remove_appointment");
+        $rootScope.$broadcast("show_index");
     });
-    $scope.$on("remove_f", function (event, data) {
+    $scope.$on("remove_appointment_s", function (event, data) {
         error(data);
     });
 
