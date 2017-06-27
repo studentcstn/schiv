@@ -4,6 +4,8 @@
         <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
 
+        <link href="css/roboto.css" rel="stylesheet">
+
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -12,8 +14,15 @@
                 color: transparent;
                 text-shadow: 0 0 0 #000;
             }
+            div.alert {
+                margin-top: 5px;
+            }
             body {
                 padding: 15px;
+                font-family: 'Roboto', sans-serif;
+            }
+            textarea {
+                font-family: 'Roboto Mono', monospace;
             }
             table.layout {
                 height: 100%;
@@ -47,7 +56,7 @@
                 <td></td>
                 <td>
                     <select id="user" name="user" class="form-control" onchange="change_login(this);">
-                        <option value="">no user</option>
+                        <option value="">[empty]</option>
                         @foreach ($accounts as $account)
                         <option value="{{ $account->email }}:{{ $account->password }}">
                             {{ $account->id }}:{{ $account->type }}:{{ $account->email }}
@@ -57,33 +66,19 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="method">Method</label></th>
+                <th></th>
                 <td></td>
-                <td>
-                    <select id="method" name="method" class="form-control">
-                        <option>PUT</option>
-                        <option>POST</option>
-                        <option>DELETE</option>
-                        <option>GET</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="url">Url</label></th>
-                <td></td>
-                <td> <input id="url" name="url" value="" class="form-control"> </td>
-            </tr>
-            <tr>
-                <th><label for="content">Content</label></th>
-                <td></td>
-                <td> <textarea id="content" name="content" rows=25 cols=55 class="form-control"></textarea> </td>
+                <td><textarea id="content" name="content" rows=26 cols=55 class="form-control"></textarea></td>
             </tr>
             <tr>
                 <td></td>
                 <td>&nbsp;&nbsp;</td>
                 <td>
-                    <button class="btn btn-primary" id="send" onclick="send()">Send...</button>
-                    <button class="btn btn-default" id="pretty" onclick="pretty()">Pretty</button>
+                    <button class="btn btn-primary" onclick="send()">Send...</button>
+                    <button class="btn btn-default" onclick="pretty()">Pretty</button>
+                    <div class="alert alert-info">
+                        <strong>Info:</strong> Press CTRL + Enter to send query under courser or click on "Send..."
+                    </div>
                 </td>
             </tr>
         </table>
@@ -98,75 +93,176 @@
                 iframe.contentDocument.document;
 
             function write_output(str) {
+                var defaultContent =
+                    "<html><head>" +
+                    "<link href='css/roboto.css' rel='stylesheet'>" +
+                    "<style>body{font-family:'Roboto',sans-serif;}</style>" +
+                    "</head>";
                 iframe.document.open();
-                iframe.document.write(str);
+                iframe.document.write(defaultContent + str);
                 iframe.document.close();
             }
 
-            function request(url, method, content) {
-                console.log(content);
+            function send_request(request) {
+                write_output("");
                 $.ajax({
                     async: false,
-                    url: url,
-                    type: method,
+                    url: request.url,
+                    type: request.method,
                     dataType: 'json',
                     contentType: "application/json",
-                    error: function (xhr, state, exception) {
-                        write_output(url + "<br><b>response with " + xhr.status + "</b><hr>" + xhr.responseText);
+                    complete: function (xhr, textState) {
+                        var output =
+                            request.url +
+                            "<br><b>response with " + xhr.status + "</b><hr>";
+                        if (xhr.responseJSON) {
+                            output += "<pre>" + JSON.stringify(xhr.responseJSON, null, 2) + "</pre>";
+                        } else {
+                            output += xhr.responseText;
+                        }
+                        write_output(output);
                     },
-                    success: function (data) {
-                        write_output(
-                            url + "<br><b>json response with 200</b><hr>" +
-                            "<pre>" + JSON.stringify(data, null, 2) + "</pre>"
-                        );
-                    },
-                    data: content
+                    data: request.json
                 });
             }
 
             function change_login(element) {
-                request("logout", "put", []);
+                send_request({
+                    url: "logout",
+                    method: "put",
+                    json: ""
+                });
                 if (element.value != "") {
-                    var emailpassword = element.value.split(":")
-                    request("login", "put", JSON.stringify({
-                        "email": emailpassword[0],
-                        "password": "clearTextPassword"
-                    }));
+                    var emailpassword = element.value.split(":");
+
+                    send_request({
+                        url: "login",
+                        method: "put",
+                        json: JSON.stringify({
+                            "email": emailpassword[0],
+                            "password": "clearTextPassword"
+                        })
+                    });
                 }
+            }
+
+            function parse(text) {
+                var lines = text.split(";");
+                var requests = [];
+
+                lines.forEach(function(line) {
+                    var line = line.trim();
+                    if (line) {
+                        requests.push(
+                            parse_request(line)
+                        );
+                    }
+                });
+                return requests;
+            }
+
+            function parse_request(line) {
+                console.log(line);
+                var colon = line.indexOf(":");
+                var angle = line.indexOf("{", colon+1);
+                var square = line.indexOf("[", colon+1);
+
+                angle = angle == -1 ? line.length : angle;
+                square = square == -1 ? line.length : square;
+
+                var lastIndex = Math.min(angle, square);
+
+                if (colon == -1 || lastIndex == -1 || colon == lastIndex) {
+                    throw "Format: method:url [json]"
+                }
+
+                var result = {
+                    method: line.substring(0, colon).trim(),
+                    url: line.substring(colon+1, lastIndex).trim(),
+                    json: line.substring(lastIndex).trim(),
+                };
+
+                return result;
+            }
+
+            function request_render(request) {
+                var result = request.method + ":" +
+                             request.url;
+
+                if (request.json) {
+                    result += " " + JSON.stringify(
+                        JSON.parse(request.json),
+                        null,
+                        2
+                    );
+                }
+
+                result += ";\n";
+                return result;
             }
 
             function pretty() {
-                var content = $("#content")[0];
+                var textarea = $("#content").get(0);
+                var requests = parse(textarea.value);
 
-                try {
-                    json = JSON.parse(content.value);
-                } catch(err) {
-                    console.log(err);
-                    write_output(err.message);
-                    throw err;
-                }
+                var content = "";
+                requests.forEach(function(request) {
+                    content += request_render(request);
+                });
 
-                content.value = JSON.stringify(json, null, 2);
+                textarea.value = content;
             }
 
             function send() {
-                var method = $("#method")[0].value;
-                var url = $("#url")[0].value;
-                var content = $("#content")[0].value;
+                var textarea = $("#content").get(0);
+                var startIndex = textarea.selectionStart;
+                var value = textarea.value;
 
-                write_output("");
+                var from = value.lastIndexOf(";", startIndex-1);
+                var to = value.indexOf(";", startIndex);
 
-                if (content != "") {
-                    try {
-                        JSON.parse(content);
-                    } catch(err) {
-                        write_output(err.message);
-                        throw err;
+                to = to == -1 ? value.length : to;
+
+                if (from < to) {
+                    var line = value.substring(from+1, to).trim();
+                    if (line) {
+                        send_request(
+                            parse_request(line)
+                        );
                     }
                 }
-
-                request(url, method, content);
             }
+
+            $("#content").on("keypress", function(e) {
+                // CTRL + Enter
+                if (e.ctrlKey && (e.which === 13)) {
+                    send();
+                }
+            });
+
+            var requests = [
+                { method: "put"  , url: "login"     , json: { email: "", password: "" } },
+                { method: "put"  , url: "reset"     , json: { email: ""               } },
+                { method: "put"  , url: "logout"    , json: null                        },
+                { method: "post" , url: "register"  , json: { email: "", password: "" } },
+                { method: "get"  , url: "docents"   , json: null                        },
+                { method: "get"  , url: "docents/3" , json: null                        },
+                { method: "get"  , url: "settings"  , json: null                        },
+            ];
+
+            var result = "";
+            requests.forEach(function(request) {
+                if (request.json) {
+                    request.json = JSON.stringify(
+                        request.json, null, 2
+                    );
+                } else {
+                    request.json = "";
+                }
+
+                result += request_render(request);
+            });
+            $("#content").text(result);
         </script>
     </body>
 </html>
