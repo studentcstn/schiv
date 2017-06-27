@@ -2,7 +2,11 @@ schiv_module.controller('remove_appointment_controller', function($scope, $http,
 
     $scope.$on('remove_appointment', function (event, id, data) {
         $scope.id = id;
-        $scope.appointments = data;
+        for (var i = 0; i < data.lenght; ++i)
+            if (data[i].id == id) {
+                $scope.appointment = data[i];
+                break;
+            }
         $rootScope.$broadcast("show", "show_remove_appointment");
     });
 
