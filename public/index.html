@@ -453,16 +453,13 @@
 <div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
         <h4>Delete appointment?</h4>
-        <div class="form-group">
-            <label>Delete appointment?</label>
-        </div>
         <div>{{appointment.description}}</div>
         <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="remove_close()">Close</div>
-                    <div type="button" class="btn btn-default" ng-click="remove()">Create</div>
+                    <div type="button" class="btn btn-default" ng-click="remove()">Delete</div>
                 </div>
             </div>
         </div>
