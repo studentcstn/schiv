@@ -119,19 +119,19 @@
     <div class="form-group row">
         <label for="login_email_input" class="col-sm-3 col-form-label">{{languages.login.email[lang]}}</label>
         <div class="col-sm-9">
-            <input id="login_email_input" type="email" class="form-control" placeholder="email" ng-model="user.email">
+            <input id="login_email_input" type="email" class="form-control" placeholder="{{languages.login.email[lang]}}" ng-model="user.email">
         </div>
     </div>
     <div class="form-group row" ng-show="show_login_password">
         <label for="login_password_input" class="col-sm-3 col-form-label">{{languages.login.password[lang]}}</label>
         <div class="col-sm-9">
-            <input id="login_password_input" type="password" class="form-control" placeholder="password" ng-model="user.password">
+            <input id="login_password_input" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.password">
         </div>
     </div>
     <div class="form-group row ng-hide" ng-show="show_login_register">
         <label for="login_password_repeat" class="col-sm-3 col-form-label">{{languages.login.repeat_password[lang]}}</label>
         <div class="col-sm-9">
-            <input id="login_password_repeat" type="password" class="form-control" placeholder="password" ng-model="user.passwordRepeat">
+            <input id="login_password_repeat" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.passwordRepeat">
         </div>
     </div>
     <div class="row">
@@ -267,7 +267,7 @@
         <label class="col-sm-2 col-form-label">{{languages.settings.email[lang]}}</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="E-mail" ng-model="newUser_settings.email" ng-pattern="settings.email">
+                <input type="text" class="form-control" placeholder="{{languages.settings.email[lang]}}" ng-model="newUser_settings.email" ng-pattern="settings.email">
                 <div class="input-group-addon">@hof-university.de</div>
             </div>
         </div>
@@ -277,13 +277,13 @@
     <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
         <label class="col-sm-2 col-form-label">{{languages.settings.password[lang]}}</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.password" ng-minlength="10">
+            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.password" ng-minlength="10">
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_line[lang]}}</small>
     </div>
     <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="password" class="form-control" placeholder="password" ng-model="newUser_settings.passwordRepeat">
+            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.passwordRepeat">
         </div>
         <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_repeat_line[lang]}}</small>
     </div>
@@ -365,10 +365,10 @@
             </div>
         </div>
         <div class="form-group" ng-class="newAppointment_request.subject.length != 0 ? 'has-success' : 'has-error'">
-            <input type="text" class="form-control" placeholder="subject" ng-model="newAppointment_request.subject">
+            <input type="text" class="form-control" placeholder="{{languages.appointment.subject[lang]}}" ng-model="newAppointment_request.subject">
         </div>
         <div class="form-group" ng-class="newAppointment_request.description.length != 0 ? 'has-success' : 'has-error'">
-            <textarea class="form-control" placeholder="description" ng-model="newAppointment_request.description"></textarea>
+            <textarea class="form-control" placeholder="{{languages.appointment.description[lang]}}" ng-model="newAppointment_request.description"></textarea>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -387,7 +387,7 @@
         <h4>{{languages.appointment.new_appointment[lang]}}</h4>
         <div class="row">
             <div class="form-group col-xs-12" ng-class="newAppointment.description.length != 0 ? 'has-success' : 'has-error'" >
-                <input class="form-control" type="text" ng-model="newAppointment.description" placeholder="description">
+                <input class="form-control" type="text" ng-model="newAppointment.description" placeholder="{{languages.appointment.description[lang]}}">
             </div>
         </div>
         <div class="form-group row">
@@ -407,17 +407,17 @@
         </div>
         <div class="row">
             <div class="form-group col-xs-12" ng-show="appointment.frequency == 1" ng-class="newAppointment.day.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="newAppointment.day" ng-pattern="appointment_build.date" placeholder="Date">
+                <input class="form-control" ng-model="newAppointment.day" ng-pattern="appointment_build.date" placeholder="{{languages.appointment.date[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.new_appointment[lang]}} 03.07.2017</small>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-xs-6" ng-class="newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="From">
+                <input class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.from[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 09:45</small>
             </div>
             <div class="form-group col-xs-6" ng-class="newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="To">
+                <input class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.to[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 11:15</small>
             </div>
         </div>
@@ -437,7 +437,7 @@
         <h4>{{languages.appointment.accept_request[lang]}}</h4>
         <div class="form-group" ng-class="durationTime <= appointment.time && durationTime >= 10 ? 'has-success' : durationTime < 0 ? 'has-error' : ''">
             <label>{{languages.appointment.minutes_left1[lang]}} {{appointment.time}} {{languages.appointment.minutes_left2[lang]}}</label>
-            <input type="number" class="form-control" ng-model="durationTime" placeholder="To">
+            <input type="number" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
             <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 15</small>
         </div>
         <div class="row">

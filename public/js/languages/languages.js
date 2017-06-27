@@ -135,6 +135,31 @@ languages = {
         }
     },
     appointment:{
+	from:
+	{
+		en:"From",
+		de:"Von"
+	},
+	to:
+	{
+		en:"To",
+		de:"Bis"
+	},
+	date:
+	{
+		en:"Date",
+		de:"Datum"
+	},
+	description:
+	{
+		en:"Description",
+		de:"Beschreibung"
+	},
+	subject:
+	{
+		en:"Subject",
+		de:"Thema"
+	},
     	appointment_created:{
     		en: "Appointment was created succesfully.",
     		de: "Termin wurde erfolgreich erstellt."
@@ -177,7 +202,7 @@ languages = {
 		de: "Minuten für diesen Termin vorhanden."
     	},
 	delete_appointment_request:{
-		en: "Are you sure that you want to delete this request?",
+		en: "Are you sure that you want to delete this request?",{{languages.login.email[lang]}}
 		de: "Sind Sie sicher, dass Sie diese Anfrage löschen wollen?"
     	},
 	delete_appointment:{
