@@ -38,6 +38,10 @@ class HolidayController extends Controller {
             'name' => 'required|min:2|max:50'
         ]);
 
+        if ($request->input('from') > $request->input('to')) {
+            return response()->json(['from' => 'is greater than to'], 422);
+        }
+
         $holiday = Holiday::where('from', $request->input("from"))
             ->where('to', $request->input("to"))
             ->where('name', $request->input("name"))
@@ -71,12 +75,15 @@ class HolidayController extends Controller {
             return response()->json(null, 404);
         }
 
+        $all = ['from', 'to', 'name'];
+
         $holiday->account_id = Auth::user()->id;
-        foreach ($request->only('from', 'to', 'name') as $key => $value) {
-            $holiday->$key = $value;
+        foreach ($all as $key) {
+            if ($request->has($key)) {
+                $holiday->$key = $request->input($key);
+            }
         }
         $holiday->save();
-
         return response()->json();
     }
 
