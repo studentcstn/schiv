@@ -1,3 +1,4 @@
+ban_id = [];
 ban = {
 		
 	getAccountBans: function($http, $rootScope, broadcastSuccess, broadcastFailed){
@@ -17,10 +18,10 @@ ban = {
 
         for (i = 0; i < list_of_unbanned.length; ++i) {
             if (list_of_unbanned[i].active == false) {
-                user_id = list_of_unbanned[i].account_ban_id;
+                ban_id.push(list_of_unbanned[i].account_ban_id);
 
                 connection.lock(function () {
-                    unban_Account($http, success, user_id);
+                    unban_Account($http, success, ban_id.pop());
                 });
             } 
         }

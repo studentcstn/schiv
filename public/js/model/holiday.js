@@ -1,3 +1,4 @@
+holiday_id = [];
 holiday = {
 
 	getHolidays: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
@@ -45,10 +46,10 @@ holiday = {
 
 	    for (var i = 0; i < holidays.length; ++i) {
 	        if (!holidays[i].active && holidays[i].account_id != null) {
-                holiday_id = holidays[i].id;
+                holiday_id.push(holidays[i].id);
 
                 connection.lock(function(){
-                    delete_Holiday($http, success, holiday_id);
+                    delete_Holiday($http, success, holiday_id.pop());
                 });
             }
         }
