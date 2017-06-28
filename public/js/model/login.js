@@ -64,7 +64,18 @@ login = {
 		var d = response.data.account;
 		d.email = d.email.substring(0, d.email.indexOf('@'));
 		d.name = d.email.substring(0, d.email.indexOf('.'));
+		d.name = d.name.charAt(0).toUpperCase() + d.name.substring(1);
 		d.last = d.email.substring(d.email.indexOf('.')+1);
+		d.last = d.last.charAt(0).toUpperCase() + d.last.substring(1);
+
+		for(i = d.last.length-1; i>0; i--)
+		{
+			if(d.last.charAt(i).match([0-9])){
+				d.last.replace(d.last.charAt(i), "");			
+			}
+			else
+				break;
+		}
 		$rootScope.$broadcast(broadcastSuccess, response.data);
 	}, function (response) {
 		connection.free();
