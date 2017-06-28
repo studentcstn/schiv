@@ -17,16 +17,16 @@ settings = {
 		}
 		if (password != "" && password.length >= 10 && password == password_repeat)
 			settings.password = password;
+		else
+		{
+			$rootScope.$broadcast(broadcastFailed, {status: 1003, statusText:"Error at Password"});
+		}
 		var faculty = [];
 		for (i = 0; i < faculties.length; ++i)
 		if (faculties[i].active == true)
 			faculty.push(faculties[i].id);
 		if (faculty.length > 0)
 			settings.faculties = faculty;
-		else{
-			$rootScope.$broadcast(broadcastFailed, {status: 1001, statusText:"Choose at least one Faculty"});
-		return;
-		}
 		console.log(settings);
 
 		connection.lock(function(){

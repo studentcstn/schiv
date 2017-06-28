@@ -150,8 +150,8 @@ alert {info|success|warning|danger} [message]
 definition of Error codes
 -------------------------
 
-1000 Error at Email
-1001 Choose at least one faculty Error
+1000 Error at Email 
+1001 Choose at least one faculty Error (NOT IN USE)
 1002 Password is empty Error (login)
 1003 Password repeat Error
 1004 Error in date
