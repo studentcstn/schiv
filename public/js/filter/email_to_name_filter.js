@@ -1,7 +1,7 @@
 schiv_module.filter('email_to_name',function(){
 	return function(email){
 	var dot = email.search(".");
-	for(i = email.length-1, i >=0; --i){
+	for(i = email.length-1; i >=0; --i){
 		if(email.charAt(i).match([0-9]))
 		{
 			email.replace(email.charAt(i)),"");
