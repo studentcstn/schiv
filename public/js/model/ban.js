@@ -13,7 +13,7 @@ ban = {
 	},
 
     unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned) {
-        var success = true;
+        var success = { success: true};
 
         for (i = 0; i < list_of_unbanned.length; ++i) {
             if (list_of_unbanned[i].active == false) {
@@ -26,7 +26,7 @@ ban = {
         }
 
         connection.lock(function () {
-            if (success) {
+            if (success.success) {
                 $rootScope.$broadcast(broadcastSuccess);
             } else {
                 $rootScope.$broadcast(broadcastFailed);
@@ -67,16 +67,15 @@ $http.post('/account_bans', {"account_ban_id": account_ban_id})
     });
 };
 
-var unban_Account = function($http, $rootScope, broadcastSuccess, broadcastFailed, user_id){
+var unban_Account = function($http, success, user_id){
     $http.delete('/account_bans/' + user_id + '')
         .then(function(response){
             connection.free();
             console.log(response);
-	    $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
             connection.free();
             console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
+            success.success = false;
         });
 };
 

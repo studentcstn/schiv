@@ -40,10 +40,25 @@ holiday = {
 		});
 	},
 
-	deleteHoliday: function($http, $rootScope, broadcastSuccess, broadcastFailed, id){
-		connection.lock(function(){
-			delete_Holiday($http, $rootScope, broadcastSuccess, broadcastFailed, id);
-		});
+	deleteHoliday: function($http, $rootScope, broadcastSuccess, broadcastFailed, holidays){
+	    var success = {success: true};
+
+	    for (var i = 0; i < holidays.length; ++i) {
+	        if (!holidays[i].active && holidays[i].account_id != null) {
+                connection.lock(function(){
+                    delete_Holiday($http, success, holidays[i].id);
+                });
+            }
+        }
+
+        connection.lock(function () {
+            if (success.success) {
+               $rootScope.$broadcast(broadcastSuccess);
+            } else {
+               $rootScope.$broadcast(broadcastFailed);
+            }
+            connection.free();
+        });
 	}
 };
 
@@ -51,6 +66,8 @@ var get_Holidays = function($http, $rootScope, broadcastSuccess, broadcastFailed
     $http.get('/holidays/' + from + '/' + to +'')
     .then(function(response) {
     	connection.free();
+    	for (var i = 0; i < response.data.length; ++i)
+    	    response.data[i].active = true;
         console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response.data);
     }, function(response){
@@ -86,15 +103,14 @@ var edit_Holiday = function($http, $rootScope, broadcastSuccess, broadcastFailed
 	});
 };
 
-var delete_Holiday = function($http, $rootScope, broadcastSuccess, broadcastFailed, id){
+var delete_Holiday = function($http, success, id){
 	$http.delete('/holidays/' + id +'')
 	.then(function(response){
 		connection.free();
         console.log(response);
-        $rootScope.$broadcast(broadcastSuccess, response);
 	}, function(response){
 		connection.free();
         console.log(response);
-        $rootScope.$broadcast(broadcastFailed, response);
+        success.success = false;
 	});
 };
