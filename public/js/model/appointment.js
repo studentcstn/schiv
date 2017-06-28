@@ -32,7 +32,7 @@ appointment = {
         } else {
             appointment.weekday = day;
             var d = new Date();
-            d = d.getDate() + "." + (d.getMonth() + 1) + d.getFullYear();
+            d = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
             appointment.date = rebuildDate(d);
         }
 
