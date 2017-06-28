@@ -192,7 +192,8 @@ Schnittstelle synchron erfolgen.
 **Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
 und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
 den Benutzer mit einem Aktivierungslink geschickt (Momentan: wird einfach zum
-Testen der Token mit in der Antwort zurückgeben). Beispiel:
+Testen der Token mit in der Antwort zurückgeben). Ein Aktivierungslink ist zwei
+Stunden lang gültig. Beispiel:
 
 ```json
 {"email":"alice@wonder.land","password":"rabbithole"}
@@ -321,8 +322,8 @@ folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
 
-Versucht ein gesperrter Student eine Anfrage zu stellen, wird ein **401**
-zurückgegeben.
+Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200** 
+zurückgegeben, aber nur so getan als ob die Anfrage durchgegangen ist.
 
 ### Feiertage
 
@@ -464,12 +465,12 @@ $ xdg-open pdf/paper.pdf
 ## Dozenten aktualisieren
 
 Am Ende des Semester können die Dozenten-Konten aktualisiert werden. Dazu dient
-der Befehl `php artisan retrieve:docents`. Es werden alle vorhanden
-Dozenten-Kontos deaktiviert und das Passwort zurückgesetzt. Nur Dozenten die
-noch Zugriff auf ihr E-Mail-Konto haben können sich erneut registrieren und
-anmelden. Die Zugangsdaten für die Schnittstelle der iOS-Stundenplan-App müssen
-in der `.env`-Datei eingetragen werden (Schlüssel: `IOSAPP_USERNAME` und
-`IOSAPP_PASSWORD`).
+der Befehl `php artisan retrieve:docents`. Alle Dozenten die über die
+Schnittstelle nicht mehr vorhanden sind, werden deaktiviert. Deaktivierte
+Dozenten die noch Zugriff auf ihr E-Mail-Konto haben können sich erneut
+registrieren und anmelden. Die Zugangsdaten für die Schnittstelle der
+iOS-Stundenplan-App müssen in der `.env`-Datei eingetragen werden (Schlüssel:
+`IOSAPP_USERNAME` und `IOSAPP_PASSWORD`).
 
 Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
 Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde

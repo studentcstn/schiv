@@ -25,17 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule) {
         if (Config::get('app.debug')) {
-            $dateOfYear = "03-15";
+            # $dateOfYear = "03-15";
 
-            $schedule
-                ->command('retrieve:docents --from-cache')
-                ->everyMinute()
-                ->when(function () use ($dateOfYear) {
-                    return (
-                        $dateOfYear == "03-15" ||
-                        $dateOfYear == "09-31"
-                    );
-                });
+            # $schedule
+            #     ->command('retrieve:docents --from-cache')
+            #     ->everyMinute()
+            #     ->when(function () use ($dateOfYear) {
+            #         return (
+            #             $dateOfYear == "03-15" ||
+            #             $dateOfYear == "09-31"
+            #         );
+            #     });
         } else {
             $dateOfYear = date("m-d");
 

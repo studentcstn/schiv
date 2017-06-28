@@ -24,6 +24,10 @@ class RegisterController extends Controller {
             return response()->json(['message' => 'account already registered'], 409);
         }
 
+        if (strpos($request->input('email'), "@hof-university.de") === false) {
+            return response()->json(['message' => 'only emails with @hof-university are allowed'], 401);
+        }
+
         DB::transaction(function() use ($request, &$account, &$token) {
             $generateToken = false;
             if ($account && $account->active == 0) {
