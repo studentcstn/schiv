@@ -19,7 +19,7 @@ class AppointmentController extends Controller {
 
         $this->validate($request, [
             'weekday'=> Rule::in(['MON','TUE','WED','THU','FRI','SAT','SUN','NULL']),
-            'date'=> 'required_if:weekday,==,NULL|date_format:Y-m-d',
+            'date'=> 'required|date_format:Y-m-d',
 	    'description' => 'required|max:255',
             'time_from'=> 'date_format:H:i:s',
             'time_to'=> 'date_format:H:i:s'
@@ -37,10 +37,16 @@ class AppointmentController extends Controller {
                 ->take(1)
                 ->get();
 
+	    if($end->isEmpty())
+	    {
+		return response()->json(null , 503);
+	    }
+
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
                 ->where('account_id', '=', 'NULL')
                 ->orWhere('account_id', '=', $auth_user->id)
+		->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
                 ->get();
 
@@ -111,6 +117,10 @@ class AppointmentController extends Controller {
                     ->where('id', '=', $parent_id)
                     ->update(['parent_id' => $parent_id]);
             }
+	    else
+	    {
+		return response()->json(['date' => 'is in past'], 422);
+	    }
         }
     }
 
@@ -128,13 +138,8 @@ class AppointmentController extends Controller {
             ->where('active', '=', true)
             ->get();
 
-        if(!$appointments->isEmpty())
-        {
-            return response()->json($appointments);
-        }else
-        {
-            return response()->json(null, 404);
-        }
+        return response()->json($appointments);
+       
     }
 
     public function showPast() {
@@ -146,13 +151,7 @@ class AppointmentController extends Controller {
             ->where('active', '=', true)
             ->get();
 
-        if(!$past->isEmpty())
-        {
-            return response()->json($past);
-        }else
-        {
-            return response()->json(null, 404);
-        }
+        return response()->json($past);
     }
 
     /**
