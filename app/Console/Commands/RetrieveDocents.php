@@ -25,16 +25,6 @@ class RetrieveDocents extends Command
     protected $description = 'Retrieve docents from ios interface';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void

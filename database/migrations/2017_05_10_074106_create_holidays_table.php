@@ -16,6 +16,7 @@ class CreateHolidaysTable extends Migration
         Schema::create('holidays', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('account_id')->unsigned()->nullable();
+            $table->boolean('ignore');
             $table->string('name');
             $table->date('from');
             $table->date('to');
