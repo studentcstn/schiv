@@ -328,12 +328,31 @@
             <div class="form-check" ng-repeat="item in holidays">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != 'null'">
+                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
                     </div>
-                    <div class="col-xs-11">
-                        {{item.name}}, {{item.from}} - {{item.to}}
+                    <div class="col-xs-11 row">
+                        <div class="col-xs-4">{{item.name}}</div>
+                        <div class="col-xs-4">{{item.from}}</div>
+                        <div class="col-xs-4">{{item.to}}</div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 form-group">
+                <label>add holiday</label>
+                <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} Free</small>
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>date from</label>
+                <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.07.2017</small>
+            </div>
+            <div class="col-xs-4 form-group">
+                <label>date to</label>
+                <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 13.08.2018</small>
             </div>
         </div>
     </div>
