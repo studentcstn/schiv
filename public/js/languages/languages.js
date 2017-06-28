@@ -189,6 +189,10 @@ languages = {
 		en: "Create",
 		de: "Erstellen"
     	},
+	ban_button:{
+		en: "Ban",
+		de: "Blockieren"
+    	},
 	register_button:{
 		en: "Register",
 		de: "Einschreiben"
@@ -216,7 +220,11 @@ languages = {
 	delete_appointment:{
 		en: "Are you sure that you want to delete this appointment?",
 		de: "Sind Sie sicher, dass Sie diesen Termin löschen wollen?"
-    	}
+    	},
+	ban_confirmation:{
+		en:"Are you sure you want to ban this User?",
+		de:"Sind Sie sicher, dass Sie diesen Nutzer blockieren möchten?"	
+	}
     },
     days:{
 	monday:{

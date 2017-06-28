@@ -507,13 +507,13 @@
 <!-- ban user -->
 <div class="window ng-hide" ng-show="show_ban_user" ng-controller="ban_user_controller">
     <div class="background">
-        <h4>Are you sure you want to ban this User?</h4>
+        <h4>{{languages.appointment.ban_confirmation[lang]}}</h4>
         <div>{{id}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
                     <div type="button" class="btn btn-default" ng-click="ban_close()">{{languages.appointment.close_button[lang]}}</div>
-                    <div type="button" class="btn btn-default" ng-click="ban()">Ban</div>
+                    <div type="button" class="btn btn-default" ng-click="ban()">{{languages.appointment.ban_button[lang]}}</div>
                 </div>
             </div>
         </div>
