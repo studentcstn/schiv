@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Account;
 use App\AccountBan;
+use App\AppointmentRequest;
 
 class AccountBanController extends Controller {
     public function show() {
@@ -41,6 +42,9 @@ class AccountBanController extends Controller {
         }
 
         DB::transaction(function() use ($accountToBan, $accountDocent, &$accountBan) {
+            AppointmentRequest::where('account_id', $accountToBan->id)
+                ->update(['state' => 'Declined']);
+
             $accountBan = new AccountBan;
             $accountBan->account_id = $accountDocent->id;
             $accountBan->account_ban_id = $accountToBan->id;

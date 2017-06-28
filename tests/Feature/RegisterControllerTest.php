@@ -13,60 +13,80 @@ class RegisterControllerTest extends TestCase {
     use WithoutMiddleware;
     use DatabaseTransactions;
 
+    private function getValidRequest() {
+        return [
+            'email' => 'foo@hof-university.de',
+            'password' => 'foobarbaz123'
+        ];
+    }
+
     public function testStoreSuccess() {
-        $email = 'foo@bar.ba';
-        $password = '0123456789';
-
-        $response = $this->postJson('register', [
-            'email' => 'foo@bar.ba',
-            'password' => '0123456789'
-        ]);
+        $request = $this->getValidRequest();
+        $response = $this->postJson('register', $request);
         $response->assertStatus(200);
+        $this->assertDatabaseMissing('accounts', $request);
+        unset($request['password']);
+        $this->assertDatabaseHas('accounts', $request);
+    }
 
-        $this->assertDatabaseMissing('accounts', [
-            'email' => $email,
-            'password' => $password
-        ]);
+    public function testStoreAccountExistsSuccess() {
+        $request = $this->getValidRequest();
+
+        $account = new Account;
+        $account->email = $request['email'];
+        $account->password = $oldPassword = $request['password'];
+        $account->active = 0;
+        $account->type = "Docent";
+        $account->save();
+
+        $response = $this->postJson('register', $request);
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('accounts', $request);
+    }
+
+
+    public function testStoreForeignEmailFail() {
+        $request = $this->getValidRequest();
+        $request['email'] = 'foo@foo.foo';
+        $response = $this->postJson('register', $request);
+        $response->assertStatus(401);
     }
 
     public function testStoreActiveAndRegisteredFail() {
+        $request = $this->getValidRequest();
+
         $account = new Account;
-        $account->email = 'foo@bar.baz';
-        $account->password = '0123456789';
+        $account->email = $request['email'];
+        $account->password = $request['password'];
         $account->active = 1;
         $account->type = "Docent";
         $account->save();
 
-        $response = $this->postJson('register', [
-            'email' => $account->email,
-            'password' => $account->password
-        ]);
+        $response = $this->postJson('register', $request);
         $response->assertStatus(409);
     }
 
     public function testStorePasswordFail() {
-        $response = $this->postJson('register', [
-            'email' => 'foo@bar.baz',
-            'password' => '012345678'
-        ]);
+        $request = $this->getValidRequest();
+
+        $request['password'] = '012345678';
+        $response = $this->postJson('register', $request);
         $response->assertStatus(422);
 
-        $response = $this->postJson('register', [
-            'email' => 'foo@bar.baz'
-        ]);
+        unset($request['password']);
+        $response = $this->postJson('register', $request);
         $response->assertStatus(422);
     }
 
     public function testStoreEmailFail() {
-        $response = $this->postJson('register', [
-            'email' => 'foo@bar',
-            'password' => '0123456789'
-        ]);
+        $request = $this->getValidRequest();
+
+        $request['email'] = "foo@foo";
+        $response = $this->postJson('register', $request);
         $response->assertStatus(422);
 
-        $response = $this->postJson('register', [
-            'password' => '0123456789'
-        ]);
+        unset($request['email']);
+        $response = $this->postJson('register', $request);
         $response->assertStatus(422);
     }
 
