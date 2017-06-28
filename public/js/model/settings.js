@@ -17,7 +17,7 @@ settings = {
 		}
 		if (password != "" && password.length >= 10 && password == password_repeat)
 			settings.password = password;
-		else
+		else if(password != "" && (password.length < 10  || password_repeat != password))
 		{
 			$rootScope.$broadcast(broadcastFailed, {status: 1003, statusText:"Error at Password"});
 		}
