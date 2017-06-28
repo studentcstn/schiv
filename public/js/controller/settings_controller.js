@@ -14,8 +14,10 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
             $scope.type = "Docent";
             ban.getAccountBans($http, $rootScope, "settings_ban_s", "settings_ban_f");
             var from = new Date;
-            var to = new Date(from);
-            to = to.setYear(to.getYear() + 1);
+            var to = new Date;
+            to.setFullYear(from.getFullYear() + 1);
+            from = from.getFullYear() + "-" + ((from.getMonth() + 1) < 10 ? "0"+(from.getMonth() + 1) : (from.getMonth() + 1)) + "-" + from.getDate();
+            to = to.getFullYear()  + "-" + ((to.getMonth() + 1) < 10 ? "0"+(to.getMonth() + 1) : (to.getMonth() + 1)) + "-" + to.getDate();
             holiday.getHolidays($http, $rootScope, "holidays_get_s", "holidays_get_f", from, to);
         }
     };
