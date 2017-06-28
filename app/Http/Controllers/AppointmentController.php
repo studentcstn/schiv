@@ -44,11 +44,11 @@ class AppointmentController extends Controller {
 
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
-                ->where('account_id', '=', 'NULL')
-                ->orWhere('account_id', '=', $auth_user->id)
 		->where('from', '>=', date('Y-m-d'))
 		->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
+		->where('account_id', '=', 'NULL')
+                ->orWhere('account_id', '=', $auth_user->id)
                 ->get();
 
             $parent_id = 0;
@@ -76,10 +76,10 @@ class AppointmentController extends Controller {
             for($i = $start; $i < $end; $i += $increment)
             {
                 $is_holiday = false;
-
+		$current_date = date('Y-m-d', $i);
+		    
                 for($ii = 0; $ii < count($holidays); ++$ii)
                 {
-                    $current_date = date('Y-m-d', $i);
                     if($current_date >= $holidays[$ii]->from && $current_date <= $holidays[$ii]->to)
                     {
                         $is_holiday = true;
