@@ -4,7 +4,7 @@ schiv_module.filter('email_to_name',function(){
 	for(i = email.length-1; i >=0; --i){
 		if(email.charAt(i).match([0-9]))
 		{
-			email.replace(email.charAt(i),""));
+			email.replace(email.charAt(i),"");
 		}			
 	}
 	var at = email.search("@");
