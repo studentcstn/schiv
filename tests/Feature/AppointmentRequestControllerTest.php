@@ -7,11 +7,12 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 use App\Account;
 use App\Faculties;
 
-class AppointmentControllerTest extends TestCase {
+class AppointmentRequestControllerTest extends TestCase {
    	use WithoutMiddleware;
     	use DatabaseTransactions;
 
@@ -54,7 +55,7 @@ class AppointmentControllerTest extends TestCase {
 	public function testGetRequestsPastStudent()
 	{
 		Auth::login(Account::find(1));
-		
+
 		$app_id = DB::table('appointments')
 			->insertGetId([
                             'account_id' => 3,
@@ -89,7 +90,7 @@ class AppointmentControllerTest extends TestCase {
 	public function testGetRequestsPastDocent()
 	{
 		Auth::login(Account::find(3));
-		
+
 		$app_id = DB::table('appointments')
 			->insertGetId([
                             'account_id' => 3,
