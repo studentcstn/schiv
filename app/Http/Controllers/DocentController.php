@@ -10,6 +10,7 @@ class DocentController extends Controller {
     public function index() {
         $accounts = Account::where('type', 'Docent')
             ->select('id', 'email')
+            ->where('active', true)
             ->get();
 
         if (!$accounts || $accounts->count() == 0) {
@@ -29,6 +30,7 @@ class DocentController extends Controller {
     public function show($id) {
         $account = Account::where('type', 'Docent')
             ->where('id', $id)
+            ->where('active', true)
             ->select('id', 'email')
             ->first();
 
