@@ -16,6 +16,7 @@
             }
             div.alert {
                 margin-top: 5px;
+                margin-bottom: 0px;
             }
             body {
                 padding: 15px;
@@ -77,7 +78,7 @@
                     <button class="btn btn-primary" onclick="send()">Send...</button>
                     <button class="btn btn-default" onclick="pretty()">Pretty</button>
                     <div class="alert alert-info">
-                        <strong>Info:</strong> Press CTRL + Enter to send query under courser or click on "Send..."
+                        <strong>Info:</strong> Press CTRL + Enter to send query under caret or click on "Send..."
                     </div>
                 </td>
             </tr>
