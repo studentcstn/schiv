@@ -7,7 +7,6 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     $scope.newHoliday = {description: "", time_from: "", time_to: ""};
 
     $scope.$on("show_settings", function () {
-        $scope.newHoliday = {description: "", time_from: "", time_to: ""};
         setting();
     });
 
@@ -16,6 +15,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         settings.getSettings($http, $rootScope, "settings_settings_s", "settings_settings_f");
         if (user.type == "Docent") {
             $scope.type = "Docent";
+            $scope.newHoliday = {description: "", time_from: "", time_to: ""};
             ban.getAccountBans($http, $rootScope, "settings_ban_s", "settings_ban_f");
             var from = new Date;
             var to = new Date;

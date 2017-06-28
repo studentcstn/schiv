@@ -330,9 +330,12 @@
                     <div class="col-xs-1">
                         <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
                     </div>
-                    <div class="col-xs-3">{{item.name}}</div>
-                    <div class="col-xs-4">{{item.from}}</div>
-                    <div class="col-xs-4">{{item.to}}</div>
+                    <div class="col-xs-5 visible-sm visible-md visible-lg">{{item.name}}</div>
+                    <div class="col-xs-11 visible-xs">{{item.name}}</div>
+                    <div class="col-xs-3 visible-sm visible-md visible-lg">{{item.from}}</div>
+                    <div class="col-xs-offset-2 col-xs-5 visible-xs">{{item.from}}</div>
+                    <div class="col-xs-3 visible-sm visible-md visible-lg">{{item.to}}</div>
+                    <div class="col-xs-5 visible-xs">{{item.to}}</div>
                 </div>
             </div>
         </div>
