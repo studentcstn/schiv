@@ -1,7 +1,8 @@
 schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
     $scope.settings = {
         email: "[a-z]+[.][a-z]+[0-9]*",
-        date: "[0123][0-9].[01][0-9].[0-9]{4}"
+        date: "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[0-2])[.]([0-9]{2}|[0-9]{4})",
+        subject: "[a-zA-Z0-9]{2,}"
     };
 
     $scope.newHoliday = {description: "", time_from: "", time_to: ""};
@@ -53,9 +54,8 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         ++saved;
         settings.saveSettings($http, $rootScope, "settings_save_s", "settings_save_f", $scope.newUser_settings.email, $scope.newUser_settings.password, $scope.newUser_settings.passwordRepeat, $scope.newUser_settings.faculties);
         if (user.type == "Docent") {
-            ++saved;
+            saved+=2;
             ban.unbanAccount($http, $rootScope, "settings_unbun_s", "settings_unbun_f", $scope.ban);
-
             holiday.deleteHoliday($http, $rootScope, "holiday_remove_s", "holiday_remove_f", $scope.holidays);
             if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_to != null && $scope.newHoliday.time_from != "" && $scope.newHoliday.time_from != null) {
                 ++saved;

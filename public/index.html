@@ -349,8 +349,8 @@
                         </div>
                         <div class="col-xs-9">{{item.name}}</div>
                         <div class="col-xs-offset-1 col-xs-4">
-                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
+                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
                         </div>
                         <div class="col-xs-4">
                             <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
@@ -363,7 +363,7 @@
         <div class="row">
             <div class="col-sm-4 form-group" ng-class="newHoliday.description.length > 0 ? 'has-success' : ''">
                 <label>{{languages.settings.add_holiday[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.description" placeholder="{{languages.appointment.subject[lang]}}">
+                <input type="text" class="form-control" ng-model="newHoliday.description" ng-pattern="settings.subject" placeholder="{{languages.appointment.subject[lang]}}">
                 <small class="form-text text-muted">{{languages.settings.example_holiday[lang]}}</small>
             </div>
             <div class="col-sm-4 form-group" ng-class="newHoliday.time_from.length > 0 ? 'has-success' : ''">
