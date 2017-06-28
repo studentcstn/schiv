@@ -58,8 +58,8 @@ var get_Holidays = function($http, $rootScope, broadcastSuccess, broadcastFailed
     });
 };
 
-var create_Holidays: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name){
-	$http.post('/holidays', {"from:" from, "to": to, "name": name})
+var create_Holidays = function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name){
+	$http.post('/holidays', {"from": from, "to": to, "name": name})
 	.then(function(response){
 		connection.free();
         console.log(response);
