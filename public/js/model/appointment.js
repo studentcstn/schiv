@@ -19,22 +19,33 @@ appointment = {
     },*/
 
     createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
-	time_from = controlTime(time_from);
-	time_to = controlTime(time_to);
-	if(!day.match("(FRI|MON|S(AT|UN)|T(UE|HU)|WED)")) {
-		day = rebuildDate(day);
-		if (!controlDate(day)) {
-		    $rootScope.$broadcast(broadcastFailed, {status: 1004, statusText:"wrong date"});
-		    return;
-		}
-	}
-	if(description == null || description == ""){
-	$rootScope.$broadcast(broadcastFailed, {status: 1005, statusText:"Description must at least have one character"});
-	return;
-	}
+        var appointment = {};
+        appointment.time_from = controlTime(time_from);
+        appointment.time_to = controlTime(time_to);
+        if(!day.match("(FRI|MON|S(AT|UN)|T(UE|HU)|WED)")) {
+            appointment.weekday = "NULL";
+            appointment.date = rebuildDate(day);
+            if (!controlDate(appointment.date)) {
+                $rootScope.$broadcast(broadcastFailed, {status: 1004, statusText:"wrong date"});
+                return;
+            }
+        } else {
+            appointment.weekday = day;
+            var d = new Date();
+            d = d.getDate() + "." + (d.getMonth() + 1) + d.getFullYear();
+            appointment.date = rebuildDate(d);
+        }
+
+        if(description == null || description == ""){
+            $rootScope.$broadcast(broadcastFailed, {status: 1005, statusText:"Description must at least have one character"});
+            return;
+        }
+        appointment.description = description;
+
         connection.lock(function () {
-           create_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description) ;
+           create_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, appointment) ;
         });
+
     },
 
     deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
@@ -99,10 +110,9 @@ var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, b
 };
 */
 
-var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
+var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
 
-    $http.post('/appointments',
-        {"day": day,"time_from": time_from, "time_to": time_to, "description": description})
+    $http.post('/appointments', appointment)
         .then(function(response){
             connection.free();
             console.log(response);
