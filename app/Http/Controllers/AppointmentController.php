@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AppointmentController extends Controller {
     /**
@@ -16,6 +17,14 @@ class AppointmentController extends Controller {
     public function store(Request $request) {
         $auth_user = Auth::user();
 
+        $this->validate($request, [
+            'weekday'=> Rule::in(['MON','TUE','WED','THU','FRI','SAT','SUN','NULL']),
+            'date'=> 'required_if:weekday,==,NULL|date_format:Y-m-d',
+	    'description' => 'required|max:255',
+            'time_from'=> 'date_format:H:i:s',
+            'time_to'=> 'date_format:H:i:s'
+        ]);
+
         $is_day = $request->input('weekday');
 
         if($is_day == 'MON' || $is_day == 'TUE' || $is_day == 'WED' || $is_day == 'THU' || $is_day == 'FRI' || $is_day == 'SAT' || $is_day == 'SUN')
@@ -24,8 +33,15 @@ class AppointmentController extends Controller {
             $end = DB::table('holidays')
                 ->orderBy('from', 'asc')
                 ->select('from')
-                ->where('name', '=', 'Semesterferien')
+                ->where('name', '=', 'Vorlesungsende')
                 ->take(1)
+                ->get();
+
+            $holidays = DB::table('holidays')
+                ->select('from', 'to')
+                ->where('account_id', '=', 'NULL')
+                ->orWhere('account_id', '=', $auth_user->id)
+                ->where('from', '<', $end[0]->from)
                 ->get();
 
             $parent_id = 0;
@@ -40,6 +56,10 @@ class AppointmentController extends Controller {
                             'time_from' => $request->input('time_from'),
                             'time_to' => $request->input('time_to'),
                         ]);
+
+                DB::table('appointments')
+                    ->where('id', '=', $parent_id)
+                    ->update(['parent_id' => $parent_id]);
             }
 
             $start = strtotime('+1 week', strtotime($start));
@@ -48,28 +68,48 @@ class AppointmentController extends Controller {
 
             for($i = $start; $i < $end; $i += $increment)
             {
-                DB::table('appointments')->insertGetId([
-                        'account_id' => $auth_user->id,
-                        'description' => $request->input('description'),
-                        'active' => true,
-                        'parent_id' => $parent_id,
-                        'date' => date('Y-m-d', $i),
-                        'time_from' => $request->input('time_from'),
-                        'time_to' => $request->input('time_to'),
-                ]);
+                $is_holiday = false;
+
+                for($ii = 0; $ii < count($holidays); ++$ii)
+                {
+                    $current_date = date('Y-m-d', $i);
+                    if($current_date >= $holidays[$ii]->from && $current_date <= $holidays[$ii]->to)
+                    {
+                        $is_holiday = true;
+                        break 1;
+                    }
+                }
+
+                if(!$is_holiday)
+                {
+                    DB::table('appointments')->insertGetId([
+                            'account_id' => $auth_user->id,
+                            'description' => $request->input('description'),
+                            'active' => true,
+                            'parent_id' => $parent_id,
+                            'date' => date('Y-m-d', $i),
+                            'time_from' => $request->input('time_from'),
+                            'time_to' => $request->input('time_to'),
+                        ]);
+                }
             }
 
         } else if($is_day == 'NULL'){
+
             if($request->input('date') >= date('Y-m-d'))
             {
-                DB::table('appointments')->insertGetId([
-                    'account_id' => $auth_user->id,
-                    'description' => $request->input('description'),
-                    'active' => true,
-                    'date' => $request->input('date'),
-                    'time_from' => $request->input('time_from'),
-                    'time_to' => $request->input('time_to'),
-                ]);
+                $parent_id = DB::table('appointments')->insertGetId([
+                        'account_id' => $auth_user->id,
+                        'description' => $request->input('description'),
+                        'active' => true,
+                        'date' => $request->input('date'),
+                        'time_from' => $request->input('time_from'),
+                        'time_to' => $request->input('time_to'),
+                    ]);
+
+                DB::table('appointments')
+                    ->where('id', '=', $parent_id)
+                    ->update(['parent_id' => $parent_id]);
             }
         }
     }
@@ -88,7 +128,13 @@ class AppointmentController extends Controller {
             ->where('active', '=', true)
             ->get();
 
-        return response()->json($appointments);
+        if(!$appointments->isEmpty())
+        {
+            return response()->json($appointments);
+        }else
+        {
+            return response()->json(null, 404);
+        }
     }
 
     public function showPast() {
@@ -100,7 +146,13 @@ class AppointmentController extends Controller {
             ->where('active', '=', true)
             ->get();
 
-        return response()->json($past);
+        if(!$past->isEmpty())
+        {
+            return response()->json($past);
+        }else
+        {
+            return response()->json(null, 404);
+        }
     }
 
     /**
@@ -112,9 +164,15 @@ class AppointmentController extends Controller {
     public function destroy($id) {
         $auth_user = Auth::user();
 
-        DB::table('appointments')
+        $fourOFour = DB::table('appointments')
             ->where('id', '=', $id)
             ->where('account_id', '=', $auth_user->id)
+	    ->where('active', '=', true)
             ->update(['active' => false]);
+
+        if($fourOFour == 0)
+        {
+            return response()->json(null, 404);
+        }
     }
 }
