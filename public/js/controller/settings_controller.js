@@ -1,7 +1,7 @@
 schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
     $scope.settings = {
         email: "[a-z]+[.][a-z]+[0-9]*",
-        date: "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[0-2])[.]([0-9]{2}|[0-9]{4})",
+        date: "((0?[1-9]|[12][0-9]|3[01])[.](0?[13578]|1[02])|(0?[1-9]|[12][0-9]|3[0])[.](0?[469]|11)|([01]?[1-9]|2[0-9])[.](0?[2]))[.]([0-9]{2}|[0-9]{4})",
         subject: "[a-zA-Z0-9]{2,}"
     };
 
@@ -57,7 +57,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
             saved+=2;
             ban.unbanAccount($http, $rootScope, "settings_unbun_s", "settings_unbun_f", $scope.ban);
             holiday.deleteHoliday($http, $rootScope, "holiday_remove_s", "holiday_remove_f", $scope.holidays);
-            if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_to != null && $scope.newHoliday.time_from != "" && $scope.newHoliday.time_from != null) {
+            if ($scope.newHoliday.description != "" && $scope.newHoliday.description != null && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_to != null && $scope.newHoliday.time_from != "" && $scope.newHoliday.time_from != null) {
                 ++saved;
                 holiday.createHolidays($http, $rootScope, "holiday_set_s", "holiday_set_f", $scope.newHoliday.time_from, $scope.newHoliday.time_to, $scope.newHoliday.description)
             }
@@ -71,6 +71,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         }
     });
     $scope.$on("settings_save_f", function (event, data) {
+        --saved;
         error(data);
     });
     $scope.$on("settings_unbun_s", function () {
@@ -81,6 +82,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         }
     });
     $scope.$on("settings_unbun_f", function (event, data) {
+        --saved;
         error(data);
     });
     $scope.$on("holiday_remove_s", function (event, data) {
@@ -91,6 +93,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         }
     });
     $scope.$on("holiday_remove_f", function (event, data) {
+        --saved;
         error(data);
     });
 
@@ -102,6 +105,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         }
     });
     $scope.$on("holiday_set_f", function (event, data) {
+        --saved;
         error(data);
     });
 

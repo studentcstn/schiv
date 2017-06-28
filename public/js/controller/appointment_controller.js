@@ -16,7 +16,7 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
             {id: "SAT", name: languages.days.saturday[language]},
             {id: "SUN", name: languages.days.sunday[language]}
             ],
-        date: "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[0-2])[.]([0-9]{2}|[0-9]{4})",
+        date: "((0?[1-9]|[12][0-9]|3[01])[.](0?[13578]|1[02])|(0?[1-9]|[12][0-9]|3[0])[.](0?[469]|11)|([01]?[1-9]|2[0-9])[.](0?[2]))[.]([0-9]{2}|[0-9]{4})",
         time: "([01]?[0-9]|2[0-3])[:][0-5][0-9]"
     };
 

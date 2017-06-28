@@ -339,8 +339,8 @@
                             <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
                         </div>
                         <div class="col-xs-3">
-                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
+                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
                         </div>
                     </div>
                     <div class="visible-xs">
@@ -349,8 +349,8 @@
                         </div>
                         <div class="col-xs-9">{{item.name}}</div>
                         <div class="col-xs-offset-1 col-xs-4">
-                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
+                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
                         </div>
                         <div class="col-xs-4">
                             <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
