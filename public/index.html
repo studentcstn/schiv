@@ -331,8 +331,8 @@
                         <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
                     </div>
                     <div class="col-xs-3">{{item.name}}</div>
-                    <div class="col-xs-4">{{item.from}}</div>
-                    <div class="col-xs-4">{{item.to}}</div>
+                    <div class="col-xs-4">{{item.from | date:"dd mm yyyy"}}</div>
+                    <div class="col-xs-4">{{item.to | date:"dd mm yyyy"}}</div>
                 </div>
             </div>
         </div>
@@ -350,7 +350,7 @@
             <div class="col-sm-4 form-group" ng-class="newHoliday.time_to.length > 0 ? 'has-success' : ''">
                 <label>{{languages.appointment.to[lang]}}</label>
                 <input type="text" class="form-control" ng-model="newHoliday.time_to" ng-pattern="settings.date" placeholder="{{languages.appointment.to[lang]}}">
-                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 13.08.2018</small>
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.08.2018</small>
             </div>
         </div>
     </div>
