@@ -1,15 +1,15 @@
 schiv_module.filter('email_to_name',function(){
 	return function(email){
-	var dot = email.search(".");
-	for(i = email.length-1; i >=0; --i){
-		if(email.charAt(i).match([0-9]))
+		var rest = email.split("@");
+		rest = rest[0].split(".");
+		for(i = rest[1].length-1; i>0; i--)
 		{
-			email.replace(email.charAt(i),"");
-		}			
-	}
-	var at = email.search("@");
-	var first_name = email.substring(0,dot);
-	var last_name = email.substring(dot+1,at);
-	return first_name + " " + last_name;
+			if(rest[1].charAt(i).match([0-9]){
+				rest[1].replace(rest[1].charAt(i), "");			
+			}
+			else
+				break;
+		}
+		return rest[0] + " " + rest[1];
 	}
 });
