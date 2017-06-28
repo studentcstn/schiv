@@ -87,13 +87,7 @@ class AppointmentRequestController extends Controller {
                 ->get();
         }
 
-        if(!$requests->isEmpty())
-        {
-            return response()->json($requests);
-        }else
-        {
-            return response()->json(null, 404);
-        }
+        return response()->json($requests);
     }
 
     public function showPast()
@@ -124,13 +118,7 @@ class AppointmentRequestController extends Controller {
                 ->get();
         }
 
-        if(!$past->isEmpty())
-        {
-            return response()->json($past);
-        }else
-        {
-            return response()->json(null, 404);
-        }
+        return response()->json($past);
     }
 
     /**
