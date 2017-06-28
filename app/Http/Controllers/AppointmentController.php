@@ -46,6 +46,7 @@ class AppointmentController extends Controller {
                 ->select('from', 'to')
                 ->where('account_id', '=', 'NULL')
                 ->orWhere('account_id', '=', $auth_user->id)
+		->where('from', '>=', date('Y-m-d'))
 		->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
                 ->get();
