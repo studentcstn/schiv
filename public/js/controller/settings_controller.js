@@ -83,6 +83,17 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     $scope.$on("settings_unbun_f", function (event, data) {
         error(data);
     });
+    $scope.$on("holiday_remove_s", function (event, data) {
+        --saved;
+        if (saved == 0) {
+            $rootScope.$broadcast("alert", "success", languages.settings.changes_saved[language]);
+            setting();
+        }
+    });
+    $scope.$on("holiday_remove_f", function (event, data) {
+        error(data);
+    });
+
     $scope.$on("holiday_set_s", function (event, data) {
        --saved;
         if (saved == 0) {
