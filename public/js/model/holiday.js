@@ -45,8 +45,10 @@ holiday = {
 
 	    for (var i = 0; i < holidays.length; ++i) {
 	        if (!holidays[i].active && holidays[i].account_id != null) {
+                holiday_id = holidays[i].id;
+
                 connection.lock(function(){
-                    delete_Holiday($http, success, holidays[i].id);
+                    delete_Holiday($http, success, holiday_id);
                 });
             }
         }
