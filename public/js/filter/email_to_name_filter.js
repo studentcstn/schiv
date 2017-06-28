@@ -12,4 +12,4 @@ schiv_module.filter('email_to_name',function(){
 	var last_name = email.substring(dot+1,at);
 	return first_name + " " + last_name;
 	}
-}
+});
