@@ -327,15 +327,22 @@
         <div class="form-group">
             <div class="form-check" ng-repeat="item in holidays">
                 <div class="row">
-                    <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
+                    <div class="visible-sm visible-md visible-lg">
+                        <div class="col-xs-1 visible-sm visible-md visible-lg">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
+                        </div>
+                        <div class="col-xs-5">{{item.name}}</div>
+                        <div class="col-xs-3">{{item.from}}</div>
+                        <div class="col-xs-3">{{item.to}}</div>
                     </div>
-                    <div class="col-xs-5 visible-sm visible-md visible-lg">{{item.name}}</div>
-                    <div class="col-xs-11 visible-xs">{{item.name}}</div>
-                    <div class="col-xs-3 visible-sm visible-md visible-lg">{{item.from}}</div>
-                    <div class="col-xs-offset-2 col-xs-5 visible-xs">{{item.from}}</div>
-                    <div class="col-xs-3 visible-sm visible-md visible-lg">{{item.to}}</div>
-                    <div class="col-xs-5 visible-xs">{{item.to}}</div>
+                    <div class="visible-xs">
+                        <div class="col-xs-2 visible-xs">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
+                        </div>
+                        <div class="col-xs-19">{{item.name}}</div>
+                        <div class="col-xs-offset-3 col-xs-4">{{item.from}}</div>
+                        <div class="col-xs-4">{{item.to}}</div>
+                    </div>
                 </div>
             </div>
         </div>
