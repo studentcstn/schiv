@@ -30,6 +30,13 @@ class SettingController extends Controller {
             'password' => 'min:10'
         ]);
 
+        $accountEmail = Account::where('email', $request->input('email'))
+                        ->first();
+
+        if ($accountEmail && $account->id !== $accountEmail->id) {
+            return response()->json(['message' => 'email already exists'], 401);
+        }
+
         DB::transaction(function() use ($request, $account) {
             if ($request->has('password')) {
                 $account->password = Hash::make($request->input('password'));

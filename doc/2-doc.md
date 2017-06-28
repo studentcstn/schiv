@@ -192,7 +192,8 @@ Schnittstelle synchron erfolgen.
 **Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
 und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
 den Benutzer mit einem Aktivierungslink geschickt (Momentan: wird einfach zum
-Testen der Token mit in der Antwort zurückgeben). Beispiel:
+Testen der Token mit in der Antwort zurückgeben). Ein Aktivierungslink ist zwei
+Stunden lang gültig. Beispiel:
 
 ```json
 {"email":"alice@wonder.land","password":"rabbithole"}
@@ -321,8 +322,8 @@ folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
 
-Versucht ein gesperrter Student eine Anfrage zu stellen, wird ein **401**
-zurückgegeben.
+Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200** 
+zurückgegeben, aber nur so getan als ob die Anfrage durchgegangen ist.
 
 ### Feiertage
 

@@ -100,6 +100,17 @@ class SettingControllerTest extends TestCase {
         $response->assertStatus(422);
     }
 
+    public function testUpdateEmailExistsFail() {
+        Auth::login(Account::find(1));
+        $account = Account::find(2);
+
+        $request = $this->getValidRequest();
+        $request['email'] = $account->email;
+
+        $response = $this->putJson('settings', $request);
+        $response->assertStatus(401);
+    }
+
     public function testUpdateFacultiesFail() {
         Auth::login(Account::find(1));
         $request = $this->getValidRequest();
