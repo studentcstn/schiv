@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AppointmentRequestController extends Controller {
     /**
@@ -15,14 +16,42 @@ class AppointmentRequestController extends Controller {
     public function store(Request $request) {
         $auth_user = Auth::user();
 
-        DB::table('appointment_requests')->insertGetId([
-            'account_id' => $auth_user->id,
-            'appointment_id' => $request->input('appointment_id'),
-            'description' => $request->input('description'),
-            'subject' => $request->input('subject'),
-            'active' => true,
-            'state' => 'Idle'
+        $this->validate($request, [
+            'appointment_id' => 'required|numeric',
+            'description' => 'max:255',
+            'subject' => 'max:255'
         ]);
+
+        $banner = DB::table('appointments')
+            ->select('account_id')
+            ->where('id', '=', $request->input('appointment_id'))
+	    ->where('active', '=', true)
+            ->get();
+
+	$ban;
+
+	if(!$banner->isEmpty())
+	{
+        	$ban = DB::table('account_bans')
+            	->where('account_id', '=', $banner[0]->account_id)
+            	->where('account_ban_id', '=', $auth_user->id)
+            	->get();
+	}else
+	{
+		return response()->json(null, 404);
+	}
+
+        if($ban->isEmpty())
+        {
+            DB::table('appointment_requests')->insertGetId([
+                'account_id' => $auth_user->id,
+                'appointment_id' => $request->input('appointment_id'),
+                'description' => $request->input('description'),
+                'subject' => $request->input('subject'),
+                'active' => true,
+                'state' => 'Idle'
+            ]);
+        }
     }
 
     /**
@@ -33,9 +62,9 @@ class AppointmentRequestController extends Controller {
      */
     public function show() {
         $auth_user = Auth::user();
+        $requests;
 
         if($auth_user->type == 'Docent') {
-            //todo return email of student
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
                 ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
@@ -46,18 +75,25 @@ class AppointmentRequestController extends Controller {
                 ->where('appointment_requests.active', '=', true)
                 ->where('appointments.date', '>=', date('Y-m-d'))
                 ->get();
-        } else {
+        } else
+        {
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
                 ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointment_requests.account_id', '=', $auth_user->id)
-                ->where('appointment_requests.state', '=', true)
+		->where('appointment_requests.active', '=', true)
                 ->where('appointments.active', '=', true)
                 ->where('appointments.date', '>=', date('Y-m-d'))
                 ->get();
         }
 
-        return response()->json($requests);
+        if(!$requests->isEmpty())
+        {
+            return response()->json($requests);
+        }else
+        {
+            return response()->json(null, 404);
+        }
     }
 
     public function showPast()
@@ -69,7 +105,8 @@ class AppointmentRequestController extends Controller {
         {
             $past = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+                ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
                 ->where('appointment_requests.state', '=', true)
@@ -87,7 +124,13 @@ class AppointmentRequestController extends Controller {
                 ->get();
         }
 
-        return response()->json($past);
+        if(!$past->isEmpty())
+        {
+            return response()->json($past);
+        }else
+        {
+            return response()->json(null, 404);
+        }
     }
 
     /**
@@ -100,19 +143,28 @@ class AppointmentRequestController extends Controller {
     {
         $auth_user = Auth::user();
 
-            $requests = DB::table('appointment_requests')
-                ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-                ->where('appointment_requests.id', '=', $request->input('id'))
-                ->where('appointments.account_id', '=', $auth_user->id)
-                ->count();
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'state' => Rule::in(['Accepted', 'Declined']),
+            'duration_in_min' => 'required|numeric'
+        ]);
 
-            if($requests)
-            {
-                DB::table('appointment_requests')
-                    ->where('id', '=', $request->input('id'))
-                    ->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min')]);
+        $requests = DB::table('appointment_requests')
+            ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+            ->where('appointment_requests.id', '=', $request->input('id'))
+            ->where('appointments.account_id', '=', $auth_user->id)
+            ->count();
 
-            }
+        if($requests)
+        {
+            DB::table('appointment_requests')
+                ->where('id', '=', $request->input('id'))
+                ->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min')]);
+
+        }else
+        {
+            return response()->json(null, 404);
+        }
     }
 
     /**
@@ -124,9 +176,15 @@ class AppointmentRequestController extends Controller {
     public function destroy($id) {
         $auth_user = Auth::user();
 
-        DB::table('appointment_requests')
+        $fourOFour = DB::table('appointment_requests')
             ->where('id', '=', $id)
             ->where('account_id', '=', $auth_user->id)
+	    ->where('active', '=', true)
             ->update(['active' => false]);
+
+        if($fourOFour == 0)
+        {
+            return response()->json(null, 404);
+        }
     }
 }
