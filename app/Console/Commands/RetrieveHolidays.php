@@ -75,8 +75,8 @@ class RetrieveHolidays extends Command
 
                 $holiday = Holiday::firstOrNew([
                     'name' => $name,
-                    'from' => $from,
-                    'to'   => $to,
+                    'from' => date('Y-m-d', strtotime($from)),
+                    'to'   => date('Y-m-d', strtotime($to)),
                 ]);
 
                 $holiday->ignore = $ignoreFlag;
