@@ -21,6 +21,7 @@ class HolidayController extends Controller {
 
         $holidays = Holiday::where("from", "<", $to)
             ->where("to", ">", $from)
+            ->where("ignore", false)
             ->where(function ($query) {
                 $query
                     ->where("account_id", null)
@@ -44,6 +45,7 @@ class HolidayController extends Controller {
 
         $holiday = Holiday::where('from', $request->input("from"))
             ->where('to', $request->input("to"))
+            ->where("ignore", false)
             ->where('name', $request->input("name"))
             ->first();
 
@@ -56,6 +58,7 @@ class HolidayController extends Controller {
         $holiday->to = $request->input('to');
         $holiday->name = $request->input('name');
         $holiday->account_id = Auth::user()->id;
+        $holiday->ignore = false;
         $holiday->save();
 
         return response()->json(['id' => $holiday->id]);
@@ -71,7 +74,7 @@ class HolidayController extends Controller {
 
         $holiday = Holiday::find($request->input("id"));
 
-        if (!$holiday || $holiday->account_id != Auth::user()->id) {
+        if (!$holiday || $holiday->ignore || $holiday->account_id != Auth::user()->id) {
             return response()->json(null, 404);
         }
 
@@ -89,7 +92,7 @@ class HolidayController extends Controller {
 
     public function destroy($id) {
         $holiday = Holiday::find($id);
-        if (!$holiday || $holiday->account_id != Auth::user()->id) {
+        if (!$holiday || $holiday->ignore || $holiday->account_id != Auth::user()->id) {
             return response()->json(null, 404);
         }
 

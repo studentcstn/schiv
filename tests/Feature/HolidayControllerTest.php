@@ -90,6 +90,7 @@ class HolidayControllerTest extends TestCase {
         $holiday->from = '2017-09-09';
         $holiday->to = '2017-09-09';
         $holiday->name = 'Frei';
+        $holiday->ignore = false;
         $holiday->save();
         return $holiday;
     }
