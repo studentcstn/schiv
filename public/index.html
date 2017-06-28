@@ -332,20 +332,28 @@
                             <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
                         </div>
                         <div class="col-xs-5">{{item.name}}</div>
-                        <div class="col-xs-3"><span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-					      <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span></div>
-                        <div class="col-xs-3"><span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-					      <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span></div>
+                        <div class="col-xs-3">
+                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
+                        </div>
+                        <div class="col-xs-3">
+                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
+                        </div>
                     </div>
                     <div class="visible-xs">
                         <div class="col-xs-2 visible-xs">
                             <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
                         </div>
                         <div class="col-xs-9">{{item.name}}</div>
-                        <div class="col-xs-offset-1 col-xs-4"><span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-					      		      <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span></div>
-                        <div class="col-xs-4"><span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
-					      <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span></div>
+                        <div class="col-xs-offset-1 col-xs-4">
+                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
+                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -451,7 +459,7 @@
         </div>
         <div class="row" ng-show="appointment.frequency == 0">
             <div class="form-group col-xs-12">
-                <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item.id" ng-class="newAppointment.day == item ? 'btn-success' : 'btn-default'">
+                <div class="btn" ng-repeat="item in appointment_build.day" ng-click="newAppointment.day = item.id" ng-class="newAppointment.day == item.id ? 'btn-success' : 'btn-default'">
                     {{item.name}}
                 </div>
             </div>
@@ -463,12 +471,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-6" ng-class="newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.from[lang]}}">
+            <div class="form-group col-xs-6" ng-class="newAppointment.from != null && newAppointment.from.length != 0 ? 'has-success' : 'has-error'">
+                <input type="text" class="form-control" ng-model="newAppointment.from" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.from[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 09:45</small>
             </div>
-            <div class="form-group col-xs-6" ng-class="newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
-                <input class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.to[lang]}}">
+            <div class="form-group col-xs-6" ng-class="newAppointment.to != null && newAppointment.to.length != 0 ? 'has-success' : 'has-error'">
+                <input type="text" class="form-control" ng-model="newAppointment.to" ng-pattern="appointment_build.time" placeholder="{{languages.appointment.to[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 11:15</small>
             </div>
         </div>
