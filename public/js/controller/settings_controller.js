@@ -56,7 +56,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
             ++saved;
             ban.unbanAccount($http, $rootScope, "settings_unbun_s", "settings_unbun_f", $scope.ban);
 
-            if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_from != "") {
+            if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_to != null && $scope.newHoliday.time_from != "" && $scope.newHoliday.time_from != null) {
                 ++saved;
                 holiday.createHolidays($http, $rootScope, "holiday_set_s", "holiday_set_f", $scope.newHoliday.time_from, $scope.newHoliday.time_to, $scope.newHoliday.description)
             }
