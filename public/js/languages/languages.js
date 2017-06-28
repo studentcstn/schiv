@@ -132,7 +132,19 @@ languages = {
         changes_saved:{
         	en:"Your settings have been updated.",
         	de:"Ihre Einstellungen wurden aktualisiert."
-        }
+        },
+	holidays:{
+		en:"Holidays",
+		de:"Feiertage"
+	},
+	add_holiday:{
+		en:"Add holiday(s)",
+		de:"Feiertag(e) hinzufügen"
+	},
+	example_holiday:{
+		en:"For example: Further training",
+		de:"Zum Beispiel: Fortbildung"
+	}
     },
     appointment:{
 	frequent:{

@@ -322,7 +322,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-xs-12 col-form-label">holidays</label>
+            <label class="col-xs-12 col-form-label">{{languages.settings.holidays[lang]}}</label>
         </div>
         <div class="form-group">
             <div class="form-check" ng-repeat="item in holidays">
@@ -340,17 +340,17 @@
         </div>
         <div class="row">
             <div class="col-xs-4 form-group">
-                <label>add holiday</label>
+                <label>{{languages.settings.add_holiday[lang]}}</label>
                 <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
-                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} Free</small>
+                <small class="form-text text-muted">{{languages.settings.example_holiday[lang]}}</small>
             </div>
             <div class="col-xs-4 form-group">
-                <label>date from</label>
+                <label>{{languages.appointment.from[lang]}}</label>
                 <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.07.2017</small>
             </div>
             <div class="col-xs-4 form-group">
-                <label>date to</label>
+                <label>{{languages.appointment.to[lang]}}</label>
                 <input type="text" class="form-control" ng-model="durationTime" placeholder="{{languages.appointment.to[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 13.08.2018</small>
             </div>
