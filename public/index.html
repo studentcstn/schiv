@@ -332,16 +332,16 @@
                             <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
                         </div>
                         <div class="col-xs-5">{{item.name}}</div>
-                        <div class="col-xs-3">{{item.from}}</div>
-                        <div class="col-xs-3">{{item.to}}</div>
+                        <div class="col-xs-3">{{item.from | date:"dd.mm.yyyy"}}</div>
+                        <div class="col-xs-3">{{item.to | date:"dd.mm.yyyy"}}</div>
                     </div>
                     <div class="visible-xs">
                      <div class="col-xs-2 visible-xs">
                         <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
                         </div>
               		<div class="col-xs-3">{{item.name}}</div>
-                   	<div class="col-xs-4">{{item.from | date:"dd mm yyyy"}}</div>
-                   	<div class="col-xs-4">{{item.to | date:"dd mm yyyy"}}</div>
+                   	<div class="col-xs-4">{{item.from | date:"dd.mm.yyyy"}}</div>
+                   	<div class="col-xs-4">{{item.to | date:"dd.mm.yyyy"}}</div>
                     </div> 
                 </div>
             </div>
