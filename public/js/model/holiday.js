@@ -85,7 +85,7 @@ var edit_Holiday = function($http, $rootScope, broadcastSuccess, broadcastFailed
 };
 
 var delete_Holiday = function($http, $rootScope, broadcastSuccess, broadcastFailed, id){
-	$http.put('/holidays/' + id +'')
+	$http.delete('/holidays/' + id +'')
 	.then(function(response){
 		connection.free();
         console.log(response);
