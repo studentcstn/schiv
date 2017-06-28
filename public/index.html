@@ -339,12 +339,12 @@
         <div class="row">
             <div class="col-sm-4 form-group" ng-class="newHoliday.description.length > 0 ? 'has-success' : ''">
                 <label>{{languages.settings.add_holiday[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.description" placeholder="{{languages.appointment.to[lang]}}">
+                <input type="text" class="form-control" ng-model="newHoliday.description" placeholder="{{languages.appointment.subject[lang]}}">
                 <small class="form-text text-muted">{{languages.settings.example_holiday[lang]}}</small>
             </div>
             <div class="col-sm-4 form-group" ng-class="newHoliday.time_from.length > 0 ? 'has-success' : ''">
                 <label>{{languages.appointment.from[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.time_from" ng-pattern="settings.date" placeholder="{{languages.appointment.to[lang]}}">
+                <input type="text" class="form-control" ng-model="newHoliday.time_from" ng-pattern="settings.date" placeholder="{{languages.appointment.from[lang]}}">
                 <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.07.2017</small>
             </div>
             <div class="col-sm-4 form-group" ng-class="newHoliday.time_to.length > 0 ? 'has-success' : ''">
