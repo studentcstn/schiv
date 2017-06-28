@@ -13,6 +13,10 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         if (user.type == "Docent") {
             $scope.type = "Docent";
             ban.getAccountBans($http, $rootScope, "settings_ban_s", "settings_ban_f");
+            var from = new Date;
+            var to = new Date(from);
+            to = to.setYear(to.getYear() + 1);
+            holiday.getHolidays($http, $rootScope, "holidays_get_s", "holidays_get_f", from, to);
         }
     };
     $scope.$on("settings_settings_s", function (event, data) {
@@ -28,6 +32,12 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         $scope.ban = data;
     });
     $scope.$on("settings_ban_f", function (event, data) {
+        error(data);
+    });
+    $scope.$on("holidays_get_s", function (event, data) {
+        console.log(data);
+    });
+    $scope.$on("holidays_get_f", function (event, data) {
         error(data);
     });
 
