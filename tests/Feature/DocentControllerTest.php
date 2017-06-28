@@ -16,12 +16,14 @@ class DocentControllerTest extends TestCase {
     public function testIndexSuccess() {
         $response = $this->getJson('docents');
         $response->assertStatus(200);
+        $this->assertGreaterThan(0, count($response->json()));
     }
 
     public function testIndexFail() {
         Account::where('type', 'Docent')->delete();
         $response = $this->getJson('docents');
-        $response->assertStatus(404);
+        $response->assertStatus(200);
+        $this->assertEquals(count($response->json()), 0);
     }
 
     public function testShowSucces() {

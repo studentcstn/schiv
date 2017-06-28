@@ -14,7 +14,7 @@ class DocentController extends Controller {
             ->get();
 
         if (!$accounts || $accounts->count() == 0) {
-            return response()->json([], 404);
+            return response()->json([], 200);
         } else {
             $result = [];
             foreach ($accounts as $account) {

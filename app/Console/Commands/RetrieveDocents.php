@@ -104,6 +104,11 @@ class RetrieveDocents extends Command
         }
 
         DB::beginTransaction();
+        $last_updated_at = DB::table('accounts')->max('updated_at');
+
+        if ($last_updated_at === null) {
+            $last_updated_at = date('Y-m-d H:i:s');
+        }
         foreach ($docents as $docent) {
             $docent = str_replace("Professoren", "", $docent);
             $docent = str_replace("Prüfungsaufsicht", "", $docent);
@@ -131,20 +136,27 @@ class RetrieveDocents extends Command
             $partOne = strtolower($names[$length - 2]);
             $partTwo = strtolower($names[$length - 1]);
 
-            Account::where('type', 'Docent')
-                ->update(['active' => false]);
-
             $email = "$partOne.$partTwo@hof-university.de";
 
             $account = Account::firstOrNew(['email' => $email]);
-            $account->email = $email;
-            $account->password = "";
-            $account->type = 'Docent';
-            $account->active = false;
+            if ($account->type === null) {
+                $account->type = 'Docent';
+                $account->password = "";
+                $account->active = false;
+            } else {
+                $account->type = 'Docent';
+                $account->updated_at = date('Y-m-d H:i:s');
+            }
             $account->save();
-
-            echo $account->email."\n";
         }
+
+        Account::where('type', 'Docent')
+            ->where('updated_at', '<=', $last_updated_at)
+            ->update(['active' => false]);
+        Account::where('type', 'Docent')
+            ->where('updated_at', null)
+            ->update(['active' => false]);
+
         DB::commit();
     }
 }

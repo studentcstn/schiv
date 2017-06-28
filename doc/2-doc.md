@@ -464,12 +464,12 @@ $ xdg-open pdf/paper.pdf
 ## Dozenten aktualisieren
 
 Am Ende des Semester können die Dozenten-Konten aktualisiert werden. Dazu dient
-der Befehl `php artisan retrieve:docents`. Es werden alle vorhanden
-Dozenten-Kontos deaktiviert und das Passwort zurückgesetzt. Nur Dozenten die
-noch Zugriff auf ihr E-Mail-Konto haben können sich erneut registrieren und
-anmelden. Die Zugangsdaten für die Schnittstelle der iOS-Stundenplan-App müssen
-in der `.env`-Datei eingetragen werden (Schlüssel: `IOSAPP_USERNAME` und
-`IOSAPP_PASSWORD`).
+der Befehl `php artisan retrieve:docents`. Alle Dozenten die über die
+Schnittstelle nicht mehr vorhanden sind, werden deaktiviert. Deaktivierte
+Dozenten die noch Zugriff auf ihr E-Mail-Konto haben können sich erneut
+registrieren und anmelden. Die Zugangsdaten für die Schnittstelle der
+iOS-Stundenplan-App müssen in der `.env`-Datei eingetragen werden (Schlüssel:
+`IOSAPP_USERNAME` und `IOSAPP_PASSWORD`).
 
 Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
 Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde
