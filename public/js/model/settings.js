@@ -25,8 +25,8 @@ settings = {
 		for (i = 0; i < faculties.length; ++i)
 		if (faculties[i].active == true)
 			faculty.push(faculties[i].id);
-		if (faculty.length > 0)
-			settings.faculties = faculty;
+
+		settings.faculties = faculty;
 		console.log(settings);
 
 		connection.lock(function(){
