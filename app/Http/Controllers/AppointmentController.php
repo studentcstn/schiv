@@ -44,7 +44,7 @@ class AppointmentController extends Controller {
 
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
-		->where('from', '>=', date('Y-m-d'))
+		->where('to', '>=', $start)
 		->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
 		->where('account_id', '=', 'NULL')
