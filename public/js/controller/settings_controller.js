@@ -58,7 +58,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
 
             if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_from != "") {
                 ++saved;
-                holiday.createHolidays($http, $rootScope, "holiday_set_s", "holiday_set_f", $scope.newHoliday.description, $scope.newHoliday.time_from, $scope.newHoliday.time_to)
+                holiday.createHolidays($http, $rootScope, "holiday_set_s", "holiday_set_f", $scope.newHoliday.time_from, $scope.newHoliday.time_to, $scope.newHoliday.description)
             }
         }
     };
