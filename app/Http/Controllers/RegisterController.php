@@ -25,9 +25,10 @@ class RegisterController extends Controller {
         }
 
         DB::transaction(function() use ($request, &$account, &$token) {
-            $generateToken = true;
+            $generateToken = false;
             if ($account && $account->active == 0) {
                 $account->password = Hash::make($request->input('password'));
+                $account->save();
                 $generateToken = true;
             } else if (!$account) {
                 $account = new Account();
