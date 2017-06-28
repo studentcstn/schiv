@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\RetrieveDocents::class,
+        Commands\RetrieveHolidays::class,
         Commands\Maintance::class
     ];
 
