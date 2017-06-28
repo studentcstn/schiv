@@ -1,9 +1,13 @@
 schiv_module.controller('settings_controller', function($scope, $http, $rootScope){
     $scope.settings = {
-        email: "[a-z]+[.][a-z]+[0-9]*"
+        email: "[a-z]+[.][a-z]+[0-9]*",
+        date: "[0123][0-9].[01][0-9].[0-9]{4}"
     };
 
+    $scope.newHoliday = {description: "", time_from: "", time_to: ""};
+
     $scope.$on("show_settings", function () {
+        $scope.newHoliday = {description: "", time_from: "", time_to: ""};
         setting();
     });
 
@@ -51,6 +55,11 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         if (user.type == "Docent") {
             ++saved;
             ban.unbanAccount($http, $rootScope, "settings_unbun_s", "settings_unbun_f", $scope.ban);
+
+            if ($scope.newHoliday.description != "" && $scope.newHoliday.time_to != "" && $scope.newHoliday.time_from != "") {
+                ++saved;
+                holiday.createHolidays($http, $rootScope, "holiday_set_s", "holiday_set_f", $scope.newHoliday.description, $scope.newHoliday.time_from, $scope.newHoliday.time_to)
+            }
         }
     };
     $scope.$on("settings_save_s", function () {
@@ -71,6 +80,16 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         }
     });
     $scope.$on("settings_unbun_f", function (event, data) {
+        error(data);
+    });
+    $scope.$on("holiday_set_s", function (event, data) {
+       --saved;
+        if (saved == 0) {
+            $rootScope.$broadcast("alert", "success", languages.settings.changes_saved[language]);
+            setting();
+        }
+    });
+    $scope.$on("holiday_set_f", function (event, data) {
         error(data);
     });
 

@@ -11,6 +11,8 @@ holiday = {
 	},
 
 	createHolidays: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to, name){
+		from = rebuildDate(from);
+		to = rebuildDate(to);
 		if(!controlDate(from) || !controlDate(to)){
 			$rootScope.$broadcast(broadcastFailed, {status:1004, statusText:"Error in date"});
 			return;

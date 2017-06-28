@@ -22,7 +22,7 @@ appointment = {
 	time_from = controlTime(time_from);
 	time_to = controlTime(time_to);
 	if(!day.match("(FRI|MON|S(AT|UN)|T(UE|HU)|WED)")) {
-		day = controlDay(day);
+		day = rebuildDate(day);
 		if (!controlDate(day)) {
 		    $rootScope.$broadcast(broadcastFailed, {status: 1004, statusText:"wrong date"});
 		    return;

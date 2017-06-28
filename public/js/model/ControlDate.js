@@ -22,7 +22,7 @@ controlTime = function(time) {
     return time + ":00";
 };
 
-controlDay = function (day) {
+rebuildDate = function (day) {
     var d = day.split('.');
     if (d[2].length < 4)
         d[2] = "20"+d[2];
