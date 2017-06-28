@@ -6,7 +6,7 @@ languages = {
     	},
     	past: {
     		en: "Past",
-    		de: "Verganenes"
+    		de: "Vergangenes"
     	},
     	settings: {
     		en: "Settings",
