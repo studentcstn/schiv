@@ -10,6 +10,8 @@ schiv_module.filter('email_to_name',function(){
 			else
 				break;
 		}
+		rest[0] = rest[0].charAt(0).toUpperCase() + rest[0].substring(1);
+		rest[1] = rest[1].charAt(0).toUpperCase() + rest[1].substring(1);
 		return rest[0] + " " + rest[1];
 	}
 });
