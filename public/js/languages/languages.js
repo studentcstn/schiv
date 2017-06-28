@@ -142,8 +142,8 @@ languages = {
 		de:"Feiertag(e) hinzufügen"
 	},
 	example_holiday:{
-		en:"For example: Further training",
-		de:"Zum Beispiel: Fortbildung"
+		en:"For example: Further training (at least 2 character)",
+		de:"Zum Beispiel: Fortbildung (mindestens 2 Zeichen)"
 	}
     },
     appointment:{
