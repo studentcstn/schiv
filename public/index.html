@@ -329,7 +329,7 @@
                 <div class="row">
                     <div class="visible-sm visible-md visible-lg">
                         <div class="col-xs-1 visible-sm visible-md visible-lg">
-                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
                         </div>
                         <div class="col-xs-5">{{item.name}}</div>
                         <div class="col-xs-3">{{item.from | date:"dd.MM.yyyy"}}</div>
@@ -337,7 +337,7 @@
                     </div>
                     <div class="visible-xs">
                         <div class="col-xs-2 visible-xs">
-                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != null">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
                         </div>
                         <div class="col-xs-9">{{item.name}}</div>
                         <div class="col-xs-offset-1 col-xs-4">{{item.from | date:"dd.MM.yyyy"}}</div>
