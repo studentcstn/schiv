@@ -304,7 +304,7 @@
             </label>
         </div>
     </div>
-    <!-- baned users -->
+    <!-- baned users and holidays-->
     <div ng-show="type == 'Docent'">
         <div class="form-group row">
             <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">{{languages.settings.banned_users[lang]}}</label>
@@ -317,6 +317,21 @@
                     </div>
                     <div class="col-xs-11">
                         {{item.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-xs-12 col-form-label">holidays</label>
+        </div>
+        <div class="form-group">
+            <div class="form-check" ng-repeat="item in holidays">
+                <div class="row">
+                    <div class="col-xs-1">
+                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-show="item.account_id != 'null'">
+                    </div>
+                    <div class="col-xs-11">
+                        {{item.name}}, {{item.from}} - {{item.to}}
                     </div>
                 </div>
             </div>

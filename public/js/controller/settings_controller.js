@@ -37,7 +37,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
         error(data);
     });
     $scope.$on("holidays_get_s", function (event, data) {
-        console.log(data);
+        $scope.holidays = data;
     });
     $scope.$on("holidays_get_f", function (event, data) {
         error(data);
