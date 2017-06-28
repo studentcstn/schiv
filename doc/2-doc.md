@@ -236,8 +236,8 @@ der Nachricht absetzen, um das Konto wieder zu aktivieren.
 
 ### Suche: Dozenten
 
-Liefert alle Dozenten zurück, um im Frontend eine Suche implementieren zu
-können.
+Liefert alle aktiven Dozenten zurück, um im Frontend eine Suche implementieren
+zu können.
 
 Bei `get:docents`: Liefert alle Dozenten zurück (`id`, `email`). Zusätzlich noch
 die Fakultät des Dozenten. Beispiel:
