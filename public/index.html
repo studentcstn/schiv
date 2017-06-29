@@ -533,25 +533,22 @@
 <div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
         <h4>{{languages.appointment.delete_appointment[lang]}}</h4>
-        <div>{{appointment.description}}</div>
-        <div>{{appointment.time_from}} - {{appointment.time_to}}</div>
+        <div>{{appointment.description}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
         <div class="form-group">
             <div class="form-check">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active">
+                        <input type="checkbox" class="form-check-input" ng-model="appointment.active">
                     </div>
                     <div class="col-xs-5">{{appointment.date}}</div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
             <div class="form-check" ng-repeat="item in appointment.appointments">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active">
+                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-checked="appointment.active">
                     </div>
-                    <div class="col-xs-5">{{item.name}}</div>
+                    <div class="col-xs-5">{{item.date}}</div>
                 </div>
             </div>
         </div>
