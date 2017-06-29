@@ -103,6 +103,7 @@ appointment = {
     	}
 
     	appointment.sort_appointment(appointments);
+        return appointments;
     },
     sort_appointment: function (appointments) {
         for (var i = 1; i < appointments.length; ++i) {

@@ -167,14 +167,14 @@
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
         <div id="appointments">
-            <div class="appointment" ng-repeat="item in appointments" >
+            <div class="appointment" ng-repeat="item in appointments_show" >
                 <div class="row">
                     <div class="col-xs-10">
                         <div>{{item.description}}</div>
                         <div>{{item.subject}}</div>
                         <div class="row" ng-show="type == 'Student'">
                             <div class="col-xs-offset-3 col-xs-6">{{item.requested_at}}</div>
-                            <div class="col-xs-3">{{item.duration_in_min}} min</div>
+                            <div class="col-xs-3" ng-show="item.duration_in_min != null">{{item.duration_in_min}} min</div>
                         </div>
                         <div class="row" ng-show="type == 'Docent'">
                             <div class="col-xs-4">{{item.date}}<span ng-show="item.date_to != null"> - {{item.date_to}}</span></div>
@@ -183,8 +183,8 @@
                         <div ng-show="appointment_{{item.id}}">
                             <div class="row appointment_in" ng-repeat="requests in item.requests">
                                 <div class="col-xs-10">
-                                    <div>{{requests.description}}</div>
                                     <div>{{requests.subject}}</div>
+                                    <div>{{requests.description}}</div>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
@@ -205,10 +205,10 @@
                     </div>
                     <div class="col-xs-2">
                         <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Docent'" ng-click="removeAppointment(item.id, appointments)">
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Docent'" ng-click="removeAppointment(item.id, appointments_show)">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Student'" ng-click="removeRequest('Student', item.id, appointments)">
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Student'" ng-click="removeRequest('Student', item.id, appointments_show)">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -236,7 +236,7 @@
 <!-- site with past appointments and appointment requests -->
 <div id="last_appointments" class="ng-hide" ng-show="show_past" ng-controller="past_controller">
     <!-- liste aller alten und gelöschten  termine -->
-    <div id="appointments">
+    <div id="lastappointments">
         <div class="appointment" ng-repeat="item in appointments" >
             <div class="row">
                 <div class="appointment_info col-xs-10">
