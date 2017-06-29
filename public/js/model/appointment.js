@@ -82,11 +82,11 @@ appointment = {
         }
 
     	appointments.sort(function (a, b) {
-            var i = a.data.compare(b.data);
+            var i = a.date.localeCompare(b.date);
             if (i == 0) {
-                i = a.time_from.compare(b.time_from);
+                i = a.time_from.localeCompare(b.time_from);
                 if (i == 0)
-                    i = a.time_to.compare(b.time_to);
+                    i = a.time_to.localeCompare(b.time_to);
             }
             return i;
         });
