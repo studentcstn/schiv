@@ -15,11 +15,11 @@ class AppointmentDeleted extends Mailable {
     public function __construct($date, $time) {
         $this->date= $date;
         $this->time = $time;
+        $this->subject('Termin gelöscht / Appointment deleted');
     }
     
     public function build() {
         return $this->view('emails.appointmentdeleted', [
-            $this->subject('Termin gelöscht / Appointment deleted'),
             'date'    => $this->date,
             'time' => $this->time,
         ]);
