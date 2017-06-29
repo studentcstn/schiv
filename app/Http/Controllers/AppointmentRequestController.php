@@ -164,6 +164,7 @@ class AppointmentRequestController extends Controller {
 				    ->select('appointment_id')
 				    ->where('id', '=', $request->input('id'))
 				    ->get();
+			
 			$start = DB::table('appointments')
 				    ->select('time_from as at')
 				    ->where('id', '=', $appointment_id[0]->appointment_id)
@@ -210,7 +211,7 @@ class AppointmentRequestController extends Controller {
 
 			    $toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)));
 				
-			    if($toset >= $start)
+			    if($toset >= $start[0]->time_from)
 			    {
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
@@ -219,14 +220,14 @@ class AppointmentRequestController extends Controller {
 			    {
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $start]);
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $start[0]->time_from]);
 			    }
 
 			    for($i = 0; $i < count($tocorrect); ++$i)
 			    {
 				$toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($tocorrect[$i]->at)));
 				    
-				if($toset >= $start)
+				if($toset >= $start[0]->time_from)
 				{
 				    DB::table('appointment_requests')
 				    	->where('id', '=', $tocorrect[$i]->id)
@@ -235,7 +236,7 @@ class AppointmentRequestController extends Controller {
 				{
 				    DB::table('appointment_requests')
 				    	->where('id', '=', $tocorrect[$i]->id)
-				    	->update(['at' => $start]);
+				    	->update(['at' => $start[0]->time_from]);
 				}
 			    }
 			}
@@ -275,7 +276,7 @@ class AppointmentRequestController extends Controller {
 		->where('id', '=', $id)
 		->where('duration_in_min', '=', null)
 		->count();
-
+		
 	    if(!$already)
 	    {
 	        $appointment_id = DB::table('appointment_requests')
@@ -283,6 +284,11 @@ class AppointmentRequestController extends Controller {
 		    ->where('id', '=', $id)
 		    ->get();
 
+		$start = DB::table('appointments')
+		    ->select('time_from as at')
+		    ->where('id', '=', $appointment_id[0]->appointment_id)
+		    ->get();
+		    
 		$current = DB::table('appointment_requests')
 		   ->select('at', 'duration_in_min')
 		    ->where('id', '=', $id)
@@ -314,7 +320,7 @@ class AppointmentRequestController extends Controller {
 			{
 			    DB::table('appointment_requests')
 			    	->where('id', '=', $tocorrect[$i]->id)
-			    	->update(['at' => $start]);
+			    	->update(['at' => $start[0]->time_from]);
 		        }
 		 }
 	    }
