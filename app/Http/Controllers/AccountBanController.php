@@ -48,16 +48,7 @@ class AccountBanController extends Controller {
             $accountBan = new AccountBan;
             $accountBan->account_id = $accountDocent->id;
             $accountBan->account_ban_id = $accountToBan->id;
-            $accountBan->ban_until; {
-                $currentMonthDay = date('m-d');
-                if ($currentMonthDay > "03-15" && $currentMonthDay <= "09-30") {
-                    $accountBan->ban_until = date('Y-09-30 h:i:s');
-                } else if ($currentMonthDay <= "03-15") {
-                    $accountBan->ban_until = date('Y-03-15 h:i:s');
-                } else {
-                    $accountBan->ban_until = date('Y-03-15 h:i:s', strtotime('next year'));
-                }
-            }
+            $accountBan->ban_until = date('Y-m-d 00:00:00', Holiday::getBeginNextSemester());
             $accountBan->save();
         });
 

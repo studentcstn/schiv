@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Account;
 use App\AccountBan;
+use App\Appointment;
 use App\AppointmentRequest;
 
 class Maintance extends Command {
@@ -34,11 +35,23 @@ class Maintance extends Command {
         AccountBan::truncate();
         Account::where('type', 'Student')
             ->update(['active' => false]);
-        AppointmentRequest::where('active', true)
-            ->update([
-                'state' => 'Declined',
-                'active' => false
-            ]);
+
+        // Delete old records
+        $tenYearsAgo = date('Y-m-d H:i:s', strtotime('-10 years'));
+        $tenYearsAgo = date('Y-m-d H:i:s');
+        Account::where('last_login_at', '<=', $tenYearsAgo)
+            ->delete();
+        AppointmentRequest::where('updated_at', '<=', $tenYearsAgo)
+            ->delete();
+        $appointments = Appointment::where('updated_at', '<=', $tenYearsAgo)
+            ->get();
+        foreach ($appointments as $appointment) {
+            $count = AppointmentRequest::where('appointment_id', $appointment->id)
+                ->count();
+            if (!$count) {
+                $appointment->delete();
+            }
+        }
         DB::commit();
     }
 }

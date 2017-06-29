@@ -19,7 +19,7 @@ Auftraggeber beschlossen wurden:
 #. Die Anwendung soll mindestens auf normalen Desktop-PCs mit
    den weitverbreitetsten Browsern laufen.
 #. Es werden generell keine Datensätze gelöscht, sondern nur weich gelöscht
-   ("unsichtbar gemacht").
+   ("unsichtbar gemacht"). Bis auf Token, Feiertage und Sperrungen.
 #. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
    sich dann wieder erneut registrieren
 #. Aktivierungslink wird über einen GET abgesetzt, d.h. der Aktivierungslink
@@ -322,7 +322,7 @@ folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
 
-Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200** 
+Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200**
 zurückgegeben, aber nur so getan als ob die Anfrage durchgegangen ist.
 
 ### Feiertage
@@ -462,7 +462,16 @@ $ make
 $ xdg-open pdf/paper.pdf
 ```
 
-## Dozenten aktualisieren
+## Befehle
+
+### Allgemein
+
+Die folgenden Befehle können manuell aufgerufen werden, aber auch automatisch.
+Um sie automatisch auszuführen kann das Task-Scheduling aktiviert werden mit
+dieser Anleitung <https://laravel.com/docs/5.4/scheduling>. Dann werden die
+Befehle am Anfang jedes Semesters aufgerufen.
+
+### Dozenten aktualisieren
 
 Am Ende des Semester können die Dozenten-Konten aktualisiert werden. Dazu dient
 der Befehl `php artisan retrieve:docents`. Alle Dozenten die über die
@@ -472,10 +481,24 @@ registrieren und anmelden. Die Zugangsdaten für die Schnittstelle der
 iOS-Stundenplan-App müssen in der `.env`-Datei eingetragen werden (Schlüssel:
 `IOSAPP_USERNAME` und `IOSAPP_PASSWORD`).
 
-Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
-Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde
-am 15. März bzw. 31. September jedes Jahr ausgeführt.
-
 Zum Testen kann die Option `--from-cache` verwendet werden. Hier werden die
 Daten nur einmal vom Server geholt und dann in einer lokalen Datei
 `/tmp/docents` zwischengespeichert.
+
+### Feiertage aktualisieren
+
+Die Feiertage können über den Befehl `php artisan retrieve:holidays`
+aktualisiert werden. Die Daten werden von der Hochschule Homepage unter 
+<http://www.hof-university.de/studierende/studienbuero/termine.html> geholt.
+
+### Wartung
+
+Zur Wartung kann der Befehl `php artisan maintance` benutzt werden. Es ist
+sinnvoll den Befehl am Ende des Semester auszuführen. Der Befehl
+führt folgendes aus:
+
+- Alle Kontosperrungen werden gelöscht
+- Alle Studentenkonten werden auf inaktiv gesetzt
+- Alle Konten bei denen der Login das letzte mal vor 10 Jahren ist, werden
+  gelöscht
+- Alle Termine und Terminanfragen die älter als 10 Jahren sind werden gelöscht.
