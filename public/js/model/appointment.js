@@ -67,7 +67,7 @@ appointment = {
     		}
     	}
 
-    	for (var i = 0; i < appointments.length; ++i) {
+    	for (var i = 1; i < appointments.length; ++i) {
     	    if (appointments[i].requests.length == 0) {
     	        var n = i -1;
                 if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
@@ -76,16 +76,17 @@ appointment = {
                         appointments[n].appointments = [];
                     appointments[n].appointments.push(appointments[i]);
                     appointments.splice(i, 1);
+                    --i;
                 }
             }
         }
 
     	appointments.sort(function (a, b) {
-            var i = a.data.localeCompare(b.data);
+            var i = a.data.compare(b.data);
             if (i == 0) {
-                i = a.time_from.localeCompare(b.time_from);
+                i = a.time_from.compare(b.time_from);
                 if (i == 0)
-                    i = a.time_to.localeCompare(b.time_to);
+                    i = a.time_to.compare(b.time_to);
             }
             return i;
         });
