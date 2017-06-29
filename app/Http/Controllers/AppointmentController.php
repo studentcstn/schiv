@@ -42,8 +42,6 @@ class AppointmentController extends Controller {
 	    {
 		return response()->json(null , 503);
 	    }
-
-	    $end = strtotime($end[0]->from);
 		
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
@@ -56,6 +54,7 @@ class AppointmentController extends Controller {
 
             $parent_id = 0;
 	    $is_holiday = false;
+	    $end = strtotime($end[0]->from);
 	    $increment = strtotime('+1 week', 0);
 	    $current_date;
 	    
