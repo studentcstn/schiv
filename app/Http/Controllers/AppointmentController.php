@@ -196,7 +196,7 @@ class AppointmentController extends Controller {
             return response()->json(null, 404);
         }else
 	{
-	    $time = DB::table(appointments)
+	    $time = DB::table('appointments')
 		    ->select('date', 'time_from')
 		    ->where('id', '=', $id)
 		    ->get();
