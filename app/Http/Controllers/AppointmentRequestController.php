@@ -211,7 +211,7 @@ class AppointmentRequestController extends Controller {
 
 			    $toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)));
 				
-			    if($toset >= $start[0]->time_from)
+			    if(strtotime($toset) >= strtotime($start[0]->time_from))
 			    {
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
@@ -227,7 +227,7 @@ class AppointmentRequestController extends Controller {
 			    {
 				$toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($tocorrect[$i]->at)));
 				    
-				if($toset >= $start[0]->time_from)
+				if(strtotime($toset) >= strtotime($start[0]->time_from))
 				{
 				    DB::table('appointment_requests')
 				    	->where('id', '=', $tocorrect[$i]->id)
@@ -311,7 +311,7 @@ class AppointmentRequestController extends Controller {
 	 	{
 			$toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($tocorrect[$i]->at)));
 				    
-			if($toset >= $start)
+			if(strtotime($toset) >= strtotime($start[0]->time_from))
 			{
 			    DB::table('appointment_requests')
 			    	->where('id', '=', $tocorrect[$i]->id)
