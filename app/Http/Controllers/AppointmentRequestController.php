@@ -158,7 +158,7 @@ class AppointmentRequestController extends Controller {
 			$already = DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
 				->where('duration_in_min', '=', null)
-				->count();
+				->get();
 
 			$appointment_id = DB::table('appointment_requests')
 				    ->select('appointment_id')
@@ -166,7 +166,7 @@ class AppointmentRequestController extends Controller {
 				    ->get();
 
 
-			if(!$already)
+			if(!$already->isEmpty())
 			{
 			    $latest = DB::table('appointment_requests')
 				    ->select('at')
