@@ -538,7 +538,7 @@
             <div class="form-check">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="appointment.active">
+                        <input type="checkbox" class="form-check-input" ng-model="appointment.delete">
                     </div>
                     <div class="col-xs-5">{{appointment.date}}</div>
                 </div>
@@ -546,7 +546,7 @@
             <div class="form-check" ng-repeat="item in appointment.appointments">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active" ng-checked="appointment.active">
+                        <input type="checkbox" class="form-check-input" ng-model="item.delete" ng-checked="appointment.delete" ng-disabled="appointment.delete">
                     </div>
                     <div class="col-xs-5">{{item.date}}</div>
                 </div>

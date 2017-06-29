@@ -1,4 +1,5 @@
 ban_id = [];
+ban_success = {success: true};
 ban = {
 		
 	getAccountBans: function($http, $rootScope, broadcastSuccess, broadcastFailed){
@@ -14,25 +15,25 @@ ban = {
 	},
 
     unbanAccount: function($http, $rootScope, broadcastSuccess, broadcastFailed, list_of_unbanned) {
-        var success = { success: true};
+	    ban_success.success = true;
 
         for (i = 0; i < list_of_unbanned.length; ++i) {
             if (list_of_unbanned[i].active == false) {
                 ban_id.push(list_of_unbanned[i].account_ban_id);
 
                 connection.lock(function () {
-                    unban_Account($http, success, ban_id.pop());
+                    unban_Account($http, ban_success, ban_id.pop());
                 });
             } 
         }
 
         connection.lock(function () {
-            if (success.success) {
+            connection.free();
+            if (ban_success.success) {
                 $rootScope.$broadcast(broadcastSuccess);
             } else {
                 $rootScope.$broadcast(broadcastFailed);
             }
-            connection.free();
         });
     }
 
@@ -45,7 +46,7 @@ var get_AccountBans = function($http, $rootScope, broadcastSuccess, broadcastFai
             connection.free();
             console.log(response);
             var data = response.data;
-            for (i = 0; i < data.length; ++i)
+            for (var i = 0; i < data.length; ++i)
                 data[i].active = true;
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){

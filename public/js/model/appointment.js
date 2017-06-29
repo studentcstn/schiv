@@ -1,3 +1,5 @@
+appointment_id = [];
+appointment_success = {success: true};
 appointment = {
     getAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed) {
         connection.lock(function () {
@@ -48,9 +50,36 @@ appointment = {
 
     },
 
-    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
+    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
+        if (appointment.delete) {
+            for (var i = 0; i < appointment.appointments.length; ++i)
+                appointment.appointments.delete = true;
+        }
+
+        for (var i = 0; i < appointment.appointments.length; ++i) {
+            if (appointment.appointments.delete) {
+                appointment_id.push(appointment.appointments.id);
+
+                connection.lock(function () {
+                    delete_appointment($http, appointment_success, appointment_id.shift());
+                });
+            }
+        }
+        if (appointment.appointments.length == 0 && appointment.delete) {
+            appointment_id.push(appointment.id);
+
+            connection.lock(function () {
+                delete_appointment($http, appointment_success, appointment_id.shift());
+            });
+        }
+
         connection.lock(function () {
-           delete_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id);
+            connection.free();
+            if (appointment_success.success) {
+                $rootScope.$broadcast(broadcastSuccess);
+            } else {
+                $rootScope.$broadcast(broadcastFailed);
+            }
         });
     },
 
@@ -151,15 +180,14 @@ var create_appointment = function($http, $rootScope, broadcastSuccess, broadcast
 
 
 
-var delete_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
+var delete_appointment = function($http, success, appointment_id){
     $http.delete('/appointments/' + appointment_id + '')
         .then(function(response){
             connection.free();
             console.log(response);
-            $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
             connection.free();
             console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
+            success.success = false;
         });
 };
