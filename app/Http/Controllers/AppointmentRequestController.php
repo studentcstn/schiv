@@ -197,7 +197,7 @@ class AppointmentRequestController extends Controller {
 
 			    $tocorrect = DB::table('appointment_requests')
 				->select('id', 'at')
-				->where('appointment_id', '=', $appointmet_id[0]->appointment_id)
+				->where('appointment_id', '=', $appointment_id[0]->appointment_id)
 				->where('at', '>', $current[0]->at)
 				->get();
 
