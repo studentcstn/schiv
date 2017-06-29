@@ -166,7 +166,7 @@ class AppointmentRequestController extends Controller {
 				    ->get();
 
 
-			if($already)
+			if(!$already)
 			{
 			    $latest = DB::table('appointment_requests')
 				    ->select('at')
