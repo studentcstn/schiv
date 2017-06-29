@@ -180,13 +180,19 @@ class AppointmentRequestController extends Controller {
 				    ->select('time_from as at')
 				    ->where('id', '=', $appointment_id[0]->appointment_id)
 				    ->get();
+				    
+				DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $latest[0]->at]);
 			    }
+			    else
+			    {
+			    	$at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
 
-			    $at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
-
-			    DB::table('appointment_requests')
-				->where('id', '=', $request->input('id'))
-				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
+			    	DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
+			    }
 			}else
 			{
 			    $current = DB::table('appointment_requests')
