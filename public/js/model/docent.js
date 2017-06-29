@@ -37,7 +37,7 @@ var get_DocentList = function($http, $rootScope, broadcastSuccess, broadcastFail
         .then(function(response) {
             connection.free();
             console.log(response);
-            response.data.sort();
+            response.data = sortDocentsAfterName(response.data);
             for(i = 0; i<response.data.length; ++i){
             	response.data[i].visible = true;
             }
@@ -69,4 +69,7 @@ var checkIfFacultiesMatch = function(faculties, searchString){
 		}
 	}
 	return false;
+};
+var sortDocentsAfterName = function(docents){
+	docents.email.sort();
 };
