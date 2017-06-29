@@ -55,7 +55,7 @@ appointment = {
     },
 
     merge_appointments: function(appointments, appointment_requests) {
-    	for(n = 0; n<appointments.length; ++n){
+    	for(var n = 0; n<appointments.length; ++n){
             appointments[n].requests = [];
             appointments[n].editable = true;
     		for(i = 0; i<appointment_requests.length; ++i){
@@ -66,6 +66,28 @@ appointment = {
     			}
     		}
     	}
+
+    	for (var i = 0; i < appointments.length; ++i) {
+    	    if (appointments[i].requests.length == 0) {
+    	        appointments[i].appointments = [appointments[i]];
+    	        for (var n = 0; n < i; ++n) {
+    	            if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
+                        appointments[n].date_to = appointments[i].date;
+    	                appointments[n].appointments.push(appointments[i]);
+                    }
+                }
+            }
+        }
+
+    	appointments.sort(function (a, b) {
+            var i = a.data.localeCompare(b.data);
+            if (i == 0) {
+                i = a.time_from.localeCompare(b.time_from);
+                if (i == 0)
+                    i = a.time_to.localeCompare(b.time_to);
+            }
+            return i;
+        });
     }
 };
 
