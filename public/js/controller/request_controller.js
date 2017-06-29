@@ -19,7 +19,9 @@ schiv_module.controller('request_controller', function($scope, $http, $rootScope
         appointment_request.createAppointmentRequest($http, $rootScope, "request_s", "request_f", $scope.newAppointment_request.description, $scope.newAppointment_request.subject, $scope.newAppointment_request.id, $scope.newAppointment_request.date);
     };
     $scope.$on("request_s", function (event, data) {
-
+        $rootScope.$broadcast("alert", "success", "successful add")
+        $scope.inscribe_close();
+        $rootScope.$broadcast("show_index");
     });
     $scope.$on("request_f", function (event, data) {
         error(data);

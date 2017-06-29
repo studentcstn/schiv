@@ -35,7 +35,7 @@ appointment_request = {
             $rootScope.$broadcast(broadcastFailed, {status:1005, statusText: "Description is empty Error"});
             return;
         }
-        if(controlDate(date)){
+        if(!controlDate(date)){
             $rootScope.$broadcast(broadcastFailed, {status:1004, statusText: "Error in date"});
             return;
         }
