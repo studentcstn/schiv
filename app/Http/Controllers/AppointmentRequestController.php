@@ -184,7 +184,7 @@ class AppointmentRequestController extends Controller {
 			    }
 
 			    $at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
-
+echo $at.';'.$request->input('duration_in_min');
 			    DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
 				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
@@ -216,6 +216,7 @@ class AppointmentRequestController extends Controller {
 			}
 		}else
 		{
+			echo "DAS KANN NICHT SEIN!!!!";
 			DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
 				->update(['state' => $request->input('state'), 'duration_in_min' => null, 'at' => null]);
