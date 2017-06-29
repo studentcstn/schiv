@@ -34,6 +34,7 @@ class AppointmentController extends Controller {
                 ->orderBy('from', 'asc')
                 ->select('from')
                 ->where('name', '=', 'Vorlesungsende')
+		->where('account_id', '=', 'NULL')
                 ->take(1)
                 ->get();
 
