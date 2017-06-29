@@ -69,12 +69,13 @@ appointment = {
 
     	for (var i = 0; i < appointments.length; ++i) {
     	    if (appointments[i].requests.length == 0) {
-    	        appointments[i].appointments = [appointments[i]];
-    	        for (var n = 0; n < i; ++n) {
-    	            if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
-                        appointments[n].date_to = appointments[i].date;
-    	                appointments[n].appointments.push(appointments[i]);
-                    }
+    	        var n = i -1;
+                if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
+                    appointments[n].date_to = appointments[i].date;
+                    if (appointments[n].appointments == null)
+                        appointments[n].appointments = [];
+                    appointments[n].appointments.push(appointments[i]);
+                    appointments.splice(i, 1);
                 }
             }
         }
