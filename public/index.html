@@ -396,7 +396,7 @@
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
         <div class="form-group">
-            <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date; newAppointment_request.time_from = item.time_from; newAppointment_request.time_to = item.time_to; newAppointment_request.name = item.description; dates = item">
+            <div class="appointment" ng-repeat="item in appointments" ng-click="inscribeSetAppointment(item)">
                 <div>{{item.description}}</div>
                 <div class="row">
                     <div class="col-xs-offset-1 col-xs-6">
