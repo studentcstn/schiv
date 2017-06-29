@@ -118,7 +118,7 @@ class AppointmentRequestController extends Controller {
         {
             $past = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointment_requests.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
                 ->where('appointment_requests.state', '=', true)
