@@ -29,7 +29,7 @@ class AppointmentController extends Controller {
 
         if($is_day == 'MON' || $is_day == 'TUE' || $is_day == 'WED' || $is_day == 'THU' || $is_day == 'FRI' || $is_day == 'SAT' || $is_day == 'SUN')
         {
-            $start = date('Y-m-d', strtotime("next {$is_day}"));
+            $start = strtotime("next {$is_day}");
             $end = DB::table('holidays')
                 ->orderBy('from', 'asc')
                 ->select('from')
@@ -43,6 +43,8 @@ class AppointmentController extends Controller {
 		return response()->json(null , 503);
 	    }
 
+	    $end = strtotime($end[0]->from);
+		
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
 		->where('to', '>=', $start)
@@ -53,26 +55,41 @@ class AppointmentController extends Controller {
                 ->get();
 
             $parent_id = 0;
+	    $is_holiday = false;
+	    $increment = strtotime('+1 week', 0);
+	    $current_date;
+	    
+	    while(($parent_id == 0) && ($start < $end))
+	    {
+		$current_date = date('Y-m-d', $start);
+		    
+            	for($i = 0; $i < count($holidays); ++$i)
+            	{
+                	if($current_date >= $holidays[$i]->from && $current_date <= $holidays[$i]->to)
+                	{
+                    		$is_holiday = true;
+                    		break 1;
+                	}
+            	}
+		
+            	if(!$is_holiday)
+            	{
+                	$parent_id = DB::table('appointments')->insertGetId([
+                            	'account_id' => $auth_user->id,
+                            	'description' => $request->input('description'),
+                            	'active' => true,
+                            	'date' => $start,
+                            	'time_from' => $request->input('time_from'),
+                            	'time_to' => $request->input('time_to'),
+                        	]);
 
-            if($start < $end[0]->from)
-            {
-                $parent_id = DB::table('appointments')->insertGetId([
-                            'account_id' => $auth_user->id,
-                            'description' => $request->input('description'),
-                            'active' => true,
-                            'date' => $start,
-                            'time_from' => $request->input('time_from'),
-                            'time_to' => $request->input('time_to'),
-                        ]);
-
-                DB::table('appointments')
-                    ->where('id', '=', $parent_id)
-                    ->update(['parent_id' => $parent_id]);
-            }
-
-            $start = strtotime('+1 week', strtotime($start));
-            $end = strtotime($end[0]->from);
-            $increment = strtotime('+1 week', 0);
+                	DB::table('appointments')
+                    	->where('id', '=', $parent_id)
+                    	->update(['parent_id' => $parent_id]);
+            	}
+		    
+		$start = $start + $increment;
+	    }
 
             for($i = $start; $i < $end; $i += $increment)
             {
