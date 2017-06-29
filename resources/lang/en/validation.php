@@ -3,7 +3,7 @@ return [
     'date_format' => "doesn't match date format ':format'",
     'required' => "is required",
     'numeric' => "must be a number",
-    'max' => "length must be at least :max",
+    'max' => "length must be smaller than :max",
     'min' => "length must be greater than :min",
     'email' => "not a valid email",
     // TODO

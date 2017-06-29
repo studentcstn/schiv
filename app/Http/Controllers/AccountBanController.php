@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Account;
+use App\Holiday;
 use App\AccountBan;
 use App\AppointmentRequest;
 
