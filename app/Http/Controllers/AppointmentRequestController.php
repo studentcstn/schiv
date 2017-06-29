@@ -183,7 +183,7 @@ class AppointmentRequestController extends Controller {
 			    { 
 				DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $start[0]->at]);
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $start[0]->time_from]);
 			    }
 			    else
 			    {
