@@ -153,7 +153,7 @@ class AppointmentRequestController extends Controller {
 
         if($requests)
         {	
-		if($request->input('duration_in_min'))
+		if($request->input('state') == 'Declined')
 		{
 			$already = DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
@@ -185,9 +185,17 @@ class AppointmentRequestController extends Controller {
 
 			    $at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
 
-			    DB::table('appointment_requests')
-				->where('id', '=', $request->input('id'))
-				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
+			    if($request->input('duration_in_min'))
+			    {
+			    	DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
+			    }else
+			    {
+			    	DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => null, 'at' => null]);
+			    }
 			}else
 			{
 			    $current = DB::table('appointment_requests')
@@ -203,9 +211,17 @@ class AppointmentRequestController extends Controller {
 
 			    $difference = $request->input('duration_in_min') - $current[0]->duration_in_min;
 
-			    DB::table('appointment_requests')
-				->where('id', '=', $request->input('id'))
-				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)))]);
+			    if($request->input('duration_in_min'))
+			    {
+			    	DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)))]);
+			    }else
+			    {
+			    	DB::table('appointment_requests')
+					->where('id', '=', $request->input('id'))
+					->update(['state' => $request->input('state'), 'duration_in_min' => null, 'at' => null]);
+			    }
 
 			    for($i = 0; $i < count($tocorrect); ++$i)
 			    {
@@ -244,6 +260,44 @@ class AppointmentRequestController extends Controller {
         if($fourOFour == 0)
         {
             return response()->json(null, 404);
-        }
+        }else
+	{
+	    $already = DB::table('appointment_requests')
+		->where('id', '=', $id)
+		->where('duration_in_min', '=', null)
+		->count();
+
+	    if(!$already)
+	    {
+	        $appointment_id = DB::table('appointment_requests')
+		    ->select('appointment_id')
+		    ->where('id', '=', $id)
+		    ->get();
+
+		$current = DB::table('appointment_requests')
+		   ->select('at', 'duration_in_min')
+		    ->where('id', '=', $id)
+		    ->get();
+
+		$tocorrect = DB::table('appointment_requests')
+		    ->select('id', 'at')
+		    ->where('appointment_id', '=', $appointment_id[0]->appointment_id)
+		    ->where('at', '>', $current[0]->at)
+		    ->get();
+
+		$difference = 0 - $current[0]->duration_in_min;
+
+		DB::table('appointment_requests')
+		    ->where('id', '=', $id)
+		    ->update(['duration_in_min' => null, 'at' => null]);
+
+		for($i = 0; $i < count($tocorrect); ++$i)
+		{
+			DB::table('appointment_requests')
+			    ->where('id', '=', $tocorrect[$i]->id)
+			    ->update(['at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($tocorrect[$i]->at)))]);
+		}
+	    }
+	}
     }
 }
