@@ -106,9 +106,9 @@ appointment = {
     },
     sort_appointment: function (appointments) {
         for (var i = 1; i < appointments.length; ++i) {
-            if (appointments[i].requests.length == 0) {
+            if (appointments[i].requests == null || appointments[i].requests.length == 0) {
                 var n = i -1;
-                if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
+                if ((appointments[i].requests == null || appointments[n].requests.length == 0) && appointments[n].parent_id == appointments[i].parent_id) {
                     appointments[n].date_to = appointments[i].date;
                     if (appointments[n].appointments == null)
                         appointments[n].appointments = [];
