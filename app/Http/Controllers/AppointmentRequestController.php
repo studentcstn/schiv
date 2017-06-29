@@ -202,7 +202,7 @@ class AppointmentRequestController extends Controller {
 			    $tocorrect = DB::table('appointment_requests')
 				->select('id', 'at')
 				->where('appointment_id', '=', $appointment_id[0]->appointment_id)
-				->where('id', '!=', $id)
+				->where('id', '!=', $request->input('id'))
 				->where('at', '>=', $current[0]->at)
 				->get();
 
@@ -291,7 +291,8 @@ class AppointmentRequestController extends Controller {
 		$tocorrect = DB::table('appointment_requests')
 		    ->select('id', 'at')
 		    ->where('appointment_id', '=', $appointment_id[0]->appointment_id)
-		    ->where('at', '>', $current[0]->at)
+		    ->where('id', '!=', $id)
+		    ->where('at', '>=', $current[0]->at)
 		    ->get();
 
 		$difference = 0 - $current[0]->duration_in_min;
