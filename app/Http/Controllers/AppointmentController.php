@@ -34,6 +34,7 @@ class AppointmentController extends Controller {
                 ->orderBy('from', 'asc')
                 ->select('from')
                 ->where('name', '=', 'Vorlesungsende')
+		->where('account_id', '=', 'NULL')
                 ->take(1)
                 ->get();
 
@@ -47,11 +48,8 @@ class AppointmentController extends Controller {
 		->where('to', '>=', $start)
 		->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
-		->where(function($query){
-			$query
-				->where('account_id', '=', 'NULL')
-                		->orWhere('account_id', '=', $auth_user->id);
-		})
+		->where('account_id', '=', 'NULL')
+                ->orWhere('account_id', '=', $auth_user->id)
                 ->get();
 
             $parent_id = 0;
