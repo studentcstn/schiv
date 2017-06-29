@@ -138,6 +138,8 @@ class RetrieveDocents extends Command
                 $account->updated_at = date('Y-m-d H:i:s');
             }
             $account->save();
+
+            echo $email."\n";
         }
 
         Account::where('type', 'Docent')
