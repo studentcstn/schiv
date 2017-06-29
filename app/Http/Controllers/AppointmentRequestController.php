@@ -211,7 +211,7 @@ class AppointmentRequestController extends Controller {
 			    {
 				DB::table('appointment_requests')
 				    ->where('id', '=', $tocorrect[$i]->id)
-				    ->update(['at' => date('H:i:s', strtotime("+{$asfagggdg} minutes", strtotime($tocorrect[$i]->at)))]);
+				    ->update(['at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($tocorrect[$i]->at)))]);
 			    }
 			}
 		}else
