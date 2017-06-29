@@ -53,7 +53,7 @@ class AppointmentController extends Controller {
                 ->get();
 
             $parent_id = 0;
-	    $is_holiday = false;
+	    $is_holiday;
 	    $end = strtotime($end[0]->from);
 	    $increment = strtotime('+1 week', 0);
 	    $current_date;
@@ -61,6 +61,7 @@ class AppointmentController extends Controller {
 	    while(($parent_id == 0) && ($start < $end))
 	    {
 		$current_date = date('Y-m-d', $start);
+		$is_holiday = false;
 		    
             	for($i = 0; $i < count($holidays); ++$i)
             	{
@@ -77,7 +78,7 @@ class AppointmentController extends Controller {
                             	'account_id' => $auth_user->id,
                             	'description' => $request->input('description'),
                             	'active' => true,
-                            	'date' => $start,
+                            	'date' => date('Y-m-d', $start),
                             	'time_from' => $request->input('time_from'),
                             	'time_to' => $request->input('time_to'),
                         	]);
