@@ -89,5 +89,5 @@ prefered_Faculty = Function(user_faculties, docent_faculties){
 		}
 	}
 	return 1;
-}
+};
 
