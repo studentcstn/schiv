@@ -27,7 +27,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.type = "Student";
         $rootScope.$broadcast("hide", "show_index_docent");
         docent.getDocentList($http, $rootScope, "index_docents_s", "index_docents_f");
-        appointment_request.getAppointmentRequest($http, $rootScope, "index_appointment_request_s", "index_appointment_request_f");
+        appointment_request.getAppointmentRequest($http, $rootScope, "index_student_appointment_request_s", "index_student_appointment_request_f");
     };
     $scope.$on("index_docents_s", function (event, data) {
         $scope.docents = data;
@@ -35,7 +35,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.$on("index_docents_f", function (event, data) {
         error(data);
     });
-    $scope.$on("index_appointment_request_s", function (event, data) {
+    $scope.$on("index_student_appointment_request_s", function (event, data) {
         if (data.lenght == 0) {
             data = [{id: 0,
                 description: languages.index.no_appointments[language]}];
@@ -43,7 +43,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appointments = data;
         $scope.appointments_show = data;
     });
-    $scope.$on("index_appointment_request_f", function (event, data) {
+    $scope.$on("index_student_appointment_request_f", function (event, data) {
         error(data);
     });
 
@@ -70,7 +70,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appointments_requests = data;
         --receive;
         if (receive === 0)
-            $scope.appointments_show = appointment_show.merge_appointments($scope.appointments, $scope.appointments_requests);
+            $scope.appointments_show = appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
         error(data);
