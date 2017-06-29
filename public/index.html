@@ -396,11 +396,11 @@
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
         <div class="form-group">
-            <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date; newAppointment_request.time_from = item.time_from; newAppointment_request.time_to = item.time_to; newAppointment_request.name = item.description">
+            <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date; newAppointment_request.time_from = item.time_from; newAppointment_request.time_to = item.time_to; newAppointment_request.name = item.description; dates = item">
                 <div>{{item.description}}</div>
                 <div class="row">
-                    <div class="col-xs-offset-4 col-xs-3">
-                        {{item.date}}
+                    <div class="col-xs-offset-1 col-xs-6">
+                        {{item.date}}<span ng-show="item.date_to != null && item.date_to != ''"> - {{item.date_to}}</span>
                     </div>
                     <div class="col-xs-5">
                         {{item.time_from}} - {{item.time_to}} Uhr
@@ -418,7 +418,12 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown+item.id">
-                    <li><a>{{newAppointment_request.date}}</a></li>
+                    <li>
+                        <a ng-click="newAppointment_request.date = dates.date">{{dates.date}}</a>
+                    </li>
+                    <li ng-repeat="item in dates.appointments">
+                        <a ng-click="newAppointment_request.date = item.date">{{item.date}}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-xs-6">
