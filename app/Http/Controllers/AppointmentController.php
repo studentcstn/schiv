@@ -51,7 +51,7 @@ class AppointmentController extends Controller {
 		->where(function($query){
 			$query
 				->where('account_id', '=', 'NULL')
-                		->orWhere('account_id', '=', $auth_user->id);
+                		->orWhere('account_id', '=', Auth::user()->id);
 		})
                 ->get();
 
