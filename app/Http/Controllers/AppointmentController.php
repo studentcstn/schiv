@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\AppointmentDeleted;
 
 class AppointmentController extends Controller {
     /**
@@ -191,6 +194,26 @@ class AppointmentController extends Controller {
         if($fourOFour == 0)
         {
             return response()->json(null, 404);
-        }
+        }else
+	{
+	    $time = DB::table(appointments)
+		    ->select('date', 'time_from')
+		    ->where('id', '=', $id)
+		    ->get();
+		
+	    $students = DB::table('appointment_requests')
+		    ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+		    ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
+                    ->select('accounts.email')
+		    ->where('appointments.id', '=', $id)
+		    ->where('appointment_requests.active', '=', true)
+                    ->get();
+		
+	    for($i = 0; $i < count($students); ++$i)
+	    {
+	    	Mail::to($students[$i]->email)
+            		->send(new AppointmentDeleted($time[0]->date, $time[0]->time_from));
+	    }
+	}
     }
 }
