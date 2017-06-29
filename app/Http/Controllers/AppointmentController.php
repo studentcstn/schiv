@@ -88,7 +88,7 @@ class AppointmentController extends Controller {
                     	->update(['parent_id' => $parent_id]);
             	}
 		    
-		$start = $start + $increment;
+		$start += $increment;
 	    }
 
             for($i = $start; $i < $end; $i += $increment)
