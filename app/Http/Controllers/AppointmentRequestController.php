@@ -153,7 +153,7 @@ class AppointmentRequestController extends Controller {
 
         if($requests)
         {	
-		if($request->input('state') == 'Declined')
+		if(!$request->input('state') == 'Declined')
 		{
 			$already = DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
