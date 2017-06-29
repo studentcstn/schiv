@@ -24,7 +24,8 @@ class AppointmentRequestController extends Controller {
 
 	$has_appointment = DB::table('appointment_requests')
 		->where('account_id', '=', $auth_user->id)
-		->where('appointment_id', '=', $request->input('appointment_id'));
+		->where('appointment_id', '=', $request->input('appointment_id'))
+		->where('active', '=', true)
 	    	->get();
 	    
 	if(!$has_appointment->isEmpty())
