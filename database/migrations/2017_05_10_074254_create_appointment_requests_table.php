@@ -16,6 +16,7 @@ class CreateAppointmentRequestsTable extends Migration {
             $table->string('description');
             $table->string('subject');
             $table->integer('duration_in_min')->nullable();
+            $table->time('at')->nullable();
             $table->boolean('active');
             $table->enum('state', ['Accepted', 'Declined', 'Idle']);
             $table->integer('account_id')->unsigned();
