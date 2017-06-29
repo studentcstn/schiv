@@ -149,6 +149,7 @@ class AppointmentRequestController extends Controller {
             ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
             ->where('appointment_requests.id', '=', $request->input('id'))
             ->where('appointments.account_id', '=', $auth_user->id)
+	    ->where('appointment_requests.active', '=', true)
             ->count();
 
         if($requests)
