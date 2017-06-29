@@ -285,7 +285,7 @@ class AppointmentRequestController extends Controller {
 		    ->get();
 
 		$start = DB::table('appointments')
-		    ->select('time_from as at')
+		    ->select('time_from')
 		    ->where('id', '=', $appointment_id[0]->appointment_id)
 		    ->get();
 		    
