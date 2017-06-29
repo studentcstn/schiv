@@ -102,9 +102,12 @@ appointment = {
     		}
     	}
 
-    	for (var i = 1; i < appointments.length; ++i) {
-    	    if (appointments[i].requests.length == 0) {
-    	        var n = i -1;
+    	appointment.sort_appointment(appointments);
+    },
+    sort_appointment: function (appointments) {
+        for (var i = 1; i < appointments.length; ++i) {
+            if (appointments[i].requests.length == 0) {
+                var n = i -1;
                 if (appointments[n].requests.length == 0 && appointments[n].parent_id == appointments[i].parent_id) {
                     appointments[n].date_to = appointments[i].date;
                     if (appointments[n].appointments == null)
@@ -116,7 +119,7 @@ appointment = {
             }
         }
 
-    	appointments.sort(function (a, b) {
+        appointments.sort(function (a, b) {
             var i = a.date.localeCompare(b.date);
             if (i == 0) {
                 i = a.time_from.localeCompare(b.time_from);
