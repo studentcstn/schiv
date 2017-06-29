@@ -51,21 +51,24 @@ appointment = {
     },
 
     deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
-        if (appointment.delete) {
+        if (appointment.delete && appointment.appointments != null) {
             for (var i = 0; i < appointment.appointments.length; ++i)
                 appointment.appointments.delete = true;
         }
 
-        for (var i = 0; i < appointment.appointments.length; ++i) {
-            if (appointment.appointments.delete) {
-                appointment_id.push(appointment.appointments.id);
+        if (appointment.appointments != null) {
+            for (var i = 0; i < appointment.appointments.length; ++i) {
+                if (appointment.appointments.delete) {
+                    appointment_id.push(appointment.appointments.id);
 
-                connection.lock(function () {
-                    delete_appointment($http, appointment_success, appointment_id.shift());
-                });
+                    connection.lock(function () {
+                        delete_appointment($http, appointment_success, appointment_id.shift());
+                    });
+                }
             }
         }
-        if (appointment.appointments.length == 0 && appointment.delete) {
+
+        if ((appointment.appointments == null || appointment.appointments.length == 0) && appointment.delete) {
             appointment_id.push(appointment.id);
 
             connection.lock(function () {
