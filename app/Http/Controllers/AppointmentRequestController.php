@@ -47,9 +47,6 @@ class AppointmentRequestController extends Controller {
             	->where('account_id', '=', $banner[0]->account_id)
             	->where('account_ban_id', '=', $auth_user->id)
             	->get();
-	}else
-	{
-		return response()->json(null, 404);
 	}
 
         if($ban->isEmpty())
