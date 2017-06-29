@@ -164,9 +164,9 @@ class AppointmentRequestController extends Controller {
 				    ->select('appointment_id')
 				    ->where('id', '=', $request->input('id'))
 				    ->get();
-
-
-			if(!$already->isEmpty())
+			
+			echo !$already->isEmpty();
+			if($already->isEmpty())
 			{
 			    $latest = DB::table('appointment_requests')
 				    ->select('at')
