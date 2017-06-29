@@ -185,17 +185,9 @@ class AppointmentRequestController extends Controller {
 
 			    $at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
 
-			    if(!$request->input('duration_in_min'))
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
-			    }else
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => null, 'at' => null]);
-			    }
+			    DB::table('appointment_requests')
+				->where('id', '=', $request->input('id'))
+				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $at]);
 			}else
 			{
 			    $current = DB::table('appointment_requests')
@@ -211,17 +203,9 @@ class AppointmentRequestController extends Controller {
 
 			    $difference = $request->input('duration_in_min') - $current[0]->duration_in_min;
 
-			    if(!$request->input('duration_in_min'))
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)))]);
-			    }else
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => null, 'at' => null]);
-			    }
+			    DB::table('appointment_requests')
+				->where('id', '=', $request->input('id'))
+				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)))]);
 
 			    for($i = 0; $i < count($tocorrect); ++$i)
 			    {
