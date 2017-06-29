@@ -204,7 +204,7 @@ class AppointmentRequestController extends Controller {
 
 			    DB::table('appointment_requests')
 				->where('id', '=', $request->input('id'))
-				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", $current[0]->at)));
+				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => date('H:i:s', strtotime("+{$difference} minutes", $current[0]->at))]);
 
 			    for($i = 0; $i < count($tocorrect), ++$i)
 			    {
