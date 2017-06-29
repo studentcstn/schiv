@@ -185,7 +185,7 @@ class AppointmentRequestController extends Controller {
 
 			    $at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
 
-			    if($request->input('duration_in_min'))
+			    if(!$request->input('duration_in_min'))
 			    {
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
@@ -211,7 +211,7 @@ class AppointmentRequestController extends Controller {
 
 			    $difference = $request->input('duration_in_min') - $current[0]->duration_in_min;
 
-			    if($request->input('duration_in_min'))
+			    if(!$request->input('duration_in_min'))
 			    {
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
