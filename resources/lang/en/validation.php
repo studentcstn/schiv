@@ -3,11 +3,8 @@ return [
     'date_format' => "doesn't match date format ':format'",
     'required' => "is required",
     'numeric' => "must be a number",
-    'max' => "length must be smaller than :max",
-    'min' => "length must be greater than :min",
+    'max.string' => "length must be smaller than or equal to :max",
+    'min.string' => "length must be greater than or equal to :min",
     'email' => "not a valid email",
-    // TODO
-    // 'state' => Rule::in(['Accepted', 'Declined']),
-    // 'weekday'=> Rule::in(['MON','TUE','WED','THU','FRI','SAT','SUN','NULL']),
-    // 'date'=> 'required_if:weekday,==,NULL|date_format:Y-m-d',
+    'in' => "must be one of [:values]"
 ];

@@ -63,6 +63,10 @@ Alle Funktionen sind darüber mit wenigen Klicks erreichbar.
 ![Datenbankmodel von schiv (Erstellt mit
 mysql-workbench)](../images/database.pdf){#fig:database width=70%}
 
+(TODO Datenbankmodel aktualisieren)
+(TODO Kurze Beschreibung der Tabellen)
+(TODO Rename holidays to events)
+
 # REST-Schnittstelle {#sec:rest}
 
 ## Überblick
@@ -125,11 +129,11 @@ Anmerkungen:
 ### Allgemein
 
 Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
-**200** zurück, im Fehlerfall kann **401**, **404**, **422** oder **500**
-zurückgegeben werden:
+**200** zurück, im Fehlerfall kann **401**, **404**, **409**, **422**, **429**,
+**500** oder **503** zurückgegeben werden:
 
 - **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht
-  falls die kein Rückgabewert nötig ist.
+  falls die kein Rückgabewert nötig bzw. vorhanden ist.
 
 - **401**: Falls der Login fehlschlägt, der Benutzer nicht angemeldet ist oder
   der Benutzer ein Dozent sein muss um auf die Route zugreifen zu können. Als
@@ -148,6 +152,8 @@ zurückgegeben werden:
     []
     ```
 
+- **409**: Wird zürckgegeben wenn ein Konto bereits registriert ist.
+
 - **422**: Die Anfrage enthält nicht alle nötigen Felder, oder ein Feld ist
   falsch formatiert. Die Antwort enthält als Attribute die Feldnamen bei denen
   ein Fehler festgestellt wurde. Als Wert der Attribute wird ein Array mit
@@ -165,6 +171,10 @@ zurückgegeben werden:
     {"email":["validation.required"],"password":["validation.min.string"]}
     ```
 
+- **429**: Wird beim erstellen von Anfragen gesendet, wenn bereits eine Anfrage
+  an einen Dozenten gestellt wurde. Oder wenn mehr als 60 Anfragen pro Minute
+  von einer Session gestellt wurden.
+
 - **500**: Ein allgemeiner Fehler (Syntaxfehler oder nicht behandelter Fehler).
   Als Antwort wird eine Fehlermeldung im Attribut `message` zurückgegeben.
   *Hinweis:* Ist die Anwendung im Debugmodus (`app.debug == true`), dann wird
@@ -175,6 +185,9 @@ zurückgegeben werden:
     ```json
     {"message": "fatal error"}
     ```
+
+- **503**: Kommt nur beim erstellen von Terminen vor. Zeigt an dass das
+  'Vorlesungsende' nicht in der Ereignistabelle gefunden wurde.
 
 ### Register, Login, Logout und Reset Password
 
@@ -376,7 +389,8 @@ standardmäßig bis zum Ende des Semesters 15.03 oder 30.09).
 ## Allgemein
 
 Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
-werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
+werden (Kurze Beschreibung ist unter [@sec:test.html] zu finden).
+Implementierungsdetails für die REST-Schnittstelle werden bereits in
 [@sec:rest-details] beschrieben.
 
 ## Verschicken von E-Mails
@@ -384,10 +398,10 @@ werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
 Die E-Mails werden nur in die Logdatei `storage/logs/laravel.log` geschrieben
 und nicht verschickt. Falls E-Mails verschickt werden sollen, kann dies in der
 Konfiguration `config/email.php` geändert werden. Die Vorlagen für die E-Mail
-Nachrichten befinden sich unter: `resources/views/emails`. Diese haben den
+Nachrichten befinden sich unter: `resources/views/emails`. Diese haben nur den
 nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
-(TODO)
+(TODO Weitere Details der Implementierung hinzufügen)
 
 # Testfälle
 
@@ -417,8 +431,9 @@ $ composer dumpautoload
 $ cp .env.sqlite .env
 $ touch /tmp/db
 $ php artisan migrate:refresh --seed
-$ php artisan serve
 $ php artisan retrieve:docents
+$ php artisan retrieve:holidays
+$ php artisan serve
 $ xdg-open http://localhost:8000
 ```
 
@@ -434,8 +449,9 @@ $ sudo apt install texlive-latex-extra texlive-fonts-extra
 $ sudo apt install texlive-luatex texlive-lang-german
 ```
 
-Ubuntu hat kein Paket `pandoc-crossref`, deshalb muss diese erst mit
-`cabal` heruntergeladen und kompiliert werden. Nächsten Absatz beachten!
+Ubuntu hat kein Paket `pandoc-crossref`, deshalb muss dieses erst mit
+`cabal` heruntergeladen und kompiliert werden. Bitte auch den nächsten Absatz
+beachten!
 
 ```{.bash .numberLines}
 $ sudo apt install cabal-install
@@ -444,10 +460,11 @@ $ cabal install pandoc pandoc-crossref
 $ export PATH=~/.cabal/bin/pandoc:$PATH
 ```
 
-Der vorherige Schritt kann weggelassen werden und das Standardpaket
-installiert werden, allerdings funktionieren dann keine Referenzen. Als Folge
-daraus muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile`
-entfernt werden.
+Der vorherige Schritt kann weggelassen werden und das Standardpaket installiert
+werden, allerdings funktionieren dann keine Referenzen (d.h. die Dokuemtentation
+lässt sich komplett erstellen, aber Verweise auf andere Kapitel oder Unterkapitel
+funktionieren nicht). Als Folge daraus muss noch die Zeile `--filter
+pandoc-crossref` aus dem `doc/Makefile` entfernt werden.
 
 ```{.bash .numberLines}
 $ apt install pandoc
@@ -499,6 +516,14 @@ führt folgendes aus:
 
 - Alle Kontosperrungen werden gelöscht
 - Alle Studentenkonten werden auf inaktiv gesetzt
-- Alle Konten bei denen der Login das letzte mal vor 10 Jahren ist, werden
-  gelöscht
-- Alle Termine und Terminanfragen die älter als 10 Jahren sind werden gelöscht.
+- Alle Konten bei denen ein Login das letzte Mal vor 10 Jahren stattgefunden
+  hat, werden gelöscht
+- Alle Termine und Terminanfragen die älter als 10 Jahren sind werden gelöscht
+
+## Testen von JSON-Anfragen {#sec:test.html}
+
+(TODO)
+
+## Front-End
+
+(TODO)

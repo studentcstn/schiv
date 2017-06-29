@@ -31,8 +31,8 @@ class HolidaysTableSeeder extends Seeder
                 $to = $from;
             }
             DB::table('holidays')->insert([
-                'from'   => date('Y-m-d H:i:s', strtotime($from)),
-                'to'     => date('Y-m-d H:i:s', strtotime($to)),
+                'from'   => date('Y-m-d', strtotime($from)),
+                'to'     => date('Y-m-d', strtotime($to)),
                 'name'   => $name,
                 'ignore' => false,
             ]);
