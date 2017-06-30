@@ -182,7 +182,7 @@
                         </div>
                         <div class="row" ng-show="type == 'Docent'">
                             <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}}</span></div>
-                            <div class="col-xs-7">{{item.time_from}} - {{item.time_to}} Uhr</div>
+                            <div class="col-xs-7">{{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr</div>
                         </div>
                         <div ng-show="appointment_{{item.id}}">
                             <div class="row appointment_in" ng-repeat="requests in item.requests">
@@ -263,7 +263,7 @@
             </div>
             <div class="row" ng-show="type == 'Docent'">
                 <div class="col-xs-5">{{item.date | date_filter}}</div>
-                <div class="col-xs-7">{{item.time_from}} - {{item.time_to}} Uhr</div>
+                <div class="col-xs-7">{{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr</div>
             </div>
             <div ng-show="appointment_{{item.id}}">
                 <div class="appointment_in" ng-show="item in item.requests">
@@ -406,7 +406,7 @@
                         {{item.date | date_filter}}<span ng-show="item.date_to != null && item.date_to != ''"> - {{item.date_to | date_filter}}</span>
                     </div>
                     <div class="col-xs-5">
-                        {{item.time_from}} - {{item.time_to}} Uhr
+                        {{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr
                     </div>
                 </div>
             </div>
@@ -430,7 +430,7 @@
                 </ul>
             </div>
             <div class="col-xs-6">
-                {{newAppointment_request.time_from}} - {{newAppointment_request.time_to}}
+                {{newAppointment_request.time_from | time_filter}} - {{newAppointment_request.time_to | time_filter}}
             </div>
         </div>
         <div class="form-group" ng-class="newAppointment_request.subject.length != 0 ? 'has-success' : 'has-error'">
@@ -540,7 +540,7 @@
 <div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
         <h4>{{languages.appointment.delete_appointment[lang]}}</h4>
-        <div>{{appointment.description}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
+        <div>{{appointment.description}}, {{appointment.time_from | time_filter}} - {{appointment.time_to | time_filter}}</div>
         <div class="form-group">
             <div class="form-check">
                 <div class="row">
