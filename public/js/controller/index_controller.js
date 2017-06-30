@@ -138,33 +138,35 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
-    }
+    };
 
 
 
 
     $scope.docent_sort = function(docent_a, docent_b){
-    	
-        for(var i = 0; i< docent_a.value.faculties.length; ++i){
-            for(var m = 0; m< user.faculties.length; ++m){
-                if(docent_a[i].value.faculties.id == user[m].faculties.id)
-                    docent_a.sort = true;
+    	if (user.faculties != null) {
+            for (var i = 0; i < docent_a.value.faculties.length; ++i) {
+                for (var m = 0; m < user.faculties.length; ++m) {
+                    if (docent_a[i].value.faculties.id == user[m].faculties.id)
+                        docent_a.sort = true;
+                }
             }
-        }
-        for(var i = 0; i< docent_b.value.faculties.length; ++i){
-            for(var m = 0; m< user.faculties.length; ++m){
-                if(docent_b[i].value.faculties.id == user[m].faculties.id)
-                    docent_b.sort = true;
+            for (var i = 0; i < docent_b.value.faculties.length; ++i) {
+                for (var m = 0; m < user.faculties.length; ++m) {
+                    if (docent_b[i].value.faculties.id == user[m].faculties.id)
+                        docent_b.sort = true;
+                }
             }
+        } else {
+    	    docent_a.sort = docent_b.sort = false;
         }
         
-        if(docent_a.sort == docent_b.sort){
+        if(docent_a.sort == docent_b.sort)
         	return docent_a.value.email.localeCompare(docent_b.value.email);
-        } else if(docent_a.sort && !docent_b.sort){
-        	return -1
-        }else{
+        else if(docent_a.sort && !docent_b.sort)
+        	return -1;
+        else
         	return 1;
-        }
     };
 
 });
