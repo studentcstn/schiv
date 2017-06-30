@@ -143,14 +143,28 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
 
 
-    $scope.prefered_Faculty = function(a_faculties, b_faculties){
-        for(var i = 0; i< b_faculties; ++i){
-            for(var m = 0; m< a_faculties; ++m){
-                if(a_faculties[m].id == b_faculties[i].id)
-                    return 0;
+    $scope.docent_sort = function(docent_a, docent_b){
+    	
+        for(var i = 0; i< docent_a.value.faculties.length; ++i){
+            for(var m = 0; m< user.faculties.length; ++m){
+                if(docent_a[i].value.faculties.id == user[m].faculties.id)
+                    docent_a.sort = true;
             }
         }
-        return 1;
+        for(var i = 0; i< docent_b.value.faculties.length; ++i){
+            for(var m = 0; m< user.faculties.length; ++m){
+                if(docent_b[i].value.faculties.id == user[m].faculties.id)
+                    docent_b.sort = true;
+            }
+        }
+        
+        if(docent_a.sort == docent_b.sort){
+        	return docent_a.value.email.localeCompare(docent_b.value.email);
+        } else if(docent_a.sort && !docent_b.sort){
+        	return -1
+        }else{
+        	return 1;
+        }
     };
 
 });
