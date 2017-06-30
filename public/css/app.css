@@ -297,7 +297,7 @@ body {
     background-color: #ffb74d;
 }
 .appointment_declined {
-    background-color: #806c50;
+    background-color: #989898; //#806c50;
 }
 /*
 .appointment_in:hover, appointment_in:hover {
