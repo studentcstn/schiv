@@ -51,11 +51,6 @@ appointment = {
     },
 
     deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
-        if (appointment.delete && appointment.appointments != null) {
-            for (var i = 0; i < appointment.appointments.length; ++i)
-                appointment.appointments[i].delete = true;
-        }
-
         if (appointment.appointments != null) {
             for (var i = 0; i < appointment.appointments.length; ++i) {
                 if (appointment.appointments[i].delete) {
@@ -71,7 +66,7 @@ appointment = {
             }
         }
 
-        if ((appointment.appointments == null || appointment.appointments.length == 0) && appointment.delete) {
+        if (appointment.delete) {
             appointment_id.push(appointment.id);
 
             connection.lock(function () {

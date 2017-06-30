@@ -554,7 +554,7 @@
             <div class="form-check" ng-repeat="item in appointment.appointments">
                 <div class="row">
                     <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.delete" ng-checked="appointment.delete" ng-disabled="appointment.delete">
+                        <input type="checkbox" class="form-check-input" ng-model="item.delete">
                     </div>
                     <div class="col-xs-5">{{item.date | date_filter}}</div>
                 </div>

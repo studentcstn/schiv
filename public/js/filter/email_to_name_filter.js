@@ -22,12 +22,17 @@ schiv_module.filter('date_filter',function(){
     return function(date){
         if (angular.isString(date)) {
             date = date.split("-");
-            if (language == 'de') {
-                return date[2] + "." + date[1] + "." + date[0];
-            } else {
-                return date[1] + "." + date[2] + "." + date[0];
-            }
+            return date[2] + "." + date[1] + "." + date[0];
         }
         return date;
+    }
+});
+
+schiv_module.filter('time_filter',function(){
+    return function(time){
+        if (angular.isString(time)) {
+            return time.substring(0, 5);
+        }
+        return time;
     }
 });
