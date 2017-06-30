@@ -197,7 +197,7 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(item.id, 'Declined', 0)">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(requests.id, 'Declined', 0)">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </div>
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
