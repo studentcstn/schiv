@@ -183,10 +183,9 @@
                         <div ng-show="appointment_{{item.id}}">
                             <div class="row appointment_in" ng-repeat="requests in item.requests">
                                 <div class="col-xs-9">
-                                    <div>{{requests.email}}</div>
-                                    <h4>{{requests.subject}}</h4>
-                                    <div>{{requests.description}}</div>
-                                    <h6 ng-show="requests.duration_in_min != null">{{requests.duration_in_min}} min</h6>
+                                    <p><small>{{requests.email}}</small></p>
+                                    <p><strong>{{requests.subject}}</strong></br>{{requests.description}}</p>
+                                    <p ng-show="requests.duration_in_min != null"><small>{{requests.duration_in_min}} min</small></p>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
