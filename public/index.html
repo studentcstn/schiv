@@ -181,7 +181,7 @@
                             <div class="col-xs-5">{{languages.appointment.declined[lang]}}</div>
                         </div>
                         <div class="row" ng-show="type == 'Docent'">
-                            <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}}</span></div>
+                            <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}</span></div>
                             <div class="col-xs-7">{{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr</div>
                         </div>
                         <div ng-show="appointment_{{item.id}}">
