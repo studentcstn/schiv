@@ -6,6 +6,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     });
     $scope.$on("init_settings_s", function (event, data) {
         $scope.fac = data.account_faculties;
+        user.faculties = data.account_faculties;
     });
     $scope.$on("init_settings_f", function (event, data) {
        error(data);
@@ -138,4 +139,18 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
     }
+
+
+
+
+    $scope.prefered_Faculty = function(a_faculties, b_faculties){
+        for(var i = 0; i< b_faculties; ++i){
+            for(var m = 0; m< a_faculties; ++m){
+                if(a_faculties[m].id == b_faculties[i].id)
+                    return 0;
+            }
+        }
+        return 1;
+    };
+
 });

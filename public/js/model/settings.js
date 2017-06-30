@@ -80,14 +80,3 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
-
-prefered_Faculty = function(a_faculties, b_faculties){
-	for(var i = 0; i< b_faculties; ++i){
-		for(var m = 0; m< a_faculties; ++m){
-			if(a_faculties[m].id == b_faculties[i].id)
-				return 0;
-		}
-	}
-	return 1;
-};
-
