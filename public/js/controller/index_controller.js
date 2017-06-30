@@ -147,13 +147,13 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     	if (user.faculties != null) {
             for (var i = 0; i < docent_a.value.faculties.length; ++i) {
                 for (var m = 0; m < user.faculties.length; ++m) {
-                    if (docent_a[i].value.faculties.id == user[m].faculties.id)
+                    if (docent_a.value.faculties[i].id == user.faculties[m].id)
                         docent_a.sort = true;
                 }
             }
             for (var i = 0; i < docent_b.value.faculties.length; ++i) {
                 for (var m = 0; m < user.faculties.length; ++m) {
-                    if (docent_b[i].value.faculties.id == user[m].faculties.id)
+                    if (docent_b.value.faculties[i].id == user.faculties[m].id)
                         docent_b.sort = true;
                 }
             }
