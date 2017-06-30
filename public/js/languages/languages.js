@@ -133,53 +133,53 @@ languages = {
         	en:"Your settings have been updated.",
         	de:"Ihre Einstellungen wurden aktualisiert."
         },
-	holidays:{
-		en:"Holidays",
-		de:"Feiertage"
-	},
-	add_holiday:{
-		en:"Add holiday(s)",
-		de:"Feiertag(e) hinzufügen"
-	},
-	example_holiday:{
-		en:"For example: Further training (at least 2 character)",
-		de:"Zum Beispiel: Fortbildung (mindestens 2 Zeichen)"
-	}
+		holidays:{
+			en:"Holidays",
+			de:"Feiertage"
+		},
+		add_holiday:{
+			en:"Add holiday(s)",
+			de:"Feiertag(e) hinzufügen"
+		},
+		example_holiday:{
+			en:"For example: Further training (at least 2 character)",
+			de:"Zum Beispiel: Fortbildung (mindestens 2 Zeichen)"
+		}
     },
     appointment:{
-	frequent:{
-		en:"frequent",
-		de:"wiederholend"	
-	},
-	singular:{
-		en:"singular",
-		de:"einzeln"	
-	},
-	from:
-	{
-		en:"From",
-		de:"Von"
-	},
-	to:
-	{
-		en:"To",
-		de:"Bis"
-	},
-	date:
-	{
-		en:"Date",
-		de:"Datum"
-	},
-	description:
-	{
-		en:"Description",
-		de:"Beschreibung"
-	},
-	subject:
-	{
-		en:"Subject",
-		de:"Thema"
-	},
+		frequent:{
+			en:"frequent",
+			de:"wiederholend"	
+		},
+		singular:{
+			en:"singular",
+			de:"einzeln"	
+		},
+		from:
+		{
+			en:"From",
+			de:"Von"
+		},
+		to:
+		{
+			en:"To",
+			de:"Bis"
+		},
+		date:
+		{
+			en:"Date",
+			de:"Datum"
+		},
+		description:
+		{
+			en:"Description",
+			de:"Beschreibung"
+		},
+		subject:
+		{
+			en:"Subject",
+			de:"Thema"
+		},
     	appointment_created:{
     		en: "Appointment was created succesfully.",
     		de: "Termin wurde erfolgreich erstellt."
@@ -188,84 +188,84 @@ languages = {
     	new_appointment:{
 		en: "New appointment",
 		de: "Neuer Termin"
-    	},
-   	for_example:{
-		en: "For example:",
-		de: "Zum Beispiel:"
-    	},
-	close_button:{
-		en: "Cancel",
-		de: "Abbrechen"
-    	},
-	create_button:{
-		en: "Create",
-		de: "Erstellen"
-    	},
-	ban_button:{
-		en: "Ban",
-		de: "Blockieren"
-    	},
-	register_button:{
-		en: "Register",
-		de: "Einschreiben"
-    	},
-	delete_button:{
-		en: "Delete",
-		de: "Löschen"
-    	},
-	accept_request:{
-		en: "Accept request",
-		de: "Anfrage annehmen"
-    	},
-	minutes_left1:{
-		en: "Enter the duration of the request in minutes. There are",
-		de: "Geben Sie die Dauer der Anfrage in Minuten ein. Es sind"
-    	},
-	minutes_left2:{
-		en: "minutes left for this appointment.",
-		de: "Minuten für diesen Termin vorhanden."
-    	},
-	delete_appointment_request:{
-		en: "Are you sure that you want to delete this request?",
-		de: "Sind Sie sicher, dass Sie diese Anfrage löschen wollen?"
-    	},
-	delete_appointment:{
-		en: "Are you sure that you want to delete this appointment?",
-		de: "Sind Sie sicher, dass Sie diesen Termin löschen wollen?"
-    	},
-	ban_confirmation:{
-		en:"Are you sure you want to ban this User?",
-		de:"Sind Sie sicher, dass Sie diesen Nutzer blockieren möchten?"	
-	}
+	    	},
+	   	for_example:{
+			en: "For example:",
+			de: "Zum Beispiel:"
+	    	},
+		close_button:{
+			en: "Cancel",
+			de: "Abbrechen"
+	    	},
+		create_button:{
+			en: "Create",
+			de: "Erstellen"
+	    	},
+		ban_button:{
+			en: "Ban",
+			de: "Blockieren"
+	    	},
+		register_button:{
+			en: "Register",
+			de: "Einschreiben"
+	    	},
+		delete_button:{
+			en: "Delete",
+			de: "Löschen"
+	    	},
+		accept_request:{
+			en: "Accept request",
+			de: "Anfrage annehmen"
+	    	},
+		minutes_left1:{
+			en: "Enter the duration of the request in minutes. There are",
+			de: "Geben Sie die Dauer der Anfrage in Minuten ein. Es sind"
+	    	},
+		minutes_left2:{
+			en: "minutes left for this appointment.",
+			de: "Minuten für diesen Termin vorhanden."
+	    	},
+		delete_appointment_request:{
+			en: "Are you sure that you want to delete this request?",
+			de: "Sind Sie sicher, dass Sie diese Anfrage löschen wollen?"
+	    	},
+		delete_appointment:{
+			en: "Are you sure that you want to delete this appointment?",
+			de: "Sind Sie sicher, dass Sie diesen Termin löschen wollen?"
+	    	},
+		ban_confirmation:{
+			en:"Are you sure you want to ban this User?",
+			de:"Sind Sie sicher, dass Sie diesen Nutzer blockieren möchten?"	
+		}
     },
     days:{
-	monday:{
-		en:"MON",
-		de:"MO"
-	},
-	tuesday:{
-		en:"TUE",
-		de:"DI"
-	},
-	wednesday:{
-		en:"WED",
-		de:"MI"
-	},
-	thursday:{
-		en:"THU",
-		de:"DO"
-	},
-	friday:{
-		en:"FRI",
-		de:"FR"
-	},
-	saturday:{
-		en:"SAT",
-		de:"SA"
-	},
-	sunday:{
-		en:"SUN",
-		de:"SO"
-	}
+		monday:{
+			en:"MON",
+			de:"MO"
+		},
+		tuesday:{
+			en:"TUE",
+			de:"DI"
+		},
+		wednesday:{
+			en:"WED",
+			de:"MI"
+		},
+		thursday:{
+			en:"THU",
+			de:"DO"
+		},
+		friday:{
+			en:"FRI",
+			de:"FR"
+		},
+		saturday:{
+			en:"SAT",
+			de:"SA"
+		},
+		sunday:{
+			en:"SUN",
+			de:"SO"
+		}
     }
 };
