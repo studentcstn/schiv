@@ -157,9 +157,11 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
                         docent_b.sort = true;
                 }
             }
-        } else {
-    	    docent_a.sort = docent_b.sort = false;
         }
+        if (docent_a.sort == null )
+    	    docent_a.sort = false;
+        if (docent_b.sort == null )
+            docent_b.sort = false;
         
         if(docent_a.sort == docent_b.sort)
         	return docent_a.value.email.localeCompare(docent_b.value.email);
