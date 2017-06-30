@@ -28,6 +28,7 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
     };
     $scope.$on("settings_settings_s", function (event, data) {
         $scope.user_settings = user;
+        user.faculties = data.account_faculties;
         $scope.newUser_settings = data;
         $scope.newUser_settings.password = "";
         $scope.newUser_settings.passwordRepeat = "";
