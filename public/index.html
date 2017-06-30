@@ -178,7 +178,7 @@
                         </div>
                         <div class="row" ng-show="type == 'Student' && item.state == 'Declined'">
                             <div class="col-xs-6">{{item.date | date_filter}}</div>
-                            <div class="col-xs-5">Declined</div>
+                            <div class="col-xs-5">{{languages.appointment.declined[lang]}}</div>
                         </div>
                         <div class="row" ng-show="type == 'Docent'">
                             <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}}</span></div>

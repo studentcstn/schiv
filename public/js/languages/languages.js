@@ -147,6 +147,11 @@ languages = {
 		}
     },
     appointment:{
+    	declined:{
+    		en:"Declined",
+    		de:"Abgelehnt"
+    	},
+    
 		frequent:{
 			en:"frequent",
 			de:"wiederholend"	

@@ -18,7 +18,7 @@ schiv_module.filter('email_to_name',function(){
 
 schiv_module.filter('date_filter',function(){
     return function(date){
-        date = data.split("-");
+        date = date.split("-");
         if (language == 'de') {
             return date[2] + "." + date[1] + "." + date[0];
         } else {
