@@ -182,9 +182,11 @@
                         </div>
                         <div ng-show="appointment_{{item.id}}">
                             <div class="row appointment_in" ng-repeat="requests in item.requests">
-                                <div class="col-xs-10">
-                                    <div>{{requests.subject}}</div>
+                                <div class="col-xs-9">
+                                    <div>{{requests.email}}</div>
+                                    <h4>{{requests.subject}}</h4>
                                     <div>{{requests.description}}</div>
+                                    <h6 ng-show="requests.duration_in_min != null">{{requests.duration_in_min}} min</h6>
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
@@ -419,10 +421,10 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown+item.id">
                     <li>
-                        <a ng-click="newAppointment_request.date = dates.date">{{dates.date}}</a>
+                        <a ng-click="newAppointment_request.date = dates.date; newAppointment_request.id = dates.id">{{dates.date}}</a>
                     </li>
                     <li ng-repeat="item in dates.appointments">
-                        <a ng-click="newAppointment_request.date = item.date">{{item.date}}</a>
+                        <a ng-click="newAppointment_request.date = item.date; newAppointment_request.id = item.id">{{item.date}}</a>
                     </li>
                 </ul>
             </div>
