@@ -15,3 +15,14 @@ schiv_module.filter('email_to_name',function(){
 		return rest[0] + " " + rest[1];
 	}
 });
+
+schiv_module.filter('date_filter',function(){
+    return function(date){
+        date = data.split("-");
+        if (language == 'de') {
+            return date[2] + "." + date[1] + "." + date[0];
+        } else {
+            return date[1] + "." + date[2] + "." + date[0];
+        }
+    }
+});
