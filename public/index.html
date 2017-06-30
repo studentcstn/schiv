@@ -167,14 +167,14 @@
         </div>
         <!-- liste aller aktiven und ausstehenden termine -->
         <div id="appointments">
-            <div class="appointment" ng-repeat="item in appointments_show" >
+            <div class="appointment" ng-repeat="item in appointments_show" ng-class="item.state == 'Declined' ? 'appointment_declined' : ''">
                 <div class="row">
                     <div class="col-xs-10">
                         <div>{{item.description}}</div>
                         <div>{{item.subject}}</div>
-                        <div class="row" ng-show="type == 'Student'">
-                            <div class="col-xs-offset-3 col-xs-6">{{item.requested_at}}</div>
-                            <div class="col-xs-3" ng-show="item.duration_in_min != null">{{item.duration_in_min}} min</div>
+                        <div class="row" ng-show="type == 'Student' && item.state != 'Declined'">
+                            <div class="col-xs-6">{{item.date}}</div>
+                            <div class="col-xs-5" ng-show="item.duration_in_min != null">{{item.at}}, {{item.duration_in_min}} min</div>
                         </div>
                         <div class="row" ng-show="type == 'Docent'">
                             <div class="col-xs-4">{{item.date}}<span ng-show="item.date_to != null"> - {{item.date_to}}</span></div>
@@ -187,7 +187,8 @@
                                     <p><strong>{{requests.subject}}</strong></br>{{requests.description}}</p>
                                     <p ng-show="requests.duration_in_min != null"><small>{{requests.duration_in_min}} min</small></p>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-1 visible-sm visible-md visible-lg">&nbsp;</div>
+                                <div class="col-xs-1">
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </div>

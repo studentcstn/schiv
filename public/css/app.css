@@ -296,6 +296,9 @@ body {
 
     background-color: #ffb74d;
 }
+.appointment_declined {
+    background-color: #806c50;
+}
 /*
 .appointment_in:hover, appointment_in:hover {
     -webkit-box-shadow: 0px 0px 0px;
