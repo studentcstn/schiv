@@ -5,7 +5,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
        settings.getSettings($http, $rootScope, "init_settings_s", "init_settings_f");
     });
     $scope.$on("init_settings_s", function (event, data) {
-        $scope.fac = data.faculties;
+        $scope.fac = data.account_faculties;
     });
     $scope.$on("init_settings_f", function (event, data) {
        error(data);
