@@ -84,7 +84,7 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
 prefered_Faculty = function(user_faculties, docent_faculties){
 	for(var i = 0; i< docent_faculties; ++i){
 		for(var m = 0; m< user_faculties; ++m){
-			if(user_faculties[m].name == docent_faculties[i].name)
+			if(user_faculties[m].id == docent_faculties[i].id)
 				return -1;
 		}
 	}
