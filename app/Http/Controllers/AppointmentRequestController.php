@@ -76,7 +76,7 @@ class AppointmentRequestController extends Controller {
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
                 ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->where('state', '<>', 'Declined')
                 ->where('appointments.active', '=', true)
@@ -87,7 +87,8 @@ class AppointmentRequestController extends Controller {
         {
             $requests = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+		->join('accounts', 'appointments.account_id', 'accounts.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointment_requests.account_id', '=', $auth_user->id)
 		->where('appointment_requests.active', '=', true)
                 ->where('appointments.active', '=', true)
@@ -108,7 +109,7 @@ class AppointmentRequestController extends Controller {
             $past = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
                 ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
                 ->where('appointment_requests.state', '=', true)
@@ -118,7 +119,8 @@ class AppointmentRequestController extends Controller {
         {
             $past = DB::table('appointment_requests')
                 ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
+		->join('accounts', 'appointments.account_id', 'accounts.id')
+                ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointment_requests.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
                 ->where('appointment_requests.state', '=', true)
@@ -174,7 +176,7 @@ class AppointmentRequestController extends Controller {
 			if(!$already->isEmpty())
 			{
 			    $latest = DB::table('appointment_requests')
-				    ->select('at')
+				    ->select('at', 'duration_in_min')
 				    ->where('appointment_id', '=', $appointment_id[0]->appointment_id)
 				    ->orderBy('at', 'desc')
 				    ->take(1)
@@ -188,7 +190,7 @@ class AppointmentRequestController extends Controller {
 			    }
 			    else
 			    {
-			    	$at = date('H:i:s', strtotime("+{$request->input('duration_in_min')} minutes", strtotime($latest[0]->at)));
+			    	$at = date('H:i:s', strtotime("+{$latest[0]->duration_in_min} minutes", strtotime($latest[0]->at)));
 
 			    	DB::table('appointment_requests')
 					->where('id', '=', $request->input('id'))
@@ -210,19 +212,9 @@ class AppointmentRequestController extends Controller {
 
 			    $difference = $request->input('duration_in_min') - $current[0]->duration_in_min;
 
-			    $toset = date('H:i:s', strtotime("+{$difference} minutes", strtotime($current[0]->at)));
-				
-			    if(strtotime($toset) >= strtotime($start[0]->time_from))
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $toset]);
-			    }else
-			    {
-			    	DB::table('appointment_requests')
-					->where('id', '=', $request->input('id'))
-					->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min'), 'at' => $start[0]->time_from]);
-			    }
+			    DB::table('appointment_requests')
+				->where('id', '=', $request->input('id'))
+				->update(['state' => $request->input('state'), 'duration_in_min' => $request->input('duration_in_min')]);
 
 			    for($i = 0; $i < count($tocorrect); ++$i)
 			    {
