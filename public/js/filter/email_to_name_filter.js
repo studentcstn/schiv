@@ -1,6 +1,6 @@
 schiv_module.filter('email_to_name',function(){
 	return function(email){
-	    if (angular.isString(date)) {
+	    if (angular.isString(email)) {
             var rest = email.split("@");
             rest = rest[0].split(".");
             for (i = rest[1].length - 1; i > 0; i--) {

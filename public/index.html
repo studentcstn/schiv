@@ -523,10 +523,9 @@
 <div class="window ng-hide" ng-show="show_remove_appointment_request" ng-controller="remove_appointment_request_controller">
     <div class="background">
         <h4>{{languages.appointment.delete_appointment_request[lang]}}</h4>
-        <div>{{appointment.description}}</div>
-        <div>{{appointment.subject}}</div>
-        <div>{{appointment.date | date_filter}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
-        <div>{{appointment.duration_in_min}}</div>
+        <p><small>{{appointment.email}}</small></p>
+        <p><strong>{{appointment.subject}}</strong></br>{{appointment.description}}</p>
+        <p ng-show="appointment.duration_in_min != null"><small>{{appointment.duration_in_min}} min</small></p>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">

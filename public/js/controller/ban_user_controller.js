@@ -17,6 +17,7 @@ schiv_module.controller('ban_user_controller', function($scope, $http, $rootScop
 	$scope.$on("ban_user_s", function(){
 		$rootScope.$broadcast("alert", "success", "succesfully banned user");
 		$rootScope.$broadcast("hide","show_ban_user");
+		$rootScope.$broadcast("show_index");
 	});
 	
 	$scope.$on("ban_user_f", function(data){
