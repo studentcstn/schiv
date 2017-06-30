@@ -81,10 +81,10 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
         });
 };
 
-prefered_Faculty = function(user_faculties, docent_faculties){
-	for(var i = 0; i< docent_faculties; ++i){
-		for(var m = 0; m< user_faculties; ++m){
-			if(user_faculties[m].id == docent_faculties[i].id)
+prefered_Faculty = function(a_faculties, b_faculties){
+	for(var i = 0; i< b_faculties; ++i){
+		for(var m = 0; m< a_faculties; ++m){
+			if(a_faculties[m].id == b_faculties[i].id)
 				return 0;
 		}
 	}
