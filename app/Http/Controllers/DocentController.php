@@ -37,10 +37,15 @@ class DocentController extends Controller {
         if (!$account) {
             return response()->json([], 404);
         } else {
+            $appointments = $account
+                ->appointments()
+                ->where('active', true)
+                ->get();
+
             $result = [
                 'id' => $account->id,
                 'email' => $account->email,
-                'appointments' => $account->appointments,
+                'appointments' => $appointments,
                 'faculties' => $account->faculties
             ];
 
