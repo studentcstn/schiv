@@ -226,7 +226,7 @@
             </div>
         </div>
         <!-- liste aller dozenten -->
-        <div class="docent" ng-repeat="item in docents | orderBy:'prefered_Faculty(user.fac,item.faculties)' | orderBy: 'email'" ng-click="getSingleDocent(item.id)" ng-show="item.visible">
+        <div class="docent" ng-repeat="item in docents | orderBy:'faculties':false:'prefered_Faculty(user.fac,item.faculties)' | orderBy: 'email'" ng-click="getSingleDocent(item.id)" ng-show="item.visible">
             <div class="docent_name">{{item.email | email_to_name }}</div>
             <div class="docent_faculty" ng-repeat="item in item.faculties">{{item.name}}</div>
         </div>
