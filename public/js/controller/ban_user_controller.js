@@ -1,7 +1,8 @@
 schiv_module.controller('ban_user_controller', function($scope, $http, $rootScope) {
 	
-	$scope.$on("ban_user", function(event, id){
-		$scope.id = id;
+	$scope.$on("ban_user", function(event, request){
+		$scope.request = request;
+		$scope.id = request.id;
 		$rootScope.$broadcast("show", "show_ban_user");
 	});
 

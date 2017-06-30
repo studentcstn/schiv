@@ -203,7 +203,7 @@
                                     <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                     </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="banUser(requests.account_id)">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="banUser(requests)">
                                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -574,7 +574,7 @@
 <div class="window ng-hide" ng-show="show_ban_user" ng-controller="ban_user_controller">
     <div class="background">
         <h4>{{languages.appointment.ban_confirmation[lang]}}</h4>
-        <div>{{id}}</div>
+        <div>{{request.email}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
