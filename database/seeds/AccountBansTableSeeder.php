@@ -11,7 +11,7 @@ class AccountBansTableSeeder extends Seeder
     public function run() {
         DB::table('account_bans')->insert([
             'account_id' => 1,
-            'account_ban_id' => 3,
+            'account_ban_id' => 4,
             'ban_until' => '2017-09-15 00:00:00'
         ]);
     }
