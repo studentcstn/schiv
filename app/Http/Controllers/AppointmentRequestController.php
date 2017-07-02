@@ -115,7 +115,7 @@ class AppointmentRequestController extends Controller {
                 ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id','accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointments.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
-                ->where('appointment_requests.state', '=', true)
+                ->where('appointment_requests.active', '=', true)
                 ->where('appointments.date', '<', date('Y-m-d'))
                 ->get();
         }else
@@ -126,7 +126,7 @@ class AppointmentRequestController extends Controller {
                 ->select('appointment_requests.id', 'appointment_requests.description', 'subject', 'duration_in_min', 'appointment_requests.at', 'state', 'appointment_requests.account_id', 'accounts.email', 'appointment_id', 'appointments.date', 'appointment_requests.created_at', 'appointment_requests.updated_at')
                 ->where('appointment_requests.account_id', '=', $auth_user->id)
                 ->where('appointments.active', '=', true)
-                ->where('appointment_requests.state', '=', true)
+                ->where('appointment_requests.active', '=', true)
                 ->where('appointments.date', '<', date('Y-m-d'))
                 ->get();
         }
