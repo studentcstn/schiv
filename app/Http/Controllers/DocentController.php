@@ -40,6 +40,7 @@ class DocentController extends Controller {
             $appointments = $account
                 ->appointments()
                 ->where('active', true)
+                ->where('date', '>=', date('Y-m-d'))
                 ->get();
 
             foreach ($appointments as $appointment) {
