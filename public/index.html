@@ -133,7 +133,7 @@
                         {{item.date | date_filter}}<span ng-show="item.date_to != null && item.date_to != ''"> - {{item.date_to | date_filter}}</span>
                     </div>
                     <div class="col-xs-7">
-                        {{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr, Noch {{item.total_in_min - item.accepted_in_min}} min frei.
+                        {{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr, {{languages.appointment.minute_left1[lang]}} {{item.total_in_min - item.accepted_in_min}} {{languages.appointment.minute_left2[lang]}}
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
         <div class="form-group row">
             <div class="dropdown col-xs-6">
                 <button class="btn btn-dropdown dropdown-toggle" type="button" id="appointment_inscribe_dropdown+item.id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{newAppointment_request.date}}
+                    {{newAppointment_request.date | date_filter}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown+item.id">
