@@ -46,10 +46,13 @@ class AccountBanController extends Controller {
             AppointmentRequest::where('account_id', $accountToBan->id)
                 ->update(['state' => 'Declined']);
 
-            $accountBan = new AccountBan;
+            $accountBan = AccountBan::firstOrNew(['account_ban_id', $accountToBan->id]);
             $accountBan->account_id = $accountDocent->id;
             $accountBan->account_ban_id = $accountToBan->id;
-            $accountBan->ban_until = date('Y-m-d 00:00:00', Holiday::getBeginNextSemester());
+            $accountBan->ban_until = date(
+                'Y-m-d 00:00:00',
+                Holiday::getBeginNextSemester()
+            );
             $accountBan->save();
         });
 
