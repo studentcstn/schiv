@@ -372,7 +372,7 @@
                         <p ng-show="type == 'Student'"><strong>{{item.subject}}</strong></br>{{item.description}}</p>
                         <p ng-show="type == 'Docent'"><strong>{{item.description}}</strong></p>
                         <div class="row" ng-show="type == 'Student' && item.state != 'Declined'">
-                            <div class="col-xs-6">{{item.email}}</div>
+                            <div class="col-xs-6">{{item.email | email_to_name}}</div>
                             <div class="col-xs-5" ng-show="item.duration_in_min != null">{{item.date | date_filter}}, {{item.at}}, {{item.duration_in_min}} min</div>
                         </div>
                         <div class="row" ng-show="type == 'Student' && item.state == 'Declined'">

@@ -150,11 +150,11 @@ languages = {
     	minute_left1:{
     		en:"There are",
     		de:"Es sind noch"
-    	}
+    	},
 		minute_left2:{
 			en:"min left.",
 			de:"Min frei."
-		}
+		},
 	    
     	declined:{
     		en:"Declined",
