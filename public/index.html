@@ -443,9 +443,9 @@
 <div id="last_appointments" class="ng-hide" ng-show="show_past" ng-controller="past_controller">
     <!-- liste aller alten und gelöschten  termine -->
     <div id="lastappointments">
-        <div class="appointment" ng-repeat="item in appointments_show" ng-class="item.state == 'Declined' ? 'appointment_declined' : ''">
+        <div class="appointment" ng-repeat="item in appointments" ng-class="item.state == 'Declined' ? 'appointment_declined' : ''">
             <div class="row">
-                <div class="col-xs-11">
+                <div class="col-xs-10">
                     <p ng-show="type == 'Student'"><strong>{{item.subject}}</strong></br>{{item.description}}</p>
                     <p ng-show="type == 'Docent'"><strong>{{item.description}}</strong></p>
                     <div class="row" ng-show="type == 'Student' && item.state != 'Declined'">
@@ -469,6 +469,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
                 </div>
             </div>
         </div>
