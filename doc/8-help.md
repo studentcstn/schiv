@@ -105,9 +105,26 @@ führt folgendes aus:
   hat, werden gelöscht
 - Alle Termine und Terminanfragen die älter als 10 Jahren sind werden gelöscht
 
-## Testen von JSON-Anfragen {#sec:test.html}
+## Manuelles Testen der REST-Schnittstelle {#sec:test.html}
 
-(TODO)
+Über <http://localhost/test.html> kann die REST-Schnittstelle manuelle getestet
+werden. 
+
+![Seite test.html im Browser](../images/test.html.png){#fig:test.html width=90%}
+
+Über die Auswahl `Login` kann man sich als jeder Benutzer anmelden, solange das
+Passwort `clearTextPasswort` ist. Im darunter liegenden Feld kann man seine
+Anfragen formulieren. Ein Anfrage halt folgende Syntax:
+
+    (delete|post|put|get):<url> <json>;
+
+Es können mehrere Anfragen in diesem Feld stehen, diese müssen aber mit
+Semikolon (`;`) getrennt werden. Um eine bestimmte Anfrage auszuführen klickt
+man mit der Maus oder positioniert das Caret auf irgendein Zeichen vor dem
+Semikolon. Ein Anfrage kann entweder mit klicken auf `Send...` oder mit der
+Tastenkombination `CTRL + Enter` ausgeführt werden.
+
+Im rechten Bereich sieht man das Ergebnis der Anfrage.
 
 ## Front-End
 

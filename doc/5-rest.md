@@ -83,7 +83,7 @@ Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
     []
     ```
 
-- **409**: Wird zürckgegeben wenn ein Konto bereits registriert ist.
+- **409**: Wird zurückgegeben wenn ein Konto bereits registriert ist.
 
 - **422**: Die Anfrage enthält nicht alle nötigen Felder, oder ein Feld ist
   falsch formatiert. Die Antwort enthält als Attribute die Feldnamen bei denen
@@ -120,18 +120,19 @@ Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
 - **503**: Kommt nur beim erstellen von Terminen vor. Zeigt an dass das
   'Vorlesungsende' nicht in der Ereignistabelle gefunden wurde.
 
-### Register, Login, Logout und Reset Password
+### Register, Login, Logout und Reset Password {#sec:rest-login}
 
-Der Login funktioniert über eine Session, die serverseitig gespeichert wird.
-Auf Clientseite muss in einem Cookie die geschickte Session-Id mitgeführt werden.
-Da die Anwendung sowieso in einem Browser läuft, kümmert sich der Browser um die
+Der Login funktioniert über eine Session, die serverseitig gespeichert wird. Auf
+Clientseite muss in einem Cookie die geschickte Session-Id mitgeführt werden. Da
+die Anwendung sowieso in einem Browser läuft, kümmert sich der Browser um die
 Cookie Verwaltung. Auf dem Server kümmert sich Laravel um die Session, die für
-jede Verbindung eindeutig ist und sein muss. Der Webserver muss später mit über
-das HTTPS-Protkoll angesprochen werden, sonst könnte ein Angreifer die Session
-"hijacken". Wenn man mit die Implementierung von Laravel für die Session
-verwendet, wird bei jeder Anfrage die Session-ID geändert, aus
-Sicherheitsgründen. Als Konsequenz müssen die Anfragen per Javascript an die
-Schnittstelle synchron erfolgen.
+jede Verbindung eindeutig ist und sein muss. Der Webserver muss später über das
+HTTPS-Protkoll angesprochen werden, sonst könnte ein Angreifer die Session
+"hijacken". Wenn man die Implementierung von Laravel für die Session verwendet,
+wird bei jeder Anfrage die Session-ID geändert, aus Sicherheitsgründen. Als
+Konsequenz müssen die Anfragen per Javascript an die Schnittstelle synchron
+erfolgen. Ansonsten könnte es passieren das eine alte Session-ID aus dem Cookie
+gelesen wird, bevor die neue Session-ID abgespeichert wird.
 
 **Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
 und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
@@ -313,4 +314,7 @@ Fakultäten werden als Array von Ids übergeben: `[1, 2, 3]`.
 Liefert Kontosperrungen des angemeldeten Dozenten zurück. Alle gesperrten
 Benutzer können keine Anfragen mehr stellen. Bis sie aus der Tabelle gelöscht
 werden oder die Zeit für die Sperrung abgelaufen ist (Die Sperrung ist
-standardmäßig bis zum Ende des Semesters 15.03 oder 30.09).
+standardmäßig bis zum Beginn des nächsten Semester).
+
+Wenn eine Sperrung eingetragen wird, wird der Datensatz mit aktuelle Id
+zurückgeben.

@@ -17,4 +17,7 @@ nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
 ## Login
 
+Bereits in [@sec:rest-login] ausführlich beschrieben.
+
+
 (TODO Weitere Details der Implementierung hinzufügen)
