@@ -23,7 +23,7 @@ class AppointmentController extends Controller {
         $this->validate($request, [
             'weekday'=> Rule::in(['MON','TUE','WED','THU','FRI','SAT','SUN','NULL']),
             'date'=> 'required|date_format:Y-m-d',
-	    'description' => 'required|max:255',
+            'description' => 'required|max:255',
             'time_from'=> 'date_format:H:i:s',
             'time_to'=> 'date_format:H:i:s'
         ]);
@@ -37,68 +37,68 @@ class AppointmentController extends Controller {
                 ->orderBy('from', 'asc')
                 ->select('from')
                 ->where('name', '=', 'Vorlesungsende')
-		->where('account_id', '=', null)
+                ->where('account_id', '=', null)
                 ->take(1)
                 ->get();
 
-	    if($end->isEmpty())
-	    {
-		return response()->json(null , 503);
-	    }
-		
+            if($end->isEmpty())
+            {
+                return response()->json(null , 503);
+            }
+
             $holidays = DB::table('holidays')
                 ->select('from', 'to')
-		->where('to', '>=', $start)
-		->where('ignore', '=', 0)
+                ->where('to', '>=', $start)
+                ->where('ignore', '=', 0)
                 ->where('from', '<', $end[0]->from)
-		->where('account_id', '=', null)
+                ->where('account_id', '=', null)
                 ->orWhere('account_id', '=', $auth_user->id)
                 ->get();
 
             $parent_id = 0;
-	    $is_holiday;
-	    $end = strtotime($end[0]->from);
-	    $increment = strtotime('+1 week', 0);
-	    $current_date;
-	    
-	    while(($parent_id == 0) && ($start < $end))
-	    {
-		$current_date = date('Y-m-d', $start);
-		$is_holiday = false;
-		    
-            	for($i = 0; $i < count($holidays); ++$i)
-            	{
-                	if($current_date >= $holidays[$i]->from && $current_date <= $holidays[$i]->to)
-                	{
-                    		$is_holiday = true;
-                    		break 1;
-                	}
-            	}
-		
-            	if(!$is_holiday)
-            	{
-                	$parent_id = DB::table('appointments')->insertGetId([
-                            	'account_id' => $auth_user->id,
-                            	'description' => $request->input('description'),
-                            	'active' => true,
-                            	'date' => date('Y-m-d', $start),
-                            	'time_from' => $request->input('time_from'),
-                            	'time_to' => $request->input('time_to'),
-                        	]);
+            $is_holiday;
+            $end = strtotime($end[0]->from);
+            $increment = strtotime('+1 week', 0);
+            $current_date;
 
-                	DB::table('appointments')
-                    	->where('id', '=', $parent_id)
-                    	->update(['parent_id' => $parent_id]);
-            	}
-		    
-		$start += $increment;
-	    }
+            while(($parent_id == 0) && ($start < $end))
+            {
+                $current_date = date('Y-m-d', $start);
+                $is_holiday = false;
+
+                for($i = 0; $i < count($holidays); ++$i)
+                {
+                    if($current_date >= $holidays[$i]->from && $current_date <= $holidays[$i]->to)
+                    {
+                        $is_holiday = true;
+                        break 1;
+                    }
+                }
+
+                if(!$is_holiday)
+                {
+                    $parent_id = DB::table('appointments')->insertGetId([
+                        'account_id' => $auth_user->id,
+                        'description' => $request->input('description'),
+                        'active' => true,
+                        'date' => date('Y-m-d', $start),
+                        'time_from' => $request->input('time_from'),
+                        'time_to' => $request->input('time_to'),
+                    ]);
+
+                    DB::table('appointments')
+                        ->where('id', '=', $parent_id)
+                        ->update(['parent_id' => $parent_id]);
+                }
+
+                $start += $increment;
+            }
 
             for($i = $start; $i < $end; $i += $increment)
             {
                 $is_holiday = false;
-		$current_date = date('Y-m-d', $i);
-		    
+                $current_date = date('Y-m-d', $i);
+
                 for($ii = 0; $ii < count($holidays); ++$ii)
                 {
                     if($current_date >= $holidays[$ii]->from && $current_date <= $holidays[$ii]->to)
@@ -111,14 +111,14 @@ class AppointmentController extends Controller {
                 if(!$is_holiday)
                 {
                     DB::table('appointments')->insertGetId([
-                            'account_id' => $auth_user->id,
-                            'description' => $request->input('description'),
-                            'active' => true,
-                            'parent_id' => $parent_id,
-                            'date' => date('Y-m-d', $i),
-                            'time_from' => $request->input('time_from'),
-                            'time_to' => $request->input('time_to'),
-                        ]);
+                        'account_id' => $auth_user->id,
+                        'description' => $request->input('description'),
+                        'active' => true,
+                        'parent_id' => $parent_id,
+                        'date' => date('Y-m-d', $i),
+                        'time_from' => $request->input('time_from'),
+                        'time_to' => $request->input('time_to'),
+                    ]);
                 }
             }
 
@@ -127,22 +127,22 @@ class AppointmentController extends Controller {
             if($request->input('date') >= date('Y-m-d'))
             {
                 $parent_id = DB::table('appointments')->insertGetId([
-                        'account_id' => $auth_user->id,
-                        'description' => $request->input('description'),
-                        'active' => true,
-                        'date' => $request->input('date'),
-                        'time_from' => $request->input('time_from'),
-                        'time_to' => $request->input('time_to'),
-                    ]);
+                    'account_id' => $auth_user->id,
+                    'description' => $request->input('description'),
+                    'active' => true,
+                    'date' => $request->input('date'),
+                    'time_from' => $request->input('time_from'),
+                    'time_to' => $request->input('time_to'),
+                ]);
 
                 DB::table('appointments')
                     ->where('id', '=', $parent_id)
                     ->update(['parent_id' => $parent_id]);
             }
-	    else
-	    {
-		return response()->json(['date' => 'is in past'], 422);
-	    }
+            else
+            {
+                return response()->json(['date' => 'is in past'], 422);
+            }
         }
     }
 
@@ -161,7 +161,7 @@ class AppointmentController extends Controller {
             ->get();
 
         return response()->json($appointments);
-       
+
     }
 
     public function showPast() {
@@ -188,32 +188,32 @@ class AppointmentController extends Controller {
         $fourOFour = DB::table('appointments')
             ->where('id', '=', $id)
             ->where('account_id', '=', $auth_user->id)
-	    ->where('active', '=', true)
+            ->where('active', '=', true)
             ->update(['active' => false]);
 
         if($fourOFour == 0)
         {
             return response()->json(null, 404);
         }else
-	{
-	    $time = DB::table('appointments')
-		    ->select('date', 'time_from')
-		    ->where('id', '=', $id)
-		    ->get();
-		
-	    $students = DB::table('appointment_requests')
-		    ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
-		    ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
-                    ->select('accounts.email')
-		    ->where('appointments.id', '=', $id)
-		    ->where('appointment_requests.active', '=', true)
-                    ->get();
-		
-	    for($i = 0; $i < count($students); ++$i)
-	    {
-	    	Mail::to($students[$i]->email)
-            		->send(new AppointmentDeleted($time[0]->date, $time[0]->time_from));
-	    }
-	}
+        {
+            $time = DB::table('appointments')
+                ->select('date', 'time_from')
+                ->where('id', '=', $id)
+                ->get();
+
+            $students = DB::table('appointment_requests')
+                ->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.id')
+                ->join('accounts', 'appointment_requests.account_id', 'accounts.id')
+                ->select('accounts.email')
+                ->where('appointments.id', '=', $id)
+                ->where('appointment_requests.active', '=', true)
+                ->get();
+
+            for($i = 0; $i < count($students); ++$i)
+            {
+                Mail::to($students[$i]->email)
+                    ->send(new AppointmentDeleted($time[0]->date, $time[0]->time_from));
+            }
+        }
     }
 }

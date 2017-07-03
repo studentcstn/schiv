@@ -26,8 +26,8 @@ class HolidayControllerTest extends TestCase {
         $response->assertStatus(200);
         $response->assertJson([[
             "name" => "Ostern",
-            "from" => "2017-04-13 00:00:00",
-            "to" => "2017-04-18 00:00:00"
+            "from" => "2017-04-13",
+            "to" => "2017-04-18"
         ]]);
     }
 
