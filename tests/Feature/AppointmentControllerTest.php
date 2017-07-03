@@ -36,14 +36,14 @@ class AppointmentControllerTest extends TestCase {
 
         $response = $this->getJson('appointments');
         $response->assertStatus(200);
-        $response->assertJson([
+        $response->assertJson([[
             'account_id' => 3,
             'description' => 'Test',
             'active' => true,
             'date' => date('Y-m-d'),
             'time_from' => '20:00:00',
             'time_to' => '21:00:00'
-        ]);
+        ]]);
     }
 
     public function testGetAppointmentsPast()
@@ -62,35 +62,41 @@ class AppointmentControllerTest extends TestCase {
 
         $response = $this->getJson('appointments/past');
         $response->assertStatus(200);
-        $response->assertJson([
+        $response->assertJson([[
             'account_id' => 3,
             'description' => 'Test',
             'active' => true,
             'date' => '1945-09-02',
             'time_from' => '20:00:00',
             'time_to' => '21:00:00'
-        ]);
+        ]]);
     }
 
     public function testPostSingelAppointments()
     {
         Auth::login(Account::find(3));
-        $response = $this->postJson('appointments', ['weekday' => 'NULL', 'date' => date('Y-m-d'), 'description' => 'Test','time_from' => '20:00:00', 'time_from' => '21:00:00']);
-        $response->assertStatus(200);
+        $response = $this->postJson('appointments', [
+            'weekday' => 'NULL',
+            'date' => date('Y-m-d'),
+            'description' => 'Test',
+            'time_from' => '20:00:00',
+            'time_to' => '21:00:00'
+        ]);
+        $response->assertStatus(200) ;
         $this->assertDatabaseHas('appointments', [
             'account_id' => 3,
             'description' => 'Test',
             'active' => true,
             'date' => date('Y-m-d'),
-            'time_from' => '03:00:00',
-            'time_to' => '04:00:00'
+            'time_from' => '20:00:00',
+            'time_to' => '21:00:00'
         ]);
     }
 
     public function testDeleteAppointments()
     {
         Auth::login(Account::find(3));
-        $response = $this->deleteJson('appointments');
+        $response = $this->deleteJson('appointments/3');
         $response->assertStatus(200);
         $this->assertDatabaseHas('appointments', [
             'id' => 3,
