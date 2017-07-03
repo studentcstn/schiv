@@ -15,7 +15,7 @@ Das Farbschema orientiert sich an den drei Farben der Hochschule mit eigener Int
 +---------+---------------+------------------------------------------------------------------+
 | ffeb3b  | gelb          | Liste der Dozenten                                               |
 +---------+---------------+------------------------------------------------------------------+
-| 989898  | dunkel grau   | Abgelehnte Terminanfragen                                        |
+| 989898  | hell grau     | Abgelehnte Terminanfragen                                        |
 +---------+---------------+------------------------------------------------------------------+
 
 : Grundlegende Farben
@@ -23,7 +23,7 @@ Das Farbschema orientiert sich an den drei Farben der Hochschule mit eigener Int
 +---------+---------------+------------------------------------------------------------------+
 | HEX     | Name          | Beschreibung                                                     |
 +=========+===============+==================================================================+
-| gray    | grau          | box-shadow                                                       |
+| 808080  | grau          | box-shadow                                                       |
 +---------+---------------+------------------------------------------------------------------+
 | a94442  | rot           | Fehlerhafte Validierung in Eingabe Feldern                       |
 |         |               | background-color: rgba(168, 68, 66, 0.05)                        |
@@ -31,17 +31,15 @@ Das Farbschema orientiert sich an den drei Farben der Hochschule mit eigener Int
 | 3c763d  | grün          | Erfolgreiche Validierung in Eingabe Feldern                      |
 |         |               | background-color: rgba(60, 118, 61, 0.05)                        |
 +---------+---------------+------------------------------------------------------------------+
-| white   | weiß          | Hintergrundfarbe eines Event Fensters                            |
+| ffffff  | weiß          | Hintergrundfarbe eines Event Fensters                            |
 +---------+---------------+------------------------------------------------------------------+
-|         | transparentes | Hintergrund eines Event Fensters                                 |
+| 000000  | transparentes | Hintergrund eines Event Fensters                                 |
 |         | schwarz       | background-color: rgba(0, 0, 0, 0.33)                            |
 +---------+---------------+------------------------------------------------------------------+
 
 : Weitere Farben
 
-<!--
-TODO Farben als Bild, das man in etwa sieht wie diese aussehen?
--->
+![Oben: Grundlegende Farben. Unten: Weitere Farben](../images/colors.pdf){#fig:front-input width=70%}
 
 ## Elemente
 
