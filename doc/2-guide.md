@@ -1,4 +1,4 @@
-# Funktionale Anforderungen {#sec:guideline}
+# Funktionale Anforderungen {#sec:guide}
 
 Eine Liste von Funktionalen Anforderungen die während der Gespräche mit dem
 Auftraggeber beschlossen wurden + weiterer Funktionalitäten:
@@ -28,15 +28,16 @@ Auftraggeber beschlossen wurden + weiterer Funktionalitäten:
    muss im Frontend implementiert sein.
 #. Ein Dozent soll in der Lage sein Einzeltermine, sowie wöchentlich wiederkehrende
    Termine anzulegen.
-#. Ein Student soll in der Lage sein Anfragen, zu einen beliebigen Termin zu stellen.
-#. Ein Dozent soll in der Lage sein Anfragen von Studenten anzunehmen und abzulehnen. 
-#. Einem Dozent soll die Möglchkeit gegeben werden Anfragen von bestimmten Studenten zu 
-   blockieren bzw. diese Blockierung wieder aufzuheben.
+#. Ein Student soll in der Lage sein Anfragen, zu einen beliebigen Termin zu
+   stellen.
+#. Ein Dozent soll in der Lage sein Anfragen von Studenten anzunehmen und
+   abzulehnen.
+#. Einem Dozent soll die Möglchkeit gegeben werden Anfragen von bestimmten
+   Studenten zu blockieren bzw. diese Blockierung wieder aufzuheben.
 #. Ein Student darf nicht in der Lage sein willkürlich Spam Anfragen zu stellen.
-#. Ein Dozent soll in der Lage sein terminfreie Tage für sich zu definieren die auch von 
-   wiederkehrenden Terminen berücksichtigt werden.
-#. Ein Nutzer(Student oder Dozent) soll in der Lage sein seine Email zu ändern, jedoch
-   nicht in eine die bereits von einem anderen Nutzer belegt ist.  
-   
-   [^IOSAPP]:
-<https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server>
+#. Ein Dozent soll in der Lage sein terminfreie Tage für sich zu definieren die
+   auch von wiederkehrenden Terminen berücksichtigt werden.
+#. Ein Nutzer(Student oder Dozent) soll in der Lage sein seine Email zu ändern,
+   jedoch nicht in eine die bereits von einem anderen Nutzer belegt ist.
+
+[^IOSAPP]: <https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server>

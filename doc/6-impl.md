@@ -15,4 +15,6 @@ Konfiguration `config/email.php` geändert werden. Die Vorlagen für die E-Mail
 Nachrichten befinden sich unter: `resources/views/emails`. Diese haben nur den
 nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
+## Login
+
 (TODO Weitere Details der Implementierung hinzufügen)
