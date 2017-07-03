@@ -9,31 +9,36 @@ class AppointmentRequestsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         DB::table('appointment_requests')->insert([
-            'description' => '...',
-            'subject' => 'Klausureinsicht',
+            'description' => 'dies ist eine Testanfrage',
+            'subject' => 'über das möchte ich reden',
             'duration_in_min' => 30,
             'active' => true,
-            'state' => 'Accepted',
-            'account_id'=> 3,
+            'state' => 'Idle',
+            'account_id'=> 2,
             'appointment_id' => 1,
+
         ]);
-        DB::table('appointment_requests')->insert([
-            'description' => '...',
-            'subject' => 'Studienarbeit',
+
+       DB::table('appointment_requests')->insert([
+            'description' => 'dies ist auch eine Testanfrage',
+            'subject' => 'über das möchte ich nicht reden',
             'duration_in_min' => 30,
             'active' => true,
             'state' => 'Idle',
-            'account_id'=> 3,
+            'account_id'=> 2,
             'appointment_id' => 2,
-        ]);
+
+       ]);
+
         DB::table('appointment_requests')->insert([
-            'description' => '...',
-            'subject' => 'Bachelorarbeit',
+            'description' => 'dies ist auch eine Testanfrage',
+            'subject' => 'über das möchte ich nicht reden',
             'active' => true,
             'state' => 'Idle',
-            'account_id'=> 4,
+            'account_id'=> 1,
             'appointment_id' => 3,
         ]);
     }

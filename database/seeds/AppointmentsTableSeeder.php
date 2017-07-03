@@ -11,35 +11,39 @@ class AppointmentsTableSeeder extends Seeder
      */
     public function run()
     {
+        //einmaliger Termin
         DB::table('appointments')->insert([
-            'account_id' => 1,
-            'description' => 'Klausureinsicht',
+            'account_id' => 4,
+            'description' => 'das ist ein Test-Termin.',
             'active' => true,
             'date' => '2017-08-17',
             'time_from' => '13:00:00',
             'time_to' => '13:25:00',
         ]);
+
         DB::table('appointments')->insert([
-            'account_id' => 1,
-            'description' => 'Einmalige Sprechstunde',
+            'account_id' => 3,
+            'description' => 'das ist auch ein Test-Termin.',
             'active' => true,
-            'date' => '2017-07-10',
+            'date' => '2017-07-07',
             'time_from' => '11:00:00',
             'time_to' => '12:00:00',
         ]);
-        $parent_id = DB::table('appointments')->insertGetId([
-            'account_id' => 2,
-            'description' => 'Wiederholende Sprechstunde',
+
+        DB::table('appointments')->insert([
+            'account_id' => 3,
+            'description' => 'Klausureinsicht',
             'active' => true,
-            'date' => '2017-08-18',
+            'date' => '2017-08-17',
             'time_from' => '11:00:00',
             'time_to' => '12:00:00',
         ]);
+
         DB::table('appointments')->insert([
-            'account_id' => 2,
-            'description' => 'Wiederholende Sprechstunde',
+            'account_id' => 3,
+            'description' => 'dies ist ein weiderholender Termin',
             'active' => true,
-            'parent_id' => $parent_id,
+            'parent_id' => 2,
             'date' => '2017-07-14',
             'time_from' => '11:00:00',
             'time_to' => '12:00:00',
