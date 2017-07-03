@@ -13,14 +13,18 @@ dieser Zeit keine Anfragen stehlen.
 
 ## Tabelle holidays
 
-(TODO Rename holidays to events)
+Diese Tabelle sollte in `events` umbenannt werden.
 
 Enthält Zeiträume (`from` bis `to`) bzw. Zeitpunkte (`from` == `to`) von
 wichtigen Ereignissen (`name`). Diese Ereignisse können auch Ferien sein
-(`holiday`). Beispiele:
+(`ignore` == `false`). Beispiele:
 
 - Ostern 2017-04-13 bis 2017-04-08 (Feiertag)
 - Vorlesungsbeginn 2017-10-02 
+
+Allgemeine Termine können nicht durch Benutzer geändert werden (`account_id` ==
+`null`). Dozenten können ihre eigenen "Ferien" eintragen. Wird bei der
+Erstellung von Terminserien beachtet.
 
 ## Tabelle appointments
 
