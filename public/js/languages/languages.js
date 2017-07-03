@@ -97,6 +97,10 @@ languages = {
 
     },
     settings: {
+	banned:{
+	    en:"You have succesfully banned the user.",
+	    de:"Sie haben den Nutzer erfolgreich blockiert."
+	},
         email: {
             en: "E-mail",
             de: "E-mail"
