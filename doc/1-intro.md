@@ -2,7 +2,7 @@
 
 In dieser Studienarbeit geht es um die Erstellung einer Website zur
 Sprechstundenverwaltung an der Hochschule Hof. Als Projektname wurde `Schiv`
-gewählt das eine Abkürzung von (S)pre(ch)stunden (I)nternet V(erwaltung) ist.
+gewählt das eine Abkürzung von (S)pre(ch)stunden (I)nternet (V)erwaltung ist.
 Für die Implementierung dürfen folgende Hilfsmittel verwendet werden:
 
 - HTML 5
