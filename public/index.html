@@ -129,7 +129,7 @@
             <div class="appointment" ng-repeat="item in appointments" ng-click="inscribeSetAppointment(item)">
                 <div>{{item.description}}</div>
                 <div class="row">
-                    <div class="col-xs-offset-1 col-xs-4">
+                    <div class="col-xs-5">
                         {{item.date | date_filter}}<span ng-show="item.date_to != null && item.date_to != ''"> - {{item.date_to | date_filter}}</span>
                     </div>
                     <div class="col-xs-7">
