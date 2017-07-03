@@ -5,6 +5,11 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\QueryException;
+
+use App\Holiday;
+use InvalidArgumentException;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,31 +31,31 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        if (Config::get('app.debug')) {
-            # $dateOfYear = "03-15";
+        try {
+            $currentDate = date("Y-m-d");
+            $beginNextSemester = date(
+                "Y-m-d",
+                Holiday::getBeginNextSemester()
+            );
 
-            # $schedule
-            #     ->command('retrieve:docents --from-cache')
-            #     ->everyMinute()
-            #     ->when(function () use ($dateOfYear) {
-            #         return (
-            #             $dateOfYear == "03-15" ||
-            #             $dateOfYear == "09-31"
-            #         );
-            #     });
-        } else {
-            $dateOfYear = date("m-d");
-
-            $schedule
-                ->command('retrieve:docents')
-                ->daily()
-                ->at('12:00')
-                ->when(function () use ($dateOfYear) {
-                    return (
-                        $dateOfYear == "03-15" ||
-                        $dateOfYear == "09-31"
-                    );
-                });
+            if ($currentDate == $beginNextSemester) {
+                $schedule
+                    ->command('retrieve:holidays')
+                    ->daily()
+                    ->at('00:00');
+                $schedule
+                    ->command('retrieve:docents')
+                    ->daily()
+                    ->at('00:00');
+                $schedule
+                    ->command('maintance')
+                    ->daily()
+                    ->at('00:00');
+            }
+        } catch (QueryException $e) {
+            return;
+        } catch (InvalidArgumentException $e) {
+            return;
         }
     }
 

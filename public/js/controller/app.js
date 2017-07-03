@@ -68,6 +68,7 @@ schiv_module.controller('app', function($scope, $http, $rootScope, $timeout, $co
             $rootScope.$broadcast("show_settings");
         },
         logout: function () {
+            $rootScope.$broadcast("hide", "show_appointment_request", "show_appointment", "show_appointment_edit", "show_remove_appointment_request", "show_remove_appointment", "show_ban_user");
             $rootScope.$broadcast("log_out");
         }
     };

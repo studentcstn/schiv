@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 use ErrorException;
 use App\Account;
@@ -108,6 +109,8 @@ class RetrieveDocents extends Command
             $docent = str_replace("ä", "ae", $docent);
             $docent = str_replace("ö", "oe", $docent);
             $docent = str_replace("ü", "ue", $docent);
+            $docent = str_replace("ß", "ss", $docent);
+            $docent = str_replace("é", "e", $docent);
             $docent = preg_replace("#\(.*\)#", "", $docent);
             $docent = trim($docent);
 
@@ -128,6 +131,15 @@ class RetrieveDocents extends Command
 
             $email = "$partOne.$partTwo@hof-university.de";
 
+            $validator = Validator::make(
+                ['email' => $email],
+                ['email' => 'email']
+            );
+
+            if ($validator->fails()) {
+                dd($validator->messages());
+            }
+
             $account = Account::firstOrNew(['email' => $email]);
             if ($account->type === null) {
                 $account->type = 'Docent';
@@ -138,6 +150,8 @@ class RetrieveDocents extends Command
                 $account->updated_at = date('Y-m-d H:i:s');
             }
             $account->save();
+
+            echo $email."\n";
         }
 
         Account::where('type', 'Docent')

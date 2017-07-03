@@ -21,13 +21,14 @@ schiv_module.controller('settings_controller', function($scope, $http, $rootScop
             var from = new Date;
             var to = new Date;
             to.setFullYear(from.getFullYear() + 1);
-            from = from.getFullYear() + "-" + ((from.getMonth() + 1) < 10 ? "0"+(from.getMonth() + 1) : (from.getMonth() + 1)) + "-" + from.getDate();
-            to = to.getFullYear()  + "-" + ((to.getMonth() + 1) < 10 ? "0"+(to.getMonth() + 1) : (to.getMonth() + 1)) + "-" + to.getDate();
+            from = from.getDate() + "." + (from.getMonth() + 1) + "." + from.getFullYear();
+            to = to.getDate() + "." + (to.getMonth() + 1) + "." + to.getFullYear();
             holiday.getHolidays($http, $rootScope, "holidays_get_s", "holidays_get_f", from, to);
         }
     };
     $scope.$on("settings_settings_s", function (event, data) {
         $scope.user_settings = user;
+        user.faculties = data.account_faculties;
         $scope.newUser_settings = data;
         $scope.newUser_settings.password = "";
         $scope.newUser_settings.passwordRepeat = "";

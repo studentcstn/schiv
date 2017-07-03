@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller {
             ->first();
 
         if (!$account) {
-            return response()->json([], 404);
+            return response()->json(['message' => "account doesn't exists"], 404);
         }
 
         $newPassword = str_random(10);

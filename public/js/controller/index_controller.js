@@ -2,6 +2,14 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     $scope.$on("login_success", function () {
        show();
+       settings.getSettings($http, $rootScope, "init_settings_s", "init_settings_f");
+    });
+    $scope.$on("init_settings_s", function (event, data) {
+        $scope.fac = data.account_faculties;
+        user.faculties = data.account_faculties;
+    });
+    $scope.$on("init_settings_f", function (event, data) {
+       error(data);
     });
 
     $scope.$on("show_index", function () {
@@ -20,7 +28,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.type = "Student";
         $rootScope.$broadcast("hide", "show_index_docent");
         docent.getDocentList($http, $rootScope, "index_docents_s", "index_docents_f");
-        appointment_request.getAppointmentRequest($http, $rootScope, "index_appointment_s", "index_appointment_f");
+        appointment_request.getAppointmentRequest($http, $rootScope, "index_student_appointment_request_s", "index_student_appointment_request_f");
     };
     $scope.$on("index_docents_s", function (event, data) {
         $scope.docents = data;
@@ -28,14 +36,15 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
     $scope.$on("index_docents_f", function (event, data) {
         error(data);
     });
-    $scope.$on("index_appointment_s", function (event, data) {
+    $scope.$on("index_student_appointment_request_s", function (event, data) {
         if (data.lenght == 0) {
             data = [{id: 0,
                 description: languages.index.no_appointments[language]}];
         }
         $scope.appointments = data;
+        $scope.appointments_show = data;
     });
-    $scope.$on("index_appointment_f", function (event, data) {
+    $scope.$on("index_student_appointment_request_f", function (event, data) {
         error(data);
     });
 
@@ -53,7 +62,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appointments = data;
         --receive;
         if (receive === 0)
-            appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
+            $scope.appointments_show = appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
     });
     $scope.$on("index_appointment_f", function (event, data) {
         error(data);
@@ -62,7 +71,7 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
         $scope.appointments_requests = data;
         --receive;
         if (receive === 0)
-            appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
+            $scope.appointments_show = appointment.merge_appointments($scope.appointments, $scope.appointments_requests);
     });
     $scope.$on("index_appointment_request_f", function (event, data) {
         error(data);
@@ -129,5 +138,37 @@ schiv_module.controller('index_controller', function($scope, $http, $rootScope) 
 
     var error = function (data) {
         $rootScope.$broadcast("error", data);
-    }
+    };
+
+
+
+
+    $scope.docent_sort = function(docent_a, docent_b){
+    	if (user.faculties != null) {
+            for (var i = 0; i < docent_a.value.faculties.length; ++i) {
+                for (var m = 0; m < user.faculties.length; ++m) {
+                    if (docent_a.value.faculties[i].id == user.faculties[m].id)
+                        docent_a.sort = true;
+                }
+            }
+            for (var i = 0; i < docent_b.value.faculties.length; ++i) {
+                for (var m = 0; m < user.faculties.length; ++m) {
+                    if (docent_b.value.faculties[i].id == user.faculties[m].id)
+                        docent_b.sort = true;
+                }
+            }
+        }
+        if (docent_a.sort == null )
+    	    docent_a.sort = false;
+        if (docent_b.sort == null )
+            docent_b.sort = false;
+        
+        if(docent_a.sort == docent_b.sort)
+        	return docent_a.value.email.localeCompare(docent_b.value.email);
+        else if(docent_a.sort && !docent_b.sort)
+        	return -1;
+        else
+        	return 1;
+    };
+
 });

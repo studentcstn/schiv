@@ -1,81 +1,3 @@
-# Funktionale Anforderungen {#sec:guideline}
-
-Eine Liste von Funktionalen Anforderungen die während der Gespräche mit dem
-Auftraggeber beschlossen wurden + weiterer Funktionalitäten:
-
-#. Konten sind nur registrierbar mit E-Mail-Adressen (`@hof-university.de`) der
-   Hochschule Hof.
-#. Zur Registrierung wird nur die E-Mail-Adresse und ein Passwort benötigt.
-#. Konten werden nach der Registrierung als "Studenten" behandelt.
-#. Beim Vergessen eines Passworts soll der Nutzer in der Lage, sein durch seine Email,
-   das Konto wiederherzustellen.
-#. Eine Liste der aktiven Dozenten wird über die Schnittstelle der
-   iOS-Stundenplan-App[^IOSAPP] abgefragt. Hierbei muss aus den Namen des Dozenten die
-   E-Mail-Adresse abgeleitet werden, da die diese nicht direkt abfragbar ist.
-   Für jeden Dozenten wird ein deaktiviertes Konto angelegt.
-#. Konten können nur "Dozent" werden, wenn bereits ein deaktiviertes Konto
-   diesen Typs angelegt ist.
-#. Jedes Konto ist beliebig vielen Fakultäten zugeordnet.
-#. Aktivierung eines Kontos erfolgt über eine E-Mail, die, nach der Registrierung,
-   mit einem Aktivierungslink geschickt wird.
-#. Die Anwendung soll mindestens auf normalen Desktop-PCs mit
-   den weitverbreitetsten Browsern laufen.
-#. Es werden generell keine Datensätze gelöscht, sondern nur weich gelöscht
-   ("unsichtbar gemacht").
-#. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
-   sich dann wieder erneut registrieren
-#. Aktivierungslink wird über einen GET abgesetzt, d.h. der Aktivierungslink
-   muss im Frontend implementiert sein.
-#. Ein Dozent soll in der Lage sein Einzeltermine, sowie wöchentlich wiederkehrende
-   Termine anzulegen.
-#. Ein Student soll in der Lage sein Anfragen, zu einen beliebigen Termin zu stellen.
-#. Ein Dozent soll in der Lage sein Anfragen von Studenten anzunehmen und abzulehnen. 
-#. Einem Dozent soll die Möglchkeit gegeben werden Anfragen von bestimmten Studenten zu 
-   blockieren bzw. diese Blockierung wieder aufzuheben.
-#. Ein Student darf nicht in der Lage sein willkürlich Spam Anfragen zu stellen.
-#. Ein Dozent soll in der Lage sein terminfreie Tage für sich zu definieren die auch von 
-   wiederkehrenden Terminen berücksichtigt werden.
-#. Ein Nutzer(Student oder Dozent) soll in der Lage sein seine Email zu ändern, jedoch
-   nicht in eine die bereits von einem anderen Nutzer belegt ist.
-
-[^IOSAPP]:
-<https://github.com/HochschuleHofStundenplanapp/iOS-App/wiki/Schnittstellen-zum-Server>
-
-# Style-Guide
-
-## Farbschema
-
-(TODO)
-
-Es wird sich am Farbschema der Hochschule Hof orientiert.
-
-## Typographie
-
-(TODO)
-
-Als Schriftart wird `Roboto`[^ROBOTO] verwendet, da diese klar lesbar ist.
-
-[^ROBOTO]: <https://fonts.google.com/specimen/Roboto?selection.family=Roboto>
-
-## Layout
-
-(TODO)
-
-Beim Layout muss zwischen Student und Dozent unterschieden werden.
-Das Layout der Seite soll möglichst einfach und übersichtlich sein.
-
-## Navigation
-
-(TODO)
-
-Es wird nur eine Navigationleiste am oberen Rand geben, die immer sichtbar ist.
-Alle Funktionen sind darüber mit wenigen Klicks erreichbar.
-
-# Datenbankmodel
-
-![Datenbankmodel von schiv (Erstellt mit
-mysql-workbench)](../images/database.pdf){#fig:database width=70%}
-
 # REST-Schnittstelle {#sec:rest}
 
 ## Überblick
@@ -138,11 +60,11 @@ Anmerkungen:
 ### Allgemein
 
 Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
-**200** zurück, im Fehlerfall kann **401**, **404**, **422** oder **500**
-zurückgegeben werden:
+**200** zurück, im Fehlerfall kann **401**, **404**, **409**, **422**, **429**,
+**500** oder **503** zurückgegeben werden:
 
 - **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht
-  falls die kein Rückgabewert nötig ist.
+  falls die kein Rückgabewert nötig bzw. vorhanden ist.
 
 - **401**: Falls der Login fehlschlägt, der Benutzer nicht angemeldet ist oder
   der Benutzer ein Dozent sein muss um auf die Route zugreifen zu können. Als
@@ -161,6 +83,8 @@ zurückgegeben werden:
     []
     ```
 
+- **409**: Wird zürckgegeben wenn ein Konto bereits registriert ist.
+
 - **422**: Die Anfrage enthält nicht alle nötigen Felder, oder ein Feld ist
   falsch formatiert. Die Antwort enthält als Attribute die Feldnamen bei denen
   ein Fehler festgestellt wurde. Als Wert der Attribute wird ein Array mit
@@ -178,6 +102,10 @@ zurückgegeben werden:
     {"email":["validation.required"],"password":["validation.min.string"]}
     ```
 
+- **429**: Wird beim erstellen von Anfragen gesendet, wenn bereits eine Anfrage
+  an einen Dozenten gestellt wurde. Oder wenn mehr als 60 Anfragen pro Minute
+  von einer Session gestellt wurden.
+
 - **500**: Ein allgemeiner Fehler (Syntaxfehler oder nicht behandelter Fehler).
   Als Antwort wird eine Fehlermeldung im Attribut `message` zurückgegeben.
   *Hinweis:* Ist die Anwendung im Debugmodus (`app.debug == true`), dann wird
@@ -188,6 +116,9 @@ zurückgegeben werden:
     ```json
     {"message": "fatal error"}
     ```
+
+- **503**: Kommt nur beim erstellen von Terminen vor. Zeigt an dass das
+  'Vorlesungsende' nicht in der Ereignistabelle gefunden wurde.
 
 ### Register, Login, Logout und Reset Password
 
@@ -243,7 +174,7 @@ Momentane Antwort:
 {"token":"twon-ha","password":"rabbithole2"}
 ```
 
-Laut Vorgabe (siehe [@sec:guideline]) muss der Aktivierungslink im Frontend
+Laut Vorgabe (siehe [@sec:guide]) muss der Aktivierungslink im Frontend
 implementiert sein. Da der Link über ein `GET` abgesetzt wird, aber das Backend
 ein `PUT` benötigt. Das Frontend muss dann ein `put:register` mit dem Token in
 der Nachricht absetzen, um das Konto wieder zu aktivieren.
@@ -335,7 +266,7 @@ folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
 Bei `delete:appointments/{id}`: Setzt den Status des mit `id` angegeben Termins
 auf `Inactive`.
 
-Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200** 
+Versucht ein gesperrter Student eine Anfrage zu stellen, wird **200**
 zurückgegeben, aber nur so getan als ob die Anfrage durchgegangen ist.
 
 ### Feiertage
@@ -383,112 +314,3 @@ Liefert Kontosperrungen des angemeldeten Dozenten zurück. Alle gesperrten
 Benutzer können keine Anfragen mehr stellen. Bis sie aus der Tabelle gelöscht
 werden oder die Zeit für die Sperrung abgelaufen ist (Die Sperrung ist
 standardmäßig bis zum Ende des Semesters 15.03 oder 30.09).
-
-# Implementierung
-
-## Allgemein
-
-Die REST-Schnittstelle kann manuell über `test.html` ausprobiert bzw. getestet
-werden. Implementierungsdetails für die REST-Schnittstelle werden bereits in
-[@sec:rest-details] beschrieben.
-
-## Verschicken von E-Mails
-
-Die E-Mails werden nur in die Logdatei `storage/logs/laravel.log` geschrieben
-und nicht verschickt. Falls E-Mails verschickt werden sollen, kann dies in der
-Konfiguration `config/email.php` geändert werden. Die Vorlagen für die E-Mail
-Nachrichten befinden sich unter: `resources/views/emails`. Diese haben den
-nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
-
-(TODO)
-
-# Testfälle
-
-## Backend
-
-Es sind für jeden Controller Testfälle im Verzeichnis `tests/Feature` angelegt.
-
-## Fontend
-
-(TODO)
-
-# Benutzerhandbuch
-
-## Installation für Entwicklung unter Ubuntu 17.04 {#sec:install}
-
-Es wird von einer neuen Installation ausgegangen.
-
-```{#lst:install .bash .numberLines}
-$ sudo apt update
-$ sudo apt install git composer unzip php php-mbstring php-xml
-$ sudo apt install php-sqlite3 sqlitebrowser
-$ cd $HOME
-$ git clone https://github.com/studentcstn/schiv
-$ cd schiv
-$ composer install
-$ composer dumpautoload
-$ cp .env.sqlite .env
-$ touch /tmp/db
-$ php artisan migrate:refresh --seed
-$ php artisan serve
-$ php artisan retrieve:docents
-$ xdg-open http://localhost:8000
-```
-
-## Dokumentation erstellen
-
-Es wird davon ausgegangen das der vorherige Schritt in [@sec:install] ausgeführt
-wurde und das Arbeitsverzeichnis unverändert ist.
-
-```{.bash .numberLines}
-$ sudo apt install make latexmk
-$ sudo apt install texlive-latex-recommended texlive-fonts-recommended
-$ sudo apt install texlive-latex-extra texlive-fonts-extra
-$ sudo apt install texlive-luatex texlive-lang-german
-```
-
-Ubuntu hat kein Paket `pandoc-crossref`, deshalb muss diese erst mit
-`cabal` heruntergeladen und kompiliert werden. Nächsten Absatz beachten!
-
-```{.bash .numberLines}
-$ sudo apt install cabal-install
-$ cabal update
-$ cabal install pandoc pandoc-crossref
-$ export PATH=~/.cabal/bin/pandoc:$PATH
-```
-
-Der vorherige Schritt kann weggelassen werden und das Standardpaket
-installiert werden, allerdings funktionieren dann keine Referenzen. Als Folge
-daraus muss noch die Zeile `--filter pandoc-crossref` aus dem `doc/Makefile`
-entfernt werden.
-
-```{.bash .numberLines}
-$ apt install pandoc
-```
-
-Nach dem `pandoc` installiert ist, kann die Dokumentation wie folgt
-erstellt werden:
-
-```{.bash .numberLines}
-$ cd doc
-$ make
-$ xdg-open pdf/paper.pdf
-```
-
-## Dozenten aktualisieren
-
-Am Ende des Semester können die Dozenten-Konten aktualisiert werden. Dazu dient
-der Befehl `php artisan retrieve:docents`. Alle Dozenten die über die
-Schnittstelle nicht mehr vorhanden sind, werden deaktiviert. Deaktivierte
-Dozenten die noch Zugriff auf ihr E-Mail-Konto haben können sich erneut
-registrieren und anmelden. Die Zugangsdaten für die Schnittstelle der
-iOS-Stundenplan-App müssen in der `.env`-Datei eingetragen werden (Schlüssel:
-`IOSAPP_USERNAME` und `IOSAPP_PASSWORD`).
-
-Zur Vereinfachung kann man das Task-Scheduling aktivieren, wie in dieser
-Anleitung beschrieben <https://laravel.com/docs/5.4/scheduling>. Der Task würde
-am 15. März bzw. 31. September jedes Jahr ausgeführt.
-
-Zum Testen kann die Option `--from-cache` verwendet werden. Hier werden die
-Daten nur einmal vom Server geholt und dann in einer lokalen Datei
-`/tmp/docents` zwischengespeichert.

@@ -7,9 +7,13 @@ Für die Implementierung dürfen folgende Hilfsmittel verwendet werden:
 
 - HTML 5
 - CSS 3
-- Javascript (Angular JS, Bootstrap, Ajax, jQuery)
-- PHP (Laravel)
-- MySQL
+- Angular 1.6.3
+- Bootstrap 3.3.7
+- jQuery 1.9.1
+- PHP 5.6.30
+- Laravel 5.4
+- MySQL 5.5.55
+- Sqlite3 3.19.3 (Lokale Entwicklung)
 
 Dateinamen beziehen sich immer auf das Wurzel-Verzeichnis des Projekts und sind
 in `Proportionalschrift` geschrieben.

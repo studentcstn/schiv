@@ -13,7 +13,12 @@ docent = {
 	},
 
     search: function (docents, searchString) {
-		searchString = (".*" + searchString + ".*").toLowerCase();
+        searchString = searchString.toLowerCase();
+        var string = searchString.split(' ');
+        searchString = ".*";
+	    for (var i = 0; i < string.length; ++i) {
+	        searchString += string[i] + ".*";
+        }
     	for(var i = 0; i<docents.length;++i){
     		if(docents[i].email.toLowerCase().match(searchString))
     		{

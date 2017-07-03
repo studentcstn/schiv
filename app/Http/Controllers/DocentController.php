@@ -37,10 +37,34 @@ class DocentController extends Controller {
         if (!$account) {
             return response()->json([], 404);
         } else {
+            $appointments = $account
+                ->appointments()
+                ->where('active', true)
+                ->where('date', '>=', date('Y-m-d'))
+                ->get();
+
+            foreach ($appointments as $appointment) {
+                $totalInMin = floor(
+                    (strtotime($appointment['time_to'], 0) -
+                     strtotime($appointment['time_from'], 0)) / 60
+                );
+
+                $acceptedInMin = $appointment->sumRequestsDurationTime(
+                    true, 'Accepted'
+                );
+                $idleInMin = $appointment->sumRequestsDurationTime(
+                    true, 'Idle'
+                );
+
+                $appointment['total_in_min'] = $totalInMin;
+                $appointment['accepted_in_min'] = $acceptedInMin;
+                $appointment['idle_in_min'] = $idleInMin;
+            }
+
             $result = [
                 'id' => $account->id,
                 'email' => $account->email,
-                'appointments' => $account->appointments,
+                'appointments' => $appointments,
                 'faculties' => $account->faculties
             ];
 

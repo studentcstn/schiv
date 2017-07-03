@@ -1,3 +1,5 @@
+appointment_id = [];
+appointment_success = {success: true};
 appointment = {
     getAppointments: function($http, $rootScope, broadcastSuccess, broadcastFailed) {
         connection.lock(function () {
@@ -19,32 +21,68 @@ appointment = {
     },*/
 
     createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
-	time_from = controlTime(time_from);
-	time_to = controlTime(time_to);
-	if(!day.match("(FRI|MON|S(AT|UN)|T(UE|HU)|WED)")) {
-		day = rebuildDate(day);
-		if (!controlDate(day)) {
-		    $rootScope.$broadcast(broadcastFailed, {status: 1004, statusText:"wrong date"});
-		    return;
-		}
-	}
-	if(description == null || description == ""){
-	$rootScope.$broadcast(broadcastFailed, {status: 1005, statusText:"Description must at least have one character"});
-	return;
-	}
+        var appointment = {};
+        appointment.time_from = controlTime(time_from);
+        appointment.time_to = controlTime(time_to);
+        if(!day.match("(FRI|MON|S(AT|UN)|T(UE|HU)|WED)")) {
+            appointment.weekday = "NULL";
+            appointment.date = rebuildDate(day);
+            if (!controlDate(appointment.date)) {
+                $rootScope.$broadcast(broadcastFailed, {status: 1004, statusText:"wrong date"});
+                return;
+            }
+        } else {
+            appointment.weekday = day;
+            var d = new Date();
+            d = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+            appointment.date = rebuildDate(d);
+        }
+
+        if(description == null || description == ""){
+            $rootScope.$broadcast(broadcastFailed, {status: 1005, statusText:"Description must at least have one character"});
+            return;
+        }
+        appointment.description = description;
+
         connection.lock(function () {
-           create_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description) ;
+           create_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, appointment) ;
         });
+
     },
 
-    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
+    deleteAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
+        if (appointment.appointments != null) {
+            for (var i = 0; i < appointment.appointments.length; ++i) {
+                if (appointment.appointments[i].delete) {
+                    appointment_id.push(appointment.appointments[i].id);
+
+                    connection.lock(function () {
+                        delete_appointment($http, appointment_success, appointment_id.shift());
+                    });
+                }
+            }
+        }
+
+        if (appointment.delete) {
+            appointment_id.push(appointment.id);
+
+            connection.lock(function () {
+                delete_appointment($http, appointment_success, appointment_id.shift());
+            });
+        }
+
         connection.lock(function () {
-           delete_appointment($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id);
+            connection.free();
+            if (appointment_success.success) {
+                $rootScope.$broadcast(broadcastSuccess);
+            } else {
+                $rootScope.$broadcast(broadcastFailed);
+            }
         });
     },
 
     merge_appointments: function(appointments, appointment_requests) {
-    	for(n = 0; n<appointments.length; ++n){
+    	for(var n = 0; n<appointments.length; ++n){
             appointments[n].requests = [];
             appointments[n].editable = true;
     		for(i = 0; i<appointment_requests.length; ++i){
@@ -55,6 +93,34 @@ appointment = {
     			}
     		}
     	}
+
+    	appointment.sort_appointment(appointments);
+        return appointments;
+    },
+    sort_appointment: function (appointments) {
+        for (var i = 1; i < appointments.length; ++i) {
+            if (appointments[i].requests == null || appointments[i].requests.length == 0) {
+                var n = i -1;
+                if ((appointments[i].requests == null || appointments[n].requests.length == 0) && appointments[n].parent_id == appointments[i].parent_id) {
+                    appointments[n].date_to = appointments[i].date;
+                    if (appointments[n].appointments == null)
+                        appointments[n].appointments = [];
+                    appointments[n].appointments.push(appointments[i]);
+                    appointments.splice(i, 1);
+                    --i;
+                }
+            }
+        }
+
+        appointments.sort(function (a, b) {
+            var i = a.date.localeCompare(b.date);
+            if (i == 0) {
+                i = a.time_from.localeCompare(b.time_from);
+                if (i == 0)
+                    i = a.time_to.localeCompare(b.time_to);
+            }
+            return i;
+        });
     }
 };
 
@@ -99,10 +165,9 @@ var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, b
 };
 */
 
-var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
+var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
 
-    $http.post('/appointments',
-        {"day": day,"time_from": time_from, "time_to": time_to, "description": description})
+    $http.post('/appointments', appointment)
         .then(function(response){
             connection.free();
             console.log(response);
@@ -117,15 +182,14 @@ var create_appointment = function($http, $rootScope, broadcastSuccess, broadcast
 
 
 
-var delete_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment_id){
+var delete_appointment = function($http, success, appointment_id){
     $http.delete('/appointments/' + appointment_id + '')
         .then(function(response){
             connection.free();
             console.log(response);
-            $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
             connection.free();
             console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
+            success.success = false;
         });
 };

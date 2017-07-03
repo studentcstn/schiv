@@ -61,7 +61,7 @@ class HolidayController extends Controller {
         $holiday->ignore = false;
         $holiday->save();
 
-        return response()->json(['id' => $holiday->id]);
+        return response()->json($holiday);
     }
 
     public function update(Request $request) {

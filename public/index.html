@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" ng-app="schiv">
+<html lang="en" ng-app="schiv">
 <head>
     <meta charset="UTF-8">
     <title>Schiv</title>
@@ -43,7 +43,7 @@
     <!-- languages -->
     <script src="js/languages/languages.js"></script>
     <!-- filter -->
-    <script src="js/filter/email_to_name_filter.js"></script>
+    <script src="js/filter/filter.js"></script>
 </head>
 <body ng-controller="app">
 
@@ -118,292 +118,22 @@
     Dein Broswer wird nicht unterstützt! / Your Browser is not supported!
 </div>
 
-<!-- login site with register, forgot password and activate token -->
-<div id="login" class="ng-hide" ng-show="show_login" ng-controller="login_controller">
-    <div class="form-group row">
-        <label for="login_email_input" class="col-sm-3 col-form-label">{{languages.login.email[lang]}}</label>
-        <div class="col-sm-9">
-            <input id="login_email_input" type="email" class="form-control" placeholder="{{languages.login.email[lang]}}" ng-model="user.email">
-        </div>
-    </div>
-    <div class="form-group row" ng-show="show_login_password">
-        <label for="login_password_input" class="col-sm-3 col-form-label">{{languages.login.password[lang]}}</label>
-        <div class="col-sm-9">
-            <input id="login_password_input" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.password">
-        </div>
-    </div>
-    <div class="form-group row ng-hide" ng-show="show_login_register">
-        <label for="login_password_repeat" class="col-sm-3 col-form-label">{{languages.login.repeat_password[lang]}}</label>
-        <div class="col-sm-9">
-            <input id="login_password_repeat" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.passwordRepeat">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="pull-right">
-                <!-- login and register button -->
-                <div class="btn btn-default" ng-show="show_login_login" ng-click="login()">{{languages.login.login_button[lang]}}</div>
-                <div class="btn btn-default ng-hide" ng-show="show_login_back" ng-click="back()">{{languages.login.back_button[lang]}}</div>
-                <div class="btn btn-default" ng-show="show_login_login" ng-click="register_btn()">{{languages.login.register_button[lang]}}</div>
-                <div class="btn btn-default ng-hide" ng-show="show_login_register" ng-click="register()">{{languages.login.register_button[lang]}}</div>
-                <div class="btn btn-default ng-hide" ng-show="show_login_send" ng-click="send()">{{languages.login.reset_button[lang]}}</div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <a ng-show="show_login_forgotPassword" ng-click="forgotPassword()">{{languages.login.forgot_password[lang]}}</a>
-        </div>
-    </div>
-</div>
 
-<!-- index site with appointments, appointment request and list of docents and appointment_request of students -->
-<div id="index" class="row ng-hide" ng-show="show_index" ng-controller="index_controller">
-    <div id="termine" ng-class="type == 'Student' ? 'col-sm-8' : 'col-sm-12'">
-        <div class="row" ng-class="type == 'Student' ? 'ng-hide' : ''">
-            <div class="col-xs-12">
-                <div type="button" class="btn btn-default pull-right" ng-click="addNewTermin()">{{languages.index.add_appointment_button[lang]}}</div>
-            </div>
-        </div>
-        <!-- liste aller aktiven und ausstehenden termine -->
-        <div id="appointments">
-            <div class="appointment" ng-repeat="item in appointments" >
-                <div class="row">
-                    <div class="col-xs-10">
-                        <div>{{item.description}}</div>
-                        <div>{{item.subject}}</div>
-                        <div class="row" ng-show="type == 'Student'">
-                            <div class="col-xs-offset-3 col-xs-6">{{item.requested_at}}</div>
-                            <div class="col-xs-3">{{item.duration_in_min}} min</div>
-                        </div>
-                        <div class="row" ng-show="type == 'Docent'">
-                            <div class="col-xs-4">{{item.date}}{{item.weekday}}</div>
-                            <div class="col-xs-8">{{item.time_from}} - {{item.time_to}} Uhr</div>
-                        </div>
-                        <div ng-show="appointment_{{item.id}}">
-                            <div class="row appointment_in" ng-repeat="requests in item.requests">
-                                <div class="col-xs-10">
-                                    <div>{{requests.description}}</div>
-                                    <div>{{requests.subject}}</div>
-                                </div>
-                                <div class="col-xs-2">
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(item.id, 'Declined', 0)">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="banUser(requests.account_id)">
-                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Docent'" ng-click="removeAppointment(item.id, appointments)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </div>
-                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Student'" ng-click="removeRequest('Student', item.id, appointments)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="docents" ng-class="type == 'Student' ? 'col-sm-4' : 'ng-hide'">
-        <!-- suche -->
-        <div id="search" class="input-group">
-            <input type="text" class="form-control" ng-model="searchString">
-            <div type="button" class="btn btn-default input-group-addon" ng-click="search()">{{languages.index.search_button[lang]}}</div>
-            <div class="btn input-group-addon" ng-click="search_delete()">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </div>
-        </div>
-        <!-- liste aller dozenten -->
-        <div class="docent" ng-repeat="item in docents" ng-click="getSingleDocent(item.id)" ng-show="item.visible">
-            <div class="docent_name">{{item.email | email_to_name}}</div>
-            <div class="docent_faculty" ng-repeat="item in item.faculties">{{item.name}}</div>
-        </div>
-    </div>
-</div>
 
-<!-- site with past appointments and appointment requests -->
-<div id="last_appointments" class="ng-hide" ng-show="show_past" ng-controller="past_controller">
-    <!-- liste aller alten und gelöschten  termine -->
-    <div id="appointments">
-        <div class="appointment" ng-repeat="item in appointments" >
-            <div class="row">
-                <div class="appointment_info col-xs-10">
-                    <div>{{item.description}}</div>
-                </div>
-                <div class="col-xs-2" ng-class="type == 'Student' ? 'hidden' : ''">
-                    <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)"></div>
-                </div>
-                <div class="appointment_info col-xs-12">
-                    <div>{{item.subject}}</div>
-                </div>
-            </div>
-            <div class="row" ng-show="type == 'Student'">
-                <div class="col-xs-4">{{item.requested_at}}</div>
-                <div class="col-xs-4">{{item.appointment_at}}</div>
-                <div class="col-xs-4">{{item.duration_in_min}} min</div>
-            </div>
-            <div class="row" ng-show="type == 'Docent'">
-                <div class="col-xs-5">{{item.date}}</div>
-                <div class="col-xs-7">{{item.time_from}} - {{item.time_to}} Uhr</div>
-            </div>
-            <div ng-show="appointment_{{item.id}}">
-                <div class="appointment_in" ng-show="item in item.requests">
-                    <div class="appointment_info">{{item.description}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- site with settings -->
-<div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
-    <!-- email -->
-    <div class="form-group row" ng-class="user_settings.email == newUser_settings.email ? '' : newUser_settings.email != null && newUser_settings.email.length != 0 ? 'has-success' : 'has-error'">
-        <label class="col-sm-2 col-form-label">{{languages.settings.email[lang]}}</label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{languages.settings.email[lang]}}" ng-model="newUser_settings.email" ng-pattern="settings.email">
-                <div class="input-group-addon">@hof-university.de</div>
-            </div>
-        </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.email_line[lang]}}</small>
-    </div>
-    <!-- password -->
-    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
-        <label class="col-sm-2 col-form-label">{{languages.settings.password[lang]}}</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.password" ng-minlength="10">
-        </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_line[lang]}}</small>
-    </div>
-    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
-        <div class="col-sm-offset-2 col-sm-10">
-            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.passwordRepeat">
-        </div>
-        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_repeat_line[lang]}}</small>
-    </div>
-    <!-- anzeige der faculties -->
-    <div class="form-group row">
-        <label class="col-sm-12 col-form-label">{{languages.settings.faculties[lang]}}</label>
-    </div>
-    <div class="form-group">
-        <div class="form-check" ng-repeat="item in newUser_settings.faculties">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" ng-model="item.active">
-                {{item.name}}
-            </label>
-        </div>
-    </div>
-    <!-- baned users and holidays-->
-    <div ng-show="type == 'Docent'">
-        <div class="form-group row">
-            <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">{{languages.settings.banned_users[lang]}}</label>
-        </div>
-        <div class="form-group">
-            <div class="form-check" ng-repeat="item in ban">
-                <div class="row">
-                    <div class="col-xs-1">
-                        <input type="checkbox" class="form-check-input" ng-model="item.active">
-                    </div>
-                    <div class="col-xs-11">
-                        {{item.email}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-xs-12 col-form-label">{{languages.settings.holidays[lang]}}</label>
-        </div>
-        <div class="form-group">
-            <div class="form-check" ng-repeat="item in holidays">
-                <div class="row">
-                    <div class="visible-sm visible-md visible-lg">
-                        <div class="col-xs-1 visible-sm visible-md visible-lg">
-                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
-                        </div>
-                        <div class="col-xs-5">{{item.name}}</div>
-                        <div class="col-xs-3">
-                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
-                        </div>
-                        <div class="col-xs-3">
-                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
-                        </div>
-                    </div>
-                    <div class="visible-xs">
-                        <div class="col-xs-2 visible-xs">
-                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
-                        </div>
-                        <div class="col-xs-9">{{item.name}}</div>
-                        <div class="col-xs-offset-1 col-xs-4">
-                            <span ng-if="lang =='de'">{{item.from | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.from | date:"MM.dd.yyyy"}}</span>
-                        </div>
-                        <div class="col-xs-4">
-                            <span ng-if="lang =='de'">{{item.to | date:"dd.MM.yyyy"}}</span>
-                            <span ng-if="lang =='en'">{{item.to | date:"MM.dd.yyyy"}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 form-group" ng-class="newHoliday.description.length > 0 ? 'has-success' : ''">
-                <label>{{languages.settings.add_holiday[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.description" ng-pattern="settings.subject" placeholder="{{languages.appointment.subject[lang]}}">
-                <small class="form-text text-muted">{{languages.settings.example_holiday[lang]}}</small>
-            </div>
-            <div class="col-sm-4 form-group" ng-class="newHoliday.time_from.length > 0 ? 'has-success' : ''">
-                <label>{{languages.appointment.from[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.time_from" ng-pattern="settings.date" placeholder="{{languages.appointment.from[lang]}}">
-                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.07.2017</small>
-            </div>
-            <div class="col-sm-4 form-group" ng-class="newHoliday.time_to.length > 0 ? 'has-success' : ''">
-                <label>{{languages.appointment.to[lang]}}</label>
-                <input type="text" class="form-control" ng-model="newHoliday.time_to" ng-pattern="settings.date" placeholder="{{languages.appointment.to[lang]}}">
-                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.08.2018</small>
-            </div>
-        </div>
-    </div>
-    <!-- settings save button -->
-    <div class="form-group row">
-        <div class="col-xs-12">
-            <div class="pull-right">
-                <div class="btn btn-default" ng-click="save()">{{languages.settings.save_button[lang]}}</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer>
-
-</footer>
 
 <!-- show site for make a request to a appointment. for students -->
 <div id="appointment_request" class="window ng-hide" ng-show="show_appointment_request" ng-controller="request_controller">
     <div class="background">
         <div class="form-group">
-            <div class="appointment" ng-repeat="item in appointments" ng-click="newAppointment_request.id = item.id; newAppointment_request.date = item.date; newAppointment_request.time_from = item.time_from; newAppointment_request.time_to = item.time_to; newAppointment_request.name = item.description">
+            <div class="appointment" ng-repeat="item in appointments" ng-click="inscribeSetAppointment(item)">
                 <div>{{item.description}}</div>
                 <div class="row">
-                    <div class="col-xs-offset-4 col-xs-3">
-                        {{item.date}}
+                    <div class="col-xs-offset-1 col-xs-4">
+                        {{item.date | date_filter}}<span ng-show="item.date_to != null && item.date_to != ''"> - {{item.date_to | date_filter}}</span>
                     </div>
-                    <div class="col-xs-5">
-                        {{item.time_from}} - {{item.time_to}} Uhr
+                    <div class="col-xs-7">
+                        {{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr, {{languages.appointment.minute_left1[lang]}} {{item.total_in_min - item.accepted_in_min}} {{languages.appointment.minute_left2[lang]}}
                     </div>
                 </div>
             </div>
@@ -414,15 +144,20 @@
         <div class="form-group row">
             <div class="dropdown col-xs-6">
                 <button class="btn btn-dropdown dropdown-toggle" type="button" id="appointment_inscribe_dropdown+item.id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{newAppointment_request.date}}
+                    {{newAppointment_request.date | date_filter}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="appointment_inscribe_dropdown+item.id">
-                    <li><a>{{newAppointment_request.date}}</a></li>
+                    <li>
+                        <a ng-click="newAppointment_request.date = dates.date; newAppointment_request.id = dates.id">{{dates.date | date_filter}}</a>
+                    </li>
+                    <li ng-repeat="item in dates.appointments">
+                        <a ng-click="newAppointment_request.date = item.date; newAppointment_request.id = item.id">{{item.date | date_filter}}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-xs-6">
-                {{newAppointment_request.time_from}} - {{newAppointment_request.time_to}}
+                {{newAppointment_request.time_from | time_filter}} - {{newAppointment_request.time_to | time_filter}}
             </div>
         </div>
         <div class="form-group" ng-class="newAppointment_request.subject.length != 0 ? 'has-success' : 'has-error'">
@@ -515,10 +250,9 @@
 <div class="window ng-hide" ng-show="show_remove_appointment_request" ng-controller="remove_appointment_request_controller">
     <div class="background">
         <h4>{{languages.appointment.delete_appointment_request[lang]}}</h4>
-        <div>{{appointment.description}}</div>
-        <div>{{appointment.subject}}</div>
-        <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
-        <div>{{appointment.duration_in_min}}</div>
+        <p><small>{{appointment.email}}</small></p>
+        <p><strong>{{appointment.subject}}</strong></br>{{appointment.description}}</p>
+        <p ng-show="appointment.duration_in_min != null"><small>{{appointment.duration_in_min}} min</small></p>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
@@ -533,8 +267,25 @@
 <div class="window ng-hide" ng-show="show_remove_appointment" ng-controller="remove_appointment_controller">
     <div class="background">
         <h4>{{languages.appointment.delete_appointment[lang]}}</h4>
-        <div>{{appointment.description}}</div>
-        <div>{{appointment.date}}, {{appointment.time_from}} - {{appointment.time_to}}</div>
+        <div>{{appointment.description}}, {{appointment.time_from | time_filter}} - {{appointment.time_to | time_filter}}</div>
+        <div class="form-group">
+            <div class="form-check">
+                <div class="row">
+                    <div class="col-xs-1">
+                        <input type="checkbox" class="form-check-input" ng-model="appointment.delete">
+                    </div>
+                    <div class="col-xs-5">{{appointment.date | date_filter}}</div>
+                </div>
+            </div>
+            <div class="form-check" ng-repeat="item in appointment.appointments">
+                <div class="row">
+                    <div class="col-xs-1">
+                        <input type="checkbox" class="form-check-input" ng-model="item.delete">
+                    </div>
+                    <div class="col-xs-5">{{item.date | date_filter}}</div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
@@ -549,7 +300,7 @@
 <div class="window ng-hide" ng-show="show_ban_user" ng-controller="ban_user_controller">
     <div class="background">
         <h4>{{languages.appointment.ban_confirmation[lang]}}</h4>
-        <div>{{id}}</div>
+        <div>{{request.email}}</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right">
@@ -560,5 +311,293 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+<!-- login site with register, forgot password and activate token -->
+<div id="login" class="ng-hide" ng-show="show_login" ng-controller="login_controller">
+    <div class="form-group row">
+        <label for="login_email_input" class="col-sm-3 col-form-label">{{languages.login.email[lang]}}</label>
+        <div class="col-sm-9">
+            <input id="login_email_input" type="email" class="form-control" placeholder="{{languages.login.email[lang]}}" ng-model="user.email">
+        </div>
+    </div>
+    <div class="form-group row" ng-show="show_login_password">
+        <label for="login_password_input" class="col-sm-3 col-form-label">{{languages.login.password[lang]}}</label>
+        <div class="col-sm-9">
+            <input id="login_password_input" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.password">
+        </div>
+    </div>
+    <div class="form-group row ng-hide" ng-show="show_login_register">
+        <label for="login_password_repeat" class="col-sm-3 col-form-label">{{languages.login.repeat_password[lang]}}</label>
+        <div class="col-sm-9">
+            <input id="login_password_repeat" type="password" class="form-control" placeholder="{{languages.login.password[lang]}}" ng-model="user.passwordRepeat">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right">
+                <!-- login and register button -->
+                <div class="btn btn-default" ng-show="show_login_login" ng-click="login()">{{languages.login.login_button[lang]}}</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_back" ng-click="back()">{{languages.login.back_button[lang]}}</div>
+                <div class="btn btn-default" ng-show="show_login_login" ng-click="register_btn()">{{languages.login.register_button[lang]}}</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_register" ng-click="register()">{{languages.login.register_button[lang]}}</div>
+                <div class="btn btn-default ng-hide" ng-show="show_login_send" ng-click="send()">{{languages.login.reset_button[lang]}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <a ng-show="show_login_forgotPassword" ng-click="forgotPassword()">{{languages.login.forgot_password[lang]}}</a>
+        </div>
+    </div>
+</div>
+
+<!-- index site with appointments, appointment request and list of docents and appointment_request of students -->
+<div id="index" class="row ng-hide" ng-show="show_index" ng-controller="index_controller">
+    <div id="termine" ng-class="type == 'Student' ? 'col-sm-8' : 'col-sm-12'">
+        <div class="row" ng-class="type == 'Student' ? 'ng-hide' : ''">
+            <div class="col-xs-12">
+                <div type="button" class="btn btn-default pull-right" ng-click="addNewTermin()">{{languages.index.add_appointment_button[lang]}}</div>
+            </div>
+        </div>
+        <!-- liste aller aktiven und ausstehenden termine -->
+        <div id="appointments">
+            <div class="appointment" ng-repeat="item in appointments_show" ng-class="item.state == 'Declined' ? 'appointment_declined' : ''">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <p ng-show="type == 'Student'"><strong>{{item.subject}}</strong></br>{{item.description}}</p>
+                        <p ng-show="type == 'Docent'"><strong>{{item.description}}</strong></p>
+                        <div class="row" ng-show="type == 'Student' && item.state != 'Declined'">
+                            <div class="col-xs-6">{{item.email | email_to_name}}</div>
+                            <div class="col-xs-5" ng-show="item.duration_in_min != null">{{item.date | date_filter}}, {{item.at}}, {{item.duration_in_min}} min</div>
+                        </div>
+                        <div class="row" ng-show="type == 'Student' && item.state == 'Declined'">
+                            <div class="col-xs-6">{{item.date | date_filter}}</div>
+                            <div class="col-xs-5">{{languages.appointment.declined[lang]}}</div>
+                        </div>
+                        <div class="row" ng-show="type == 'Docent'">
+                            <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}</span></div>
+                            <div class="col-xs-7">{{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr</div>
+                        </div>
+                        <div ng-show="appointment_{{item.id}}">
+                            <div class="row appointment_in" ng-repeat="requests in item.requests">
+                                <div class="col-xs-9">
+                                    <p><small>{{requests.email}}</small></p>
+                                    <p><strong>{{requests.subject}}</strong></br>{{requests.description}}</p>
+                                    <p ng-show="requests.duration_in_min != null"><small>{{requests.at}}, {{requests.duration_in_min}} min</small></p>
+                                </div>
+                                <div class="col-xs-2 visible-sm visible-md visible-lg">&nbsp;</div>
+                                <div class="col-xs-1 visible-xs">&nbsp;</div>
+                                <div class="col-xs-1">
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Accepted'" ng-click="removeRequest('Docent', requests.id, requests)">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="setRequest(requests.id, 'Declined', 0)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="activateRequest(requests.id, item)">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="requests.state == 'Idle'" ng-click="banUser(requests)">
+                                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="item.editable && type == 'Docent'" ng-click="removeAppointment(item.id, appointments_show)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </div>
+                        <div class="btn btn-xs btn-default pull-right appointment-setting-btn" ng-show="type == 'Student' && item.state != 'Declined'" ng-click="removeRequest('Student', item.id, appointments_show)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="docents" ng-class="type == 'Student' ? 'col-sm-4' : 'ng-hide'">
+        <!-- suche -->
+        <div id="search" class="input-group">
+            <input type="text" class="form-control" ng-model="searchString">
+            <div type="button" class="btn btn-default input-group-addon" ng-click="search()">{{languages.index.search_button[lang]}}</div>
+            <div class="btn input-group-addon" ng-click="search_delete()">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </div>
+        </div>
+        <!-- liste aller dozenten -->
+        <div class="docent" ng-repeat="item in docents | orderBy:item:false:docent_sort" ng-click="getSingleDocent(item.id)" ng-show="item.visible">
+            <div class="docent_name">{{item.email | email_to_name }}</div>
+            <div class="docent_faculty" ng-repeat="item in item.faculties">{{item.name}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- site with past appointments and appointment requests -->
+<div id="last_appointments" class="ng-hide" ng-show="show_past" ng-controller="past_controller">
+    <!-- liste aller alten und gelöschten  termine -->
+    <div id="lastappointments">
+        <div class="appointment" ng-repeat="item in appointments" ng-class="item.state == 'Declined' ? 'appointment_declined' : ''">
+            <div class="row">
+                <div class="col-xs-10">
+                    <p ng-show="type == 'Student'"><strong>{{item.subject}}</strong></br>{{item.description}}</p>
+                    <p ng-show="type == 'Docent'"><strong>{{item.description}}</strong></p>
+                    <div class="row" ng-show="type == 'Student' && item.state != 'Declined'">
+                        <div class="col-xs-6">{{item.email}}</div>
+                        <div class="col-xs-5" ng-show="item.duration_in_min != null">{{item.date | date_filter}}, {{item.at}}, {{item.duration_in_min}} min</div>
+                    </div>
+                    <div class="row" ng-show="type == 'Student' && item.state == 'Declined'">
+                        <div class="col-xs-6">{{item.date | date_filter}}</div>
+                        <div class="col-xs-5">{{languages.appointment.declined[lang]}}</div>
+                    </div>
+                    <div class="row" ng-show="type == 'Docent'">
+                        <div class="col-xs-4">{{item.date | date_filter}}<span ng-show="item.date_to != null"> - {{item.date_to | date_filter}}</span></div>
+                        <div class="col-xs-7">{{item.time_from | time_filter}} - {{item.time_to | time_filter}} Uhr</div>
+                    </div>
+                    <div ng-show="appointment_{{item.id}}">
+                        <div class="row appointment_in" ng-repeat="requests in item.requests">
+                            <div class="col-xs-9">
+                                <p><small>{{requests.email}}</small></p>
+                                <p><strong>{{requests.subject}}</strong></br>{{requests.description}}</p>
+                                <p ng-show="requests.duration_in_min != null"><small>{{requests.at}}, {{requests.duration_in_min}} min</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="btn btn-default pull-right appointment-btn" ng-click="toggle_element('appointment_'+item.id)" ng-show="type == 'Docent' && item.requests.length > 0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- site with settings -->
+<div id="settings" class="ng-hide" ng-show="show_settings" ng-controller="settings_controller">
+    <!-- email -->
+    <div class="form-group row" ng-class="user_settings.email == newUser_settings.email ? '' : newUser_settings.email != null && newUser_settings.email.length != 0 ? 'has-success' : 'has-error'">
+        <label class="col-sm-2 col-form-label">{{languages.settings.email[lang]}}</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="{{languages.settings.email[lang]}}" ng-model="newUser_settings.email" ng-pattern="settings.email">
+                <div class="input-group-addon">@hof-university.de</div>
+            </div>
+        </div>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.email_line[lang]}}</small>
+    </div>
+    <!-- password -->
+    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password != null ? 'has-success' : 'has-error'">
+        <label class="col-sm-2 col-form-label">{{languages.settings.password[lang]}}</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.password" ng-minlength="10">
+        </div>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_line[lang]}}</small>
+    </div>
+    <div class="form-group row" ng-class="newUser_settings.password.length == 0 ? '' : newUser_settings.password == newUser_settings.passwordRepeat ? 'has-success' : 'has-error'">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="password" class="form-control" placeholder="{{languages.settings.password[lang]}}" ng-model="newUser_settings.passwordRepeat">
+        </div>
+        <small class="form-text text-muted col-sm-offset-2 col-sm-10">{{languages.settings.password_repeat_line[lang]}}</small>
+    </div>
+    <!-- anzeige der faculties -->
+    <div class="form-group row">
+        <label class="col-sm-12 col-form-label">{{languages.settings.faculties[lang]}}</label>
+    </div>
+    <div class="form-group">
+        <div class="form-check" ng-repeat="item in newUser_settings.faculties">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" ng-model="item.active">
+                {{item.name}}
+            </label>
+        </div>
+    </div>
+    <!-- baned users and holidays-->
+    <div ng-show="type == 'Docent'">
+        <div class="form-group row">
+            <label class="col-sm-12 col-form-label" ng-show="ban.length != 0">{{languages.settings.banned_users[lang]}}</label>
+        </div>
+        <div class="form-group">
+            <div class="form-check" ng-repeat="item in ban">
+                <div class="row">
+                    <div class="col-xs-1">
+                        <input type="checkbox" class="form-check-input" ng-model="item.active">
+                    </div>
+                    <div class="col-xs-11">
+                        {{item.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-xs-12 col-form-label">{{languages.settings.holidays[lang]}}</label>
+        </div>
+        <div class="form-group">
+            <div class="form-check" ng-repeat="item in holidays">
+                <div class="row">
+                    <div class="visible-sm visible-md visible-lg">
+                        <div class="col-xs-1 visible-sm visible-md visible-lg">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
+                        </div>
+                        <div class="col-xs-5">{{item.name}}</div>
+                        <div class="col-xs-3">
+ 							{{item.from | date_filter}}  
+                        </div>
+                        <div class="col-xs-3">
+                            {{item.to  | date_filter}}
+                        </div>
+                    </div>
+                    <div class="visible-xs">
+                        <div class="col-xs-2 visible-xs">
+                            <input type="checkbox" class="form-check-input" ng-model="item.active" ng-disabled="item.account_id == null">
+                        </div>
+                        <div class="col-xs-9">{{item.name}}</div>
+                        <div class="col-xs-offset-1 col-xs-4">
+                       		{{item.from | date_filter}}
+                        </div>
+                        <div class="col-xs-4">
+  							{{item.to | date_filter}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group" ng-class="newHoliday.description.length > 0 ? 'has-success' : ''">
+                <label>{{languages.settings.add_holiday[lang]}}</label>
+                <input type="text" class="form-control" ng-model="newHoliday.description" ng-pattern="settings.subject" placeholder="{{languages.appointment.subject[lang]}}">
+                <small class="form-text text-muted">{{languages.settings.example_holiday[lang]}}</small>
+            </div>
+            <div class="col-sm-4 form-group" ng-class="newHoliday.time_from.length > 0 ? 'has-success' : ''">
+                <label>{{languages.appointment.from[lang]}}</label>
+                <input type="text" class="form-control" ng-model="newHoliday.time_from" ng-pattern="settings.date" placeholder="{{languages.appointment.from[lang]}}">
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.07.2017</small>
+            </div>
+            <div class="col-sm-4 form-group" ng-class="newHoliday.time_to.length > 0 ? 'has-success' : ''">
+                <label>{{languages.appointment.to[lang]}}</label>
+                <input type="text" class="form-control" ng-model="newHoliday.time_to" ng-pattern="settings.date" placeholder="{{languages.appointment.to[lang]}}">
+                <small class="form-text text-muted">{{languages.appointment.for_example[lang]}} 12.08.2018</small>
+            </div>
+        </div>
+    </div>
+    <!-- settings save button -->
+    <div class="form-group row">
+        <div class="col-xs-12">
+            <div class="pull-right">
+                <div class="btn btn-default" ng-click="save()">{{languages.settings.save_button[lang]}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+
+</footer>
+
 </body>
 </html>
