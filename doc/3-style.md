@@ -77,8 +77,6 @@ Knopf mit dem Daumen nach unten.
 
 ## Typographie
 
-(TODO)
-
 Als Schriftart wird `Roboto`[^ROBOTO] verwendet, da diese klar lesbar ist.
 
 [^ROBOTO]: <https://fonts.google.com/specimen/Roboto?selection.family=Roboto>

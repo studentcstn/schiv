@@ -175,10 +175,10 @@ Momentane Antwort:
 {"token":"twon-ha","password":"rabbithole2"}
 ```
 
-Laut Vorgabe (siehe [@sec:guide]) muss der Aktivierungslink im Frontend
-implementiert sein. Da der Link über ein `GET` abgesetzt wird, aber das Backend
-ein `PUT` benötigt. Das Frontend muss dann ein `put:register` mit dem Token in
-der Nachricht absetzen, um das Konto wieder zu aktivieren.
+Laut Vorgabe muss der Aktivierungslink im Frontend implementiert sein. Da der
+Link über ein `GET` abgesetzt wird, aber das Backend ein `PUT` benötigt. Das
+Frontend muss dann ein `put:register` mit dem Token in der Nachricht absetzen,
+um das Konto wieder zu aktivieren.
 
 ### Suche: Dozenten
 

@@ -24,8 +24,6 @@ Auftraggeber beschlossen wurden + weiterer Funktionalitäten:
    ("unsichtbar gemacht").
 #. Am Ende eines Semesters werden Studenten aus dem System gelöscht und müssen
    sich dann wieder erneut registrieren
-#. Aktivierungslink wird über einen GET abgesetzt, d.h. der Aktivierungslink
-   muss im Frontend implementiert sein.
 #. Ein Dozent soll in der Lage sein Einzeltermine, sowie wöchentlich wiederkehrende
    Termine anzulegen.
 #. Ein Student soll in der Lage sein Anfragen, zu einen beliebigen Termin zu

@@ -15,9 +15,9 @@ Konfiguration `config/email.php` geändert werden. Die Vorlagen für die E-Mail
 Nachrichten befinden sich unter: `resources/views/emails`. Diese haben nur den
 nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
+Es werden E-Mails beim Registrieren, Passwort zurücksetzen und beim Löschen
+verschickt von Terminen bei dem sich jemand angemeldet hat.
+
 ## Login
 
 Bereits in [@sec:rest-login] ausführlich beschrieben.
-
-
-(TODO Weitere Details der Implementierung hinzufügen)

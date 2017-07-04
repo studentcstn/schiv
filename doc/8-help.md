@@ -128,4 +128,43 @@ Im rechten Bereich sieht man das Ergebnis der Anfrage.
 
 ## Front-End
 
-(TODO)
+Als Startseite kommt immer der Login wie in [@fig:login] zusehen. Hier kann man
+sich, wenn man bereits Registriert ist einloggen.
+
+![Login mit E-Mail und Passwort](../images/login.png){#fig:login width=60%}
+
+Falls man noch nicht Registriert ist, kann man auf "Registrieren" (siehe [@fig:login])
+klicken. Dann kommt man auf die Maske wie in [@fig:register] zu sehen. 
+
+![Registrieren mit E-Mail und Passwort](../images/register.png){#fig:register
+width=60%}
+
+Falls man sein Passwort vergessen hat, kann man auf "Passwort vergessen?" (siehe
+[@fig:login]) klicken. Man trägt einfach seine E-Mail-Adresse in der folgenden
+Ansicht ein, wie in [@fig:password-reset] zu sehen.
+
+![Passwort zurücksetzen](../images/password-reset.png){#fig:password-reset
+width=60%}
+
+Nach dem Einloggen sieht man als Student [@fig:student-home] und als Dozent
+[@fig:docent-home]. Die Einstellungen sind für Studenten und Dozenten
+grundlegend die Selben siehe [@fig:common-settings]. Bei Dozenten siehe
+zusätzlich [@fig:docent-settings].
+
+![Navigationsleiste](../images/nav.png){#fig:nav width=80%}
+
+![Übersicht des Studenten](../images/student-home.png){#fig:student-home
+width=80%}
+
+![Übersicht des Dozenten](../images/docent-home.png){#fig:docent-home width=80%}
+
+In den Einstellungen ([@fig:common-settings]) kann die E-Mail-Adresse, das
+Passwort und die Fakultäten einstellen werden. Dozenten ([@fig:docent-settings])
+können zusätzlich noch gesperrte Studenten entsperren und eigene Feiertage
+verwalten.
+
+![Einstellungen allgemein](../images/common-settings){#fig:common-settings
+width=100%}
+
+![Zusätzliche Einstellungen
+Dozent](../images/docent-settings){#fig:docent-settings width=100%}
