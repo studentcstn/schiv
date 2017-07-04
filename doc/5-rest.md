@@ -241,8 +241,9 @@ an den angefragt wird), `description` (Beschreibung was besprochen werden soll),
 `subject` (Betreff der Anfrage).
 
 Bei `put:appointment_requests`: Damit wird der Status der Anfrage geändert sowie
-die Dauer der Besprechung. Zu übergebende Parameter im *JSON-Objekt*: `id` (Id
-der zu bearbeitenden Anfrage), `state` (Neuer Status der Anfrage: `Accepted`,
+die Dauer und die Uhrzeit der Besprechung. Dabei wird die Uhrzeit automatisch
+berechnet. Zu übergebende Parameter im *JSON-Objekt*: `id` (Id der zu
+bearbeitenden Anfrage), `state` (Neuer Status der Anfrage: `Accepted`,
 `Declined`), `duration_in_min` (Voraussichtliche Dauer der Besprechung)
 
 Bei `delete:appointment_requests/{id}`: Damit wird die in `id` angegebene
