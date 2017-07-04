@@ -36,16 +36,6 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
         ];
     });
 
-    /*
-     languages.days.monday[language],
-     languages.days.tuesday[language],
-     languages.days.wednesday[language],
-     languages.days.thursday[language],
-     languages.days.friday[language],
-     languages.days.saturday[language],
-     languages.days.sunday[language]],
-     */
-
     $scope.newAppointment = {day: "", to: "", from: "", description: ""};
 
     $scope.appointment_close = function () {
@@ -59,7 +49,7 @@ schiv_module.controller('appointment_controller', function($scope, $http, $rootS
     $scope.$on("create_s", function () {
         $rootScope.$broadcast("alert", "success", languages.appointment.appointment_created[language]);
         $scope.appointment_close();
-        $scope.newAppointment = {day: ""};
+        $scope.newAppointment = {day: "", to: "", from: "", description: ""};
         $rootScope.$broadcast("show_index");
     });
     $scope.$on("create_f", function (event, data) {
