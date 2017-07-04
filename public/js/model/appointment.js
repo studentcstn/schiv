@@ -13,13 +13,6 @@ appointment = {
         });
     },
 
-    /*
-    getLastAppointmentsFromTo: function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
-        connection.lock(function () {
-            get_lastAppointmentsFromTo($http, $rootScope, broadcastSuccess, broadcastFailed, from, to);
-        });
-    },*/
-
     createAppointment: function($http, $rootScope, broadcastSuccess, broadcastFailed, day, time_from, time_to, description){
         var appointment = {};
         appointment.time_from = controlTime(time_from);
@@ -128,11 +121,9 @@ var get_appointments = function($http, $rootScope, broadcastSuccess, broadcastFa
     $http.get('/appointments')
         .then(function (response) {
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function (response) {
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -141,40 +132,22 @@ var get_lastAppointments = function($http, $rootScope, broadcastSuccess, broadca
     $http.get('/appointments/past')
         .then(function(response) {
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
 
-/*
-var get_lastAppointmentsFromTo = function($http, $rootScope, broadcastSuccess, broadcastFailed, from, to){
-    $http.get('/appointments/' + from + '/' + to)
-        .then(function(response){
-            connection.free();
-            console.log(response);
-            $rootScope.$broadcast(broadcastSuccess, response.data);
-        }, function(response){
-            connection.free();
-            console.log(response);
-            $rootScope.$broadcast(broadcastFailed, response);
-        });
-};
-*/
 
 var create_appointment = function($http, $rootScope, broadcastSuccess, broadcastFailed, appointment){
 
     $http.post('/appointments', appointment)
         .then(function(response){
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response);
         }, function(response){
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -186,10 +159,8 @@ var delete_appointment = function($http, success, appointment_id){
     $http.delete('/appointments/' + appointment_id + '')
         .then(function(response){
             connection.free();
-            console.log(response);
         }, function(response){
             connection.free();
-            console.log(response);
             success.success = false;
         });
 };

@@ -27,7 +27,6 @@ settings = {
 			faculty.push(faculties[i].id);
 
 		settings.faculties = faculty;
-		console.log(settings);
 
 		connection.lock(function(){
 			save_Settings($http, $rootScope, broadcastSuccess, broadcastFailed, settings)
@@ -55,14 +54,12 @@ var get_Settings = function ($http, $rootScope, broadcastSuccess, broadcastFaile
     $http.get('/settings')
         .then(function (response) {
         	connection.free();
-            console.log(response);
             var d = response.data;
             d.email = d.email.substring(0, d.email.indexOf('@'));
             work(response.data);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function (response) {
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -72,11 +69,9 @@ var save_Settings = function($http, $rootScope, broadcastSuccess, broadcastFaile
     $http.put('/settings', settings)
         .then(function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };

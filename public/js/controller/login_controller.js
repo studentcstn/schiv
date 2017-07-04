@@ -1,8 +1,8 @@
 schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     $scope.user = {
-        email: "andrej.bachmann@hof-university.de", //todo remove
-        password: "clearTextPassword",
-        passwordRepeat: "clearTextPassword"
+        email: "",
+        password: "",
+        passwordRepeat: ""
     };
 
 
@@ -90,7 +90,6 @@ schiv_module.controller('login_controller', function($scope, $http, $rootScope){
     };
     $scope.$on("login_registration_s", function (event, data) {
         $rootScope.$broadcast("alert", "success", languages.login.successful_activation[language]);
-        console.log(data);
     });
     $scope.$on("login_registration_f", function (event, data) {
         error(data);

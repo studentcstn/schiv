@@ -138,9 +138,6 @@ show_index
 show_past
 show_settings
 
-show_inscribe [data]
-show_inscribe_close
-
 show [...data]
 hide [...data]
 alert {info|success|warning|danger} [message]

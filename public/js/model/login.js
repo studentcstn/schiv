@@ -60,7 +60,6 @@ login = {
 	$http.put('/login', {email: email, password: password})
 	.then(function (response) {
 		connection.free();
-		console.log(response);
 		var d = response.data.account;
 		d.email = d.email.substring(0, d.email.indexOf('@'));
 		d.name = d.email.substring(0, d.email.indexOf('.'));
@@ -79,7 +78,6 @@ login = {
 		$rootScope.$broadcast(broadcastSuccess, response.data);
 	}, function (response) {
 		connection.free();
-		console.log(response);
 		$rootScope.$broadcast(broadcastFailed, response);
 	});
 };
@@ -89,11 +87,9 @@ var register_ = function($http, $rootScope, broadcastSuccess, broadcastFailed, e
 	$http.post('/register',{"email": email, "password": password})
         .then(function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -102,11 +98,9 @@ var confirm_Registration = function($http, $rootScope, broadcastSuccess, broadca
     $http.put('/register', {token: token})
         .then(function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -116,11 +110,9 @@ var forgot_Password = function($http, $rootScope, broadcastSuccess, broadcastFai
     $http.put('/reset', {"email": email})
         .then(function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -129,11 +121,9 @@ var logout_ = function ($http, $rootScope, broadcastSuccess, broadcastFailed) {
     $http.put('/logout', {})
         .then(function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
         	connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };

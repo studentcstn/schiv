@@ -73,11 +73,9 @@ var get_Holidays = function($http, $rootScope, broadcastSuccess, broadcastFailed
     	connection.free();
     	for (var i = 0; i < response.data.length; ++i)
     	    response.data[i].active = true;
-        console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response.data);
     }, function(response){
     	connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastFailed, response);
     });
 };
@@ -86,11 +84,9 @@ var create_Holidays = function($http, $rootScope, broadcastSuccess, broadcastFai
 	$http.post('/holidays', {"from": from, "to": to, "name": name})
 	.then(function(response){
 		connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response);
 	}, function(response){
 		connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastFailed, response);
 	});
 };
@@ -99,11 +95,9 @@ var edit_Holiday = function($http, $rootScope, broadcastSuccess, broadcastFailed
 	$http.put('/holidays', {"from": from, "to": to, "name": name, "id": id})
 	.then(function(response){
 		connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response);
 	}, function(response){
 		connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastFailed, response);
 	});
 };
@@ -112,10 +106,8 @@ var delete_Holiday = function($http, success, id){
 	$http.delete('/holidays/' + id +'')
 	.then(function(response){
 		connection.free();
-        console.log(response);
 	}, function(response){
 		connection.free();
-        console.log(response);
         success.success = false;
 	});
 };

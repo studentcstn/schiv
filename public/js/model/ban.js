@@ -44,14 +44,12 @@ var get_AccountBans = function($http, $rootScope, broadcastSuccess, broadcastFai
     $http.get('/account_bans', {})
         .then(function(response){
             connection.free();
-            console.log(response);
             var data = response.data;
             for (var i = 0; i < data.length; ++i)
                 data[i].active = true;
             $rootScope.$broadcast(broadcastSuccess, response.data);
         }, function(response){
             connection.free();
-            console.log(response);
             $rootScope.$broadcast(broadcastFailed, response);
         });
 };
@@ -60,11 +58,9 @@ var ban_Account = function($http, $rootScope, broadcastSuccess, broadcastFailed,
 $http.post('/account_bans', {"account_ban_id": account_ban_id})
     .then(function(response){
         connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastSuccess, response);
     }, function(response){
         connection.free();
-        console.log(response);
         $rootScope.$broadcast(broadcastFailed, response);
     });
 };
@@ -73,10 +69,8 @@ var unban_Account = function($http, success, user_id){
     $http.delete('/account_bans/' + user_id + '')
         .then(function(response){
             connection.free();
-            console.log(response);
         }, function(response){
             connection.free();
-            console.log(response);
             success.success = false;
         });
 };
