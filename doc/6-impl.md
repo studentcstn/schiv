@@ -16,7 +16,7 @@ Nachrichten befinden sich unter: `resources/views/emails`. Diese haben nur den
 nötigsten Inhalt, welcher für den Rahmen des Projekts ausreicht.
 
 Es werden E-Mails beim Registrieren, Passwort zurücksetzen und beim Löschen
-verschickt von Terminen bei dem sich jemand angemeldet hat.
+von Terminen, bei dem sich jemand angemeldet hat, verschickt.
 
 ## Login
 

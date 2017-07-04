@@ -50,8 +50,8 @@
 
 Anmerkungen:
 
--  `(...)` bedeutet das alle Felder, wie im Model definiert, verwendet werden
-   können.
+- `(...)` welche Felder verwendet werden können, kann in den Details
+   nachgelesen werden.
 - **A**: Zugriff nur wenn man als Student oder Dozent angemeldet ist.
 - **D**: Zugriff nur wenn man als Dozent angemeldet ist.
 
@@ -63,8 +63,8 @@ Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
 **200** zurück, im Fehlerfall kann **401**, **404**, **409**, **422**, **429**,
 **500** oder **503** zurückgegeben werden:
 
-- **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht
-  falls die kein Rückgabewert nötig bzw. vorhanden ist.
+- **200**: Es kommen die angeforderten Daten zurück oder eine leere Nachricht,
+  falls kein Rückgabewert nötig bzw. vorhanden ist.
 
 - **401**: Falls der Login fehlschlägt, der Benutzer nicht angemeldet ist oder
   der Benutzer ein Dozent sein muss um auf die Route zugreifen zu können. Als
@@ -99,17 +99,20 @@ Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
     Antwort von `post:register`:
 
     ```json
-    {"email":["validation.required"],"password":["validation.min.string"]}
+    {
+      "email":["not a valid email"],
+      "password":["length must be greater than or equal to 10"]
+    }
     ```
 
-- **429**: Wird beim erstellen von Anfragen gesendet, wenn bereits eine Anfrage
+- **429**: Wird beim Erstellen von Anfragen gesendet, wenn bereits eine Anfrage
   an einen Dozenten gestellt wurde. Oder wenn mehr als 60 Anfragen pro Minute
-  von einer Session gestellt wurden.
+  von einem Benutzer gestellt wurden.
 
 - **500**: Ein allgemeiner Fehler (Syntaxfehler oder nicht behandelter Fehler).
   Als Antwort wird eine Fehlermeldung im Attribut `message` zurückgegeben.
   *Hinweis:* Ist die Anwendung im Debugmodus (`app.debug == true`), dann wird
-  die Meldung aus der auslösenden Exception zurückgegeben. Es kann im Log unter
+  die Meldung aus der auslösenden Ausnahme zurückgegeben. Es kann im Log unter
   `storage/logs/laravel.log` die genaue Fehlermeldung nachgeschaut werden.
   Beispiel:
 
@@ -117,7 +120,7 @@ Die Nachrichten sind im JSON-Format. Bei Erfolg kommt der HTTP-Status
     {"message": "fatal error"}
     ```
 
-- **503**: Kommt nur beim erstellen von Terminen vor. Zeigt an dass das
+- **503**: Kommt nur beim Erstellen von Terminen vor. Zeigt an dass das
   'Vorlesungsende' nicht in der Ereignistabelle gefunden wurde.
 
 ### Register, Login, Logout und Reset Password {#sec:rest-login}
@@ -129,16 +132,16 @@ Cookie Verwaltung. Auf dem Server kümmert sich Laravel um die Session, die für
 jede Verbindung eindeutig ist und sein muss. Der Webserver muss später über das
 HTTPS-Protkoll angesprochen werden, sonst könnte ein Angreifer die Session
 "hijacken". Wenn man die Implementierung von Laravel für die Session verwendet,
-wird bei jeder Anfrage die Session-ID geändert, aus Sicherheitsgründen. Als
+wird bei jeder Anfrage die Session-Id geändert, aus Sicherheitsgründen. Als
 Konsequenz müssen die Anfragen per Javascript an die Schnittstelle synchron
-erfolgen. Ansonsten könnte es passieren das eine alte Session-ID aus dem Cookie
-gelesen wird, bevor die neue Session-ID abgespeichert wird.
+erfolgen. Ansonsten könnte es passieren das eine alte Session-Id aus dem Cookie
+gelesen wird, bevor die neue Session-Id abgespeichert wird.
 
 **Register**: Beim Registrieren wird ein `post:register` geschickt mit E-Mail
 und Passwort des Benutzers. Wenn dies erfolgreich ist, dann wird eine E-Mail an
 den Benutzer mit einem Aktivierungslink geschickt (Momentan: wird einfach zum
-Testen der Token mit in der Antwort zurückgeben). Ein Aktivierungslink ist zwei
-Stunden lang gültig. Beispiel:
+Testen der Token mit in der Antwort zurückgegeben). Ein Aktivierungslink ist
+zwei Stunden lang gültig. Beispiel:
 
 ```json
 {"email":"alice@wonder.land","password":"rabbithole"}
@@ -199,8 +202,8 @@ die Fakultät des Dozenten. Beispiel:
 ]
 ```
 
-Bei `get:docents/{id}`: Wird zu allen obigen Informationen noch die Termine des
-Dozenten zurückgegeben. Beispiel:
+Bei `get:docents/{id}`: Werden zusätzlich noch die Termine des Dozenten
+zurückgegeben. Beispiel:
 
 ```json
 {
@@ -259,7 +262,7 @@ zurück.
 Bei `post:appointments`: Legt einen neuen Termin in der Datenbank an. Bei
 wiederholenden Terminen werden alle anfallenden Wiederholungen bis zum Ende des
 Semesters mit angelegt. Zu übergebende Parameter im *JSON-Objekt*: `weekday`
-(Identifiziert einen wiederholenden Termin. Gültige eingaben sind: `MON` `TUE`
+(Identifiziert einen wiederholenden Termin. Gültige Eingaben sind: `MON` `TUE`
 `WED` `THU` `FRI` `SAT` `SUN` `NULL`), `date` (Identifiziert einen Einzeltermin.
 Falls `weekday` nicht den Wert `NULL` hat wird `date` nicht beachtet. Angabe wie
 folgt: `YYYY-MM-DD`), `time_from` (Beginn des Termins: `HH:MM:SS`), `time_to`
@@ -279,7 +282,7 @@ sind) können nicht direkt bearbeitet werden, sondern nur abgefragt werden.
 Sollte versucht werden einen allgemeinen Feiertag zu bearbeiten kommt ein
 **404** als Fehler zurück.
 
-Das Format von `{from}` und `{to}` ist im Format `YYYY-MM-DD`.
+Das Format von `{from}` und `{to}` ist `YYYY-MM-DD`.
 
 Bei `post:holidays`: Liefert die Id des eingefügten Satzes zurück. Falls bereits
 ein Feiertag mit `from`, `to` und `name` eingetragen wurde, wird die Id dieses
@@ -313,9 +316,9 @@ Fakultäten werden als Array von Ids übergeben: `[1, 2, 3]`.
 ### Konten Sperren
 
 Liefert Kontosperrungen des angemeldeten Dozenten zurück. Alle gesperrten
-Benutzer können keine Anfragen mehr stellen. Bis sie aus der Tabelle gelöscht
+Benutzer können keine Anfragen mehr stellen, bis sie aus der Tabelle gelöscht
 werden oder die Zeit für die Sperrung abgelaufen ist (Die Sperrung ist
 standardmäßig bis zum Beginn des nächsten Semester).
 
-Wenn eine Sperrung eingetragen wird, wird der Datensatz mit aktuelle Id
-zurückgeben.
+Wenn eine Sperrung bereits eingetragen wird, wird in der Antwort die aktuelle Id
+des Datensatzes zurückgegeben.

@@ -70,8 +70,8 @@ $ xdg-open pdf/paper.pdf
 
 Die folgenden Befehle können manuell aufgerufen werden, aber auch automatisch.
 Um sie automatisch auszuführen kann das Task-Scheduling aktiviert werden mit
-dieser Anleitung <https://laravel.com/docs/5.4/scheduling>. Dann werden die
-Befehle am Anfang jedes Semesters aufgerufen.
+dieser Anleitung: <https://laravel.com/docs/5.4/scheduling>. Dann werden die
+Befehle am Anfang jedes Semesters aufgerufen (siehe `app/Console/Kernel.php`).
 
 ### Dozenten aktualisieren
 
@@ -107,21 +107,21 @@ führt folgendes aus:
 
 ## Manuelles Testen der REST-Schnittstelle {#sec:test.html}
 
-Über <http://localhost/test.html> kann die REST-Schnittstelle manuelle getestet
+Über <http://localhost/test.html> kann die REST-Schnittstelle manuell getestet
 werden. 
 
 ![Seite test.html im Browser](../images/test.html.png){#fig:test.html width=90%}
 
-Über die Auswahl `Login` kann man sich als jeder Benutzer anmelden, solange das
-Passwort `clearTextPasswort` ist. Im darunter liegenden Feld kann man seine
-Anfragen formulieren. Ein Anfrage halt folgende Syntax:
+Über die Auswahl `Login` kann man sich als ein vorhandener Benutzer anmelden,
+solange das Passwort `clearTextPasswort` ist. Im darunter liegenden Feld kann
+man seine Anfragen formulieren. Eine Anfrage halt folgende Syntax:
 
     (delete|post|put|get):<url> <json>;
 
 Es können mehrere Anfragen in diesem Feld stehen, diese müssen aber mit
 Semikolon (`;`) getrennt werden. Um eine bestimmte Anfrage auszuführen klickt
 man mit der Maus oder positioniert das Caret auf irgendein Zeichen vor dem
-Semikolon. Ein Anfrage kann entweder mit klicken auf `Send...` oder mit der
+Semikolon. Eine Anfrage kann entweder mit klicken auf `Send...` oder mit der
 Tastenkombination `CTRL + Enter` ausgeführt werden.
 
 Im rechten Bereich sieht man das Ergebnis der Anfrage.
@@ -140,8 +140,9 @@ klicken. Dann kommt man auf die Maske wie in [@fig:register] zu sehen.
 width=60%}
 
 Falls man sein Passwort vergessen hat, kann man auf "Passwort vergessen?" (siehe
-[@fig:login]) klicken. Man trägt einfach seine E-Mail-Adresse in der folgenden
-Ansicht ein, wie in [@fig:password-reset] zu sehen.
+[@fig:login]) klicken. Die Ansicht ändert sich wie in [@fig:password-reset] zu
+sehen. Man trägt seine E-Mail-Adresse ein und klickt auf "Reset" und bekommt
+eine E-Mail Nachricht mit neuem Passwort und einem Aktivierungslink.
 
 ![Passwort zurücksetzen](../images/password-reset.png){#fig:password-reset
 width=60%}
@@ -159,9 +160,9 @@ width=80%}
 ![Übersicht des Dozenten](../images/docent-home.png){#fig:docent-home width=80%}
 
 In den Einstellungen ([@fig:common-settings]) kann die E-Mail-Adresse, das
-Passwort und die Fakultäten einstellen werden. Dozenten ([@fig:docent-settings])
-können zusätzlich noch gesperrte Studenten entsperren und eigene Feiertage
-verwalten.
+Passwort und die Zugehörigkeit zu Fakultäten geändert werden. Dozenten
+([@fig:docent-settings]) können zusätzlich noch gesperrte Studenten entsperren
+und eigene Feiertage verwalten.
 
 ![Einstellungen allgemein](../images/common-settings){#fig:common-settings
 width=100%}
