@@ -92,6 +92,8 @@ Beim Layout muss zwischen Student und Dozent unterschieden werden.
 Als Student sieht man auf der Startseite neben den Terminanfragen auf der linken
 Seite, eine Liste von Dozenten auf der anderen Seite.
 
+![Beispielhafte Ansicht der Seite aus Sicht des Studenten.](../images/student.pdf){#fig:front-appointment width=70%}
+
 In den Einstellungen sind nur die Möglichkeiten der Änderung der Email Adresse
 und des Passwords.
 So wie die Angabe der Fakultät.
